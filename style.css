@@ -60,8 +60,13 @@ header .top h1 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+header .isActive{
+    color: skyblue !important;
+}
+
 header .headernav1 {
-    padding: 15px 10px;
+    padding: 5px 10px;
+    padding-top: 70px;
     color: white;
     display: flex;
     background-image: linear-gradient(to right, #26272b, white, #26272b);
@@ -118,6 +123,9 @@ header .headernav2 {
     padding: 18px 0;
     text-align: center;
     background-color: #26272b;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
 }
 
 header .headernav2 a {
@@ -131,22 +139,17 @@ header .headernav2 a {
 }
 
 header .headernav2 a:hover {
-    color: aqua;
-    border-bottom: 1px solid aqua;
-}
-
-header .bia {
-    width: 100%;
-    height: 300px;
-}
-
-header .slide img {
-    height: 400px;
+    color: skyblue;
+    border-bottom: 1px solid skyblue;
 }
 
 /* kết thúc header */
 
 /* bắt đầu main */
+
+.slide img {
+    height: 400px;
+}
 
 main .maintrangchu {
     text-align: center;
@@ -314,6 +317,7 @@ main .videothamkhao iframe {
     font-size: 15px;
     line-height: 24px;
     color: #737373;
+    border-top: 2px solid black;
 }
 
 .site-footer hr {
@@ -402,16 +406,25 @@ main .videothamkhao iframe {
 /* bắt đầu login register */
 
 .formdangnhap {
-    background-color: gray;
-    padding: 10px 0;
+    background-image: url("https://img.freepik.com/free-photo/blurred-interior-hospital-clinical-with-people_1484-2139.jpg?size=626&ext=jpg");
+    background-size: 120%;
+    background-position: center;
+    padding: 20px 0;
 }
 
 /* kết thúc login register */
 
 /* bắt đầu profile */
+.khungprofile{
+    background-image: url("https://img.freepik.com/free-photo/blurred-interior-hospital-clinical-with-people_1484-2139.jpg?size=626&ext=jpg");
+    background-size: 120%;
+    background-position: center;
+}
 
 .profile {
     margin: 20px 0;
+    background-color: white;
+    border: 2px solid black;
 }
 
 /* Profile sidebar */
@@ -521,13 +534,14 @@ table {
 
 td:first-child {
     font-weight: bold;
-    padding:0 50px !important
+    padding: 0 50px !important
 }
 
 tr {
     margin: 50px;
 }
-td{
+
+td {
     padding: 10px !important;
 }
 
