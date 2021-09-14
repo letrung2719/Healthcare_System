@@ -1,0 +1,534 @@
+/* thanh kéo */
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: #26272b;
+    transition: 0.5s all;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #26272b;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(71, 71, 71);
+}
+
+/* đóng thanh kéo */
+
+/* bắt đầu header */
+
+header {
+    margin: 0;
+    padding: 0;
+}
+
+header .top {
+    width: 100%;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(to right, #26272b, white, #26272b);
+}
+
+header .top img:first-child {
+    width: 15%;
+}
+
+header .top img:last-child {
+    width: 10%;
+    padding: 15px;
+}
+
+header .top h1 {
+    text-align: center;
+    color: black;
+    justify-content: center;
+    width: 60%;
+    font-size: 68px;
+    font-weight: bold;
+    margin: auto;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+header .headernav1 {
+    padding: 15px 10px;
+    color: white;
+    display: flex;
+    background-image: linear-gradient(to right, #26272b, white, #26272b);
+}
+
+header .headernav1left {
+    width: 50%;
+    display: flex;
+}
+
+header .headernav1left div {
+    display: flex;
+    margin-left: 15px;
+}
+
+header .headernav1left div p {
+    margin: 0;
+    font-size: 26px;
+    font-weight: bold;
+    margin: 4px;
+    color: red;
+}
+
+header .headernav1left div img {
+    height: 48.4px;
+}
+
+header .headernav1right {
+    width: 50%;
+    text-align: right;
+    padding: 10px;
+}
+
+header .headernav1 a {
+    text-decoration: none;
+    margin-left: 20px;
+    border: 3px solid white;
+    padding: 8px;
+    color: white;
+    background-color: black;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.5s all;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+header .headernav1 a:hover {
+    border: 4px solid black;
+    background-color: gray;
+    color: black;
+}
+
+header .headernav2 {
+    padding: 18px 0;
+    text-align: center;
+    background-color: #26272b;
+}
+
+header .headernav2 a {
+    text-decoration: none;
+    margin: 0 3%;
+    padding: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.4s all;
+}
+
+header .headernav2 a:hover {
+    color: aqua;
+    border-bottom: 1px solid aqua;
+}
+
+header .bia {
+    width: 100%;
+    height: 300px;
+}
+
+header .slide img {
+    height: 400px;
+}
+
+/* kết thúc header */
+
+/* bắt đầu main */
+
+main .maintrangchu {
+    text-align: center;
+}
+
+main .maintrangchu h1 {
+    margin: 20px auto;
+    padding: 20px 13%;
+}
+
+main .maintrangchu h2 {
+    margin-bottom: 15px;
+}
+
+main .maintrangchu img {
+    width: 100%;
+}
+
+main .dichvuyte {
+    color: white;
+    background-color: gray;
+    padding: 20px 13%;
+}
+
+main .dichvuyte div {
+    display: flex;
+}
+
+main .dichvuyte div p {
+    width: 75%;
+    padding: 10px 10px 10px 0;
+    text-align: left;
+}
+
+main .dichvuyte div div {
+    width: 25%;
+}
+
+main .dichvuyte div div a {
+    padding: 5px;
+    color: white;
+    height: fit-content;
+    background-color: #3366cc;
+    border-radius: 5px;
+    margin: 15px auto;
+    font-weight: bold;
+}
+
+main .hangdautg {
+    padding: 20px 13%;
+    padding-bottom: 40px;
+}
+
+main .video {
+    padding: 20px 13%;
+    padding-bottom: 40px;
+}
+
+main .videothamkhao {
+    display: flex;
+}
+
+main .videothamkhao iframe {
+    margin: 0 auto;
+}
+
+/* bắt đầu tin tức */
+
+.tintuc {
+    background-color: gray;
+    padding: 20px 13%;
+    padding-bottom: 40px;
+}
+
+.media.media-news {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    padding-bottom: 210px;
+}
+
+@media (min-width: 768px) {
+    .media.media-news {
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .media.media-news {
+        padding-bottom: 25px;
+        margin-bottom: 0;
+    }
+}
+
+.media.media-news .media-body {
+    padding: 20px;
+    box-shadow: 0 22px 28px 0 rgba(0, 0, 0, 0.06);
+    background: #fff;
+    position: absolute;
+    width: 85%;
+    right: 0;
+    bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .media.media-news .media-body {
+        position: relative;
+        padding: 46.5px 35px;
+        right: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .media.media-news .media-body {
+        right: 40px;
+        bottom: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .media.media-news .media-body {
+        position: absolute;
+        right: 35px;
+        width: 60%;
+        padding: 20px;
+    }
+}
+
+.media.media-news .media-body .media-date {
+    font-family: "Open Sans", sans-serif;
+    color: #848484;
+    margin-bottom: 10px;
+}
+
+.media.media-news .media-body h5 {
+    font-size: 22px;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.media.media-news .media-body h5.small {
+    font-size: 16px;
+}
+
+.media.media-news .media-body p {
+    font-family: "Open Sans", sans-serif;
+    color: #848484;
+}
+
+.media.media-news .media-body .common-btn {
+    margin-top: 10px;
+}
+
+/* kết thúc tin tức */
+
+/* kết thúc main */
+
+/* bắt đầu footer */
+
+.site-footer {
+    background-color: #26272b;
+    padding: 45px 0 20px;
+    font-size: 15px;
+    line-height: 24px;
+    color: #737373;
+}
+
+.site-footer hr {
+    border-top-color: #bbb;
+    opacity: 0.5
+}
+
+.site-footer hr.small {
+    margin: 20px 0
+}
+
+.site-footer h6 {
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-top: 5px;
+    letter-spacing: 2px
+}
+
+.site-footer a {
+    color: #737373;
+}
+
+.site-footer a:hover {
+    color: #3366cc;
+    text-decoration: none;
+}
+
+.footer-links {
+    padding-left: 0;
+    list-style: none
+}
+
+.footer-links li {
+    display: block
+}
+
+.footer-links a {
+    color: #737373
+}
+
+.footer-links a:active, .footer-links a:focus, .footer-links a:hover {
+    color: #3366cc;
+    text-decoration: none;
+}
+
+.footer-links.inline li {
+    display: inline-block
+}
+
+.site-footer .social-icons {
+    text-align: right
+}
+
+.site-footer .social-icons a {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 6px;
+    margin-right: 0;
+    border-radius: 100%;
+    background-color: #33353d
+}
+
+.copyright-text {
+    margin: 0
+}
+
+@media (max-width:991px) {
+    .site-footer [class^=col-] {
+        margin-bottom: 30px
+    }
+}
+
+@media (max-width:767px) {
+    .site-footer {
+        padding-bottom: 0
+    }
+    .site-footer .copyright-text, .site-footer .social-icons {
+        text-align: center
+    }
+}
+
+/* kết thúc footer */
+
+/* bắt đầu login register */
+
+.formdangnhap {
+    background-color: gray;
+    padding: 10px 0;
+}
+
+/* kết thúc login register */
+
+/* bắt đầu profile */
+
+.profile {
+    margin: 20px 0;
+}
+
+/* Profile sidebar */
+
+.profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+}
+
+.profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+
+.profile-usertitle {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-usertitle-name {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+    margin-right: 0px;
+}
+
+.profile-usermenu {
+    margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+    border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+    border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+    color: #93a3b5;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+    background-color: #fafcfd;
+    color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+    border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+    color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-left: 2px solid #5b9bd1;
+    margin-left: -2px;
+}
+
+/* Profile Content */
+
+.profile-content {
+    padding: 20px;
+    background: #fff;
+    min-height: 460px;
+}
+
+table {
+    padding: 40px;
+}
+
+td:first-child {
+    font-weight: bold;
+    padding:0 50px !important
+}
+
+tr {
+    margin: 50px;
+}
+td{
+    padding: 10px !important;
+}
+
+/* kết thúc profile */
