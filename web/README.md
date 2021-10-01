@@ -1,1 +1,1 @@
-# Hospital Website - My Project SWP391 - GROUP 3
+# Healthcare System - My Project SWP391 - GROUP 3
