@@ -1,9 +1,7 @@
-
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html> 
 <html lang="en">
-
     <!-- doccure/change-password.html  30 Nov 2019 04:12:18 GMT -->
     <head>
         <meta charset="utf-8">

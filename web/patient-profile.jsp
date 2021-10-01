@@ -89,7 +89,7 @@
                                                 <h5>
                                                     <i class="fas fa-birthday-cake"></i> ${Users.dob}
                                                 </h5>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +115,7 @@
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
-                                            
+
                                             <li>
                                                 <a href="change-password.jsp">
                                                     <i class="fas fa-lock"></i>
@@ -178,7 +178,7 @@
                                                     <select name="gender" class="genderedit">
                                                         <option value="${Users.gender == 0 ? 'Female' : 'Male'}">${Users.gender == 0 ? 'Female' : 'Male'}</option>
                                                         <option value="${Users.gender == 0 ? 'Male' : 'Female'}">${Users.gender == 0 ? 'Male' : 'Female'}</option>                                                        
-                                                    </select>                                                    
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
