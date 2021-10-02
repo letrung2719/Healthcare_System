@@ -1,4 +1,3 @@
-
 !function($) {
     "use strict";
 
@@ -12,7 +11,6 @@
         this.$saveCategoryBtn = $('.save-category'),
         this.$calendarObj = null
     };
-
 
     /* on drop */
     CalendarApp.prototype.onDrop = function (eventObj, date) { 
@@ -167,7 +165,6 @@
 
    //init CalendarApp
     $.CalendarApp = new CalendarApp, $.CalendarApp.Constructor = CalendarApp
-    
 }(window.jQuery),
 
 //initializing CalendarApp

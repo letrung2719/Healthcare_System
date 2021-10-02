@@ -25,6 +25,7 @@
         <!-- Full Calander CSS -->
         <link rel="stylesheet" href="assets/plugins/fullcalendar/fullcalendar.min.css">
 
+
         <!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
 
@@ -33,7 +34,6 @@
                 <script src="assets/js/html5shiv.min.js"></script>
                 <script src="assets/js/respond.min.js"></script>
         <![endif]-->
-
     </head>
     <body>
 
@@ -69,7 +69,7 @@
                     <div class="row">
 
                         <!-- Doctor Information -->
-                        <div class="col-md-5 col-lg-4 col-xl-3">
+                        <div class="col-md-7 col-lg-7 col-xl-7">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title mb-0">Doctor Information</h4>
@@ -94,15 +94,69 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Checkout Form -->
+                                    <form action="https://dreamguys.co.in/demo/doccure/booking-success.html">
+
+                                        <div class="payment-widget">
+                                            <h4 class="card-title">Appointment Details</h4>
+
+                                            <!-- Credit Card Payment -->
+                                            <div class="payment-list">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group card-label">
+                                                            <label for="card_name" style="margin-bottom: 14px">Date</label>
+                                                            <input class="form-control" id="card_name" type="date">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group card-label">
+                                                            <label for="card_name">Time</label>
+                                                            <select class="form-control" id="card_name"> 
+                                                                <option>-- Select --</option>
+                                                                <option>7h - 8h</option>
+                                                                <option>8h - 9h</option>
+                                                                <option>9h - 10h</option>
+                                                                <option>10h - 11h</option>
+                                                                <option>11h - 12h</option>                                                                
+                                                                <option>14h - 15h</option>
+                                                                <option>15h - 16h</option>
+                                                                <option>16h - 17h</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group card-label">
+                                                            <label for="card_name">Description</label>
+                                                            <textarea rows="5" cols="5" class="form-control" placeholder="Reason for this appointment (optional)"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Credit Card Payment -->
+
+                                            <!-- Submit Section -->
+                                            <div class="submit-section mt-4">
+                                                <button type="submit" class="btn btn-primary submit-btn">Booking</button>
+                                            </div>
+                                            <!-- /Submit Section -->
+
+                                        </div>
+                                    </form>
+                                    <!-- /Checkout Form -->
+
+                                </div>
+                            </div>
                         </div>
                         <!-- /Doctor Information -->
 
                         <!-- Calendar -->
-                        <div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="col-md-5 col-lg-5 col-xl-5">
                             <div class="card">
-                                <div class="card-body">
-                                    <div id="calendar"></div>
-                                </div>
+                                <div id="calendar"></div>
                             </div>
                         </div>
                         <!-- /Calendar -->
@@ -115,7 +169,6 @@
             <!-- Footer Bottom -->
             <%@include file="index-footer.jsp" %>
             <!-- /Footer Bottom -->
-
         </div>
         <!-- /Main Wrapper -->
 
@@ -169,6 +222,41 @@
         </div>
         <!-- /Add Event Modal -->
 
+        <!-- Add Category Modal -->
+        <div class="modal custom-modal fade" id="add_new_event">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Category</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Category Name</label>
+                                <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name" />
+                            </div>
+                            <div class="form-group">
+                                <label>Choose Category Color</label>
+                                <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
+                                    <option value="success">Success</option>
+                                    <option value="danger">Danger</option>
+                                    <option value="info">Info</option>
+                                    <option value="primary">Primary</option>
+                                    <option value="warning">Warning</option>
+                                    <option value="inverse">Inverse</option>
+                                </select>
+                            </div>
+                            <div class="submit-section text-center">
+                                <button type="button" class="btn btn-primary save-category submit-btn" data-dismiss="modal">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Add Category Modal -->
+
         <!-- jQuery -->
         <script src="assets/js/jquery.min.js"></script>
 
@@ -191,7 +279,6 @@
 
         <!-- Custom JS -->
         <script src="assets/js/script.js"></script>
-
     </body>
 
     <!-- doccure/calendar.html  30 Nov 2019 04:12:19 GMT -->
