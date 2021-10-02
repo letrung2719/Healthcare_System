@@ -9,6 +9,7 @@ import dal.DoctorDAO;
 import dal.SpecialitiesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -37,33 +38,24 @@ public class DoctorFilterControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String doctorName = request.getParameter("name");
-            String gender_raw = request.getParameter("gender");
-            String dob = request.getParameter("dob");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String[] list = request.getParameterValues("select_specialist");
-            
-            Integer genderObj = new Integer("");
-            if (gender_raw != null && !"".equals(gender_raw)) {
-                int gender = gender_raw.equalsIgnoreCase("Male") ? 1 : 0;
-                genderObj = gender;
-            }
-            System.out.println("==============================");
-            System.out.println(list);
-//            System.out.println(list1);
-//            DoctorDAO doctorDb = new DoctorDAO();
-//            List<Doctor> listDoctor = doctorDb.search(doctorName, dob, phone, email, genderObj, list1);
-//            request.setAttribute("listDoctors", listDoctor);
-//            SpecialitiesDAO dao = new SpecialitiesDAO();
-//            List<Specialities> listSpec = dao.getAllSpecialities();
-//            request.setAttribute("listSpec", listSpec);
-//            request.getRequestDispatcher("doctor-list.jsp").forward(request, response);
-        } catch (NumberFormatException e) {
-            
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String gender_raw = request.getParameter("gender");
+        Integer gender = null;
+        if (gender_raw != null) {
+            gender = gender_raw.equalsIgnoreCase("Male") ? 1 : 0;
         }
-
+        String dob = request.getParameter("dob");
+        String email = request.getParameter("email");
+        String[] arraySpec1 = request.getParameterValues("select_specialist");
+        List<String> listSpec1 = arraySpec1 == null ? new ArrayList<>() : Arrays.asList(arraySpec1);
+         SpecialitiesDAO dao = new SpecialitiesDAO();
+        List<Specialities> listSpec = dao.getAllSpecialities();
+        DoctorDAO doctorDb = new DoctorDAO();
+        List<Doctor> listDoctors = doctorDb.search(name, dob, phone , email, gender, listSpec1);
+        request.setAttribute("listDoctors", listDoctors);
+        request.setAttribute("listSpec", listSpec);
+        request.getRequestDispatcher("doctor-list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

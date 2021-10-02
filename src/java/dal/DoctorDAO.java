@@ -121,22 +121,22 @@ public class DoctorDAO extends DBContext {
         String sql = "select doctor_id, Doctors.name,gender,phone,email,role,image,description,doctors.type_id,Specialities.name,account_id\n"
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
                 + "where 1=1 ";
-        if (doctorName != null) {
+        if (doctorName != null && !doctorName.isEmpty()) {
             sql += " AND Doctors.name like '%" + doctorName + "%'";
         }
-        if (dob != null) {
+        if (dob != null && !dob.isEmpty()) {
             sql += " AND dob like '%" + dob + "%'";
         }
-        if (phone != null) {
+        if (phone != null && !phone.isEmpty()) {
             sql += " AND phone like '%" + phone + "%'";
         }
-        if (email != null) {
+        if (email != null && !email.isEmpty()) {
             sql += " AND email like '%" + email + "%'";
         }
         if (gender != null) {
             sql += " AND gender = " + gender;
         }
-        if (listSpec != null) {
+        if (listSpec != null && !listSpec.isEmpty()) {
             sql += "and (";
             for (int i= 0; i< listSpec.size(); i++){
                 sql+= "Specialities.name = '"+listSpec.get(i)+"' ";
