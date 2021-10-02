@@ -3,7 +3,11 @@
     <type>org.netbeans.modules.web.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
+<<<<<<< HEAD
             <name>Healthcare_System</name>
+=======
+            <name>Hospitall</name>
+>>>>>>> origin/hoang
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">

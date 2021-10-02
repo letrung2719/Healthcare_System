@@ -248,6 +248,7 @@
                                         <h5 class="modal-title">Search Filter</h5>
                                     </div>
                                     <div class="modal-body">
+<<<<<<< HEAD
                                         <form action="search" method="post">
                                             <div class="row form-row">
                                                 <div class="row form-row">
@@ -364,6 +365,125 @@
                                                             <td> <!-- name-->
                                                                 <h2 class="table-avatar">
                                                                     <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image"></a>
+=======
+                                        <form action="doctor_filter" method="post">
+                                            <div class="row form-row">
+                                                <div class="row form-row">
+                                                    <div class="col-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="text-primary">Name</label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                value=""
+                                                                name="name"
+                                                                />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="text-primary">Gender</label><br />
+                                                            <input
+                                                                type="radio"
+                                                                name="gender"
+                                                                value="Male"
+                                                                />Male
+                                                            <input
+                                                                type="radio"
+                                                                name="gender"
+                                                                value="Female"
+                                                                style="margin-left: 20px"
+                                                                />Female
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="text-primary">DOB</label>
+                                                            <input
+                                                                type="text "
+                                                                class="form-control"
+                                                                value=""
+                                                                name="dob"
+                                                                />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="text-primary">Phone</label>
+                                                            <input
+                                                                type="text "
+                                                                class="form-control"
+                                                                value=""
+                                                                name="phone"
+                                                                />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="text-primary">Email</label>
+                                                            <input
+                                                                type="text "
+                                                                class="form-control"
+                                                                value=""
+                                                                name="email"
+                                                                />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-sm-12">
+
+                                                        <label class="text-primary">Select Specialist</label>
+                                                        <c:forEach items="${listSpec}" var="spec">
+                                                            <div>
+                                                                <label class="custom_check">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name="select_specialist"
+                                                                        value="${spec.name}"
+                                                                        />
+                                                                    <span class="checkmark"></span> ${spec.name}
+                                                                </label>
+                                                            </div>
+                                                        </c:forEach>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-block">
+                                                Search
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Page Header -->
+                        <div class="row" style="width: 80%">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body modal-content"> 
+                                        <div class="table-responsive ">
+                                            <table class="datatable table table-hover table-center mb-0 "> 
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Doctor Name</th>
+                                                        <th>Gender</th>
+                                                        <th>Speciality</th>
+                                                        <th>Email</th>
+                                                        <th>Phone number</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="${listDoctors}" var="doctor">
+                                                        <tr>
+                                                            <!-- >Doctor ID-->
+                                                            <td>${doctor.doctorID}</td>
+
+                                                            <td> <!-- name-->
+                                                                <h2 class="table-avatar">
+                                                                    <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
+>>>>>>> origin/hoang
                                                                     <a href="profile.html">Dr. ${doctor.name}</a>
                                                                 </h2>
                                                             </td>
