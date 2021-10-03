@@ -58,13 +58,15 @@
                     <a href="#">Page <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
                         <li><a href="doctor">Doctor List</a></li>
-                        <li><a href="">Services</a></li>
-                        <li><a href="">Specialities</a></li>
+                        <li><a href="services">Services</a></li>
+                        <li><a href="services">Specialities</a></li>
                     </ul>
                 </li>
+                <c:if test="${sessionScope.acc.author_id == 0}">
                 <li>
                     <a href="admin/index.jsp" target="_blank">Admin</a>
                 </li>
+                </c:if>
                 <li class="login-link">
                     <a href="login.jsp">Login / Signup</a>
                 </li>
@@ -106,7 +108,7 @@
                                 <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">
                                     <div class="avatar avatar-sm">
                                         <img
-                                            src="assets/img/patients/patient.jpg"
+                                            src="${sessionScope.user.image}"
                                             alt="User Image"
                                             class="avatar-img rounded-circle"
                                             />
