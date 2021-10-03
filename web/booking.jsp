@@ -99,45 +99,49 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- Checkout Form -->
-                                    <form action="https://dreamguys.co.in/demo/doccure/booking-success.html">
+                                    <form action="booking" method="post">
 
                                         <div class="payment-widget">
                                             <h4 class="card-title">Appointment Details</h4>
 
-                                            <!-- Credit Card Payment -->
+                                            <!-- Appointment Details -->
+                                            <input type="hidden" name="patient_id" value="${sessionScope.user.patientID}">
+
+                                            <input type="hidden" name="doctor_id" value="${doctor.doctorID}">
+
                                             <div class="payment-list">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group card-label">
                                                             <label for="card_name" style="margin-bottom: 14px">Date</label>
-                                                            <input class="form-control" id="card_name" type="date">
+                                                            <input class="form-control" id="card_name" type="date" name="date">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group card-label">
                                                             <label for="card_name">Time</label>
-                                                            <select class="form-control" id="card_name"> 
-                                                                <option>-- Select --</option>
-                                                                <option>7h - 8h</option>
-                                                                <option>8h - 9h</option>
-                                                                <option>9h - 10h</option>
-                                                                <option>10h - 11h</option>
-                                                                <option>11h - 12h</option>                                                                
-                                                                <option>14h - 15h</option>
-                                                                <option>15h - 16h</option>
-                                                                <option>16h - 17h</option>
+                                                            <select class="form-control" id="card_name" name="slot_id"> 
+                                                                <option value="0">-- Select --</option>
+                                                                <option value="1">7h - 8h</option>
+                                                                <option value="2">8h - 9h</option>
+                                                                <option value="3">9h - 10h</option>
+                                                                <option value="4">10h - 11h</option>
+                                                                <option value="5">11h - 12h</option>                                                                
+                                                                <option value="6">14h - 15h</option>
+                                                                <option value="7">15h - 16h</option>
+                                                                <option value="8">16h - 17h</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group card-label">
                                                             <label for="card_name">Description</label>
-                                                            <textarea rows="5" cols="5" class="form-control" placeholder="Reason for this appointment (optional)"></textarea>
+                                                            <textarea rows="5" cols="5" class="form-control" placeholder="Reason for this appointment (optional)" name="description"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /Credit Card Payment -->
+                                            <!-- /Appointment Details -->
 
                                             <!-- Submit Section -->
                                             <div class="submit-section mt-4">

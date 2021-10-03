@@ -56,6 +56,10 @@
         <servlet-name>AppointmentBookingControl</servlet-name>
         <servlet-class>controller.AppointmentBookingControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookingSuccessControl</servlet-name>
+        <servlet-class>controller.BookingSuccessControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControll</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>AppointmentBookingControl</servlet-name>
         <url-pattern>/booking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingSuccessControl</servlet-name>
+        <url-pattern>/booking_success</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

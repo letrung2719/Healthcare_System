@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dal.AppointmentDAO;
 import dal.DoctorDAO;
 import dal.PatientDAO;
 import java.io.IOException;
@@ -14,13 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Appointment;
-import model.Doctor;
 
 /**
  *
  * @author admin
  */
-public class AppointmentBookingControl extends HttpServlet {
+public class BookingSuccessControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class AppointmentBookingControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AppointmentBookingControl</title>");
+            out.println("<title>Servlet BookingSuccessControl</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AppointmentBookingControl at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BookingSuccessControl at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,13 +61,22 @@ public class AppointmentBookingControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int account_id = Integer.parseInt(request.getParameter("account_id"));
-            DoctorDAO db = new DoctorDAO();
-            Doctor d = db.getDoctorByAccountID(account_id);
+            int patient_id = Integer.parseInt(request.getParameter("patient_id"));
+            int doctor_id = Integer.parseInt(request.getParameter("doctor_id"));
+            String date = request.getParameter("date");
+            int slot_id = Integer.parseInt(request.getParameter("slot_id"));
+            String description = request.getParameter("description");
 
-            request.setAttribute("doctor", d);
-            request.getRequestDispatcher("booking.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | ServletException e) {
+            PatientDAO db1 = new PatientDAO();
+            DoctorDAO db2 = new DoctorDAO();
+
+            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, slot_id, description);
+            
+            AppointmentDAO db3 = new AppointmentDAO();
+            db3.addNewAppointment(a);
+            request.setAttribute("appointment", a);
+            request.getRequestDispatcher("booking-success.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
             System.out.println(e);
         }
     }
@@ -83,22 +92,7 @@ public class AppointmentBookingControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int patient_id = Integer.parseInt(request.getParameter("patient_id"));
-            int doctor_id = Integer.parseInt(request.getParameter("doctor_id"));
-            String date = request.getParameter("date");
-            int slot_id = Integer.parseInt(request.getParameter("slot_id"));
-            String description = request.getParameter("description");
-
-            PatientDAO db1 = new PatientDAO();
-            DoctorDAO db2 = new DoctorDAO();
-
-            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, slot_id, description);
-            request.setAttribute("appointment", a);
-            request.getRequestDispatcher("booking-confirm.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | ServletException e) {
-            System.out.println(e);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -110,4 +104,5 @@ public class AppointmentBookingControl extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

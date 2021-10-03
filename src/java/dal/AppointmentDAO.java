@@ -9,6 +9,7 @@ import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import model.Appointment;
 
 /**
  *
@@ -19,14 +20,15 @@ public class AppointmentDAO extends DBContext {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public int addNewAppointment(int patientID, int doctorID, String date, int slot_id) {
-        String sql = "insert into Appointments (patient_id,doctor_id,date,slot_id) values (?,?,?,?)";
+    public int addNewAppointment(Appointment a) {
+        String sql = "insert into Appointments (patient_id,doctor_id,date,slot_id,description) values (?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, patientID);
-            st.setInt(2, doctorID);
-            st.setString(3, date);
-            st.setInt(4, slot_id);
+            st.setInt(1, a.getPatient().getPatientID());
+            st.setInt(2, a.getDoctor().getDoctorID());
+            st.setString(3, a.getDate());
+            st.setInt(4, a.getSlot());
+            st.setString(5, a.getDescription());
             st.executeUpdate();
             return 1;
         } catch (SQLException e) {
@@ -34,11 +36,9 @@ public class AppointmentDAO extends DBContext {
         }
         return 0;
     }
-    
+
     public static void main(String[] args) {
 //        AppointmentDAO db = new AppointmentDAO();
 //        db.addNewAppointment(1, 2, "2021-10-10", 2);
     }
 }
-
-

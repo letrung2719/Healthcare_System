@@ -15,7 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Patients;
+import model.Patient;
 
 /**
  *
@@ -37,7 +37,7 @@ public class PatientListControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PatientDAO  patientDb = new PatientDAO();
-        List<Patients> list = patientDb.getAllPatient();
+        List<Patient> list = patientDb.getAllPatient();
         request.setAttribute("listPatients", list);
         request.getRequestDispatcher("patient-list.jsp").forward(request, response);
     }

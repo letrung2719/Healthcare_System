@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Patients;
+import model.Patient;
 
 public class Patient_Profile extends HttpServlet {
 
@@ -17,7 +17,7 @@ public class Patient_Profile extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int patientID = Integer.parseInt(request.getParameter("id"));
         PatientDAO patientDb = new PatientDAO();
-        Patients p = patientDb.getPatientByAccountID(patientID);
+        Patient p = patientDb.getPatientByAccountID(patientID);
         request.setAttribute("Users", p);
         request.getRequestDispatcher("patient-profile.jsp").forward(request, response);
     }

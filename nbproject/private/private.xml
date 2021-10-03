@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/Healthcare_System/web/booking-confirm.jsp</file>
+            <file>file:/E:/Healthcare_System/web/booking.jsp</file>
+            <file>file:/E:/Healthcare_System/web/booking-success.jsp</file>
+            <file>file:/E:/Healthcare_System/src/java/controller/AppointmentBookingControl.java</file>
+        </group>
     </open-files>
 </project-private>

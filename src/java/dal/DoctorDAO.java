@@ -24,12 +24,42 @@ public class DoctorDAO extends DBContext {
     ResultSet rs = null;
 
     public Doctor getDoctorByAccountID(int accountID) {
-        String sql = "select doctor_id,Doctors.name,gender,dob, phone,email,[role],Doctors.type_id,Specialities.name, [description], account_id,image\n"
+        String sql = "select doctor_id,Doctors.name,gender,dob,phone,email,role,Doctors.type_id,Specialities.name,description,account_id,image\n"
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
                 + "where account_id =?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, accountID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Doctor p = new Doctor();
+                p.setDoctorID(rs.getInt(1));
+                p.setName(rs.getString(2));
+                p.setGender(rs.getInt(3));
+                p.setDob(rs.getString(4));
+                p.setPhone(rs.getString(5));
+                p.setEmail(rs.getString(6));
+                p.setRole(rs.getString(7));
+                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));
+                p.setSpec(spec);
+                p.setDescription(rs.getString(10));
+                p.setImage(rs.getString(12));
+                p.setAccountID(rs.getInt(11));
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public Doctor getDoctorByDoctorID(int doctorID) {
+        String sql = "select doctor_id,Doctors.name,gender,dob,phone,email,role,Doctors.type_id,Specialities.name,description,account_id,image\n"
+                + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
+                + "where doctor_id =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, doctorID);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Doctor p = new Doctor();
@@ -174,7 +204,7 @@ public class DoctorDAO extends DBContext {
         DoctorDAO doctorDb = new DoctorDAO();
 //        List<Doctor> list = doctorDb.getAllDoctor();
 //        System.out.println(list);
-        Doctor d = doctorDb.getDoctorByAccountID(2);
+        Doctor d = doctorDb.getDoctorByDoctorID(2);
         System.out.println(d);
 //        String[] listSpec 
 //        List<Doctor> list = doctorDb.search("", "", "", "", null, listSpec);

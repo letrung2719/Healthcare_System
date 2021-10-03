@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Doctor;
-import model.Patients;
+import model.Patient;
 
 public class LoginControl extends HttpServlet {
 
@@ -36,7 +36,7 @@ public class LoginControl extends HttpServlet {
         PatientDAO patientDb = new PatientDAO();
         DoctorDAO doctorDb = new DoctorDAO();
 
-        Patients p = new Patients();
+        Patient p = new Patient();
         Doctor d = new Doctor();
 
         if (a == null) {

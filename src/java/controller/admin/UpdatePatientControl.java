@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Patients;
+import model.Patient;
 
 
 /**
@@ -67,7 +67,7 @@ public class UpdatePatientControl extends HttpServlet {
             String dob = request.getParameter("dob");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
-            Patients e = new Patients(id, name, gender, dob, phone, email, accountID,"");
+            Patient e = new Patient(id, name, gender, dob, phone, email, accountID,"");
             PatientDAO patientDb = new PatientDAO();
             int res = patientDb.editPatient(e);
             response.sendRedirect("patient_list");

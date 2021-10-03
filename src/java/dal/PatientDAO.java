@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
-import model.Patients;
+import model.Patient;
 
 /**
  *
@@ -20,29 +20,14 @@ import model.Patients;
  */
 public class PatientDAO extends DBContext {
 
-    public void delete(int id) {
-        String sql = " delete from Patients where account_id=?";
-        String sql2 = " delete from Accounts where account_id=?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            PreparedStatement st2 = connection.prepareStatement(sql2);
-            st.setInt(1, id);
-            st2.setInt(1, id);
-            st.executeUpdate();
-            st2.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
-
-    public Patients getPatientByAccountID(int accountID) {
+    public Patient getPatientByAccountID(int accountID) {
         String sql = "select * from patients where account_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, accountID);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Patients p = new Patients();
+                Patient p = new Patient();
                 p.setPatientID(rs.getInt(1));
                 p.setName(rs.getString(2));
                 p.setGender(rs.getInt(3));
@@ -59,7 +44,46 @@ public class PatientDAO extends DBContext {
         return null;
     }
 
-    public void insertNewPatient(Patients u) {
+    public Patient getPatientByPatientID(int patientID) {
+        String sql = "select * from patients where patient_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, patientID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Patient p = new Patient();
+                p.setPatientID(rs.getInt(1));
+                p.setName(rs.getString(2));
+                p.setGender(rs.getInt(3));
+                p.setDob(rs.getString(4));
+                p.setAccountID(rs.getInt(8));
+                p.setPhone(rs.getString(5));
+                p.setEmail(rs.getString(6));
+                p.setImage(rs.getString(7));
+                return p;
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
+    public void delete(int id) {
+        String sql = " delete from Patients where account_id=?";
+        String sql2 = " delete from Accounts where account_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st.setInt(1, id);
+            st2.setInt(1, id);
+            st.executeUpdate();
+            st2.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void insertNewPatient(Patient u) {
         AccountDAO accountDb = new AccountDAO();
         Account a = accountDb.getNewestAccount();
         String sql = "insert into Patients(name,gender,dob,phone,email,account_id) values (?,?,?,?,?,?)";
@@ -79,14 +103,14 @@ public class PatientDAO extends DBContext {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public List<Patients> getAllPatient() {
-        ArrayList<Patients> list = new ArrayList<>();
+    public List<Patient> getAllPatient() {
+        ArrayList<Patient> list = new ArrayList<>();
         String sql = "select * from Patients ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Patients p = new Patients();
+                Patient p = new Patient();
                 p.setPatientID(rs.getInt(1));
                 p.setName(rs.getString(2));
                 p.setGender(rs.getInt(3));
@@ -103,7 +127,7 @@ public class PatientDAO extends DBContext {
         return list;
     }
 
-    public int editPatient(Patients p) {
+    public int editPatient(Patient p) {
         String sql = "update Patients set Name = ?, gender=? , dob=?,phone=?,email=?\n"
                 + " where account_id=?";
         try {
@@ -120,16 +144,14 @@ public class PatientDAO extends DBContext {
         }
         return 0;
     }
-    
-    
+
     public static void main(String[] args) {
         PatientDAO patientDb = new PatientDAO();
-        Patients p = patientDb.getPatientByAccountID(22);
+        Patient p = patientDb.getPatientByAccountID(22);
         System.out.println(p);
 
 //        List<Patients> list = patientDb.getAllPatient();
 //        System.out.println(list);
 //         
-
     }
 }

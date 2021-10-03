@@ -48,7 +48,7 @@
                                     <div class="success-cont">
                                         <i class="fas fa-check"></i>
                                         <h3>Appointment booked Successfully!</h3>
-                                        <p>Appointment booked with <strong>Dr. Darren Elder</strong><br> on <strong>12 Nov 2019 5:00PM to 6:00PM</strong></p>
+                                        <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.date} ${appointment.slot}</strong></p>
                                         <a href="#" class="btn btn-primary view-inv-btn">View Invoice</a>
                                     </div>
                                 </div>

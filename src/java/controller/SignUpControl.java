@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
-import model.Patients;
+import model.Patient;
 
 public class SignUpControl extends HttpServlet {
 
@@ -58,7 +58,7 @@ public class SignUpControl extends HttpServlet {
             if (a == null) { //dc signup
                 accountDb.insertNewAccountPatient(user,pass);
                 Account account = accountDb.getNewestAccount();
-                Patients u = new Patients(count, name, gender, "", phone , email,account.getId(),"");
+                Patient u = new Patient(count, name, gender, "", phone , email,account.getId(),"");
                 patientDb.insertNewPatient(u);
                 response.sendRedirect("login.jsp");
             } else {
