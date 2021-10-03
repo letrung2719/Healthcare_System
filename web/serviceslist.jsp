@@ -125,7 +125,7 @@
                                         <div class="doctor-widget">
                                             <div class="doc-info-left">
                                                 <div class="doctor-img">
-                                                    <a href="doctor-profile.html">
+                                                    <a href="serdetail?sid=${o.service_id}">
                                                         <img src="${o.image}" class="img-fluid" alt="User Image">
                                                     </a>
                                                 </div>
