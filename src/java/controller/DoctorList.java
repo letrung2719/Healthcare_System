@@ -6,7 +6,7 @@
 package controller;
 
 import dal.DoctorDAO;
-import dal.SpecialitiesDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -36,7 +36,7 @@ public class DoctorList extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         DoctorDAO doctorDb = new DoctorDAO();
-        SpecialitiesDAO dao = new SpecialitiesDAO();
+        ServicesDAO dao = new ServicesDAO();
         List<Specialities> listSpec = dao.getAllSpecialities();
         List<Doctor> list = doctorDb.getAllDoctor();
         request.setAttribute("listDoctors", list);

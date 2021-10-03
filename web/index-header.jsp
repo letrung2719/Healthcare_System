@@ -58,8 +58,8 @@
                     <a href="#">Page <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
                         <li><a href="doctor">Doctor List</a></li>
-                        <li><a href="">Services</a></li>
-                        <li><a href="">Specialities</a></li>
+                        <li><a href="services">Services</a></li>
+                        <li><a href="services">Specialities</a></li>
                     </ul>
                 </li>
                 <li>

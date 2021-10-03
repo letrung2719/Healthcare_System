@@ -57,7 +57,7 @@
                                         <a href="index.jsp">Home</a>
                                     </li>
                                     <li class="breadcrumb-item " >
-                                        <a href="service.jsp">Service</a>
+                                        <a href="services">Services</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         ${spec.name}
@@ -96,7 +96,7 @@
                                             width: 50%;
                                         }
 
-                                        .doc-img{
+                                        .doctor-img{
                                             width: 50%;
                                         }
                                     </style>
@@ -140,9 +140,9 @@
                                         <div class="clinic-services">
                                             <h2 style="color: #00d2e6">Relate to:</h2>
                                             <c:forEach items="${listS}" var="o">
-                                                
+
                                                 <li>
-                                                    <a href="serdetail?sid=${o.serID}">>${o.title}</a>
+                                                    <a href="serdetail?sid=${o.service_id}">>${o.title}</a>
                                                     <!--<span class="span"</span><br/>-->
                                                 </li>
                                             </c:forEach>
@@ -217,7 +217,7 @@
                                             <!-- About Details -->
                                             <div class="widget about-widget">
                                                 <h4 class="widget-title">${detail.title}</h4>
-                                                <p>${detail.des}</p>
+                                                <p>${detail.description}</p>
                                             </div>
                                             <!-- /About Details -->
 
