@@ -31,13 +31,13 @@
                 <li class="has-submenu">
                     <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
-                        <li><a href="doctor-profile.html">Doctor Profile</a></li>
+                        <li><a href="doctor_profile?id=${sessionScope.user.accountID}">Doctor Profile</a></li>
                         <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
                         <li><a href="appointments.html">Appointments</a></li>
                         <li><a href="schedule-timings.html">Schedule Timing</a></li>
                         <li><a href="my-patients.html">Patients List</a></li>
                         <li><a href="invoices.html">Invoices</a></li>
-                        <li><a href="doctor-profile-settings.html">Profile Settings</a></li>
+                        <li><a href="doctor_profile_setting?id=${sessionScope.user.accountID}">Profile Settings</a></li>
                         <li><a href="reviews.html">Reviews</a></li>
                     </ul>
                 </li>
@@ -45,13 +45,21 @@
                     <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
                         <li><a href="patient_profile?id=${sessionScope.user.accountID}">Patients Profile</a></li>
-                        <li><a href="booking.html">Booking</a></li>
+                        <li><a href="booking.jsp">Booking</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="booking-success.html">Booking Success</a></li>
+                        <li><a href="booking-success.jsp">Booking Success</a></li>
                         <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
                         <li><a href="favourites.html">Favourites</a></li>
 
                         <li><a href="change-password.jsp">Change Password</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#">Page <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="doctor">Doctor List</a></li>
+                        <li><a href="">Services</a></li>
+                        <li><a href="">Specialities</a></li>
                     </ul>
                 </li>
                 <li>
