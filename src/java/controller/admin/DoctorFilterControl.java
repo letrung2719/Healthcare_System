@@ -6,7 +6,7 @@
 package controller.admin;
 
 import dal.DoctorDAO;
-import dal.SpecialitiesDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class DoctorFilterControl extends HttpServlet {
         String email = request.getParameter("email");
         String[] arraySpec1 = request.getParameterValues("select_specialist");
         List<String> listSpec1 = arraySpec1 == null ? new ArrayList<>() : Arrays.asList(arraySpec1);
-         SpecialitiesDAO dao = new SpecialitiesDAO();
+        ServicesDAO dao = new ServicesDAO();
         List<Specialities> listSpec = dao.getAllSpecialities();
         DoctorDAO doctorDb = new DoctorDAO();
         List<Doctor> listDoctors = doctorDb.search(name, dob, phone , email, gender, listSpec1);

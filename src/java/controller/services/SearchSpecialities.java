@@ -3,25 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.services;
 
-import dal.ServiceDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Service;
+import model.Services;
 import model.Specialities;
 
 /**
  *
- * @author ASUS
+ * @author hp
  */
-@WebServlet(name = "ServiceDetailControl", urlPatterns = {"/serdetail"})
-public class ServiceDetailControl extends HttpServlet {
+@WebServlet(name = "SearchSpecialities", urlPatterns = {"/searchspecialities"})
+public class SearchSpecialities extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +38,14 @@ public class ServiceDetailControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id = request.getParameter("sid");
-        ServiceDAO dao = new ServiceDAO();
-        
-        System.out.println(id);
-        Service s = dao.getServiceByID(id);
-        System.out.println(s);
-        int specID = s.getTypeID();
-        
-        Specialities spec = dao.getSpecByID(specID);
-        int type_id = dao.getServiceByID(id).getTypeID();
-        List<Service> listS = dao.getTop4Last(type_id);
-        
-        request.setAttribute("detail", s);
-        request.setAttribute("spec", spec);
-        request.setAttribute("listS", listS);
-        request.getRequestDispatcher("service-detail.jsp").forward(request, response);
+        String[] arraySpec = request.getParameterValues("select_specialist");
+        List<String> listSpec = arraySpec == null ? new ArrayList<>() : Arrays.asList(arraySpec);
+        ServicesDAO dal = new ServicesDAO();
+        List<Specialities> listSpecialities = dal.getAllSpecialities();
+        List<Services> listServices = dal.searchSpecialities(listSpec);
+        request.setAttribute("listSpecialities", listSpecialities);
+        request.setAttribute("listServices", listServices);
+        request.getRequestDispatcher("serviceslist.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

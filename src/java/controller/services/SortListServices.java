@@ -1,29 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package controller;
+package controller.services;
 
-import dal.DoctorDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Doctor;
+import model.Services;
 import model.Specialities;
 
-/**
- *
- * @author Admin
- */
-public class DoctorFilter extends HttpServlet {
+@WebServlet(name = "SortListServices", urlPatterns = {"/sortlistservices"})
+public class SortListServices extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,20 +27,29 @@ public class DoctorFilter extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String gender_raw = request.getParameter("gender_type");
-        Integer gender = null;
-        if (gender_raw != null) {
-            gender = gender_raw.equalsIgnoreCase("Male") ? 1 : 0;
+        String choice = request.getParameter("id");
+        ServicesDAO dal = new ServicesDAO();
+        if (choice.equals("0")) {
+            String search = request.getParameter("txt");
+            List<Services> listServices = dal.getAllServicesSearched(search);
+            request.setAttribute("listServices", listServices);
+            request.setAttribute("tim", search);
         }
-        String[] arraySpec1 = request.getParameterValues("select_specialist");
-        List<String> listSpec1 = arraySpec1 == null ? new ArrayList<>() : Arrays.asList(arraySpec1);
-        ServicesDAO dao = new ServicesDAO();
-        List<Specialities> listSpec = dao.getAllSpecialities();
-        DoctorDAO doctorDb = new DoctorDAO();
-        List<Doctor> listDoctors = doctorDb.search("", "", "", "", gender, listSpec1);
-        request.setAttribute("listDoctors", listDoctors);
-        request.setAttribute("listSpec", listSpec);
-        request.getRequestDispatcher("doctor.jsp").forward(request, response);
+        if (choice.equals("1")) {
+            List<Services> listServices = dal.getAllServicesSortedUpPrice();
+            request.setAttribute("listServices", listServices);
+        }
+        if (choice.equals("2")) {
+            List<Services> listServices = dal.getAllServicesSortedDownPrice();
+            request.setAttribute("listServices", listServices);
+        }
+        if (choice.equals("3")) {
+            List<Services> listServices = dal.getAllServicesSortedSpecialities();
+            request.setAttribute("listServices", listServices);
+        }
+        List<Specialities> listSpecialities = dal.getAllSpecialities();
+        request.setAttribute("listSpecialities", listSpecialities);
+        request.getRequestDispatcher("serviceslist.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
