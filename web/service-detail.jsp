@@ -96,9 +96,10 @@
                                             width: 50%;
                                         }
 
-                                        .doctor-img{
+                                        .doc-img{
                                             width: 50%;
                                         }
+                                    </style>
                                     </style>
                                     <div class="doc-info-cont">
                                         <h4 class="doc-name">${detail.title}</h4>
