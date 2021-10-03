@@ -142,7 +142,7 @@
                                             <c:forEach items="${listS}" var="o">
                                                 
                                                 <li>
-                                                    <a href="serdetail?sid=${o.serID}">>${o.title}</a>
+                                                    <a href="serdetail?sid=${o.serID}">${o.title}</a>
                                                     <!--<span class="span"</span><br/>-->
                                                 </li>
                                             </c:forEach>

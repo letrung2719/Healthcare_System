@@ -106,7 +106,7 @@
                                 <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">
                                     <div class="avatar avatar-sm">
                                         <img
-                                            src="assets/img/patients/patient.jpg"
+                                            src="${sessionScope.user.image}"
                                             alt="User Image"
                                             class="avatar-img rounded-circle"
                                             />

@@ -38,8 +38,9 @@ public class ServiceDetailControl extends HttpServlet {
         String id = request.getParameter("sid");
         ServiceDAO dao = new ServiceDAO();
         
-        
+        System.out.println(id);
         Service s = dao.getServiceByID(id);
+        System.out.println(s);
         int specID = s.getTypeID();
         
         Specialities spec = dao.getSpecByID(specID);
