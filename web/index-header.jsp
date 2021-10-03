@@ -62,9 +62,11 @@
                         <li><a href="services">Specialities</a></li>
                     </ul>
                 </li>
+                <c:if test="${sessionScope.acc.author_id == 0}">
                 <li>
                     <a href="admin/index.jsp" target="_blank">Admin</a>
                 </li>
+                </c:if>
                 <li class="login-link">
                     <a href="login.jsp">Login / Signup</a>
                 </li>
