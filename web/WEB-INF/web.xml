@@ -40,6 +40,14 @@
         <servlet-name>DoctorProfileSettting</servlet-name>
         <servlet-class>controller.DoctorProfileSettting</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DoctorList</servlet-name>
+        <servlet-class>controller.DoctorList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewDoctorProfile</servlet-name>
+        <servlet-class>controller.ViewDoctorProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControll</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -87,6 +95,14 @@
     <servlet-mapping>
         <servlet-name>DoctorProfileSettting</servlet-name>
         <url-pattern>/doctor_profile_setting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorList</servlet-name>
+        <url-pattern>/doctor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDoctorProfile</servlet-name>
+        <url-pattern>/doctor_profile_view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

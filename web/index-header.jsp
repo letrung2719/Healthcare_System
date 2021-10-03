@@ -55,7 +55,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="admin/index.html" target="_blank">Admin</a>
+                    <a href="admin/index.jsp" target="_blank">Admin</a>
                 </li>
                 <li class="login-link">
                     <a href="login.jsp">Login / Signup</a>
@@ -75,8 +75,8 @@
 
             <!-- User Menu -->
             <c:if test="${sessionScope.acc != null}">
-            <li class="nav-item dropdown has-arrow logged-item">
-                
+                <li class="nav-item dropdown has-arrow logged-item">
+
                     <a
                         href="#"
                         class="dropdown-toggle nav-link"
@@ -92,58 +92,66 @@
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        
-                            <div class="user-header">
-                                <c:if test="${sessionScope.acc.author_id == 1}">
-                                    <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">
-                                <div class="avatar avatar-sm">
-                                    <img
-                                        src="assets/img/patients/patient.jpg"
-                                        alt="User Image"
-                                        class="avatar-img rounded-circle"
-                                        />
-                                </div>
-                                <div class="user-text">
-                                    <h6>${sessionScope.user.name}</h6>
-                                    <p class="text-muted mb-0">
-                                        <c:if test="${sessionScope.acc.author_id == 1}">Doctor</c:if>
-                                        <c:if test="${sessionScope.acc.author_id == 2}">Patient</c:if>
-                                    </p>
-                                </div>
+
+                        <div class="user-header">
+                            <c:if test="${sessionScope.acc.author_id == 1}">
+                                <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">
+                                    <div class="avatar avatar-sm">
+                                        <img
+                                            src="assets/img/patients/patient.jpg"
+                                            alt="User Image"
+                                            class="avatar-img rounded-circle"
+                                            />
+                                    </div>
+                                    <div class="user-text">
+                                        <h6>${sessionScope.user.name}</h6>
+                                        <p class="text-muted mb-0">
+                                            <c:if test="${sessionScope.acc.author_id == 1}">Doctor</c:if>
+                                            <c:if test="${sessionScope.acc.author_id == 2}">Patient</c:if>
+                                            </p>
+                                        </div>
                                     </a>
-                                </c:if>
-                                <c:if test="${sessionScope.acc.author_id == 2}">
-                                    <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">
-                                <div class="avatar avatar-sm">
-                                    <img
-                                        src="assets/img/patients/patient.jpg"
-                                        alt="User Image"
-                                        class="avatar-img rounded-circle"
-                                        />
-                                </div>
-                                <div class="user-text">
-                                    <h6>${sessionScope.user.name}</h6>
-                                    <p class="text-muted mb-0">
-                                        <c:if test="${sessionScope.acc.author_id == 1}">Doctor</c:if>
-                                        <c:if test="${sessionScope.acc.author_id == 2}">Patient</c:if>
-                                    </p>
-                                </div>
+                            </c:if>
+                            <c:if test="${sessionScope.acc.author_id == 2}">
+                                <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">
+                                    <div class="avatar avatar-sm">
+                                        <img
+                                            src="assets/img/patients/patient.jpg"
+                                            alt="User Image"
+                                            class="avatar-img rounded-circle"
+                                            />
+                                    </div>
+                                    <div class="user-text">
+                                        <h6>${sessionScope.user.name}</h6>
+                                        <p class="text-muted mb-0">
+                                            <c:if test="${sessionScope.acc.author_id == 1}">Doctor</c:if>
+                                            <c:if test="${sessionScope.acc.author_id == 2}">Patient</c:if>
+                                            </p>
+                                        </div>
                                     </a>
-                                </c:if>
-                                
-                            </div>
+                            </c:if>
+
+                        </div>
 
                         <a class="dropdown-item" href="patient-dashboard.html"
                            >Dashboard</a
                         >
-                        <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}"
+                        <c:if test="${sessionScope.acc.author_id == 1}">
+                            <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}"
+                               >Profile Settings</a
+                            >
+                        </c:if>
+                        <c:if test="${sessionScope.acc.author_id == 2}">
+                            <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}"
                            >Profile Settings</a
                         >
-                        <a class="dropdown-item" href="logout">Logout</a>
-                    </div>
-               
-            </li>
-             </c:if>
+                        </c:if>
+
+                            <a class="dropdown-item" href="logout">Logout</a>
+                        </div>
+
+                    </li>
+            </c:if>
             <!-- /User Menu -->
 
             <c:if test="${sessionScope.acc == null}">
