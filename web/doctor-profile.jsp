@@ -1,6 +1,5 @@
-<%-- Document : doctor-profile Created on : 02-Oct-2021, 18:17:03 Author : Admin
---%> <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@pagecontentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:14 GMT -->
@@ -51,7 +50,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
       <!-- Header -->
       <jsp:include page="index-header.jsp" />
       <!-- /Header -->
-      <h1>Test new commit</h1>
+
       <!-- Breadcrumb -->
       <div class="breadcrumb-bar">
         <div class="container-fluid">
