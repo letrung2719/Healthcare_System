@@ -52,6 +52,10 @@
         <servlet-name>DoctorFilter</servlet-name>
         <servlet-class>controller.DoctorFilter</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AppointmentBookingControl</servlet-name>
+        <servlet-class>controller.AppointmentBookingControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControll</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>DoctorFilter</servlet-name>
         <url-pattern>/doctor_filter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AppointmentBookingControl</servlet-name>
+        <url-pattern>/booking</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

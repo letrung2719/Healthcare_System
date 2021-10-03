@@ -17,7 +17,7 @@ public class Patient_Profile extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int patientID = Integer.parseInt(request.getParameter("id"));
         PatientDAO patientDb = new PatientDAO();
-        Patients p = patientDb.getPatientByID(patientID);
+        Patients p = patientDb.getPatientByAccountID(patientID);
         request.setAttribute("Users", p);
         request.getRequestDispatcher("patient-profile.jsp").forward(request, response);
     }

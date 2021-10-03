@@ -80,43 +80,14 @@
                                         <h4 class="doc-name">Dr. ${doctor.name}</h4>
                                         <p class="doc-speciality">${doctor.role}</p>
                                         <p class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${doctor.spec.name}</p>
-                                        <!--                                        <div class="rating">
-                                                                                    <i class="fas fa-star filled"></i>
-                                                                                    <i class="fas fa-star filled"></i>
-                                                                                    <i class="fas fa-star filled"></i>
-                                                                                    <i class="fas fa-star filled"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <span class="d-inline-block average-rating">(35)</span>
-                                                                                </div>-->
-                                        <!--                                        <div class="clinic-details">
-                                                                                    <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA - <a href="javascript:void(0);">Get Directions</a></p>
-                                                                                    <ul class="clinic-gallery">
-                                                                                        <li>
-                                                                                            <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
-                                                                                                <img src="assets/img/features/feature-01.jpg" alt="Feature">
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery">
-                                                                                                <img  src="assets/img/features/feature-02.jpg" alt="Feature Image">
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery">
-                                                                                                <img src="assets/img/features/feature-03.jpg" alt="Feature">
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery">
-                                                                                                <img src="assets/img/features/feature-04.jpg" alt="Feature">
-                                                                                            </a>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                                <div class="clinic-services">
-                                                                                    <span>Dental Fillings</span>
-                                                                                    <span>Teeth Whitneing</span>
-                                                                                </div>-->
+                                        <div class="rating">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star"></i>
+                                            <span class="d-inline-block average-rating">(35)</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="doc-info-right">
@@ -142,7 +113,7 @@
                                         </a>
                                     </div>
                                     <div class="clinic-booking">
-                                        <a class="apt-btn" href="booking.jsp">Book Appointment</a>
+                                        <a class="apt-btn" href="booking?account_id=${doctor.accountID}">Book Appointment</a>
                                     </div>
                                 </div>
                             </div>

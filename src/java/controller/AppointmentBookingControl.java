@@ -1,21 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
-import dal.AccountDAO;
 import dal.DoctorDAO;
-import dal.PatientDAO;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Account;
 import model.Doctor;
-import model.Patients;
 
-public class LoginControl extends HttpServlet {
+/**
+ *
+ * @author admin
+ */
+public class AppointmentBookingControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,36 +32,17 @@ public class LoginControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        AccountDAO accountDb = new AccountDAO();
-        Account a = accountDb.login(user, pass);
-        PatientDAO patientDb = new PatientDAO();
-        DoctorDAO doctorDb = new DoctorDAO();
-
-        Patients p = new Patients();
-        Doctor d = new Doctor();
-
-        if (a == null) {
-            request.setAttribute("mess", "wrong user or pass");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
-            HttpSession session = request.getSession();
-            if (a.getAuthor_id() == 1) {
-                d = doctorDb.getDoctorByAccountID(a.getId());
-
-                session.setAttribute("user", d);
-
-            }
-            if (a.getAuthor_id() == 2) {
-
-                p = patientDb.getPatientByAccountID(a.getId());
-
-                session.setAttribute("user", p);
-            }
-
-            session.setAttribute("acc", a);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AppointmentBookingControl</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AppointmentBookingControl at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -74,7 +58,15 @@ public class LoginControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int account_id = Integer.parseInt(request.getParameter("account_id"));
+        try {
+            DoctorDAO db = new DoctorDAO();
+            Doctor d = db.getDoctorByAccountID(account_id);
+            request.setAttribute("doctor", d);
+            request.getRequestDispatcher("booking.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     /**

@@ -196,7 +196,7 @@
                                                 </div>
                                                 <div class="clinic-booking">
                                                     <a class="view-pro-btn" href="doctor_profile_view?id=${doctor.accountID}">View Profile</a>
-                                                    <a class="apt-btn" href="booking.jsp">Book Appointment</a>
+                                                    <a class="apt-btn" href="booking?account_id=${doctor.accountID}">Book Appointment</a>
                                                 </div>
                                             </div>
                                         </div>

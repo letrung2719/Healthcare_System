@@ -34,7 +34,7 @@ public class ViewDoctorProfile extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int accountID = Integer.parseInt(request.getParameter("id"));
         DoctorDAO doctorDb = new DoctorDAO();
-        Doctor doctor = doctorDb.getDoctorByID(accountID);
+        Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
         request.setAttribute("doctor", doctor);
         request.getRequestDispatcher("view-doctor-profile.jsp").forward(request, response);
     }

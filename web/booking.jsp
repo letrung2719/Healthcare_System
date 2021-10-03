@@ -51,7 +51,7 @@
                         <div class="col">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Booking</li>
                                 </ol>
                             </nav>
@@ -80,7 +80,9 @@
                                             <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
                                         </a>
                                         <div class="booking-info">
-                                            <h4><a href="doctor-profile.html">Dr. Darren Elder</a></h4>
+                                            <h4 class="doc-name">Dr. ${doctor.name}</h4>
+                                            <p class="doc-speciality">${doctor.role}</p>
+                                            <p class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${doctor.spec.name}</p>
                                             <div class="rating">
                                                 <i class="fas fa-star filled"></i>
                                                 <i class="fas fa-star filled"></i>
@@ -89,7 +91,6 @@
                                                 <i class="fas fa-star"></i>
                                                 <span class="d-inline-block average-rating">35</span>
                                             </div>
-                                            <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> New York, USA</p>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +141,7 @@
 
                                             <!-- Submit Section -->
                                             <div class="submit-section mt-4">
-                                                <button type="submit" class="btn btn-primary submit-btn">Booking</button>
+                                                <button type="submit" class="btn btn-primary submit-btn">Booking Appointment</button>
                                             </div>
                                             <!-- /Submit Section -->
 

@@ -23,13 +23,13 @@ public class DoctorDAO extends DBContext {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public Doctor getDoctorByID(int doctorID) {
+    public Doctor getDoctorByAccountID(int accountID) {
         String sql = "select doctor_id,Doctors.name,gender,dob, phone,email,[role],Doctors.type_id,Specialities.name, [description], account_id,image\n"
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
                 + "where account_id =?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, doctorID);
+            st.setInt(1, accountID);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Doctor p = new Doctor();
@@ -45,11 +45,10 @@ public class DoctorDAO extends DBContext {
                 p.setDescription(rs.getString(10));
                 p.setImage(rs.getString(12));
                 p.setAccountID(rs.getInt(11));
-
                 return p;
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return null;
     }
@@ -175,7 +174,7 @@ public class DoctorDAO extends DBContext {
         DoctorDAO doctorDb = new DoctorDAO();
 //        List<Doctor> list = doctorDb.getAllDoctor();
 //        System.out.println(list);
-        Doctor d = doctorDb.getDoctorByID(2);
+        Doctor d = doctorDb.getDoctorByAccountID(2);
         System.out.println(d);
 //        String[] listSpec 
 //        List<Doctor> list = doctorDb.search("", "", "", "", null, listSpec);

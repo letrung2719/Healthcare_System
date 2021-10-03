@@ -35,11 +35,11 @@ public class PatientDAO extends DBContext {
         }
     }
 
-    public Patients getPatientByID(int id) {
+    public Patients getPatientByAccountID(int accountID) {
         String sql = "select * from patients where account_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
+            st.setInt(1, accountID);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Patients p = new Patients();
@@ -57,17 +57,6 @@ public class PatientDAO extends DBContext {
 
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        PatientDAO patientDb = new PatientDAO();
-        Patients p = patientDb.getPatientByID(22);
-        System.out.println(p);
-
-//        List<Patients> list = patientDb.getAllPatient();
-//        System.out.println(list);
-//         
-
     }
 
     public void insertNewPatient(Patients u) {
@@ -131,5 +120,16 @@ public class PatientDAO extends DBContext {
         }
         return 0;
     }
+    
+    
+    public static void main(String[] args) {
+        PatientDAO patientDb = new PatientDAO();
+        Patients p = patientDb.getPatientByAccountID(22);
+        System.out.println(p);
 
+//        List<Patients> list = patientDb.getAllPatient();
+//        System.out.println(list);
+//         
+
+    }
 }

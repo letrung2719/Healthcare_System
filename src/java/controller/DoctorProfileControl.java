@@ -7,8 +7,6 @@ package controller;
 
 import dal.DoctorDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.print.Doc;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +33,7 @@ public class DoctorProfileControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int accountID = Integer.parseInt(request.getParameter("id"));
         DoctorDAO doctorDb = new DoctorDAO();
-        Doctor doctor = doctorDb.getDoctorByID(accountID);
+        Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
         request.setAttribute("doctor", doctor);
         request.getRequestDispatcher("doctor-profile.jsp").forward(request, response);
     }
