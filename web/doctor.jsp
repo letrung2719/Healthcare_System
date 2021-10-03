@@ -169,12 +169,12 @@
                                         <div class="doctor-widget">
                                             <div class="doc-info-left">
                                                 <div class="doctor-img">
-                                                    <a href="doctor_profile?id=${doctor.accountID}">
+                                                    <a href="doctor_profile_view?id=${doctor.accountID}">
                                                         <img src="${doctor.image}" class="img-fluid" alt="User Image">
                                                     </a>
                                                 </div>
                                                 <div class="doc-info-cont">
-                                                    <h4 class="doc-name"><a href="doctor_profile?id=${doctor.accountID}">Dr. ${doctor.name}</a></h4>
+                                                    <h4 class="doc-name"><a href="doctor_profile_view?id=${doctor.accountID}">Dr. ${doctor.name}</a></h4>
                                                     <p class="doc-speciality">${doctor.role}</p>
                                                     <h5 class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${doctor.spec.name}</h5>
                                                     <div class="rating">
@@ -226,7 +226,7 @@
                                                     </ul>
                                                 </div>
                                                 <div class="clinic-booking">
-                                                    <a class="view-pro-btn" href="doctor_profile?id=${doctor.accountID}">View Profile</a>
+                                                    <a class="view-pro-btn" href="doctor_profile_view?id=${doctor.accountID}">View Profile</a>
                                                     <a class="apt-btn" href="booking.jsp">Book Appointment</a>
                                                 </div>
                                             </div>
