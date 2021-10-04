@@ -270,23 +270,22 @@
                                             <div class="col-12 col-sm-12 ">
                                                 <div class="form-group ">
                                                     <label>DOB</label>
-                                                    <input type="text " class="form-control " value="" name="dob">
+                                                    <input type="text" class="form-control " value="" name="dob">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-12 ">
                                                 <div class="form-group ">
                                                     <label>Phone</label>
-                                                    <input type="text " class="form-control " value="" name="phone">
+                                                    <input type="text" class="form-control " value="" name="phone">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-12 ">
                                                 <div class="form-group ">
                                                     <label>Email</label>
-                                                    <input type="text " class="form-control " value=" " name="email">
+                                                    <input type="text" class="form-control " value=" " name="email">
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
                                 </form>

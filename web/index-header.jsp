@@ -50,7 +50,6 @@
                         <li><a href="booking-success.jsp">Booking Success</a></li>
                         <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
                         <li><a href="favourites.html">Favourites</a></li>
-
                         <li><a href="change-password.jsp">Change Password</a></li>
                     </ul>
                 </li>

@@ -2,34 +2,9 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-            <file>file:/E:/Healthcare_System/web/booking-confirm.jsp</file>
-            <file>file:/E:/Healthcare_System/web/booking.jsp</file>
-            <file>file:/E:/Healthcare_System/web/booking-success.jsp</file>
-            <file>file:/E:/Healthcare_System/src/java/controller/AppointmentBookingControl.java</file>
+            <file>file:/E:/Healthcare_System/src/java/model/Appointment.java</file>
+            <file>file:/E:/Healthcare_System/src/java/dal/AppointmentDAO.java</file>
         </group>
-=======
-<<<<<<< Updated upstream
-        <group/>
-=======
-        <group>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/controller/admin/PatientListControl.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/controller/ServiceDetailControl.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/controller/DoctorList.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/controller/DoctorProfileControl.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/controller/ChangePasswordControl.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/web/index-header.jsp</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/dal/AccountDAO.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/dal/DoctorDAO.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/controller/admin/UpdatePatientControl.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/web/index.jsp</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/model/Account.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/web/doctor.jsp</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/src/java/controller/admin/DeleteDoctorControl.java</file>
-            <file>file:/D:/FU/Git%20Repo/SWP%20repo/Healthcare_System/web/service-detail.jsp</file>
-        </group>
->>>>>>> Stashed changes
->>>>>>> dca6edf8bc9d11f5a61cedb8d9a4accc130aab7c
     </open-files>
 </project-private>
