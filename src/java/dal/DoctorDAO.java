@@ -144,6 +144,13 @@ public class DoctorDAO extends DBContext {
         }
         return list;
     }
+    public List<Doctor> getDoctorByPage(List<Doctor> list, int begin, int end ){
+        List<Doctor> listDoctorByPage = new ArrayList<>();
+        for ( int i = begin; i< end; i++){
+            listDoctorByPage.add(list.get(i));
+        }
+        return listDoctorByPage;
+    }
 
     public List<Doctor> search(String doctorName, String dob, String phone, String email, Integer gender, List<String> listSpec) {
         List<Doctor> list = new ArrayList<>();

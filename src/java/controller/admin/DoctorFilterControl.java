@@ -53,6 +53,11 @@ public class DoctorFilterControl extends HttpServlet {
         List<Specialities> listSpec = dao.getAllSpecialities();
         DoctorDAO doctorDb = new DoctorDAO();
         List<Doctor> listDoctors = doctorDb.search(name, dob, phone , email, gender, listSpec1);
+        request.setAttribute("doctorName", name);
+        request.setAttribute("doctorPhone", phone);
+        request.setAttribute("doctorDob", dob);
+        request.setAttribute("doctorEmail", email);
+        request.setAttribute("gender", gender);
         request.setAttribute("listDoctors", listDoctors);
         request.setAttribute("listSpec", listSpec);
         request.getRequestDispatcher("doctor-list.jsp").forward(request, response);

@@ -48,8 +48,32 @@ public class DoctorFilter extends HttpServlet {
         List<Specialities> listSpec = dao.getAllSpecialities();
         DoctorDAO doctorDb = new DoctorDAO();
         List<Doctor> listDoctors = doctorDb.search("", "", "", "", gender, listSpec1);
-        request.setAttribute("listDoctors", listDoctors);
+         int itemPerPage = 6;
+        int page ;
+        int pageNumber;
+        String mpage = request.getParameter("page");
+        if(mpage == null){
+            page = 1;
+        }else{
+            page = Integer.parseInt(mpage);
+        }
+        pageNumber = listDoctors.size()/itemPerPage + (listDoctors.size()%itemPerPage==0?0:1);
+        int start , end;
+        start = (page-1)*itemPerPage;
+        if(page*itemPerPage > listDoctors.size()){
+            end = listDoctors.size();    
+        }else {
+            end = page*itemPerPage; 
+        }
+        List<Doctor> arr = doctorDb.getDoctorByPage(listDoctors, start, end);
+        int length = arr.size();
+        request.setAttribute("gender", gender);
+        request.setAttribute("length", length);
+        request.setAttribute("pageNumber", pageNumber);
+        request.setAttribute("page", page);
+        request.setAttribute("listDoctors", arr);
         request.setAttribute("listSpec", listSpec);
+        request.setAttribute("listInputSpec", listSpec1);
         request.getRequestDispatcher("doctor.jsp").forward(request, response);
     }
 

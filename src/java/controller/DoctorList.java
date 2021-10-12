@@ -39,7 +39,29 @@ public class DoctorList extends HttpServlet {
         ServicesDAO dao = new ServicesDAO();
         List<Specialities> listSpec = dao.getAllSpecialities();
         List<Doctor> list = doctorDb.getAllDoctor();
-        request.setAttribute("listDoctors", list);
+        int itemPerPage = 6;
+        int page ;
+        int pageNumber;
+        String mpage = request.getParameter("page");
+        if(mpage == null){
+            page = 1;
+        }else{
+            page = Integer.parseInt(mpage);
+        }
+        pageNumber = list.size()/itemPerPage + (list.size()%itemPerPage==0?0:1);
+        int start , end;
+        start = (page-1)*itemPerPage;
+        if(page*itemPerPage > list.size()){
+            end = list.size();    
+        }else {
+            end = page*itemPerPage; 
+        }
+        List<Doctor> arr = doctorDb.getDoctorByPage(list, start, end);
+        int length = arr.size();
+        request.setAttribute("length", length);
+        request.setAttribute("pageNumber", pageNumber);
+        request.setAttribute("page", page);
+        request.setAttribute("listDoctors", arr);
         request.setAttribute("listSpec", listSpec);
         request.getRequestDispatcher("doctor.jsp").forward(request, response);
     }

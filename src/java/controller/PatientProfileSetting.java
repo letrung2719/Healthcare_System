@@ -19,32 +19,33 @@ import model.Patient;
  *
  * @author Admin
  */
-@WebServlet(name = "EditProfileControl", urlPatterns = {"/patient_profile_setting"})
+@WebServlet(name = "EditProfileControl", urlPatterns = { "/patient_profile_setting" })
 public class PatientProfileSetting extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+    // + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -55,10 +56,10 @@ public class PatientProfileSetting extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -72,7 +73,7 @@ public class PatientProfileSetting extends HttpServlet {
             String dob = request.getParameter("dob");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
-            Patient e = new Patient(id, name, gender, dob, phone, email, accountID,"");
+            Patient e = new Patient(id, name, gender, dob, phone, email, accountID, "");
             PatientDAO patientDb = new PatientDAO();
             int res = patientDb.editPatient(e);
             request.setAttribute("thongbao", "Edit success!");

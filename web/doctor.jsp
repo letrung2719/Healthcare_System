@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
@@ -56,7 +56,7 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
-           
+
                                     <li class="breadcrumb-item active" aria-current="page">Doctor</li>
                                 </ol>
                             </nav>
@@ -99,13 +99,13 @@
                                             <h4>Gender</h4>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="gender_type" value="Male">
+                                                    <input type="checkbox" name="gender_type" value="Male" ${gender==1?"checked":""}>
                                                     <span class="checkmark"></span> Male Doctor
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="gender_type" value="Female">
+                                                    <input type="checkbox" name="gender_type" value="Female" ${gender==0?"checked":""}>
                                                     <span class="checkmark"></span> Female Doctor
                                                 </label>
                                             </div>
@@ -115,8 +115,9 @@
                                             <c:forEach items="${listSpec}" var="spec">
                                                 <div>
                                                     <label class="custom_check">
+
                                                         <input type="checkbox" name="select_specialist" value="${spec.name}">
-                                                        <span class="checkmark"></span> ${spec.name}
+                                                            <span class="checkmark"></span> ${spec.name}
                                                     </label>
                                                 </div>
                                             </c:forEach>
@@ -208,7 +209,19 @@
 
 
                             <div class="load-more text-center">
-                                <a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>	
+                                <ul class="pagination">
+                                    <li class="page-item ">
+                                        <a class="page-link" href="doctor?page=${page-1}">Previous</a>
+                                    </li>
+                                    <c:set var="page" value="${requestScope.page}"/>
+                                    <c:forEach begin="1" end="${pageNumber}" var="i">
+                                        <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="doctor?page=${i}">${i}</a></li>
+                                        </c:forEach>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="doctor?page=${page+1}">Next</a>
+                                    </li>
+                                </ul>	
                             </div>	
                         </div>
                     </div>
