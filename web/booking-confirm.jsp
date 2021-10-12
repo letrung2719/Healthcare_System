@@ -109,7 +109,7 @@
                                         <input type="hidden" value="${appointment.doctor.doctorID}" name="doctor_id">
                                         <input type="hidden" value="${appointment.date}" name="date">
                                         <input type="hidden" value="${appointment.slot}" name="slot_id">
-                                        <input type="hidden" value="${appointment.description}" name="desciption">
+                                        <input type="hidden" value="${appointment.description}" name="description">
 
                                         <!-- Submit Section -->
                                         <div class="submit-section mt-4">

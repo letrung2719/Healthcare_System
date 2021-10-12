@@ -55,7 +55,7 @@
                                     </li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Availabe Services in Our Clinic</h2>
+                            <h2 class="breadcrumb-title">Available Services in Our Clinic</h2>
                         </div>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                                                     </div>
                                                     <div class="clinic-services">
                                                         <span>Dental Fillings</span>
-                                                        <span> Whitneing</span>
+                                                        <span> Whitening</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -181,7 +181,7 @@
                                                     </ul>
                                                 </div>
                                                 <div class="clinic-booking">
-                                                    <a class="view-pro-btn" href="doctor-profile.html">View Profile</a>
+                                                    <a class="view-pro-btn" href="serdetail?sid=${o.service_id}">View Profile</a>
                                                     <a class="apt-btn" href="booking.html">Book Appointment</a>
                                                 </div>
                                             </div>

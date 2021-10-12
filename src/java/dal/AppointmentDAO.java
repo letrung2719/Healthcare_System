@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Appointment;
+import model.Patient;
 
 /**
  *
@@ -37,8 +38,8 @@ public class AppointmentDAO extends DBContext {
         return 0;
     }
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        AppointmentDAO db = new AppointmentDAO();
-//        db.addNewAppointment(1, 2, "2021-10-10", 2);
-    }
+//        int n = db.addNewAppointment(new Appointment(null, null, "2021-09-11", 5, "abc"));
+//    }
 }
