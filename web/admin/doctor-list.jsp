@@ -123,7 +123,7 @@
                                                             <input
                                                                 type="text"
                                                                 class="form-control"
-                                                                value="${doctorName}"
+                                                                value=""
                                                                 name="name"
                                                                 />
                                                         </div>
@@ -134,34 +134,34 @@
                                                             <input
                                                                 type="radio"
                                                                 name="gender"
-                                                                value="Male" ${gender==1?"checked":""}
+                                                                value="Male"
                                                                 />Male
                                                             <input
                                                                 type="radio"
                                                                 name="gender"
-                                                                value="Female" ${gender==0?"checked":""}
+                                                                value="Female"
                                                                 style="margin-left: 20px"
                                                                 />Female
                                                         </div>
                                                     </div>
-<!--                                                    <div class="col-6 col-sm-6">
+                                                    <div class="col-6 col-sm-6">
                                                         <div class="form-group">
                                                             <label class="text-primary">DOB</label>
                                                             <input
                                                                 type="text "
                                                                 class="form-control"
-                                                                value="${doctorDob}"
+                                                                value=""
                                                                 name="dob"
                                                                 />
                                                         </div>
-                                                    </div>-->
-                                                    <div class="col-6 col-sm-12">
+                                                    </div>
+                                                    <div class="col-6 col-sm-6">
                                                         <div class="form-group">
                                                             <label class="text-primary">Phone</label>
                                                             <input
                                                                 type="text "
                                                                 class="form-control"
-                                                                value="${doctorPhone}"
+                                                                value=""
                                                                 name="phone"
                                                                 />
                                                         </div>
@@ -172,7 +172,7 @@
                                                             <input
                                                                 type="text "
                                                                 class="form-control"
-                                                                value="${doctorEmail}"
+                                                                value=""
                                                                 name="email"
                                                                 />
                                                         </div>
@@ -230,8 +230,8 @@
 
                                                             <td> <!-- name-->
                                                                 <h2 class="table-avatar">
-                                                                    <a href="doctorProfileControl?id=${doctor.accountID}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
-                                                                    <a href="doctorProfileControl?id=${doctor.accountID}">Dr. ${doctor.name}</a>
+                                                                    <a href="doctor-profile?id=${doctor.doctorID}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
+                                                                    <a href="doctor-profile?id=${doctor.doctorID}">Dr. ${doctor.name}</a>
                                                                 </h2>
                                                             </td>
                                                             <!-- >Gender-->
