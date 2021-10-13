@@ -56,7 +56,7 @@
                 <li class="has-submenu">
                     <a href="#">Page <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
-                        <li><a href="doctor">Doctor List</a></li>
+                        <li><a href="doctor?page=1">Doctor List</a></li>
                         <li><a href="services">Services</a></li>
                         <li><a href="services">Specialities</a></li>
                     </ul>

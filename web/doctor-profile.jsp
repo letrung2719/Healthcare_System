@@ -287,8 +287,10 @@
                           <input
                             name="dob"
                             type="text"
+                            pattern="\d{1,2}/\d{1,2}/\d{4}"
                             class="form-control"
                             value="${doctor.dob}"
+                            
                           />
                         </div>
                       </div>
