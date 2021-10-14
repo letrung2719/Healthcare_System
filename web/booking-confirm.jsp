@@ -108,7 +108,7 @@
                                         <input type="hidden" value="${appointment.patient.patientID}" name="patient_id">                                        
                                         <input type="hidden" value="${appointment.doctor.doctorID}" name="doctor_id">
                                         <input type="hidden" value="${appointment.date}" name="date">
-                                        <input type="hidden" value="${appointment.slot}" name="slot_id">
+                                        <input type="hidden" value="${appointment.slot.slotID}" name="slot_id">
                                         <input type="hidden" value="${appointment.description}" name="description">
 
                                         <!-- Submit Section -->
@@ -159,7 +159,7 @@
                                         <div class="booking-item-wrap">
                                             <ul class="booking-date">
                                                 <li>Date <span>${appointment.date}</span></li>
-                                                <li>Time <span>${appointment.slot}</span></li>
+                                                <li>Time <span>${appointment.slot.time}</span></li>
                                             </ul>
                                         </div>
                                     </div>

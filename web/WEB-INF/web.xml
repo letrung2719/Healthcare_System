@@ -64,6 +64,10 @@
         <servlet-name>DoctorProfileAdminControl</servlet-name>
         <servlet-class>controller.admin.DoctorProfileAdminControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DoctorAppointmentControl</servlet-name>
+        <servlet-class>controller.DoctorAppointmentControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControll</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>DoctorProfileAdminControl</servlet-name>
         <url-pattern>/admin/doctorProfileAdminControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorAppointmentControl</servlet-name>
+        <url-pattern>/doctorAppointmentControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -8,6 +8,7 @@ package controller;
 import dal.AppointmentDAO;
 import dal.DoctorDAO;
 import dal.PatientDAO;
+import dal.SlotDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Appointment;
+import model.TimeTable;
 
 /**
  *
@@ -69,9 +71,10 @@ public class BookingSuccessControl extends HttpServlet {
 
             PatientDAO db1 = new PatientDAO();
             DoctorDAO db2 = new DoctorDAO();
-            
-            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, slot_id, description, 1);
-            
+            SlotDAO slotDb = new SlotDAO();
+            TimeTable t = slotDb.getSlotByID(slot_id);
+            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, t, description, 1);
+            System.out.println(a);
             AppointmentDAO db3 = new AppointmentDAO();
             db3.addNewAppointment(a);
             request.setAttribute("appointment", a);

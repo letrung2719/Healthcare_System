@@ -15,14 +15,15 @@ public class Appointment {
     private Patient patient;
     private Doctor doctor;
     private String date;
-    private int slot;
+    private TimeTable slot;
     private String description;
     private int status;
-
+   
+    
     public Appointment() {
     }
 
-    public Appointment(int appointmentID, Patient patient, Doctor doctor, String date, int slot, String description, int status) {
+    public Appointment(int appointmentID, Patient patient, Doctor doctor, String date, TimeTable slot, String description, int status) {
         this.appointmentID = appointmentID;
         this.patient = patient;
         this.doctor = doctor;
@@ -32,7 +33,7 @@ public class Appointment {
         this.status = status;
     }
 
-    public Appointment(Patient patient, Doctor doctor, String date, int slot, String description, int status) {
+    public Appointment(Patient patient, Doctor doctor, String date, TimeTable slot, String description, int status) {
         this.patient = patient;
         this.doctor = doctor;
         this.date = date;
@@ -66,6 +67,7 @@ public class Appointment {
     }
 
     public String getDate() {
+       
         return date;
     }
 
@@ -73,13 +75,15 @@ public class Appointment {
         this.date = date;
     }
 
-    public int getSlot() {
+    public TimeTable getSlot() {
         return slot;
     }
 
-    public void setSlot(int slot) {
+    public void setSlot(TimeTable slot) {
         this.slot = slot;
     }
+
+   
 
     public String getDescription() {
         return description;
@@ -99,6 +103,9 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment{" + "appointmentID=" + appointmentID + ", patient=" + patient + ", doctor=" + doctor + ", date=" + date + ", slot=" + slot + ", description=" + description + ", status=" + status + '}';
+        return "Appointment{" + "appointmentID=" + appointmentID + ", patient=" + patient + ", doctor=" + doctor + ", date=" + date + ", slot=" + slot + ", description=" + description + ", status=" + status + "}\n";
     }
+
+    
+    
 }

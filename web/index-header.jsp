@@ -28,51 +28,65 @@
                 <li>
                     <a href="index.jsp">Home</a>
                 </li>
-<!--                
-                <li class="has-submenu">
-                    <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
-                    <ul class="submenu">
-                        <li><a href="doctor_profile?id=${sessionScope.user.accountID}">Doctor Profile</a></li>
-                        <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
-                        <li><a href="appointments.html">Appointments</a></li>
-                        <li><a href="schedule-timings.html">Schedule Timing</a></li>
-                        <li><a href="my-patients.html">Patients List</a></li>
-                        <li><a href="invoices.html">Invoices</a></li>
-                        <li><a href="doctor_profile_setting?id=${sessionScope.user.accountID}">Profile Settings</a></li>
-                        <li><a href="reviews.html">Reviews</a></li>
-                    </ul>
-                </li>
-                <li class="has-submenu">
-                    <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
-                    <ul class="submenu">
-                        <li><a href="patient_profile?id=${sessionScope.user.accountID}">Patients Profile</a></li>
-                        <li><a href="booking.jsp">Booking</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="booking-success.jsp">Booking Success</a></li>
-                        <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
-                        <li><a href="favourites.html">Favourites</a></li>
-                        <li><a href="change-password.jsp">Change Password</a></li>
-                    </ul>
-                </li>
-                <li class="has-submenu">
-                    <a href="#">Page <i class="fas fa-chevron-down"></i></a>
-                    <ul class="submenu">
-                        <li><a href="doctor?page=1">Doctor List</a></li>
-                        <li><a href="services">Services</a></li>
-                    </ul>
-                </li>
+                <!--                
+                                <li class="has-submenu">
+                                    <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="doctor_profile?id=${sessionScope.user.accountID}">Doctor Profile</a></li>
+                                        <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
+                                        <li><a href="appointments.html">Appointments</a></li>
+                                        <li><a href="schedule-timings.html">Schedule Timing</a></li>
+                                        <li><a href="my-patients.html">Patients List</a></li>
+                                        <li><a href="invoices.html">Invoices</a></li>
+                                        <li><a href="doctor_profile_setting?id=${sessionScope.user.accountID}">Profile Settings</a></li>
+                                        <li><a href="reviews.html">Reviews</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="patient_profile?id=${sessionScope.user.accountID}">Patients Profile</a></li>
+                                        <li><a href="booking.jsp">Booking</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="booking-success.jsp">Booking Success</a></li>
+                                        <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
+                                        <li><a href="favourites.html">Favourites</a></li>
+                                        <li><a href="change-password.jsp">Change Password</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="#">Page <i class="fas fa-chevron-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="doctor?page=1">Doctor List</a></li>
+                                        <li><a href="services">Services</a></li>
+                                    </ul>
+                                </li>
                 -->
-                
+
                 <li><a href="doctor?page=1">Doctors List</a></li>
                 <li><a href="services">Services List</a></li>
                 <li><a href="#">About us</a></li>
-
+                    <c:if test="${sessionScope.acc.author_id == 1}">
+                    <li class="has-submenu">
+                        <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="doctor_profile?id=${sessionScope.user.accountID}">Doctor Profile</a></li>
+                            <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
+                            <li><a href="doctorAppointmentControl?doctorID=1&indexPage=1">Appointments</a></li>
+                            <li><a href="schedule-timings.html">Schedule Timing</a></li>
+                            <li><a href="my-patients.html">Patients List</a></li>
+                            <li><a href="invoices.html">Invoices</a></li>
+                            <li><a href="doctor_profile_setting?id=${sessionScope.user.accountID}">Profile Settings</a></li>
+                            <li><a href="reviews.html">Reviews</a></li>
+                        </ul>
+                    </li>
+                </c:if>
                 <c:if test="${sessionScope.acc.author_id == 0}">
                     <li>
                         <a href="admin/index.jsp" target="_blank">Admin</a>
                     </li>
                 </c:if>
-                    
+
                 <li class="login-link">
                     <a href="login.jsp">Login / Signup</a>
                 </li>

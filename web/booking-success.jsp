@@ -48,7 +48,7 @@
                                     <div class="success-cont">
                                         <i class="fas fa-check"></i>
                                         <h3>Appointment booked Successfully!</h3>
-                                        <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.date} ${appointment.slot}</strong></p>
+                                        <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.date}    ${appointment.slot.time}</strong></p>
                                         <a href="#" class="btn btn-primary view-inv-btn">View Invoice</a>
                                     </div>
                                 </div>
