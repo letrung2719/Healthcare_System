@@ -172,14 +172,14 @@
                                                 <h3><a href="patient-profile.html">${app.patient.name}</a></h3>
                                                 <div class="patient-details">
                                                     <h5><i class="far fa-clock"></i> ${app.date}, ${app.slot.time}</h5>
-<!--                                                    <h5><i class="fas fa-map-marker-alt"></i> Newyork, United States</h5>-->
+                                                    <!--                                                    <h5><i class="fas fa-map-marker-alt"></i> Newyork, United States</h5>-->
                                                     <h5><i class="fas fa-envelope"></i>${app.patient.email}</h5>
                                                     <h5 class="mb-0"><i class="fas fa-phone"></i>${app.patient.phone}</h5>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="appointment-action">
-                                            <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
+                                            <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" href="#appt_details${app.appointmentID}">
                                                 <i class="far fa-eye"></i> View
                                             </a>
                                             <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
@@ -190,7 +190,10 @@
                                             </a>
                                         </div>
                                     </div>
+
+
                                     <!-- /Appointment List -->
+                                    
                                 </c:forEach>
                                 <div class="load-more text-center">
                                     <ul class="pagination">
@@ -225,51 +228,7 @@
         </div>
         <!-- /Main Wrapper -->
 
-        <!-- Appointment Details Modal -->
-        <div class="modal fade custom-modal" id="appt_details">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Appointment Details</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="info-details">
-                            <li>
-                                <div class="details-header">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <span class="title">#APT0001</span>
-                                            <span class="text">21 Oct 2019 10:00 AM</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="text-right">
-                                                <button type="button" class="btn bg-success-light btn-sm" id="topup_status">Completed</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="title">Status:</span>
-                                <span class="text">Completed</span>
-                            </li>
-                            <li>
-                                <span class="title">Confirm Date:</span>
-                                <span class="text">29 Jun 2019</span>
-                            </li>
-                            <li>
-                                <span class="title">Paid Amount</span>
-                                <span class="text">$450</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /Appointment Details Modal -->
+
 
         <!-- jQuery -->
         <script src="assets/js/jquery.min.js"></script>
