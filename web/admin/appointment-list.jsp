@@ -57,7 +57,7 @@
                                 <span>Main</span>
                             </li>
                             <li>
-                                <a href="index.jap"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                                <a href="index.jsp"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                             </li>
                             <li>
                                 <a href="profile.jsp"><i class="fe fe-user-plus"></i> <span>Profile</span></a>

@@ -28,12 +28,10 @@ public class AccountDAO extends DBContext {
             ps.setString(2, pass);
             rs = ps.executeQuery();//chay cau lenh tra ve
             while (rs.next()) {
-                return new Account(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4));
+                return new Account(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return null;
     }
@@ -45,7 +43,7 @@ public class AccountDAO extends DBContext {
             ps.setInt(1, account_id);
             rs = ps.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                return new Account(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5));
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -61,19 +59,9 @@ public class AccountDAO extends DBContext {
             ps.setInt(2, account_id);
             return ps.executeUpdate();
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return 0;
-    }
-
-    public static void main(String[] args) {
-        AccountDAO accountDb = new AccountDAO();
-        Account a = accountDb.getAccountByID(22);
-        System.out.println(a);
-
-//        System.out.println(accountDb.getNewestAccount());
-//        int i = accountDb.changePassword("abcd",2);
-//        System.out.println(i);
     }
 
     public Account getNewestAccount() {
@@ -82,7 +70,7 @@ public class AccountDAO extends DBContext {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             rs = ps.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getBoolean(5));
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -91,7 +79,7 @@ public class AccountDAO extends DBContext {
     }
 
     public void insertNewAccountPatient(String username, String password) {
-        String sql = "insert into Accounts values(?,?,2)";
+        String sql = "insert into Accounts values(?,?,2,1)";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, username);
@@ -110,12 +98,21 @@ public class AccountDAO extends DBContext {
             ps.setString(1, user);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Account(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3), rs.getInt(4));
+                return new Account(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return null;
+    }
+    
+    public static void main(String[] args) {
+        AccountDAO accountDb = new AccountDAO();
+        Account a = accountDb.getAccountByID(22);
+        System.out.println(a);
+
+//        System.out.println(accountDb.getNewestAccount());
+//        int i = accountDb.changePassword("abcd",2);
+//        System.out.println(i);
     }
 }

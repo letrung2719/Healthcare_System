@@ -5,23 +5,17 @@ public class Account {
     private String user;
     private String pass;
     private int author_id;
+    private boolean status;
 
     public Account() {
     }
 
-    public Account(int id, String user, String pass, int author_id) {
+    public Account(int id, String user, String pass, int author_id, boolean status) {
         this.id = id;
         this.user = user;
         this.pass = pass;
         this.author_id = author_id;
-    }
-
-    public int getAuthor_id() {
-        return author_id;
-    }
-
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
+        this.status = status;
     }
 
     public int getId() {
@@ -48,12 +42,25 @@ public class Account {
         this.pass = pass;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" + "id=" + id + ", user=" + user + ", pass=" + pass + ", author_id=" + author_id + '}';
+    public int getAuthor_id() {
+        return author_id;
     }
 
-    
-  
+    public void setAuthor_id(int author_id) {
+        this.author_id = author_id;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "id=" + id + ", user=" + user + ", pass=" + pass + ", author_id=" + author_id + ", status=" + status + '}';
+    }
 }
 
