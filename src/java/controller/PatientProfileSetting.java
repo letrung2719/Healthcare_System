@@ -8,11 +8,13 @@ package controller;
 import dal.PatientDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Patient;
 
 /**
@@ -22,6 +24,7 @@ import model.Patient;
 @WebServlet(name = "EditProfileControl", urlPatterns = { "/patient_profile_setting" })
 public class PatientProfileSetting extends HttpServlet {
 
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -76,7 +79,11 @@ public class PatientProfileSetting extends HttpServlet {
             Patient e = new Patient(id, name, gender, dob, phone, email, accountID, "");
             PatientDAO patientDb = new PatientDAO();
             int res = patientDb.editPatient(e);
-            request.setAttribute("thongbao", "Edit success!");
+            request.setAttribute("thongbao", resourceBundle.getString("success"));
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("user", e);
+            
             request.getRequestDispatcher("patient_profile?id=" + accountID).forward(request, response);
         } catch (NumberFormatException ex) {
             System.out.println(ex);

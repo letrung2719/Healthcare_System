@@ -23,6 +23,16 @@ public class Patient {
         this.accountID = accountID;
         this.image = image;
     }
+    
+    public Patient(String name, int gender, String dob, String phone, String email, int accountID ,String image) {
+        this.name = name;
+        this.gender = gender;
+        this.dob = dob;
+        this.phone = phone;
+        this.email = email;
+        this.accountID = accountID;
+        this.image = image;
+    }
 
     public String getImage() {
         return image;

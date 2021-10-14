@@ -8,6 +8,7 @@ package controller;
 import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,8 @@ import model.Account;
  */
 @WebServlet(name = "ChangePasswordControl", urlPatterns = {"/change_password"})
 public class ChangePasswordControl extends HttpServlet {
+
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -70,17 +73,17 @@ public class ChangePasswordControl extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
         AccountDAO accountDb = new AccountDAO();
         int id = acc.getId();
-        if (!acc.getPass().equals(oldPassword)){
-            request.setAttribute("mess", "Wrong password");
+        if (!acc.getPass().equals(oldPassword)) {
+            request.setAttribute("mess", resourceBundle.getString("invalid_pass"));
             request.getRequestDispatcher("change-password.jsp").forward(request, response);
-        }else {
-            if (!newPassword.equals(confirmPassword)){
-                request.setAttribute("mess", "Confirm password must be match");
+        } else {
+            if (!newPassword.equals(confirmPassword)) {
+                request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
                 request.getRequestDispatcher("change-password.jsp").forward(request, response);
-            }else{
+            } else {
                 accountDb.changePassword(newPassword, id);
-                request.setAttribute("thongbao", "Change password successfully");
-                request.getRequestDispatcher("patient_profile?id="+id).forward(request, response);
+                request.setAttribute("thongbao", resourceBundle.getString("change_pass"));
+                request.getRequestDispatcher("patient_profile?id=" + id).forward(request, response);
             }
         }
 

@@ -8,6 +8,7 @@ package controller;
 import dal.AppointmentDAO;
 import dal.DoctorDAO;
 import dal.PatientDAO;
+import dal.TimetableDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -69,11 +70,12 @@ public class BookingSuccessControl extends HttpServlet {
 
             PatientDAO db1 = new PatientDAO();
             DoctorDAO db2 = new DoctorDAO();
+            TimetableDAO db3 = new TimetableDAO();
             
-            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, slot_id, description, 1);
+            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, db3.getTimeBySlotID(slot_id), description, 1);
             
-            AppointmentDAO db3 = new AppointmentDAO();
-            db3.addNewAppointment(a);
+            AppointmentDAO db4 = new AppointmentDAO();
+            db4.addNewAppointment(a);
             request.setAttribute("appointment", a);
             request.getRequestDispatcher("booking-success.jsp").forward(request, response);
         } catch (NumberFormatException e) {

@@ -48,8 +48,8 @@
                                     <div class="success-cont">
                                         <i class="fas fa-check"></i>
                                         <h3>Appointment booked Successfully!</h3>
-                                        <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.date} ${appointment.slot}</strong></p>
-                                        <a href="#" class="btn btn-primary view-inv-btn">View Invoice</a>
+                                        <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.slot.time} (${appointment.date})</strong></p>
+                                        <a href="index.jsp" class="btn btn-primary view-inv-btn">Home</a>
                                     </div>
                                 </div>
                             </div>

@@ -7,6 +7,7 @@ package controller;
 
 import dal.DoctorDAO;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import model.Doctor;
  */
 public class DoctorProfileSettting extends HttpServlet {
 
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,7 +48,7 @@ public class DoctorProfileSettting extends HttpServlet {
             DoctorDAO doctorDb = new DoctorDAO();
             int res = doctorDb.editDoctor(d);
             System.out.println(res);
-            request.setAttribute("thongbao", "Edit success!");
+            request.setAttribute("thongbao", resourceBundle.getString("success"));
             request.getRequestDispatcher("doctor_profile?id=" + accountID).forward(request, response);
         } catch (NumberFormatException ex) {
             System.out.println(ex);

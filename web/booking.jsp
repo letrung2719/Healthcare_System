@@ -102,6 +102,8 @@
                                     <form action="booking" method="post">
 
                                         <div class="payment-widget">
+                                            <p class="text-danger">${mess}</p>
+
                                             <h4 class="card-title">Appointment Details</h4>
 
                                             <!-- Appointment Details -->
@@ -114,14 +116,13 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group card-label">
                                                             <label for="card_name" style="margin-bottom: 14px">Date</label>
-                                                            <input class="form-control" id="card_name" type="date" name="date">
+                                                            <input class="form-control" id="card_name" type="date" name="date" value="${date}" required="">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group card-label">
                                                             <label for="card_name">Time</label>
                                                             <select class="form-control" id="card_name" name="slot_id"> 
-                                                                <option value="0">-- Select --</option>
                                                                 <option value="1">7h - 8h</option>
                                                                 <option value="2">8h - 9h</option>
                                                                 <option value="3">9h - 10h</option>
