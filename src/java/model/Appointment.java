@@ -17,25 +17,28 @@ public class Appointment {
     private String date;
     private int slot;
     private String description;
+    private int status;
 
     public Appointment() {
     }
 
-    public Appointment(Patient patient, Doctor doctor, String date, int slot, String description) {
-        this.patient = patient;
-        this.doctor = doctor;
-        this.date = date;
-        this.slot = slot;
-        this.description = description;
-    }
-
-    public Appointment(int appointmentID, Patient patient, Doctor doctor, String date, int slot, String description) {
+    public Appointment(int appointmentID, Patient patient, Doctor doctor, String date, int slot, String description, int status) {
         this.appointmentID = appointmentID;
         this.patient = patient;
         this.doctor = doctor;
         this.date = date;
         this.slot = slot;
         this.description = description;
+        this.status = status;
+    }
+
+    public Appointment(Patient patient, Doctor doctor, String date, int slot, String description, int status) {
+        this.patient = patient;
+        this.doctor = doctor;
+        this.date = date;
+        this.slot = slot;
+        this.description = description;
+        this.status = status;
     }
 
     public int getAppointmentID() {
@@ -84,5 +87,18 @@ public class Appointment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" + "appointmentID=" + appointmentID + ", patient=" + patient + ", doctor=" + doctor + ", date=" + date + ", slot=" + slot + ", description=" + description + ", status=" + status + '}';
     }
 }

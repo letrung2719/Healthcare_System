@@ -9,7 +9,10 @@ import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Appointment;
+import model.Doctor;
 import model.Patient;
 
 /**
@@ -22,7 +25,7 @@ public class AppointmentDAO extends DBContext {
     ResultSet rs = null;
 
     public int addNewAppointment(Appointment a) {
-        String sql = "insert into Appointments (patient_id,doctor_id,date,slot_id,description) values (?,?,?,?,?)";
+        String sql = "insert into Appointments (patient_id,doctor_id,date,slot_id,description,status) values (?,?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, a.getPatient().getPatientID());
@@ -30,6 +33,7 @@ public class AppointmentDAO extends DBContext {
             st.setString(3, a.getDate());
             st.setInt(4, a.getSlot());
             st.setString(5, a.getDescription());
+            st.setInt(6, a.getStatus());
             st.executeUpdate();
             return 1;
         } catch (SQLException e) {
@@ -38,8 +42,39 @@ public class AppointmentDAO extends DBContext {
         return 0;
     }
 
-//    public static void main(String[] args) {
-//        AppointmentDAO db = new AppointmentDAO();
-//        int n = db.addNewAppointment(new Appointment(null, null, "2021-09-11", 5, "abc"));
-//    }
+    public List<Appointment> getAllAppointment() {
+        List<Appointment> list = new ArrayList<>();
+        String sql = "select * from Appointments";
+        try {
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            PatientDAO dalPatient = new PatientDAO();
+            DoctorDAO dalDoctor = new DoctorDAO();
+
+            while (rs.next()) {
+                Appointment a = new Appointment();
+                a.setAppointmentID(rs.getInt(1));
+                Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));
+                a.setPatient(p);
+                Doctor d = dalDoctor.getDoctorByDoctorID(rs.getInt(3));
+                a.setDoctor(d);
+                a.setDate(rs.getString(4));
+                a.setSlot(rs.getInt(5));
+                a.setDescription(rs.getString(6));
+                a.setStatus(rs.getInt(7));
+                list.add(a);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        AppointmentDAO db = new AppointmentDAO();
+        List<Appointment> list = db.getAllAppointment();
+        for (Appointment a : list) {
+            System.out.println(a.toString());
+        }
+    }
 }

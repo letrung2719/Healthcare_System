@@ -36,29 +36,27 @@ public class LoginControl extends HttpServlet {
         PatientDAO patientDb = new PatientDAO();
         DoctorDAO doctorDb = new DoctorDAO();
 
-        Patient p = new Patient();
-        Doctor d = new Doctor();
-
         if (a == null) {
             request.setAttribute("mess", "wrong user or pass");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();
             if (a.getAuthor_id() == 1) {
-                d = doctorDb.getDoctorByAccountID(a.getId());
-
+                Doctor d = doctorDb.getDoctorByAccountID(a.getId());
                 session.setAttribute("user", d);
-
             }
             if (a.getAuthor_id() == 2) {
-
-                p = patientDb.getPatientByAccountID(a.getId());
-
+                Patient p = patientDb.getPatientByAccountID(a.getId());
                 session.setAttribute("user", p);
             }
 
             session.setAttribute("acc", a);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+
+            if (a.getAuthor_id() == 0) {
+                response.sendRedirect("admin/index.jsp");
+            } else {
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
         }
     }
 

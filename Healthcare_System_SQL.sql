@@ -1,27 +1,27 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [HealthcareSystem]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Database [HealthcareSystem]    Script Date: 09-Oct-21 5:00:21 PM ******/
 CREATE DATABASE [HealthcareSystem]
-GO
-USE [HealthcareSystem]
-GO
-/****** Object:  Table [dbo].[Accounts]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Accounts]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
+GO
+USE [HealthcareSystem]
 GO
 CREATE TABLE [dbo].[Accounts](
 	[account_id] [int] IDENTITY(1,1) NOT NULL,
 	[username] [nvarchar](50) NOT NULL,
 	[password] [nvarchar](50) NOT NULL,
 	[author_id] [int] NULL,
+	[status] [bit] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[account_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Appointments]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Appointments]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33,13 +33,14 @@ CREATE TABLE [dbo].[Appointments](
 	[date] [date] NULL,
 	[slot_id] [int] NULL,
 	[description] [nvarchar](max) NULL,
+	[status] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[appointment_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Blogs]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Blogs]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -56,7 +57,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Doctor_Feedbacks]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Doctor_Feedbacks]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -73,7 +74,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Doctors]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Doctors]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -96,7 +97,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Patients]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Patients]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -116,7 +117,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Reservations]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Reservations]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -133,7 +134,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Service_Feedbacks]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Service_Feedbacks]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -150,7 +151,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Services]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Services]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -168,7 +169,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Specialities]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Specialities]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -182,7 +183,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Timetable]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Table [dbo].[Timetable]    Script Date: 09-Oct-21 5:00:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -198,69 +199,85 @@ PRIMARY KEY CLUSTERED
 GO
 SET IDENTITY_INSERT [dbo].[Accounts] ON 
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (1, N'admin', N'admin', 0)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (1, N'admin', N'admin', 0, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (2, N'doctor1', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (2, N'doctor1', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (3, N'doctor2', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (3, N'doctor2', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (4, N'doctor3', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (4, N'doctor3', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (5, N'doctor4', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (5, N'doctor4', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (6, N'doctor5', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (6, N'doctor5', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (7, N'doctor6', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (7, N'doctor6', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (8, N'doctor7', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (8, N'doctor7', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (9, N'doctor8', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (9, N'doctor8', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (10, N'doctor9', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (10, N'doctor9', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (11, N'doctor10', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (11, N'doctor10', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (12, N'doctor11', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (12, N'doctor11', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (13, N'doctor12', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (13, N'doctor12', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (14, N'doctor13', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (14, N'doctor13', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (15, N'doctor14', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (15, N'doctor14', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (16, N'doctor15', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (16, N'doctor15', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (17, N'doctor16', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (17, N'doctor16', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (18, N'doctor17', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (18, N'doctor17', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (19, N'doctor18', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (19, N'doctor18', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (20, N'doctor19', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (20, N'doctor19', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (21, N'doctor20', N'12345', 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (21, N'doctor20', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (22, N'patient1', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (22, N'patient1', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (23, N'patient2', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (23, N'patient2', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (24, N'patient3', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (24, N'patient3', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (25, N'patient4', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (25, N'patient4', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (26, N'patient5', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (26, N'patient5', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (27, N'patient6', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (27, N'patient6', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (28, N'patient7', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (28, N'patient7', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (29, N'patient8', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (29, N'patient8', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (30, N'patient9', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (30, N'patient9', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id]) VALUES (31, N'patient10', N'12345', 2)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (31, N'patient10', N'12345', 2, 1)
 GO
 SET IDENTITY_INSERT [dbo].[Accounts] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Appointments] ON 
+GO
+INSERT [dbo].[Appointments] ([appointment_id], [patient_id], [doctor_id], [date], [slot_id], [description], [status]) VALUES (1, 1, 1, CAST(N'2021-10-15' AS Date), 4, NULL, 0)
+GO
+INSERT [dbo].[Appointments] ([appointment_id], [patient_id], [doctor_id], [date], [slot_id], [description], [status]) VALUES (2, 1, 3, CAST(N'2021-10-21' AS Date), 3, NULL, 0)
+GO
+INSERT [dbo].[Appointments] ([appointment_id], [patient_id], [doctor_id], [date], [slot_id], [description], [status]) VALUES (3, 1, 1, CAST(N'2001-03-31' AS Date), 3, NULL, 0)
+GO
+INSERT [dbo].[Appointments] ([appointment_id], [patient_id], [doctor_id], [date], [slot_id], [description], [status]) VALUES (4, 1, 1, CAST(N'2022-08-27' AS Date), 2, NULL, 0)
+GO
+INSERT [dbo].[Appointments] ([appointment_id], [patient_id], [doctor_id], [date], [slot_id], [description], [status]) VALUES (6, 1, 1, CAST(N'2021-09-11' AS Date), 5, N'abc', 0)
+GO
+INSERT [dbo].[Appointments] ([appointment_id], [patient_id], [doctor_id], [date], [slot_id], [description], [status]) VALUES (7, 1, 1, CAST(N'2006-09-19' AS Date), 5, N'ÃÂ¡gjsdg', 0)
+GO
+SET IDENTITY_INSERT [dbo].[Appointments] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Doctors] ON 
 GO
@@ -308,7 +325,7 @@ SET IDENTITY_INSERT [dbo].[Doctors] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Patients] ON 
 GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (1, N'Nguyen Van An', 1, CAST(N'2000-06-11' AS Date), N'0383567111', N'annv12@gmail.com', N'https://scontent.fhan3-4.fna.fbcdn.net/v/t1.6435-9/242537042_3083800925231735_4947795203312758325_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=b9115d&_nc_ohc=tgwFKVQX5AcAX9wbtfn&_nc_ht=scontent.fhan3-4.fna&oh=13a4efe2196c90138e67ceda0ea3e5c8&oe=617C5B16', 22)
+INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (1, N'Nguyen Van Truong', 1, CAST(N'2000-06-11' AS Date), N'0383567111', N'annv12@gmail.com', N'https://scontent.fhan3-4.fna.fbcdn.net/v/t1.6435-9/242537042_3083800925231735_4947795203312758325_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=b9115d&_nc_ohc=tgwFKVQX5AcAX9wbtfn&_nc_ht=scontent.fhan3-4.fna&oh=13a4efe2196c90138e67ceda0ea3e5c8&oe=617C5B16', 22)
 GO
 INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (2, N'Nguyen Thi Vanh', 0, CAST(N'2000-02-12' AS Date), N'0312385923', N'vanh192@gmail.com', N'https://scontent.fhan3-4.fna.fbcdn.net/v/t39.30808-6/p320x320/242126353_896042261015934_5335071054684681854_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=825194&_nc_ohc=99kCeXWK3agAX-6KAo4&_nc_ht=scontent.fhan3-4.fna&oh=5ba62ca34b4e6e7177fbc1d38b2cafe9&oe=6159788B', 23)
 GO
@@ -482,7 +499,7 @@ SET IDENTITY_INSERT [dbo].[Timetable] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__Accounts__F3DBC572BCFDDD82]    Script Date: 03-Oct-21 5:41:36 PM ******/
+/****** Object:  Index [UQ__Accounts__F3DBC5722D1C1135]    Script Date: 09-Oct-21 5:00:21 PM ******/
 ALTER TABLE [dbo].[Accounts] ADD UNIQUE NONCLUSTERED 
 (
 	[username] ASC

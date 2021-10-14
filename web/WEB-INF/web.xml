@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>Patient_Profile</servlet-name>
-        <servlet-class>controller.Patient_Profile</servlet-class>
+        <servlet-class>controller.PatientProfile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignUpControll</servlet-name>

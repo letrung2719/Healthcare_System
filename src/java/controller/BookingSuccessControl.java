@@ -69,8 +69,8 @@ public class BookingSuccessControl extends HttpServlet {
 
             PatientDAO db1 = new PatientDAO();
             DoctorDAO db2 = new DoctorDAO();
-
-            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, slot_id, description);
+            
+            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, slot_id, description, 1);
             
             AppointmentDAO db3 = new AppointmentDAO();
             db3.addNewAppointment(a);

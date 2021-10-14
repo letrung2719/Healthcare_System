@@ -25,9 +25,10 @@
                 </a>
             </div>
             <ul class="main-nav">
-                <li class="active">
+                <li>
                     <a href="index.jsp">Home</a>
                 </li>
+<!--                
                 <li class="has-submenu">
                     <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
@@ -58,14 +59,20 @@
                     <ul class="submenu">
                         <li><a href="doctor?page=1">Doctor List</a></li>
                         <li><a href="services">Services</a></li>
-                        <li><a href="services">Specialities</a></li>
                     </ul>
                 </li>
+                -->
+                
+                <li><a href="doctor?page=1">Doctors List</a></li>
+                <li><a href="services">Services List</a></li>
+                <li><a href="#">About us</a></li>
+
                 <c:if test="${sessionScope.acc.author_id == 0}">
-                <li>
-                    <a href="admin/index.jsp" target="_blank">Admin</a>
-                </li>
+                    <li>
+                        <a href="admin/index.jsp" target="_blank">Admin</a>
+                    </li>
                 </c:if>
+                    
                 <li class="login-link">
                     <a href="login.jsp">Login / Signup</a>
                 </li>
@@ -152,14 +159,14 @@
                         </c:if>
                         <c:if test="${sessionScope.acc.author_id == 2}">
                             <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}"
-                           >Profile Settings</a
-                        >
+                               >Profile Settings</a
+                            >
                         </c:if>
 
-                            <a class="dropdown-item" href="logout">Logout</a>
-                        </div>
+                        <a class="dropdown-item" href="logout">Logout</a>
+                    </div>
 
-                    </li>
+                </li>
             </c:if>
             <!-- /User Menu -->
 
