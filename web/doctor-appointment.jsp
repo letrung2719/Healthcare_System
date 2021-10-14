@@ -179,7 +179,7 @@
                                             </div>
                                         </div>
                                         <div class="appointment-action">
-                                            <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" href="#appt_details${app.appointmentID}">
+                                            <a class="btn btn-sm bg-info-light" href="appointmentDetailControl?id=${app.appointmentID}">
                                                 <i class="far fa-eye"></i> View
                                             </a>
                                             <a href="javascript:void(0);" class="btn btn-sm bg-success-light">

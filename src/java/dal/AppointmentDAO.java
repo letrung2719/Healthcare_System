@@ -43,18 +43,15 @@ public class AppointmentDAO extends DBContext {
         }
         return 0;
     }
-
-    public List<Appointment> getAllAppointment() {
-        List<Appointment> list = new ArrayList<>();
-        String sql = "select * from Appointments";
-        try {
-            ps = connection.prepareStatement(sql);
-            rs = ps.executeQuery();
+    public Appointment getAppointmentByID(int appID){
+        String sql = "select  * from appointments where appointment_id = "+appID;
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
             PatientDAO dalPatient = new PatientDAO();
             DoctorDAO dalDoctor = new DoctorDAO();
             SlotDAO slotDb = new SlotDAO();
-        
-            while (rs.next()) {
+            if (rs.next()){
                 Appointment a = new Appointment();
                 a.setAppointmentID(rs.getInt(1));
                 Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));
@@ -66,19 +63,21 @@ public class AppointmentDAO extends DBContext {
                 a.setSlot(t);
                 a.setDescription(rs.getString(6));
                 a.setStatus(rs.getInt(7));
-                list.add(a);
+                return a;
             }
-        } catch (SQLException e) {
-            System.out.println(e);
+        }catch(SQLException e){
+            
         }
-        return list;
+        return null;
     }
+    
 
     public int getAllDoctorAppointment(int doctorID) {
         String sql = "select count(*) from Appointments where doctor_id = " + doctorID;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             rs = st.executeQuery();
+            
             if (rs.next()) {
                 return rs.getInt(1);
             }
@@ -129,18 +128,18 @@ public class AppointmentDAO extends DBContext {
 
     public static void main(String[] args) {
         AppointmentDAO db = new AppointmentDAO();
-        List<Appointment> list = db.paginateAppointmentByDoctorID(1, 1, 3);
-        System.out.println(list);
-        PatientDAO ptDb = new PatientDAO();
-        Patient p = ptDb.getPatientByPatientID(5);
-        DoctorDAO dtDb = new DoctorDAO();
-        Doctor d = dtDb.getDoctorByDoctorID(1);
-        SlotDAO sDb = new SlotDAO();
-        TimeTable slot = sDb.getSlotByID(6);
-        Appointment a = new Appointment(p, d, "", slot, "", 0);
+//        List<Appointment> list = db.paginateAppointmentByDoctorID(1, 1, 3);
+//        System.out.println(list);
+//        PatientDAO ptDb = new PatientDAO();
+//        Patient p = ptDb.getPatientByPatientID(5);
+//        DoctorDAO dtDb = new DoctorDAO();
+//        Doctor d = dtDb.getDoctorByDoctorID(1);
+//        SlotDAO sDb = new SlotDAO();
+//        TimeTable slot = sDb.getSlotByID(6);
+//        Appointment a = new Appointment(p, d, "", slot, "", 0);
+//        
+//        System.out.println(db.addNewAppointment(a));
         
-        System.out.println(db.addNewAppointment(a));
-        
-//        System.out.println(db.getAllDoctorAppointment(1));
+        System.out.println(db.getAppointmentByID(1));
     }
 }

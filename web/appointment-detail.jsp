@@ -138,27 +138,32 @@
                                             </h5>
                                             <div class="row">
                                                 <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Appointment ID</p>
-                                                <p class="col-sm-10">John Doe</p>
+                                                <p class="col-sm-10">#APT${app.appointmentID}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Name</p>
-                                                <p class="col-sm-10">John Doe</p>
+                                                <p class="col-sm-10">${app.patient.name}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Email</p>
-                                                <p class="col-sm-10">24 Jul 1983</p>
+                                                <p class="col-sm-10">${app.patient.email}</p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Phone number</p>
-                                                <p class="col-sm-10">johndoe@example.com</p>
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Phone Number</p>
+                                                <p class="col-sm-10">${app.patient.phone}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date</p>
-                                                <p class="col-sm-10">305-310-5857</p>
+                                                <p class="col-sm-10">${app.date}</p>
+                                                
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-2 text-muted text-sm-right mb-0">Time</p>
+                                                <p class="col-sm-10 text-info">${app.slot.time}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-2 text-muted text-sm-right mb-0">Description</p>
-                                                <p> gfhasjhdgasdhbgqwihcb asndvhjwavdbkasjbfjashb k hdasg fhjqwgf tuy dgjfq eu csqfudyqwvdjsgaudhas</p>
+                                                <p class="col-sm-10 ">${app.description}</p>
                                             </div>
                                         </div>
                                     </div>
