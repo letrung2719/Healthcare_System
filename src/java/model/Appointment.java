@@ -18,7 +18,8 @@ public class Appointment {
     private Timetable slot;
     private String description;
     private int status;
-
+   
+    
     public Appointment() {
     }
 
@@ -66,6 +67,7 @@ public class Appointment {
     }
 
     public String getDate() {
+       
         return date;
     }
 
@@ -99,6 +101,6 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment{" + "appointmentID=" + appointmentID + ", patient=" + patient + ", doctor=" + doctor + ", date=" + date + ", slot=" + slot + ", description=" + description + ", status=" + status + '}';
+        return "Appointment{" + "appointmentID=" + appointmentID + ", patient=" + patient + ", doctor=" + doctor + ", date=" + date + ", slot=" + slot + ", description=" + description + ", status=" + status + "}\n";
     }
 }

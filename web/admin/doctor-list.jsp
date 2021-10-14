@@ -193,8 +193,8 @@
 
                                                             <td> <!-- name-->
                                                                 <h2 class="table-avatar">
-                                                                    <a href="doctor-profile?id=${doctor.doctorID}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
-                                                                    <a href="doctor-profile?id=${doctor.doctorID}">Dr. ${doctor.name}</a>
+                                                                    <a href="doctorProfileAdminControl?id=${doctor.doctorID}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
+                                                                    <a href="doctorProfileAdminControl?id=${doctor.doctorID}">Dr. ${doctor.name}</a>
                                                                 </h2>
                                                             </td>
                                                             <!-- >Gender-->

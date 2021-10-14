@@ -7,26 +7,27 @@ package model;
 
 /**
  *
- * @author admin
+ * @author Admin
  */
 public class Timetable {
-    private int slot_id;
+
+    private int slotID;
     private String time;
 
     public Timetable() {
     }
 
-    public Timetable(int slot_id, String time) {
-        this.slot_id = slot_id;
+    public Timetable(int slotID, String time) {
+        this.slotID = slotID;
         this.time = time;
     }
 
-    public int getSlot_id() {
-        return slot_id;
+    public int getSlotID() {
+        return slotID;
     }
 
-    public void setSlot_id(int slot_id) {
-        this.slot_id = slot_id;
+    public void setSlotID(int slotID) {
+        this.slotID = slotID;
     }
 
     public String getTime() {
@@ -35,5 +36,10 @@ public class Timetable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "TimeTable{" + "slotID=" + slotID + ", time=" + time + '}' + "\n";
     }
 }

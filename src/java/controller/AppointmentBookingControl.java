@@ -11,10 +11,8 @@ import dal.PatientDAO;
 import dal.TimetableDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -109,7 +107,7 @@ public class AppointmentBookingControl extends HttpServlet {
 
             for (Appointment appointment : list) {
                 if (a.getDate().equals(appointment.getDate())) {
-                    if (a.getSlot().getSlot_id() ==  appointment.getSlot().getSlot_id()) {
+                    if (a.getSlot().getSlotID() ==  appointment.getSlot().getSlotID()) {
                         request.setAttribute("mess", resourceBundle.getString("slot_busy"));
                         request.setAttribute("doctor", db2.getDoctorByDoctorID(doctor_id));
                         request.setAttribute("date", date);

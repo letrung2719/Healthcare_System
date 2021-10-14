@@ -24,12 +24,29 @@
                     <i class="fas fa-times"></i>
                 </a>
             </div>
+            
             <c:set var="path" value="<%=request.getServletPath()%>"></c:set>
                 <ul class="main-nav">
-                <li class="${path == "/index.jsp" ? "active" : ""}"><a href="index.jsp">Home</a></li>              
+                    <li class="${path == "/index.jsp" ? "active" : ""}"><a href="index.jsp">Home</a></li>              
                 <li class="${path == "/doctor.jsp" ? "active" : ""}"><a href="doctor?page=1">Doctors List</a></li>
                 <li class="${path == "/serviceslist.jsp" ? "active" : ""}"><a href="services">Services List</a></li>
                 <li class="${path == "/blog.jsp" ? "active" : ""}"><a href="#">About us</a></li>
+
+                <c:if test="${sessionScope.acc.author_id == 1}">
+                    <li class="has-submenu">
+                        <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="doctor_profile?id=${sessionScope.user.accountID}">Doctor Profile</a></li>
+                            <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
+                            <li><a href="doctorAppointmentControl?doctorID=1&indexPage=1">Appointments</a></li>
+                            <li><a href="schedule-timings.html">Schedule Timing</a></li>
+                            <li><a href="my-patients.html">Patients List</a></li>
+                            <li><a href="invoices.html">Invoices</a></li>
+                            <li><a href="doctor_profile_setting?id=${sessionScope.user.accountID}">Profile Settings</a></li>
+                            <li><a href="reviews.html">Reviews</a></li>
+                        </ul>
+                    </li>
+                </c:if>
 
                 <c:if test="${sessionScope.acc.author_id == 0}">
                     <li>
@@ -86,8 +103,8 @@
                                     <div class="user-text">
                                         <h6>${sessionScope.user.name}</h6>
                                         <p class="text-muted mb-0">Doctor</p>
-                                        </div>
-                                    </a>
+                                    </div>
+                                </a>
                             </c:if>
                             <c:if test="${sessionScope.acc.author_id == 2}">
                                 <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">
@@ -101,8 +118,8 @@
                                     <div class="user-text">
                                         <h6>${sessionScope.user.name}</h6>
                                         <p class="text-muted mb-0">Patient</p>
-                                        </div>
-                                    </a>
+                                    </div>
+                                </a>
                             </c:if>
                         </div>
 
