@@ -135,38 +135,56 @@
                                         <div class="card-body">
                                             <h5 class=" d-flex justify-content-between">
                                                 <span class="card-title">Appointment Details</span> 
+                                                <div class="dropdown">
+                                                    <a class="dropdown-toggle text-warning" href="#" role="button" data-toggle="dropdown" aria-expanded="false"> Change Status </a>
+                                                    <div class="dropdown-menu" style="">
+                                                        <a class="dropdown-item text-warning" href="#">Pending</a>
+                                                        <a class="dropdown-item text-success" href="#">Complete</a>
+                                                        <a class="dropdown-item text-danger" href="#">Cancel</a>
+                                                    </div>
+                                                </div>
                                             </h5>
                                             <div class="row">
-                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Appointment ID</p>
+                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Appointment ID</h4>
                                                 <p class="col-sm-10">#APT${app.appointmentID}</p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Name</p>
+                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Name</h4>
                                                 <p class="col-sm-10">${app.patient.name}</p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Email</p>
+                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Email</h4>
                                                 <p class="col-sm-10">${app.patient.email}</p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Phone Number</p>
+                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Phone Number</h4>
                                                 <p class="col-sm-10">${app.patient.phone}</p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date</p>
+                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date</h4>
                                                 <p class="col-sm-10">${app.date}</p>
-                                                
+
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-2 text-muted text-sm-right mb-0">Time</p>
+                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0">Time</h4>
                                                 <p class="col-sm-10 text-info">${app.slot.time}</p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-2 text-muted text-sm-right mb-0">Description</p>
+                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0">Description</h4>
                                                 <p class="col-sm-10 ">${app.description}</p>
                                             </div>
+                                            <div class="row">
+                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0">Status</h4>
+                                                <p class="col-sm-10"><button class="btn btn-rounded btn-success">Complete</button></p>
+
+
+<!--                                                <span class=" bage badge badge-pill bg-success-light">${app.status} Complete</span>-->
+                                            </div>
+
                                         </div>
+
                                     </div>
+
                                 </div>
                             </div>
 

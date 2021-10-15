@@ -172,7 +172,7 @@
                                                 <h3><a href="patient-profile.html">${app.patient.name}</a></h3>
                                                 <div class="patient-details">
                                                     <h5><i class="far fa-clock"></i> ${app.date}, ${app.slot.time}</h5>
-                                                    <!--                                                    <h5><i class="fas fa-map-marker-alt"></i> Newyork, United States</h5>-->
+                                                    
                                                     <h5><i class="fas fa-envelope"></i>${app.patient.email}</h5>
                                                     <h5 class="mb-0"><i class="fas fa-phone"></i>${app.patient.phone}</h5>
                                                 </div>
@@ -185,7 +185,7 @@
                                             <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
                                                 <i class="fas fa-check"></i> Accept
                                             </a>
-                                            <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                            <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&action=delete" class="btn btn-sm bg-danger-light">
                                                 <i class="fas fa-times"></i> Cancel
                                             </a>
                                         </div>
@@ -198,7 +198,7 @@
                                 <div class="load-more text-center">
                                     <ul class="pagination">
                                         <li class="page-item ">
-                                            <a class="page-link" href="doctor?page=${indexPage-1}">Previous</a>
+                                            <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${indexPage+1}">Previous</a>
                                         </li>
                                         <c:set var="page" value="${indexPage}"/>
                                         <c:forEach begin="1" end="${numberOfPage}" var="i">
@@ -206,7 +206,7 @@
                                             </c:forEach>
 
                                         <li class="page-item">
-                                            <a class="page-link" href="doctor?page=${indexPage+1}">Next</a>
+                                            <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${indexPage+1}">Next</a>
                                         </li>
                                     </ul>	
                                 </div>
