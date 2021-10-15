@@ -139,9 +139,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- Profile Settings Form -->
-                                    <h3 class="text-success">
-                                        ${thongbao}
-                                    </h3>
+                                    <p class="text-success">${thongbao}</p>
                                     <form action="patient_profile_setting" method="post">
                                         <div class="row form-row">
                                             <input name="id" type="hidden" value="${Users.patientID}"/>

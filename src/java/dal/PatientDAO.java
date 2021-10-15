@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Account;
 import model.Patient;
 
 /**
@@ -19,6 +18,9 @@ import model.Patient;
  * @author Admin
  */
 public class PatientDAO extends DBContext {
+
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
     public Patient getPatientByAccountID(int accountID) {
         String sql = "select * from patients where account_id = ?";
@@ -84,9 +86,7 @@ public class PatientDAO extends DBContext {
     }
 
     public void insertNewPatient(Patient u) {
-        AccountDAO accountDb = new AccountDAO();
-        Account a = accountDb.getNewestAccount();
-        String sql = "insert into Patients(name,gender,dob,phone,email,account_id) values (?,?,?,?,?,?)";
+        String sql = "insert into Patients(name,gender,dob,phone,email,image,account_id) values (?,?,?,?,?,?,?)";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, u.getName());
@@ -94,14 +94,13 @@ public class PatientDAO extends DBContext {
             ps.setString(3, u.getDob());
             ps.setString(4, u.getPhone());
             ps.setString(5, u.getEmail());
-            ps.setInt(6, a.getId());
+            ps.setString(6, u.getImage());
+            ps.setInt(7, u.getAccountID());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
-    PreparedStatement ps = null;
-    ResultSet rs = null;
 
     public List<Patient> getAllPatient() {
         ArrayList<Patient> list = new ArrayList<>();
@@ -147,11 +146,6 @@ public class PatientDAO extends DBContext {
 
     public static void main(String[] args) {
         PatientDAO patientDb = new PatientDAO();
-        Patient p = patientDb.getPatientByAccountID(22);
-        System.out.println(p);
-
-//        List<Patients> list = patientDb.getAllPatient();
-//        System.out.println(list);
-//         
+        patientDb.insertNewPatient(new Patient("abc", 0, "", "0123456789", "abc@gmail.com", 34, ""));
     }
 }

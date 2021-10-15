@@ -15,7 +15,7 @@ public class Appointment {
     private Patient patient;
     private Doctor doctor;
     private String date;
-    private TimeTable slot;
+    private Timetable slot;
     private String description;
     private int status;
    
@@ -23,7 +23,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(int appointmentID, Patient patient, Doctor doctor, String date, TimeTable slot, String description, int status) {
+    public Appointment(int appointmentID, Patient patient, Doctor doctor, String date, Timetable slot, String description, int status) {
         this.appointmentID = appointmentID;
         this.patient = patient;
         this.doctor = doctor;
@@ -33,7 +33,7 @@ public class Appointment {
         this.status = status;
     }
 
-    public Appointment(Patient patient, Doctor doctor, String date, TimeTable slot, String description, int status) {
+    public Appointment(Patient patient, Doctor doctor, String date, Timetable slot, String description, int status) {
         this.patient = patient;
         this.doctor = doctor;
         this.date = date;
@@ -75,15 +75,13 @@ public class Appointment {
         this.date = date;
     }
 
-    public TimeTable getSlot() {
+    public Timetable getSlot() {
         return slot;
     }
 
-    public void setSlot(TimeTable slot) {
+    public void setSlot(Timetable slot) {
         this.slot = slot;
     }
-
-   
 
     public String getDescription() {
         return description;
@@ -105,7 +103,4 @@ public class Appointment {
     public String toString() {
         return "Appointment{" + "appointmentID=" + appointmentID + ", patient=" + patient + ", doctor=" + doctor + ", date=" + date + ", slot=" + slot + ", description=" + description + ", status=" + status + "}\n";
     }
-
-    
-    
 }
