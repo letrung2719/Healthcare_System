@@ -138,9 +138,10 @@
                                                 <div class="dropdown">
                                                     <a class="dropdown-toggle text-warning" href="#" role="button" data-toggle="dropdown" aria-expanded="false"> Change Status </a>
                                                     <div class="dropdown-menu" style="">
-                                                        <a class="dropdown-item text-warning" href="#">Pending</a>
-                                                        <a class="dropdown-item text-success" href="#">Complete</a>
-                                                        <a class="dropdown-item text-danger" href="#">Cancel</a>
+
+                                                        <a class="dropdown-item text-warning" href="appointmentDetailControl?id=${app.appointmentID}&status=pending">Pending</a>
+                                                        <a class="dropdown-item text-success" href="appointmentDetailControl?id=${app.appointmentID}&status=complete">Complete</a>
+                                                        <a class="dropdown-item text-danger" href="appointmentDetailControl?id=${app.appointmentID}&status=cancel">Cancel</a>
                                                     </div>
                                                 </div>
                                             </h5>
@@ -175,7 +176,16 @@
                                             </div>
                                             <div class="row">
                                                 <h4 class="col-sm-2 text-muted text-sm-right mb-0">Status</h4>
-                                                <p class="col-sm-10"><button class="btn btn-rounded btn-success">Complete</button></p>
+                                                <c:if test="${app.status == 1}">
+                                                    <p class="col-sm-10"><button class="btn btn-rounded btn-warning">Pending</button></p>
+                                                </c:if>
+                                                <c:if test="${app.status == 2}">
+                                                    <p class="col-sm-10"><button class="btn btn-rounded btn-success">Complete</button></p>
+                                                </c:if>
+                                                <c:if test="${app.status == 0}">
+                                                    <p class="col-sm-10"><button class="btn btn-rounded btn-danger">Cancel</button></p>
+                                                </c:if>
+
 
 
 <!--                                                <span class=" bage badge badge-pill bg-success-light">${app.status} Complete</span>-->
