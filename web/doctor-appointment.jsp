@@ -182,11 +182,8 @@
                                             <a class="btn btn-sm bg-info-light" href="appointmentDetailControl?id=${app.appointmentID}">
                                                 <i class="far fa-eye"></i> View
                                             </a>
-                                            <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                <i class="fas fa-check"></i> Accept
-                                            </a>
-                                            <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&action=delete" class="btn btn-sm bg-danger-light">
-                                                <i class="fas fa-times"></i> Cancel
+                                            <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&deleteID=${app.appointmentID}" class="btn btn-sm bg-danger-light">
+                                                <i class="fas fa-times"></i> Delete
                                             </a>
                                         </div>
                                     </div>
@@ -198,15 +195,15 @@
                                 <div class="load-more text-center">
                                     <ul class="pagination">
                                         <li class="page-item ">
-                                            <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${indexPage+1}">Previous</a>
+                                            <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${page-1}">Previous</a>
                                         </li>
                                         <c:set var="page" value="${indexPage}"/>
                                         <c:forEach begin="1" end="${numberOfPage}" var="i">
-                                            <li class="page-item ${indexPage==i?"active":""}"><a class="page-link"  href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${i}">${i}</a></li>
+                                            <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${i}">${i}</a></li>
                                             </c:forEach>
 
                                         <li class="page-item">
-                                            <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${indexPage+1}">Next</a>
+                                            <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${page+1}">Next</a>
                                         </li>
                                     </ul>	
                                 </div>

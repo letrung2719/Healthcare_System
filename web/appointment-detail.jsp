@@ -136,7 +136,7 @@
                                             <h5 class=" d-flex justify-content-between">
                                                 <span class="card-title">Appointment Details</span> 
                                                 <div class="dropdown">
-                                                    <a class="dropdown-toggle text-warning" href="#" role="button" data-toggle="dropdown" aria-expanded="false"> Change Status </a>
+                                                    <a class="dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-expanded="false"> Change Status </a>
                                                     <div class="dropdown-menu" style="">
 
                                                         <a class="dropdown-item text-warning" href="appointmentDetailControl?id=${app.appointmentID}&status=pending">Pending</a>

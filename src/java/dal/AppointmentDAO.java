@@ -138,7 +138,7 @@ public class AppointmentDAO extends DBContext {
         }
         return 0;
     }
-
+    
     public List<Appointment> getAllAppointmentByDoctorID(Doctor d) {
         List<Appointment> list = new ArrayList<>();
         String sql = "select * from Appointments where doctor_id = " + d.getDoctorID();
@@ -166,7 +166,16 @@ public class AppointmentDAO extends DBContext {
         }
         return list;
     }
-
+    public int deleteAppointment(int appID){
+        String sql = "delete appointments where appointment_id ="+ appID;
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            return st.executeUpdate();
+        }catch(SQLException e){
+            
+        }
+        return 0;
+    }
     public static void main(String[] args) {
         AppointmentDAO db = new AppointmentDAO();
 //        Doctor d = new Doctor(1, "name", 0, "", "0123456789", "abc@gamil.com", null, null, "", "", 1);
@@ -174,6 +183,6 @@ public class AppointmentDAO extends DBContext {
 //        for (Appointment a : list) {
 //            System.out.println(a.toString());
 //        }
-        System.out.println(db.changeAppointmentStatus(2, 1));
+        System.out.println(db.deleteAppointment(12));
     }
 }

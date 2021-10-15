@@ -34,22 +34,32 @@ public class DoctorAppointmentControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-        int indexPage ;
+        String inputID = request.getParameter("deleteID");
+        AppointmentDAO appDb = new AppointmentDAO();
+        int indexPage;
         String getInputPage = request.getParameter("page");
-        if(getInputPage == null){
+        if (getInputPage == null) {
             indexPage = 1;
-        }else{
+        } else {
             indexPage = Integer.parseInt(getInputPage);
         }
-        AppointmentDAO appDb = new AppointmentDAO();
         int totalAppointment = appDb.getAllDoctorAppointment(doctorID);
         int numberOfItem = 3;
-        int numberOfPage = totalAppointment/numberOfItem + (totalAppointment%numberOfItem==0?0:1);
-        List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem );
-        request.setAttribute("listApp", listApp);
-        request.setAttribute("indexPage", indexPage);
-        request.setAttribute("numberOfPage", numberOfPage);
-        request.getRequestDispatcher("doctor-appointment.jsp").forward(request, response);
+        int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
+        List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);
+        if (inputID != null) {
+            int appID = Integer.parseInt(inputID);
+            System.out.println(inputID + " --------- " + appID);
+            int temp = appDb.deleteAppointment(appID);
+            System.out.println(temp);
+            response.sendRedirect("doctorAppointmentControl?doctorID=" + doctorID);
+        } else {
+            request.setAttribute("listApp", listApp);
+            request.setAttribute("indexPage", indexPage);
+            request.setAttribute("numberOfPage", numberOfPage);
+            request.getRequestDispatcher("doctor-appointment.jsp").forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
