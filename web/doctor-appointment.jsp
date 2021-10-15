@@ -161,39 +161,71 @@
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="appointments">
-                                <c:forEach items="${listApp}" var="app">
-                                    <!-- Appointment List -->
-                                    <div class="appointment-list">
-                                        <div class="profile-info-widget">
-                                            <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="${app.patient.image}" alt="User Image">
-                                            </a>
-                                            <div class="profile-det-info">
-                                                <h3><a href="patient-profile.html">${app.patient.name}</a></h3>
-                                                <div class="patient-details">
-                                                    <h5><i class="far fa-clock"></i> ${app.date}, ${app.slot.time}</h5>
-                                                    
-                                                    <h5><i class="fas fa-envelope"></i>${app.patient.email}</h5>
-                                                    <h5 class="mb-0"><i class="fas fa-phone"></i>${app.patient.phone}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="appointment-action">
-                                            <a class="btn btn-sm bg-info-light" href="appointmentDetailControl?id=${app.appointmentID}">
-                                                <i class="far fa-eye"></i> View
-                                            </a>
-                                            <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&deleteID=${app.appointmentID}" class="btn btn-sm bg-danger-light">
-                                                <i class="fas fa-times"></i> Delete
-                                            </a>
+                                <div class="card card-table mb-0">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Apt.ID</th>
+                                                        <th>Patient</th>
+                                                        <th>Appt Date</th>
+                                                        <th>Status</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="${listApp}" var="app">
+                                                        <tr>
+                                                            <td>#APT${app.appointmentID}</td>
+                                                            <td>
+                                                                <h2 class="table-avatar">
+                                                                    <a href="" class="avatar avatar-sm mr-2">
+                                                                        <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
+                                                                    </a>
+                                                                    <a href="">${app.patient.name}<span>#PT ${app.patient.patientID}</span></a>
+                                                                </h2>
+                                                            </td>
+                                                            <td>${app.date} <span class="d-block text-info">${app.slot.time}</span></td>
+
+                                                            <td>
+                                                                <c:if test="${app.status == 1}">
+                                                                    <span class="badge badge-pill bg-warning-light">
+                                                                        Pending
+                                                                    </span>
+                                                                </c:if>
+                                                                <c:if test="${app.status == 2}">
+                                                                    <span class="badge badge-pill bg-success-light">
+                                                                        Complete
+                                                                    </span>
+                                                                </c:if>
+                                                                <c:if test="${app.status == 0}">
+                                                                    <span class="badge badge-pill bg-danger-light">
+                                                                        Cancel
+                                                                    </span>
+                                                                </c:if>
+
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="table-action">
+                                                                    <a href="appointmentDetailControl?id=${app.appointmentID}" class="btn btn-sm bg-primary-light">
+                                                                        <i class="fas fa-eye"></i> View
+                                                                    </a>
+                                                                    <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&deleteID=${app.appointmentID}" class="btn btn-sm bg-danger-light">
+                                                                        <i class="fas fa-times"></i> Delete
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-
-
-                                    <!-- /Appointment List -->
-                                    
-                                </c:forEach>
+                                </div>
+                                <br>
                                 <div class="load-more text-center">
-                                    <ul class="pagination">
+                                    <ul class="pagination align-content-center" >
                                         <li class="page-item ">
                                             <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${page-1}">Previous</a>
                                         </li>
@@ -207,51 +239,53 @@
                                         </li>
                                     </ul>	
                                 </div>
-
                             </div>
 
-                        </div>
-                    </div>
 
+                        </div>
+
+                    </div>
                 </div>
 
-            </div>		
-            <!-- /Page Content -->
+            </div>
 
-            <!-- Footer -->
-            <jsp:include page="index-footer.jsp"/>
-            <!-- /Footer -->
+        </div>		
+        <!-- /Page Content -->
 
-        </div>
-        <!-- /Main Wrapper -->
+        <!-- Footer -->
+        <jsp:include page="index-footer.jsp"/>
+        <!-- /Footer -->
+
+    </div>
+    <!-- /Main Wrapper -->
 
 
 
-        <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="assets/js/jquery.min.js"></script>
 
-        <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JS -->
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
 
-        <!-- Sticky Sidebar JS -->
-        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+    <!-- Sticky Sidebar JS -->
+    <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+    <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
-        <!-- Select2 JS -->
-        <script src="assets/plugins/select2/js/select2.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="assets/plugins/select2/js/select2.min.js"></script>
 
-        <!-- Datetimepicker JS -->
-        <script src="assets/js/moment.min.js"></script>
-        <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Datetimepicker JS -->
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 
-        <!-- Fancybox JS -->
-        <script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
+    <!-- Fancybox JS -->
+    <script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
 
-        <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/script.js"></script>
 
-    </body>
+</body>
 
-    <!-- doccure/appointments.html  30 Nov 2019 04:12:09 GMT -->
+<!-- doccure/appointments.html  30 Nov 2019 04:12:09 GMT -->
 </html>
