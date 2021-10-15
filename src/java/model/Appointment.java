@@ -5,6 +5,12 @@
  */
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author admin
@@ -18,8 +24,7 @@ public class Appointment {
     private Timetable slot;
     private String description;
     private int status;
-   
-    
+
     public Appointment() {
     }
 
@@ -67,12 +72,21 @@ public class Appointment {
     }
 
     public String getDate() {
-       
+
         return date;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = formatter1.parse(date);
+            String strDate = formatter.format(date1);
+            this.date = strDate;
+        } catch (ParseException ex) {
+            
+        }
+
     }
 
     public Timetable getSlot() {

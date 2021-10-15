@@ -3,6 +3,8 @@
     Created on : 14-Oct-2021, 17:01:09
     Author     : Admin
 --%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
@@ -180,13 +182,14 @@
                                                             <td>#APT${app.appointmentID}</td>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="" class="avatar avatar-sm mr-2">
+                                                                    <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
                                                                         <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
                                                                     </a>
                                                                     <a href="">${app.patient.name}<span>#PT ${app.patient.patientID}</span></a>
                                                                 </h2>
                                                             </td>
-                                                            <td>${app.date} <span class="d-block text-info">${app.slot.time}</span></td>
+                                                            
+                                                            <td>${app.date}<span class="d-block text-info">${app.slot.time}</span></td>
 
                                                             <td>
                                                                 <c:if test="${app.status == 1}">
