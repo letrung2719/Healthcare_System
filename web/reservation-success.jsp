@@ -79,7 +79,7 @@
                                         <h3>Reservation booked Successfully!</h3>
                                         <p>Reservation booked with <strong>${reservation.service.title} Service</strong><br> on <strong>${reservation.date} ${reservation.slot.time}</strong></p>
                                         <a href="#" class="btn btn-primary view-inv-btn">View Invoice</a>
-                                        <a href="#" class="btn btn-primary view-inv-btn">Continue booking</a>
+                                        <a href="services" class="btn btn-primary view-inv-btn">Continue booking</a>
                                     </div>
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@pagecontentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:14 GMT -->
@@ -95,36 +95,15 @@
                                 <div class="dashboard-widget">
                                     <nav class="dashboard-menu">
                                         <ul>
-                                            <li>
-                                                <a href="doctor-dashboard.html">
-                                                    <i class="fas fa-columns"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                            </li>
+                                            
                                             <li>
                                                 <a href="appointments.html">
                                                     <i class="fas fa-calendar-check"></i>
                                                     <span>Appointments</span>
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="my-patients.html">
-                                                    <i class="fas fa-user-injured"></i>
-                                                    <span>My Patients</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="schedule-timings.html">
-                                                    <i class="fas fa-hourglass-start"></i>
-                                                    <span>Schedule Timings</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="invoices.html">
-                                                    <i class="fas fa-file-invoice"></i>
-                                                    <span>Invoices</span>
-                                                </a>
-                                            </li>
+                                           
+                                            
                                             <li>
                                                 <a href="reviews.html">
                                                     <i class="fas fa-star"></i>
@@ -138,12 +117,7 @@
                                                 </a>
                                             </li>
 
-                                            <li>
-                                                <a href="doctor-change-password.html">
-                                                    <i class="fas fa-lock"></i>
-                                                    <span>Change Password</span>
-                                                </a>
-                                            </li>
+                                            
                                             <li>
                                                 <a href="logout">
                                                     <i class="fas fa-sign-out-alt"></i>
@@ -287,7 +261,6 @@
                                                     <input
                                                         name="dob"
                                                         type="text"
-                                                        pattern="\d{1,2}/\d{1,2}/\d{4}"
                                                         class="form-control"
                                                         value="${doctor.dob}"
 
@@ -316,44 +289,7 @@
                                     </div>
                                 </div>
                                 <!-- /About Me -->
-                                <!-- Services and Specialization -->
-                                <div class="card services-card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Services and Specialization</h4>
-                                        <div class="form-group">
-                                            <label>Services</label>
-                                            <input
-                                                type="text"
-                                                data-role="tagsinput"
-                                                class="input-tags form-control"
-                                                placeholder="Enter Services"
-                                                name="services"
-                                                value="Tooth cleaning "
-                                                id="services"
-                                                />
-                                            <small class="form-text text-muted"
-                                                   >Note : Type & Press enter to add new services</small
-                                            >
-                                        </div>
-                                        <div class="form-group mb-0">
-                                            <label>Specialization </label>
-                                            <input
-                                                class="input-tags form-control"
-                                                type="text"
-                                                data-role="tagsinput"
-                                                placeholder="Enter Specialization"
-                                                name="specialist"
-                                                value="Children Care,Dental Care"
-                                                id="specialist"
-                                                />
-                                            <small class="form-text text-muted"
-                                                   >Note : Type & Press enter to add new
-                                                specialization</small
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Services and Specialization -->
+                                
                                 <div class="submit-section submit-btn-bottom">
                                     <button type="submit" class="btn btn-primary submit-btn">
                                         Edit
