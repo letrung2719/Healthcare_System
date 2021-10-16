@@ -185,7 +185,6 @@
                                                     <input
                                                         name="dob"
                                                         type="text"
-                                                        pattern="\d{1,2}/\d{1,2}/\d{4}"
                                                         class="form-control"
                                                         value="${doctor.dob}" />
                                                 </div>
@@ -206,6 +205,7 @@
                                     </div>
                                 </div>
                                 <!-- /About Me -->
+
                                 <div class="submit-section submit-btn-bottom">
                                     <button type="submit" class="btn btn-primary submit-btn">
                                         Save changes
