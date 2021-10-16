@@ -67,68 +67,10 @@
                     <div class="row">
                         <div class="col-12">
                             <div style="display: flex">
-                                <div class="col-md-6 col-lg-4 col-xl-3 theiaStickySidebar">
-
                                     <!-- Profile Sidebar -->
-                                    <div class="profile-sidebar">
-                                        <div class="widget-profile pro-widget-content">
-                                            <div class="profile-info-widget">
-                                                <a href="#" class="booking-doc-img">
-                                                    <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
-                                                </a>
-                                                <div class="profile-det-info">
-                                                    <h3>Dr. Darren Elder</h3>
-
-                                                    <div class="patient-details">
-                                                        <h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="dashboard-widget">
-                                            <nav class="dashboard-menu">
-                                                <ul>
-
-                                                    <li class="active">
-                                                        <a href="appointments.html">
-                                                            <i class="fas fa-calendar-check"></i>
-                                                            <span>Appointments</span>
-                                                        </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="reviews.html">
-                                                            <i class="fas fa-star"></i>
-                                                            <span>Reviews</span>
-                                                        </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="doctor-profile-settings.html">
-                                                            <i class="fas fa-user-cog"></i>
-                                                            <span>Profile Settings</span>
-                                                        </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="doctor-change-password.html">
-                                                            <i class="fas fa-lock"></i>
-                                                            <span>Change Password</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index-2.html">
-                                                            <i class="fas fa-sign-out-alt"></i>
-                                                            <span>Logout</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </div>
+                                    <%@include file="doctor-sidebar.jsp" %>
                                     <!-- /Profile Sidebar -->
 
-                                </div>
                                 <div class="col-md-7 col-lg-8 col-xl-9">
                                     <div class="card">
 
@@ -170,9 +112,10 @@
                                                 <h4 class="col-sm-2 text-muted text-sm-right mb-0">Time</h4>
                                                 <p class="col-sm-10 text-info">${app.slot.time}</p>
                                             </div>
-                                            <div class="row">
+                                            <div class="row" style="margin-bottom: 10px">
                                                 <h4 class="col-sm-2 text-muted text-sm-right mb-0">Description</h4>
-                                                <p class="col-sm-10 ">${app.description}</p>
+                                                <!--<p class="col-sm-10 ">${app.description}</p>-->
+                                                <textarea class="col-sm-10" readonly="">${app.description}</textarea>
                                             </div>
                                             <div class="row">
                                                 <h4 class="col-sm-2 text-muted text-sm-right mb-0">Status</h4>
@@ -185,10 +128,6 @@
                                                 <c:if test="${app.status == 0}">
                                                     <p class="col-sm-10"><button class="btn btn-rounded btn-danger">Cancel</button></p>
                                                 </c:if>
-
-
-
-<!--                                                <span class=" bage badge badge-pill bg-success-light">${app.status} Complete</span>-->
                                             </div>
 
                                         </div>

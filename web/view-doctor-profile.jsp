@@ -3,7 +3,8 @@
     Created on : 03-Oct-2021, 13:24:47
     Author     : Admin
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -94,7 +95,7 @@
                                     <div class="clini-infos">
                                         <ul>
                                             <li><i class="far fa-thumbs-up"></i> 99%</li>
-                                           
+
                                             <li><i class="far fa-money-bill-alt"></i> $100 per hour </li>
                                         </ul>
                                     </div>
@@ -131,11 +132,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" href="#doc_overview" data-toggle="tab">Overview</a>
                                     </li>
-                                    
                                     <li class="nav-item">
                                         <a class="nav-link" href="#doc_reviews" data-toggle="tab">Reviews</a>
                                     </li>
-                                    
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#doc_business_hours" data-toggle="tab">Business Hours</a>
+                                    </li>
                                 </ul>
                             </nav>
                             <!-- /Tab Menu -->
@@ -146,7 +148,7 @@
                                 <!-- Overview Content -->
                                 <div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
                                     <div class="row">
-                                        <div class="col-md-12 col-lg-9">
+                                        <div class="col-md-12 col-lg-12">
 
                                             <!-- About Details -->
                                             <div class="widget about-widget">
@@ -160,7 +162,6 @@
                                                 <h4>Specializations</h4>
                                                 <ul class="clearfix">
                                                     <li>${doctor.spec.name}</li>
-                                                    	
                                                 </ul>
                                             </div>
                                             <!-- /Specializations List -->
@@ -170,192 +171,106 @@
                                 </div>
                                 <!-- /Overview Content -->
 
-                                
-
                                 <!-- Reviews Content -->
-                                <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
-
-                                    <!-- Review Listing -->
-                                    <div class="widget review-listing">
-                                        <ul class="comments-list">
-
-                                            <!-- Comment List -->
-                                            <li>
-                                                <div class="comment">
-                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient.jpg">
-                                                    <div class="comment-body">
-                                                        <div class="meta-data">
-                                                            <span class="comment-author">Richard Wilson</span>
-                                                            <span class="comment-date">Reviewed 2 Days ago</span>
-                                                            <div class="review-count rating">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star"></i>
-                                                            </div>
-                                                        </div>
-                                                        <p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
-                                                        <p class="comment-content">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                            Ut enim ad minim veniam, quis nostrud exercitation.
-                                                            Curabitur non nulla sit amet nisl tempus
-                                                        </p>
-                                                        <div class="comment-reply">
-                                                            <a class="comment-btn" href="#">
-                                                                <i class="fas fa-reply"></i> Reply
-                                                            </a>
-                                                            <p class="recommend-btn">
-                                                                <span>Recommend?</span>
-                                                                <a href="#" class="like-btn">
-                                                                    <i class="far fa-thumbs-up"></i> Yes
-                                                                </a>
-                                                                <a href="#" class="dislike-btn">
-                                                                    <i class="far fa-thumbs-down"></i> No
-                                                                </a>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Comment Reply -->
-                                                <ul class="comments-reply">
-                                                    <li>
-                                                        <div class="comment">
-                                                            <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient1.jpg">
-                                                            <div class="comment-body">
-                                                                <div class="meta-data">
-                                                                    <span class="comment-author">Charlene Reed</span>
-                                                                    <span class="comment-date">Reviewed 3 Days ago</span>
-                                                                    <div class="review-count rating">
-                                                                        <i class="fas fa-star filled"></i>
-                                                                        <i class="fas fa-star filled"></i>
-                                                                        <i class="fas fa-star filled"></i>
-                                                                        <i class="fas fa-star filled"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <p class="comment-content">
-                                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                                    Ut enim ad minim veniam.
-                                                                    Curabitur non nulla sit amet nisl tempus
-                                                                </p>
-                                                                <div class="comment-reply">
-                                                                    <a class="comment-btn" href="#">
-                                                                        <i class="fas fa-reply"></i> Reply
-                                                                    </a>
-                                                                    <p class="recommend-btn">
-                                                                        <span>Recommend?</span>
-                                                                        <a href="#" class="like-btn">
-                                                                            <i class="far fa-thumbs-up"></i> Yes
-                                                                        </a>
-                                                                        <a href="#" class="dislike-btn">
-                                                                            <i class="far fa-thumbs-down"></i> No
-                                                                        </a>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <!-- /Comment Reply -->
-
-                                            </li>
-                                            <!-- /Comment List -->
-
-                                            <!-- Comment List -->
-                                            <li>
-                                                <div class="comment">
-                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient2.jpg">
-                                                    <div class="comment-body">
-                                                        <div class="meta-data">
-                                                            <span class="comment-author">Travis Trimble</span>
-                                                            <span class="comment-date">Reviewed 4 Days ago</span>
-                                                            <div class="review-count rating">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star"></i>
-                                                            </div>
-                                                        </div>
-                                                        <p class="comment-content">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                            Ut enim ad minim veniam, quis nostrud exercitation.
-                                                            Curabitur non nulla sit amet nisl tempus
-                                                        </p>
-                                                        <div class="comment-reply">
-                                                            <a class="comment-btn" href="#">
-                                                                <i class="fas fa-reply"></i> Reply
-                                                            </a>
-                                                            <p class="recommend-btn">
-                                                                <span>Recommend?</span>
-                                                                <a href="#" class="like-btn">
-                                                                    <i class="far fa-thumbs-up"></i> Yes
-                                                                </a>
-                                                                <a href="#" class="dislike-btn">
-                                                                    <i class="far fa-thumbs-down"></i> No
-                                                                </a>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!-- /Comment List -->
-
-                                        </ul>
-
-                                        <!-- Show All -->
-                                        <div class="all-feedback text-center">
-                                            <a href="#" class="btn btn-primary btn-sm">
-                                                Show all feedback <strong>(167)</strong>
-                                            </a>
-                                        </div>
-                                        <!-- /Show All -->
-
-                                    </div>
-                                    <!-- /Review Listing -->
-
-                                    
-
-                                </div>
                                 <!-- /Reviews Content -->
 
-                             
+                                <!-- Business Hours Content -->
+                                <div role="tabpanel" id="doc_business_hours" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-md-6 offset-md-3">
 
+                                            <!-- Business Hours Widget -->
+                                            <div class="widget business-widget">
+                                                <div class="widget-content">
+                                                    <div class="listing-hours">
+                                                        <div class="listing-day current">
+                                                            <div class="day">Today <span><fmt:formatDate value="<%=new java.util.Date()%>" pattern="dd/MM/yyyy"/></span></div>
+                                                            <div class="time-items">
+                                                                <span class="open-status"><span class="badge bg-success-light">Open Now</span></span>
+                                                                <span class="time">07:00 - 17:00</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="listing-day">
+                                                            <div class="day">Monday</div>
+                                                            <div class="time-items">
+                                                                <span class="time">07:00 - 17:00</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="listing-day">
+                                                            <div class="day">Tuesday</div>
+                                                            <div class="time-items">
+                                                                <span class="time">07:00 - 17:00</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="listing-day">
+                                                            <div class="day">Wednesday</div>
+                                                            <div class="time-items">
+                                                                <span class="time">07:00 - 17:00</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="listing-day">
+                                                            <div class="day">Thursday</div>
+                                                            <div class="time-items">
+                                                                <span class="time">07:00 - 17:00</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="listing-day">
+                                                            <div class="day">Friday</div>
+                                                            <div class="time-items">
+                                                                <span class="time">07:00 - 17:00</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="listing-day">
+                                                            <div class="day">Saturday</div>
+                                                            <div class="time-items">
+                                                                <span class="time">07:00 - 17:00</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="listing-day closed">
+                                                            <div class="day">Sunday</div>
+                                                            <div class="time-items">
+                                                                <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Business Hours Widget -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Business Hours Content -->
                             </div>
                         </div>
+                        <!-- /Doctor Details Tab -->
+
                     </div>
-                    <!-- /Doctor Details Tab -->
+                </div>	
+            </div>
+                <!-- /Page Content -->
 
-                </div>
-            </div>		
-            <!-- /Page Content -->
+                <!-- Footer -->
+                <jsp:include page="index-footer.jsp"/>
+                <!-- /Footer -->
 
-            <!-- Footer -->
-            <jsp:include page="index-footer.jsp"/>
-            <!-- /Footer -->
-
-        </div>
-        <!-- /Main Wrapper -->
+            </div>
+            <!-- /Main Wrapper -->
 
 
 
-        <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+            <!-- jQuery -->
+            <script src="assets/js/jquery.min.js"></script>
 
-        <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+            <!-- Bootstrap Core JS -->
+            <script src="assets/js/popper.min.js"></script>
+            <script src="assets/js/bootstrap.min.js"></script>
 
-        <!-- Fancybox JS -->
-        <script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
+            <!-- Fancybox JS -->
+            <script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
 
-        <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+            <!-- Custom JS -->
+            <script src="assets/js/script.js"></script>
 
     </body>
 
