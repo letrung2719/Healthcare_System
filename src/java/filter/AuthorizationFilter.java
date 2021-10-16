@@ -116,10 +116,10 @@ public class AuthorizationFilter implements Filter {
                 if (acc.getAuthor_id() == 0) {
                     chain.doFilter(servletRequest, servletResponse);
                 } else {
-                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                    response.sendRedirect(request.getContextPath() + "/404-error.jsp");
                 }
             } else {
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                response.sendRedirect(request.getContextPath() + "/404-error.jsp");
             }
         } else {
             chain.doFilter(servletRequest, servletResponse);

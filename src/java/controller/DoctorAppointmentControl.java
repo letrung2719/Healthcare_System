@@ -7,7 +7,6 @@ package controller;
 
 import dal.AppointmentDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -59,7 +58,6 @@ public class DoctorAppointmentControl extends HttpServlet {
             request.setAttribute("numberOfPage", numberOfPage);
             request.getRequestDispatcher("doctor-appointment.jsp").forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

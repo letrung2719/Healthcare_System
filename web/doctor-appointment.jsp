@@ -65,21 +65,7 @@
                                     <li class="breadcrumb-item active" aria-current="page">Doctor</li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Appointment</h2>
-                        </div>
-                        <div class="col-md-4 col-12 d-md-block d-none">
-                            <div class="sort-by">
-                                <span class="sort-title">Sort by</span>
-                                <span class="sortby-fliter">
-                                    <select class="select">
-                                        <option>Select</option>
-                                        <option class="sorting">Date</option>
-                                        <option class="sorting">Status</option>
-                                        <option class="sorting">Latest</option>
-                                        <option class="sorting">Fee</option>
-                                    </select>
-                                </span>
-                            </div>
+                            <h2 class="breadcrumb-title">Appointments</h2>
                         </div>
                     </div>
                 </div>
@@ -91,75 +77,10 @@
                 <div class="container-fluid">
 
                     <div class="row">
-                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 
-                            <!-- Profile Sidebar -->
-                            <div class="profile-sidebar">
-                                <div class="widget-profile pro-widget-content">
-                                    <div class="profile-info-widget">
-                                        <a href="#" class="booking-doc-img">
-                                            <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
-                                        </a>
-                                        <div class="profile-det-info">
-                                            <h3>Dr. Darren Elder</h3>
-
-                                            <div class="patient-details">
-                                                <h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dashboard-widget">
-                                    <nav class="dashboard-menu">
-                                        <ul>
-
-                                            <li class="active">
-                                                <a href="appointments.html">
-                                                    <i class="fas fa-calendar-check"></i>
-                                                    <span>Appointments</span>
-                                                </a>
-                                            </li>
-
-
-                                            <!--                                            <li>
-                                                                                            <a href="invoices.html">
-                                                                                                <i class="fas fa-file-invoice"></i>
-                                                                                                <span>Invoices</span>
-                                                                                            </a>
-                                                                                        </li>-->
-                                            <li>
-                                                <a href="reviews.html">
-                                                    <i class="fas fa-star"></i>
-                                                    <span>Reviews</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="doctor-profile-settings.html">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Profile Settings</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="doctor-change-password.html">
-                                                    <i class="fas fa-lock"></i>
-                                                    <span>Change Password</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="index-2.html">
-                                                    <i class="fas fa-sign-out-alt"></i>
-                                                    <span>Logout</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <!-- /Profile Sidebar -->
-
-                        </div>
+                        <!-- Profile Sidebar -->
+                        <%@include file="doctor-sidebar.jsp" %>
+                        <!-- /Profile Sidebar -->
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="appointments">
@@ -188,7 +109,7 @@
                                                                     <a href="">${app.patient.name}<span>#PT ${app.patient.patientID}</span></a>
                                                                 </h2>
                                                             </td>
-                                                            
+
                                                             <td>${app.date}<span class="d-block text-info">${app.slot.time}</span></td>
 
                                                             <td>
@@ -213,9 +134,6 @@
                                                                 <div class="table-action">
                                                                     <a href="appointmentDetailControl?id=${app.appointmentID}" class="btn btn-sm bg-primary-light">
                                                                         <i class="fas fa-eye"></i> View
-                                                                    </a>
-                                                                    <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&deleteID=${app.appointmentID}" class="btn btn-sm bg-danger-light">
-                                                                        <i class="fas fa-times"></i> Delete
                                                                     </a>
                                                                 </div>
                                                             </td>
