@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.ServiceFeedbacks;
 import model.Services;
 import model.Specialities;
 
@@ -287,6 +288,145 @@ public class ServicesDAO extends DBContext {
 
         }
         return list;
+    }
+
+    //service feedback
+    public void addComment(String comment, String rate, int patientID, String serviceID) {
+        String sql = "INSERT INTO Service_Feedbacks ([content],[rate],[patient_id],service_id)\n"
+                + "VALUES (?,?,?,?);";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, comment);
+            st.setString(2, rate);
+            st.setInt(3, patientID);
+            st.setString(4, serviceID);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteComment(int fid) {
+        String sql = "delete from [Service_Feedbacks] where feedback_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, fid);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public List<ServiceFeedbacks> getAllComment(String id) {
+        List<ServiceFeedbacks> list = new ArrayList<>();
+        String sql = "SELECT [feedback_id]\n"
+                + "      ,[content]\n"
+                + "      ,[rate]\n"
+                + "      , [Patients].[name]\n"
+                + "      ,[service_id]\n"
+                + "  FROM [HealthcareSystem].[dbo].[Service_Feedbacks] join [Patients] ON [Service_Feedbacks].[patient_id] = [Patients].[patient_id] where [service_id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ServiceFeedbacks(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getInt(5)));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
+    public List<ServiceFeedbacks> checkPatientComment(int patient_id, String service_id) {
+        List<ServiceFeedbacks> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000) [feedback_id]\n"
+                + "      ,[content]\n"
+                + "      ,[rate]\n"
+                + "      ,[patient_id]\n"
+                + "      ,[service_id]\n"
+                + "  FROM [HealthcareSystem].[dbo].[Service_Feedbacks] where [patient_id] = ? and [service_id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, patient_id);
+            st.setString(2, service_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ServiceFeedbacks(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getInt(5)));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
+    public int AverageRateServices(String service_id) {
+        int average = 0;
+        String sql = "SELECT ROUND(AVG([rate]),0)\n"
+                + "FROM [Service_Feedbacks]\n"
+                + "where [service_id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, service_id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                average = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+
+        }
+        return average;
+    }
+
+    public List<ServiceFeedbacks> getAllCommentSortedByStar(String id, String star) {
+        List<ServiceFeedbacks> list = new ArrayList<>();
+        String sql = "SELECT [feedback_id]\n"
+                + "      ,[content]\n"
+                + "      ,[rate]\n"
+                + "      , [Patients].[name]\n"
+                + "      ,[service_id]\n"
+                + "  FROM [HealthcareSystem].[dbo].[Service_Feedbacks] join [Patients] ON [Service_Feedbacks].[patient_id] = [Patients].[patient_id] where [service_id] = ? and rate = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            st.setString(2, star);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ServiceFeedbacks(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getInt(5)));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
+    public void editComment(String comment, String rate, String feedbackID) {
+        String sql = "update Service_Feedbacks set content = ?, rate=?\n"
+                + " where feedback_id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, comment);
+            st.setString(2, rate);
+            st.setString(3, feedbackID);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
     public static void main(String[] args) {

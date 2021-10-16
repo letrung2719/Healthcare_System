@@ -55,7 +55,7 @@
                                     </li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Available Services in Our Clinic</h2>
+                            <h2 class="breadcrumb-title">Availabe Services in Our Clinic</h2>
                         </div>
                     </div>
                 </div>
@@ -132,56 +132,23 @@
                                                 <div class="doc-info-cont">
                                                     <h4 class="doc-name"><a href="serdetail?sid=${o.service_id}">${o.title}</a></h4>
                                                     <h5 class="doc-department">${o.type_id}</h5>
-                                                    <div class="rating">
+<!--                                                    <div class="rating">
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star"></i>
                                                         <span class="d-inline-block average-rating">(17)</span>
-                                                    </div>
+                                                    </div>-->
                                                     <div class="clinic-details">
-                                                        <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Florida, USA</p>
-                                                        <ul class="clinic-gallery">
-                                                            <li>
-                                                                <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
-                                                                    <img src="assets/img/features/feature-01.jpg" alt="Feature">
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery">
-                                                                    <img  src="assets/img/features/feature-02.jpg" alt="Feature">
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery">
-                                                                    <img src="assets/img/features/feature-03.jpg" alt="Feature">
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery">
-                                                                    <img src="assets/img/features/feature-04.jpg" alt="Feature">
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="clinic-services">
-                                                        <span>Dental Fillings</span>
-                                                        <span> Whitening</span>
+                                                        <p style="margin: 0"><i class="far fa-money-bill-alt"></i>  ${o.price} VND</p>
+                                                        <b>Description:</b><p style="margin: 0;width: 90%;height: 60px;overflow: hidden;-webkit-mask-image: linear-gradient(180deg, #000 75%, transparent);">${o.description}</p>
+                                                        <b><a style="color: aqua" href="serdetail?sid=${o.service_id}">See more...</a></b>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="doc-info-right">
-                                                <div class="clini-infos">
-                                                    <ul>
-                                                        <li><i class="far fa-thumbs-up"></i> 98%</li>
-                                                        <li><i class="far fa-comment"></i> 17 Feedback</li>
-                                                        <li><i class="fas fa-map-marker-alt"></i> Florida, USA</li>
-                                                        <li><i class="far fa-money-bill-alt"></i> ${o.price} VND</li>
-                                                    </ul>
-                                                </div>
                                                 <div class="clinic-booking">
-                                                    <a class="view-pro-btn" href="serdetail?sid=${o.service_id}">View Profile</a>
                                                     <a class="apt-btn" href="booking.html">Book Appointment</a>
                                                 </div>
                                             </div>

@@ -7,6 +7,7 @@ package controller.services;
 
 import dal.ServicesDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,10 +23,10 @@ import model.Specialities;
 
 /**
  *
- * @author ASUS
+ * @author hp
  */
-@WebServlet(name = "ServiceDetailControl", urlPatterns = {"/serdetail"})
-public class ServiceDetailControl extends HttpServlet {
+@WebServlet(name = "SortStarFeedbackControl", urlPatterns = {"/sortStarComment"})
+public class SortStarCommentControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,26 +40,51 @@ public class ServiceDetailControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        //////////
+        //
+        String star = request.getParameter("star");
         String id = request.getParameter("sid");
-        ServicesDAO dao = new ServicesDAO();
+        ServicesDAO dal = new ServicesDAO();
+        if (star.equals("all")) {
+            List<ServiceFeedbacks> listF = dal.getAllComment(id);
+            request.setAttribute("listF", listF);
+        } else {
+            List<ServiceFeedbacks> listFs = dal.getAllCommentSortedByStar(id, star);
+            request.setAttribute("listF", listFs);
+        }
 
-        Services s = dao.getServiceByID(id);
+        //lấy list các feedback của service có id trên và hiện theo số sao quy định
+        //
+        Services s = dal.getServiceByID(id);
         String specID = s.getType_id();
-
-        int avrate = dao.AverageRateServices(id);
-        Specialities spec = dao.getSpecByID(specID);
-        String type_id = dao.getServiceByID(id).getType_id();
-        List<Services> listS = dao.getTop4Last(type_id);
-        List<ServiceFeedbacks> listF = dao.getAllComment(id);
+        request.setAttribute("detail", s);
+        //lấy dữ liệu Service và id Speciality của Service
+        //
+        int avrate = dal.AverageRateServices(id);
+        request.setAttribute("avrate", avrate);
+        //lấy rate trung bình của service
+        //
+        Specialities spec = dal.getSpecByID(specID);
+        request.setAttribute("spec", spec);
+        //lấy ra specialitie của Service
+        //
+        String type_id = dal.getServiceByID(id).getType_id();
+        List<Services> listS = dal.getTop4Last(type_id);
+        request.setAttribute("listS", listS);
+        //lấy ra 4 service liên quan theo specialitie
+        //
+        List<ServiceFeedbacks> listF = dal.getAllComment(id);
         int totalfeedback = listF.size();
-        
+        request.setAttribute("totalfeedback", totalfeedback);
+        //số feedback của service
+        //
         HttpSession session = request.getSession();
-        Account a = (Account)session.getAttribute("acc");
+        Account a = (Account) session.getAttribute("acc");
         Patient p = new Patient();
         if (a != null) {
             if (a.getAuthor_id() == 2) {
-                p = (Patient)session.getAttribute("user");
-                List<ServiceFeedbacks> check = dao.checkPatientComment((int)p.getPatientID(), id);
+                p = (Patient) session.getAttribute("user");
+                List<ServiceFeedbacks> check = dal.checkPatientComment((int) p.getPatientID(), id);
                 if (check.isEmpty()) {
                     request.setAttribute("check", 1);
                 } else {
@@ -66,14 +92,9 @@ public class ServiceDetailControl extends HttpServlet {
                 }
             }
         }
-        
-        request.setAttribute("avrate", avrate);
-        request.setAttribute("totalfeedback", totalfeedback);
-        request.setAttribute("detail", s);
-        request.setAttribute("spec", spec);
-        request.setAttribute("listS", listS);
-        request.setAttribute("listF", listF);
+        ////////
         request.getRequestDispatcher("service-detail.jsp").forward(request, response);
+        ////////
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
