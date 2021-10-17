@@ -10,11 +10,14 @@ import dal.ReservationDAO;
 import dal.ServicesDAO;
 import dal.TimetableDAO;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Patient;
 import model.Reservation;
 import model.Services;
 
@@ -25,6 +28,7 @@ import model.Services;
 @WebServlet(name = "ReservationControl", urlPatterns = {"/reservation"})
 public class ReservationControl extends HttpServlet {
 
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,11 +56,18 @@ public class ReservationControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String serviceId = request.getParameter("id");
-        ServicesDAO serviceDb = new ServicesDAO();
-        Services s = serviceDb.getServiceByID(serviceId);
-        request.setAttribute("service", s);
-        request.getRequestDispatcher("reservation.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Patient curUser = (Patient) session.getAttribute("acc");
+        if (curUser == null) {
+            request.setAttribute("mess", resourceBundle.getString("must_login"));
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            String serviceId = request.getParameter("id");
+            ServicesDAO serviceDb = new ServicesDAO();
+            Services s = serviceDb.getServiceByID(serviceId);
+            request.setAttribute("service", s);
+            request.getRequestDispatcher("reservation.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -89,10 +100,10 @@ public class ReservationControl extends HttpServlet {
                     description);
             ReservationDAO resDb = new ReservationDAO();
             resDb.addNewReservation(r);
-            
+
             request.setAttribute("reservation", r);
             request.getRequestDispatcher("reservation-success.jsp").forward(request, response);
-            
+
         } catch (NumberFormatException e) {
 
         }

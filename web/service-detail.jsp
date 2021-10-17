@@ -128,10 +128,8 @@
                                             <c:forEach items="${listS}" var="o">
                                                 <c:if test="${o.title != detail.title}">
                                                     <li>
-
                                                         <a href="serdetail?sid=${o.service_id}">${o.title}</a>
                                                         <!--<span class="span"</span><br/>-->
-
                                                     </li>
                                                 </c:if>
                                             </c:forEach>
