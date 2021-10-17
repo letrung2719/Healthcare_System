@@ -55,7 +55,7 @@
                                     </li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Availabe Services in Our Clinic</h2>
+                            <h2 class="breadcrumb-title">Available Services in Our Clinic</h2>
                         </div>
                     </div>
                 </div>
@@ -132,16 +132,6 @@
                                                 <div class="doc-info-cont">
                                                     <h4 class="doc-name"><a href="serdetail?sid=${o.service_id}">${o.title}</a></h4>
 
-                                                    <h5 class="doc-department">${o.type_id}</h5>
-                                                    <div class="rating">
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <span class="d-inline-block average-rating">(17)</span>
-                                                    </div>
-
                                                     <h5 class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${o.type_id}</h5>
 
                                                     <div class="clinic-details">
@@ -151,57 +141,48 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                                    
                                             <div class="doc-info-right">
 
                                                 <div class="clinic-booking">
-                                                    <a class="apt-btn" href="booking.html">Book Appointment</a>
+                                                    <div class="clinic-booking">
+                                                        <a class="view-pro-btn" href="serdetail?sid=${o.service_id}">View Details</a>
+                                                        <a class="apt-btn" href="reservation?id=${o.service_id}">Book Service</a>
 
-                                                <div class="clini-infos">
-                                                    <ul>
-                                                        <li><i class="far fa-thumbs-up"></i> 98%</li>
-                                                        <li><i class="far fa-comment"></i> 17 Feedback</li>
-
-                                                        <li><i class="far fa-money-bill-alt"></i> $300 - $1000 <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="clinic-booking">
-                                                    <a class="view-pro-btn" href="serdetail?sid=${o.service_id}">View Details</a>
-                                                    <a class="apt-btn" href="#">Book Service</a>
-
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- /Doctor Widget -->
-                            </c:forEach>	
+                                    <!-- /Doctor Widget -->
+                                </c:forEach>	
+                            </div>
                         </div>
+
                     </div>
 
-                </div>
+                </div>		
+                <!-- /Page Content -->
 
-            </div>		
-            <!-- /Page Content -->
+                <!-- Footer -->
+                <jsp:include page="index-footer.jsp"/>
+                <!-- /Footer -->
 
-            <!-- Footer -->
-            <jsp:include page="index-footer.jsp"/>
-            <!-- /Footer -->
+            </div>
+            <!-- /Main Wrapper -->
 
-        </div>
-        <!-- /Main Wrapper -->
+            <!-- jQuery -->
+            <script src="assets/js/jquery.min.js"></script>
 
-        <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+            <!-- Bootstrap Core JS -->
+            <script src="assets/js/popper.min.js"></script>
+            <script src="assets/js/bootstrap.min.js"></script>
 
-        <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+            <!-- Slick JS -->
+            <script src="assets/js/slick.js"></script>
 
-        <!-- Slick JS -->
-        <script src="assets/js/slick.js"></script>
-
-        <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+            <!-- Custom JS -->
+            <script src="assets/js/script.js"></script>
 
     </body>
 
