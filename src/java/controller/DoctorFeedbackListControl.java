@@ -5,9 +5,8 @@
  */
 package controller;
 
-import dal.DoctorFeedbackDAO;
+import dal.DoctorFeedbacksDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -15,7 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.DoctorFeedback;
+import model.DoctorFeedbacks;
 
 /**
  *
@@ -45,11 +44,11 @@ public class DoctorFeedbackListControl extends HttpServlet {
         } else {
             indexPage = Integer.parseInt(getInputPage);
         }
-        DoctorFeedbackDAO db1 = new DoctorFeedbackDAO();
+        DoctorFeedbacksDAO db1 = new DoctorFeedbacksDAO();
         int totalFeedback = db1.countAllDoctorFeedback(doctorID);
         int numberOfItem = 4;
         int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);
-        List<DoctorFeedback> listdFb = new ArrayList<DoctorFeedback>();
+        List<DoctorFeedbacks> listdFb = new ArrayList<DoctorFeedbacks>();
         
         if (sortBy == null) {
             listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, "feedback_id");

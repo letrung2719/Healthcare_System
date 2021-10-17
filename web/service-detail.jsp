@@ -153,7 +153,7 @@
                                         </a>
                                     </div>
                                     <div class="clinic-booking">
-                                        <a class="apt-btn" href="#">Book Service</a>
+                                        <a class="apt-btn" href="reservation?id=${detail.service_id}">Book Service</a>
                                     </div>
                                 </div>
                             </div>

@@ -87,6 +87,51 @@ public class DoctorFeedbacksDAO extends DBContext {
         return 0;
     }
 
+    public int countAllDoctorFeedback(int doctorID) {
+        String sql = "select count(*) from Doctor_Feedbacks where doctor_id = " + doctorID;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+    public List<DoctorFeedbacks> paginateDoctorFeedbackByDoctorID(int doctorID, int pageNumber, int numberOfItem, String sort) {
+        List<DoctorFeedbacks> list = new ArrayList<>();
+        String sql = "DECLARE @PageNumber AS INT\n"
+                + "DECLARE @RowsOfPage AS INT\n"
+                + "SET @PageNumber=" + pageNumber + "\n"
+                + "SET @RowsOfPage=" + numberOfItem + "\n"
+                + "SELECT * FROM Doctor_Feedbacks where doctor_id=" + doctorID + "\n"
+                + "ORDER BY " + sort + "\n"
+                + "OFFSET (@PageNumber-1)*@RowsOfPage ROWS\n"
+                + "FETCH NEXT @RowsOfPage ROWS ONLY";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                DoctorFeedbacks df = new DoctorFeedbacks();
+                df.setFeedbackID(rs.getInt(1));
+                df.setDate(rs.getString(2));
+                df.setContent(rs.getString(3));
+                df.setRate(rs.getInt(4));
+                Patient p = patientDB.getPatientByPatientID(rs.getInt(5));
+                Doctor d = doctorDB.getDoctorByDoctorID(rs.getInt(6));
+                df.setPatient(p);
+                df.setDoctor(d);
+                list.add(df);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();
 //        Patient patient = new Patient(1, "abc", 0, "", "", "", 2, "");
@@ -95,7 +140,8 @@ public class DoctorFeedbacksDAO extends DBContext {
 //        db.addNewDoctorFeedback(feedback);
 
 //        System.out.println(db.getAverageRating(2));
-        db.deleteDoctorFeedback(1, 5);
+        List<DoctorFeedbacks> list = db.paginateDoctorFeedbackByDoctorID(1, 1, 5, "feedback_id");
+        System.out.println(list);
     }
 
 }
