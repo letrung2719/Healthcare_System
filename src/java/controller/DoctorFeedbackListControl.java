@@ -5,22 +5,24 @@
  */
 package controller;
 
-import dal.AppointmentDAO;
+import dal.DoctorFeedbackDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Appointment;
+import model.DoctorFeedback;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "AppointmentDetailControl", urlPatterns = {"/appointmentDetailControl"})
-public class AppointmentDetailControl extends HttpServlet {
+@WebServlet(name = "DoctorFeedbackListControl", urlPatterns = {"/doctorFeedbackList"})
+public class DoctorFeedbackListControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,28 +36,28 @@ public class AppointmentDetailControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int appID = Integer.parseInt(request.getParameter("id"));
-        String inputStatus = request.getParameter("status");
-        AppointmentDAO appDb = new AppointmentDAO();
-        Appointment a = appDb.getAppointmentByID(appID);
-        
-        if (inputStatus != null) {
-            if (inputStatus.equals("cancel")) {
-                appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
-            }
-            if (inputStatus.equals("pending")) {
-                appDb.changeAppointmentStatus(a.getAppointmentID(), 1);
-            }
-            if (inputStatus.equals("complete")) {
-                appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
-            }
-            a = appDb.getAppointmentByID(appID);
-            request.setAttribute("app", a);
-            request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
+        int doctorID = Integer.parseInt(request.getParameter("doctorID"));
+        int indexPage;
+        String sortBy = request.getParameter("sort");
+        String getInputPage = request.getParameter("page");
+        if (getInputPage == null) {
+            indexPage = 1;
+        } else {
+            indexPage = Integer.parseInt(getInputPage);
         }
-        request.setAttribute("app", a);
-        request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
-
+        DoctorFeedbackDAO db1 = new DoctorFeedbackDAO();
+        int totalFeedback = db1.countAllDoctorFeedback(doctorID);
+        int numberOfItem = 4;
+        int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);
+        List<DoctorFeedback> listdFb = new ArrayList<DoctorFeedback>();
+        
+        if (sortBy == null) {
+            listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, "feedback_id");
+        }
+        request.setAttribute("listdFb", listdFb);
+        request.setAttribute("indexPage", indexPage);
+        request.setAttribute("numberOfPage", numberOfPage);
+        request.getRequestDispatcher("doctor-feedback-list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

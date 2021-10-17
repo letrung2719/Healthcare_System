@@ -16,11 +16,11 @@ import model.Reservation;
  * @author Admin
  */
 public class ReservationDAO extends DBContext {
-
+    PreparedStatement st = null;
     public int addNewReservation(Reservation r) {
         String sql = "insert into Reservations (date,patient_id,service_id,price,slot_id,description,status) values (?,?,?,?,?,?,1)";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
+             st = connection.prepareStatement(sql);
             st.setString(1, r.getDate());
             st.setInt(2, r.getPatient().getPatientID());
             st.setInt(3, r.getService().getService_id());

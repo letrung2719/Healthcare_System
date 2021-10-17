@@ -161,7 +161,7 @@ public class ServicesDAO extends DBContext {
                 + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] order by [Services].[type_id] asc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+             rs = st.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),

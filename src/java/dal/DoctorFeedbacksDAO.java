@@ -86,8 +86,6 @@ public class DoctorFeedbacksDAO extends DBContext {
         }
         return 0;
     }
-    
-    public
 
     public static void main(String[] args) {
         DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();
