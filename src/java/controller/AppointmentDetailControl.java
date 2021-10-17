@@ -37,8 +37,8 @@ public class AppointmentDetailControl extends HttpServlet {
         int appID = Integer.parseInt(request.getParameter("id"));
         String inputStatus = request.getParameter("status");
         AppointmentDAO appDb = new AppointmentDAO();
-        Appointment a = a = appDb.getAppointmentByID(appID);
-        Appointment b = new Appointment();
+        Appointment a = appDb.getAppointmentByID(appID);
+        
         if (inputStatus != null) {
             if (inputStatus.equals("cancel")) {
                 appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
@@ -49,8 +49,8 @@ public class AppointmentDetailControl extends HttpServlet {
             if (inputStatus.equals("complete")) {
                 appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
             }
-            b = appDb.getAppointmentByID(appID);
-            request.setAttribute("app", b);
+            a = appDb.getAppointmentByID(appID);
+            request.setAttribute("app", a);
             request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
         }
         request.setAttribute("app", a);
