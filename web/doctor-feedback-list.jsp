@@ -59,7 +59,7 @@
                             </nav>
                             <h2 class="breadcrumb-title">Reviews</h2>
                         </div>
-                        <div class="col-md-4 col-12 d-md-block d-none">
+<!--                        <div class="col-md-4 col-12 d-md-block d-none">
                             <div class="sort-by">
                                 <span class="sort-title">Sort by</span>
                                 <span class="sortby-fliter">
@@ -72,7 +72,7 @@
                                     </select>
                                 </span>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -163,23 +163,20 @@
                                                     <div class="meta-data">
                                                         <span class="comment-author">${fb.patient.name}</span>
                                                         <span class="comment-date">${fb.patient.email}</span>
-                                                        <div class="review-count rating">
-                                                            <c:forEach begin="1" end="${fb.rate}">
-                                                                <i class="fas fa-star filled"></i>
-                                                            </c:forEach>
-                                                            <c:forEach begin="${fb.rate+1}" end="5">
-                                                                <i class="fas fa-star"></i>
-                                                            </c:forEach>
 
-                                                        </div>
                                                     </div>
-                                                    <hr />
+                                                    <div class="review-count rating">
+                                                        <c:forEach begin="1" end="${fb.rate}">
+                                                            <i class="fas fa-star filled"></i>
+                                                        </c:forEach>
+                                                        <c:forEach begin="${fb.rate+1}" end="5">
+                                                            <i class="fas fa-star"></i>
+                                                        </c:forEach>
+
+                                                    </div>
+
                                                     <p >
-                                                        j Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                        elit, sed do eiusmod tempor incididunt ut labore et
-                                                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                                                        nostrud exercitation. Curabitur non nulla sit amet
-                                                        nisl tempu
+                                                        ${fb.content}
 
                                                     </p>
                                                 </div>
@@ -188,24 +185,24 @@
                                         <!-- /Comment List -->
                                     </c:forEach>
                                 </ul>
-                                
+
                                 <!-- /Comment List -->
                             </div>
                             <div class="load-more text-center">
-                                    <ul class="pagination align-content-center" >
-                                        <li class="page-item ">
-                                            <a class="page-link" href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=${page-1}">Previous</a>
-                                        </li>
-                                        <c:set var="page" value="${indexPage}"/>
-                                        <c:forEach begin="1" end="${numberOfPage}" var="i">
-                                            <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=${i}">${i}</a></li>
-                                            </c:forEach>
+                                <ul class="pagination align-content-center" >
+                                    <li class="page-item ">
+                                        <a class="page-link" href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=${page-1}">Previous</a>
+                                    </li>
+                                    <c:set var="page" value="${indexPage}"/>
+                                    <c:forEach begin="1" end="${numberOfPage}" var="i">
+                                        <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=${i}">${i}</a></li>
+                                        </c:forEach>
 
-                                        <li class="page-item">
-                                            <a class="page-link" href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=${page+1}">Next</a>
-                                        </li>
-                                    </ul>	
-                                </div>
+                                    <li class="page-item">
+                                        <a class="page-link" href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=${page+1}">Next</a>
+                                    </li>
+                                </ul>	
+                            </div>
                         </div>
                     </div>
                 </div>
