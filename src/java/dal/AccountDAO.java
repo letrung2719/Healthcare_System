@@ -64,6 +64,8 @@ public class AccountDAO extends DBContext {
         return 0;
     }
 
+    
+
     public Account getNewestAccount() {
         String sql = "select top 1 * from Accounts order by account_id desc";
         try {
@@ -108,7 +110,7 @@ public class AccountDAO extends DBContext {
     
     public static void main(String[] args) {
         AccountDAO accountDb = new AccountDAO();
-        Account a = accountDb.getAccountByID(22);
+        Account a = accountDb.getNewestAccount();
         System.out.println(a);
 
 //        System.out.println(accountDb.getNewestAccount());

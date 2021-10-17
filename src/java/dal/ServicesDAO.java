@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.ServiceFeedbacks;
+import model.ServiceFeedbacksAd;
 import model.Services;
 import model.Specialities;
+import model.Timetable;
 
 public class ServicesDAO extends DBContext {
 
@@ -289,7 +291,63 @@ public class ServicesDAO extends DBContext {
         }
         return list;
     }
+    
+    public List<Services> getAllServiceDashboard() {
+        List<Services> list = new ArrayList<>();
+        String sql = "SELECT [Services].[service_id]\n"
+                + "      ,[title]\n"
+                + "      ,[type_id]\n"
+                + "      ,[image]\n"
+                + "      ,(SELECT AVG([rate])\n"
+                + "        FROM [Service_Feedbacks]\n"
+                + "        where service_id =[Services].[service_id]) as rate\n"
+                + "      ,[price]\n"
+                + "FROM [HealthcareSystem].[dbo].[Services] join Service_Feedbacks on [Services].service_id = Service_Feedbacks.service_id\n"
+                + "group by [Services].[service_id],[title],[type_id],[image],[price]";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Services(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6)));
+            }
+        } catch (SQLException e) {
 
+        }
+        return list;
+    }
+
+    public List<ServiceFeedbacksAd> getAllCommentAd(String id) {
+        List<ServiceFeedbacksAd> list = new ArrayList<>();
+        String sql = "SELECT [feedback_id],[content],[rate], [Patients].[image], [Patients].[name], [service_id]\n"
+                + "FROM [HealthcareSystem].[dbo].[Service_Feedbacks] join [Patients] \n"
+                + "ON [Service_Feedbacks].[patient_id] = [Patients].[patient_id] where [service_id] = ?";
+        try {
+
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ServiceFeedbacksAd(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6)));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+    
+    //feedback
     //service feedback
     public void addComment(String comment, String rate, int patientID, String serviceID) {
         String sql = "INSERT INTO Service_Feedbacks ([content],[rate],[patient_id],service_id)\n"
@@ -305,7 +363,7 @@ public class ServicesDAO extends DBContext {
             System.out.println(e);
         }
     }
-
+    
     public void deleteComment(int fid) {
         String sql = "delete from [Service_Feedbacks] where feedback_id = ?";
         try {
@@ -387,8 +445,8 @@ public class ServicesDAO extends DBContext {
         }
         return average;
     }
-
-    public List<ServiceFeedbacks> getAllCommentSortedByStar(String id, String star) {
+    
+    public List<ServiceFeedbacks> getAllCommentSortedByStar(String id,String star) {
         List<ServiceFeedbacks> list = new ArrayList<>();
         String sql = "SELECT [feedback_id]\n"
                 + "      ,[content]\n"
@@ -414,7 +472,7 @@ public class ServicesDAO extends DBContext {
         }
         return list;
     }
-
+    
     public void editComment(String comment, String rate, String feedbackID) {
         String sql = "update Service_Feedbacks set content = ?, rate=?\n"
                 + " where feedback_id=?";
@@ -428,6 +486,10 @@ public class ServicesDAO extends DBContext {
             System.out.println(e);
         }
     }
+    
+    
+
+    
 
     public static void main(String[] args) {
         ServicesDAO dao = new ServicesDAO();

@@ -26,6 +26,10 @@ public class SignUpControl extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    public static final char SPACE = ' ';
+    public static final char TAB = '\t';
+    public static final char BREAK_LINE = '\n';
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -51,6 +55,7 @@ public class SignUpControl extends HttpServlet {
 
         if (!pass.equals(repass)) {
             request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
+
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else {
             PatientDAO patientDb = new PatientDAO();

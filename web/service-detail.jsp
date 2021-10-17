@@ -5,8 +5,16 @@
     <!-- doccure/profile-settings.html  30 Nov 2019 04:12:18 GMT -->
     <head>
         <meta charset="utf-8" />
+<<<<<<< Updated upstream
         <title>Profile Settings</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"/>
+=======
+        <title>${detail.title}</title>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=0"
+            />
+>>>>>>> Stashed changes
 
         <!-- Favicons -->
         <link href="assets/img/favicon.png" rel="icon" />
@@ -189,6 +197,7 @@
                                         </div>
                                         <div class="clinic-services">
                                             <h2 style="color: #00d2e6">Relate to:</h2>
+<<<<<<< Updated upstream
                                             <ul>
                                                 <c:forEach items="${listS}" var="o">
                                                     <li>
@@ -197,6 +206,20 @@
                                                     </li>
                                                 </c:forEach>
                                             </ul>
+=======
+                                            <c:forEach items="${listS}" var="o">
+                                                <c:if test="${o.title != detail.title}">
+                                                    <li>
+
+                                                        <a href="serdetail?sid=${o.service_id}">${o.title}</a>
+                                                        <!--<span class="span"</span><br/>-->
+
+                                                    </li>
+                                                </c:if>
+                                            </c:forEach>
+
+
+>>>>>>> Stashed changes
                                         </div>
                                     </div>
                                 </div>

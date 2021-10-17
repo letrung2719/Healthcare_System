@@ -15,10 +15,11 @@ import model.Timetable;
  *
  * @author admin
  */
-public class TimetableDAO extends DBContext{
+public class TimetableDAO extends DBContext {
+
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
+
     public Timetable getTimeBySlotID(int slotID) {
         String sql = "select * from Timetable where slot_id = ?";
         try {
@@ -26,7 +27,8 @@ public class TimetableDAO extends DBContext{
             ps.setInt(1, slotID);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Timetable(rs.getInt(1),rs.getString(2));}
+                return new Timetable(rs.getInt(1), rs.getString(2));
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }

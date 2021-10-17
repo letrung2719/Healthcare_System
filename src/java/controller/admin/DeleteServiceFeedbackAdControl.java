@@ -3,27 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.admin;
 
-import dal.AppointmentDAO;
-import dal.DoctorDAO;
-import dal.PatientDAO;
 import dal.ServicesDAO;
-import dal.TimetableDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Appointment;
-import model.Timetable;
 
 /**
  *
- * @author admin
+ * @author ASUS
  */
-public class BookingSuccessControl extends HttpServlet {
+@WebServlet(name = "DeleteServiceFeedbackAdControl", urlPatterns = {"/admin/delete_ser"})
+public class DeleteServiceFeedbackAdControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,18 +33,17 @@ public class BookingSuccessControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BookingSuccessControl</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BookingSuccessControl at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+            String feedback_id = request.getParameter("fid");
+            String serID = request.getParameter("serID");
+
+            int id = Integer.parseInt(feedback_id);
+            ServicesDAO feed = new ServicesDAO();
+            feed.deleteComment(id);
+            request.getRequestDispatcher("/admin/serfeed?id="+serID).forward(request, response);
+
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,27 +58,7 @@ public class BookingSuccessControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int patient_id = Integer.parseInt(request.getParameter("patient_id"));
-            int doctor_id = Integer.parseInt(request.getParameter("doctor_id"));
-            String date = request.getParameter("date");
-            int slot_id = Integer.parseInt(request.getParameter("slot_id"));
-            String description = request.getParameter("description");
-
-            PatientDAO db1 = new PatientDAO();
-            DoctorDAO db2 = new DoctorDAO();
-            TimetableDAO db3 = new TimetableDAO();
-            
-            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, db3.getTimeBySlotID(slot_id), description, 1);
-            
-            AppointmentDAO db4 = new AppointmentDAO();
-            db4.addNewAppointment(a);
-
-            request.setAttribute("appointment", a);
-            request.getRequestDispatcher("booking-success.jsp").forward(request, response);
-        } catch (NumberFormatException e) {
-            System.out.println(e);
-        }
+        processRequest(request, response);
     }
 
     /**
