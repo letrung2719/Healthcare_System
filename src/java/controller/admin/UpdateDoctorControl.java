@@ -34,7 +34,7 @@ public class UpdateDoctorControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            
             int accountID = Integer.parseInt(request.getParameter("accountID"));
             String name = request.getParameter("name");
             String gender_raw = request.getParameter("gender");

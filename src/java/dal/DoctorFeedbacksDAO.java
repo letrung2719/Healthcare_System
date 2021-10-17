@@ -112,8 +112,8 @@ public class DoctorFeedbacksDAO extends DBContext {
                 + "OFFSET (@PageNumber-1)*@RowsOfPage ROWS\n"
                 + "FETCH NEXT @RowsOfPage ROWS ONLY";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 DoctorFeedbacks df = new DoctorFeedbacks();
                 df.setFeedbackID(rs.getInt(1));

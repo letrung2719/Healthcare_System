@@ -18,7 +18,7 @@ import model.Appointment;
 
 import model.Doctor;
 import model.Patient;
-import model.Specialities;
+
 import model.Timetable;
 
 /**
@@ -37,7 +37,6 @@ public class AppointmentDAO extends DBContext {
     public int addNewAppointment(Appointment a) {
         String sql = "insert into Appointments (patient_id,doctor_id,date,slot_id,description,status) values (?,?,?,?,?,?)";
 
-        ServicesDAO dalService = new ServicesDAO();
         TimetableDAO dalTime = new TimetableDAO();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -50,6 +49,7 @@ public class AppointmentDAO extends DBContext {
             st.setString(5, a.getDescription());
             st.setInt(6, a.getStatus());
             st.executeUpdate();
+  
             return 1;
         } catch (SQLException e) {
             System.out.println(e);
@@ -108,7 +108,7 @@ public class AppointmentDAO extends DBContext {
             ResultSet rs = st.executeQuery();
             PatientDAO dalPatient = new PatientDAO();
             DoctorDAO dalDoctor = new DoctorDAO();
-            ServicesDAO dalService = new ServicesDAO();
+          
 
             while (rs.next()) {
                 Appointment a = new Appointment();
@@ -143,7 +143,7 @@ public class AppointmentDAO extends DBContext {
                 + "FETCH NEXT @RowsOfPage ROWS ONLY";
         try {
 
-            PreparedStatement ps = connection.prepareStatement(sql);
+             ps = connection.prepareStatement(sql);
             ps.setInt(1, pageNumber);
             ps.setInt(2, numberOfItem);
             ps.setInt(3, doctorID);

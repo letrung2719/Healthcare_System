@@ -78,7 +78,7 @@ public class PatientProfileSetting extends HttpServlet {
             String email = request.getParameter("email");
             Patient e = new Patient(id, name, gender, dob, phone, email, accountID, "");
             PatientDAO patientDb = new PatientDAO();
-            int res = patientDb.editPatient(e);
+            patientDb.editPatient(e);
             request.setAttribute("thongbao", resourceBundle.getString("success"));
             
             HttpSession session = request.getSession();

@@ -27,7 +27,7 @@ public class PatientDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, accountID);
-            ResultSet rs = st.executeQuery();
+            rs = st.executeQuery();
             while (rs.next()) {
                 Patient p = new Patient();
                 p.setPatientID(rs.getInt(1));
@@ -51,7 +51,7 @@ public class PatientDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, patientID);
-            ResultSet rs = st.executeQuery();
+            rs = st.executeQuery();
             while (rs.next()) {
                 Patient p = new Patient();
                 p.setPatientID(rs.getInt(1));
@@ -107,7 +107,7 @@ public class PatientDAO extends DBContext {
         String sql = "select * from Patients ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            rs = st.executeQuery();
             while (rs.next()) {
                 Patient p = new Patient();
                 p.setPatientID(rs.getInt(1));
@@ -120,9 +120,13 @@ public class PatientDAO extends DBContext {
                 p.setImage(rs.getString(7));
                 list.add(p);
             }
+            rs.close();
+            st.close();
+            connection.close();
+
         } catch (SQLException e) {
 
-        }
+        } 
         return list;
     }
 
@@ -137,7 +141,11 @@ public class PatientDAO extends DBContext {
             st.setString(4, p.getPhone());
             st.setString(5, p.getEmail());
             st.setInt(6, p.getAccountID());
+            rs.close();
+            st.close();
+
             return st.executeUpdate();
+
         } catch (SQLException ex) {
             System.out.println(ex);
         }

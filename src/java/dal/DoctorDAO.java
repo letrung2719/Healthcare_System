@@ -15,7 +15,7 @@ import model.Doctor;
 import model.Specialities;
 
 /**
- * 
+ *
  * @author Admin
  */
 public class DoctorDAO extends DBContext {
@@ -30,7 +30,7 @@ public class DoctorDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, accountID);
-            ResultSet rs = st.executeQuery();
+            rs = st.executeQuery();
             if (rs.next()) {
                 Doctor p = new Doctor();
                 p.setDoctorID(rs.getInt(1));
@@ -52,7 +52,7 @@ public class DoctorDAO extends DBContext {
         }
         return null;
     }
-    
+
     public Doctor getDoctorByDoctorID(int doctorID) {
         String sql = "select doctor_id,Doctors.name,gender,dob,phone,email,role,Doctors.type_id,Specialities.name,description,account_id,image\n"
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
@@ -60,7 +60,7 @@ public class DoctorDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, doctorID);
-            ResultSet rs = st.executeQuery();
+            rs = st.executeQuery();
             if (rs.next()) {
                 Doctor p = new Doctor();
                 p.setDoctorID(rs.getInt(1));
@@ -122,7 +122,7 @@ public class DoctorDAO extends DBContext {
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            rs = st.executeQuery();
             while (rs.next()) {
                 Doctor p = new Doctor();
                 p.setDoctorID(rs.getInt(1));
@@ -144,9 +144,10 @@ public class DoctorDAO extends DBContext {
         }
         return list;
     }
-    public List<Doctor> getDoctorByPage(List<Doctor> list, int begin, int end ){
+
+    public List<Doctor> getDoctorByPage(List<Doctor> list, int begin, int end) {
         List<Doctor> listDoctorByPage = new ArrayList<>();
-        for ( int i = begin; i< end; i++){
+        for (int i = begin; i < end; i++) {
             listDoctorByPage.add(list.get(i));
         }
         return listDoctorByPage;
@@ -174,18 +175,19 @@ public class DoctorDAO extends DBContext {
         }
         if (listSpec != null && !listSpec.isEmpty()) {
             sql += "and (";
-            for (int i= 0; i< listSpec.size(); i++){
-                sql+= "Specialities.name = '"+listSpec.get(i)+"' ";
-                if (i< listSpec.size()-1){
-                    sql+= " or ";
+            for (int i = 0; i < listSpec.size(); i++) {
+                sql += "Specialities.name = '" + listSpec.get(i) + "' ";
+                if (i < listSpec.size() - 1) {
+                    sql += " or ";
                 }
             }
             sql += ")";
         }
         System.out.println(sql);
+
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Doctor d = new Doctor();
                 d.setDoctorID(rs.getInt(1));
@@ -202,7 +204,7 @@ public class DoctorDAO extends DBContext {
                 list.add(d);
             }
         } catch (SQLException e) {
-            
+
         }
         return list;
     }
