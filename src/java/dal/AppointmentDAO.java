@@ -39,16 +39,16 @@ public class AppointmentDAO extends DBContext {
 
         TimetableDAO dalTime = new TimetableDAO();
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, a.getPatient().getPatientID());
-            st.setInt(2, a.getDoctor().getDoctorID());
-            st.setString(3, a.getDate());
-            st.setInt(4, a.getSlot().getSlotID());    
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, a.getPatient().getPatientID());
+            ps.setInt(2, a.getDoctor().getDoctorID());
+            ps.setString(3, a.getDate());
+            ps.setInt(4, a.getSlot().getSlotID());    
             Timetable s = dalTime.getTimeBySlotID(rs.getInt(4));
             a.setSlot(s);
-            st.setString(5, a.getDescription());
-            st.setInt(6, a.getStatus());
-            st.executeUpdate();
+            ps.setString(5, a.getDescription());
+            ps.setInt(6, a.getStatus());
+            ps.executeUpdate();
   
             return 1;
         } catch (SQLException e) {
@@ -104,12 +104,8 @@ public class AppointmentDAO extends DBContext {
         List<Appointment> list = new ArrayList<>();
         String sql = "select * from Appointments";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            PatientDAO dalPatient = new PatientDAO();
-            DoctorDAO dalDoctor = new DoctorDAO();
-          
-
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Appointment a = new Appointment();
                 a.setAppointmentID(rs.getInt(1));
@@ -173,8 +169,8 @@ public class AppointmentDAO extends DBContext {
     public int changeAppointmentStatus(int appID, int status) {
         String sql = "update appointments set status = " + status + " where appointment_id  = " + appID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            int rs = st.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            int rs = ps.executeUpdate();
             return rs;
         } catch (SQLException e) {
 
@@ -213,8 +209,8 @@ public class AppointmentDAO extends DBContext {
     public int deleteAppointment(int appID) {
         String sql = "delete appointments where appointment_id =" + appID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            return st.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            return ps.executeUpdate();
         } catch (SQLException e) {
 
         }

@@ -85,8 +85,8 @@ public class ServicesDAO extends DBContext {
         List<Specialities> list = new ArrayList<>();
         String sql = "select * from Specialities";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Specialities(rs.getInt(1), rs.getString(2)));
             }
@@ -106,8 +106,8 @@ public class ServicesDAO extends DBContext {
                 + "      ,[price]\n"
                 + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id]";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),
@@ -133,10 +133,10 @@ public class ServicesDAO extends DBContext {
                 + "      ,[price]\n"
                 + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] where [title] like ? or Specialities.[name] like ?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, "%" + name + "%");
-            st.setString(2, "%" + name + "%");
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            ps.setString(2, "%" + name + "%");
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),
@@ -162,8 +162,8 @@ public class ServicesDAO extends DBContext {
                 + "      ,[price]\n"
                 + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] order by [Services].[type_id] asc";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-             rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),
@@ -174,7 +174,7 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(6)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -189,8 +189,8 @@ public class ServicesDAO extends DBContext {
                 + "      ,[price]\n"
                 + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] order by [Services].[price] desc";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),
@@ -216,8 +216,8 @@ public class ServicesDAO extends DBContext {
                 + "      ,[price]\n"
                 + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] order by [Services].[price] asc";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),
@@ -237,9 +237,9 @@ public class ServicesDAO extends DBContext {
         List<Services> list = new ArrayList<>();
         String sql = "select * from Services where type_id=?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),
@@ -276,8 +276,8 @@ public class ServicesDAO extends DBContext {
         }
         System.out.println(sql);
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),
@@ -306,8 +306,8 @@ public class ServicesDAO extends DBContext {
                 + "FROM [HealthcareSystem].[dbo].[Services] join Service_Feedbacks on [Services].service_id = Service_Feedbacks.service_id\n"
                 + "group by [Services].[service_id],[title],[type_id],[image],[price]";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),
@@ -330,9 +330,9 @@ public class ServicesDAO extends DBContext {
                 + "ON [Service_Feedbacks].[patient_id] = [Patients].[patient_id] where [service_id] = ?";
         try {
 
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new ServiceFeedbacksAd(
                         rs.getInt(1),
@@ -354,12 +354,12 @@ public class ServicesDAO extends DBContext {
         String sql = "INSERT INTO Service_Feedbacks ([content],[rate],[patient_id],service_id)\n"
                 + "VALUES (?,?,?,?);";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, comment);
-            st.setString(2, rate);
-            st.setInt(3, patientID);
-            st.setString(4, serviceID);
-            st.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, comment);
+            ps.setString(2, rate);
+            ps.setInt(3, patientID);
+            ps.setString(4, serviceID);
+            ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -368,9 +368,9 @@ public class ServicesDAO extends DBContext {
     public void deleteComment(int fid) {
         String sql = "delete from [Service_Feedbacks] where feedback_id = ?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, fid);
-            st.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, fid);
+            ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -385,9 +385,9 @@ public class ServicesDAO extends DBContext {
                 + "      ,[service_id]\n"
                 + "  FROM [HealthcareSystem].[dbo].[Service_Feedbacks] join [Patients] ON [Service_Feedbacks].[patient_id] = [Patients].[patient_id] where [service_id] = ?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new ServiceFeedbacks(
                         rs.getInt(1),
@@ -411,10 +411,10 @@ public class ServicesDAO extends DBContext {
                 + "      ,[service_id]\n"
                 + "  FROM [HealthcareSystem].[dbo].[Service_Feedbacks] where [patient_id] = ? and [service_id] = ?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, patient_id);
-            st.setString(2, service_id);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, patient_id);
+            ps.setString(2, service_id);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new ServiceFeedbacks(
                         rs.getInt(1),
@@ -435,9 +435,9 @@ public class ServicesDAO extends DBContext {
                 + "FROM [Service_Feedbacks]\n"
                 + "where [service_id] = ?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, service_id);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, service_id);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 average = rs.getInt(1);
             }
@@ -456,10 +456,10 @@ public class ServicesDAO extends DBContext {
                 + "      ,[service_id]\n"
                 + "  FROM [HealthcareSystem].[dbo].[Service_Feedbacks] join [Patients] ON [Service_Feedbacks].[patient_id] = [Patients].[patient_id] where [service_id] = ? and rate = ?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id);
-            st.setString(2, star);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setString(2, star);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new ServiceFeedbacks(
                         rs.getInt(1),
@@ -478,11 +478,11 @@ public class ServicesDAO extends DBContext {
         String sql = "update Service_Feedbacks set content = ?, rate=?\n"
                 + " where feedback_id=?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, comment);
-            st.setString(2, rate);
-            st.setString(3, feedbackID);
-            st.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, comment);
+            ps.setString(2, rate);
+            ps.setString(3, feedbackID);
+            ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }

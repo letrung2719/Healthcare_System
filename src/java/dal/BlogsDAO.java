@@ -25,9 +25,9 @@ public class BlogsDAO extends DBContext{
     public Blogs getBlogByBlogID(int blogID){
         String sql ="Select * FROM Blogs Where blog_id=?";
         try{
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, blogID);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, blogID);
+            rs = ps.executeQuery();
             if(rs.next()){
                 Blogs b = new Blogs();
                 b.setBlogID(rs.getInt(1));
@@ -47,8 +47,8 @@ public class BlogsDAO extends DBContext{
         List<Blogs> list = new ArrayList<>();
         String sql ="Select blog_id,title,date,image,description FROM Blogs";
         try{
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while(rs.next()){
                 Blogs bl = new Blogs();
                 bl.setBlogID(rs.getInt(1));
@@ -68,9 +68,9 @@ public class BlogsDAO extends DBContext{
         String sql="Select [blog_id],[title],[date],[image],[description]\n"
                 +"FROM [Blogs] where [title] like ? ";
         try{
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, "%" + name + "%");
-            ResultSet rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 list.add(new Blogs(
                         rs.getInt(1),

@@ -20,14 +20,15 @@ import model.Patient;
 public class PatientDAO extends DBContext {
 
     PreparedStatement ps = null;
+    PreparedStatement ps2 = null;
     ResultSet rs = null;
 
     public Patient getPatientByAccountID(int accountID) {
         String sql = "select * from patients where account_id = ?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, accountID);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, accountID);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Patient p = new Patient();
                 p.setPatientID(rs.getInt(1));
@@ -49,9 +50,9 @@ public class PatientDAO extends DBContext {
     public Patient getPatientByPatientID(int patientID) {
         String sql = "select * from patients where patient_id = ?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, patientID);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, patientID);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Patient p = new Patient();
                 p.setPatientID(rs.getInt(1));
@@ -74,12 +75,12 @@ public class PatientDAO extends DBContext {
         String sql = " delete from Patients where account_id=?";
         String sql2 = " delete from Accounts where account_id=?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            PreparedStatement st2 = connection.prepareStatement(sql2);
-            st.setInt(1, id);
-            st2.setInt(1, id);
-            st.executeUpdate();
-            st2.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            ps2 = connection.prepareStatement(sql2);
+            ps.setInt(1, id);
+            ps2.setInt(1, id);
+            ps.executeUpdate();
+            ps2.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -106,8 +107,8 @@ public class PatientDAO extends DBContext {
         ArrayList<Patient> list = new ArrayList<>();
         String sql = "select * from Patients ";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Patient p = new Patient();
                 p.setPatientID(rs.getInt(1));
@@ -134,17 +135,17 @@ public class PatientDAO extends DBContext {
         String sql = "update Patients set Name = ?, gender=? , dob=?,phone=?,email=?\n"
                 + " where account_id=?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, p.getName());
-            st.setInt(2, p.getGender());
-            st.setString(3, p.getDob());
-            st.setString(4, p.getPhone());
-            st.setString(5, p.getEmail());
-            st.setInt(6, p.getAccountID());
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, p.getName());
+            ps.setInt(2, p.getGender());
+            ps.setString(3, p.getDob());
+            ps.setString(4, p.getPhone());
+            ps.setString(5, p.getEmail());
+            ps.setInt(6, p.getAccountID());
             rs.close();
-            st.close();
+            ps.close();
 
-            return st.executeUpdate();
+            return ps.executeUpdate();
 
         } catch (SQLException ex) {
             System.out.println(ex);
