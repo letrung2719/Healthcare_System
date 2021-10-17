@@ -28,9 +28,12 @@ import model.Doctor;
  * @author admin
  */
 public class AppointmentBookingControl extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
+    
+    
+    
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

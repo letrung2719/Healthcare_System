@@ -16,7 +16,7 @@ import model.Patient;
  * @author admin
  */
 public class UpdatePatientControl extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

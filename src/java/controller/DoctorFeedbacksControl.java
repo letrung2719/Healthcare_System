@@ -27,7 +27,7 @@ import model.Patient;
  */
 @WebServlet(name = "DoctorFeedbacksControl", urlPatterns = {"/doctor_feedbacks"})
 public class DoctorFeedbacksControl extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -114,7 +114,7 @@ public class DoctorFeedbacksControl extends HttpServlet {
 
             DoctorFeedbacks feedback = new DoctorFeedbacks(date, content, rating, patient, doctor);
             DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();
-            int result = feedbackDB.addNewDoctorFeedback(feedback);
+            feedbackDB.addNewDoctorFeedback(feedback);
             response.sendRedirect(request.getContextPath() + "/doctor_profile_view?id=" + doctor.getAccountID());
         } catch (NumberFormatException e) {
             System.out.println(e);

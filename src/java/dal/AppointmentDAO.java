@@ -43,28 +43,28 @@ public class AppointmentDAO extends DBContext {
             ps.setInt(1, a.getPatient().getPatientID());
             ps.setInt(2, a.getDoctor().getDoctorID());
             ps.setString(3, a.getDate());
-            ps.setInt(4, a.getSlot().getSlotID());    
+            ps.setInt(4, a.getSlot().getSlotID());
             Timetable s = dalTime.getTimeBySlotID(rs.getInt(4));
             a.setSlot(s);
             ps.setString(5, a.getDescription());
             ps.setInt(6, a.getStatus());
             ps.executeUpdate();
-  
+
             return 1;
         } catch (SQLException e) {
             System.out.println(e);
         }
         return 0;
     }
-   
+
     public Appointment getAppointmentByID(int appID) {
         String sql = "select  * from appointments where appointment_id = " + appID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
 
             if (rs.next()) {
-               
+
                 Appointment a = new Appointment();
                 a.setAppointmentID(rs.getInt(1));
                 Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));
@@ -79,7 +79,7 @@ public class AppointmentDAO extends DBContext {
                 a.setStatus(rs.getInt(7));
                 return a;
             }
-        } catch (SQLException  e) {
+        } catch (SQLException e) {
 
         }
         return null;
@@ -88,8 +88,8 @@ public class AppointmentDAO extends DBContext {
     public int getAllDoctorAppointment(int doctorID) {
         String sql = "select count(*) from Appointments where doctor_id = " + doctorID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
 
             if (rs.next()) {
                 return rs.getInt(1);
@@ -125,8 +125,7 @@ public class AppointmentDAO extends DBContext {
         }
         return list;
     }
-    
-    
+
     public List<Appointment> paginateAppointmentByDoctorID(int doctorID, int pageNumber, int numberOfItem) {
         List<Appointment> list = new ArrayList<>();
         String sql = "DECLARE @PageNumber AS INT\n"
@@ -139,7 +138,7 @@ public class AppointmentDAO extends DBContext {
                 + "FETCH NEXT @RowsOfPage ROWS ONLY";
         try {
 
-             ps = connection.prepareStatement(sql);
+            ps = connection.prepareStatement(sql);
             ps.setInt(1, pageNumber);
             ps.setInt(2, numberOfItem);
             ps.setInt(3, doctorID);

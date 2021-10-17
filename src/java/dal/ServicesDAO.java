@@ -429,7 +429,7 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
-    public int AverageRateServices(String service_id) {
+    public int averageRateServices(String service_id) {
         int average = 0;
         String sql = "SELECT ROUND(AVG([rate]),0)\n"
                 + "FROM [Service_Feedbacks]\n"

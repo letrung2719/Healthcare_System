@@ -121,8 +121,7 @@ public class PatientDAO extends DBContext {
                 p.setImage(rs.getString(7));
                 list.add(p);
             }
-            rs.close();
-            st.close();
+            
             connection.close();
 
         } catch (SQLException e) {
@@ -142,8 +141,12 @@ public class PatientDAO extends DBContext {
             ps.setString(4, p.getPhone());
             ps.setString(5, p.getEmail());
             ps.setInt(6, p.getAccountID());
+<<<<<<< HEAD
             rs.close();
             ps.close();
+=======
+           
+>>>>>>> dd9bc3560bb32c54abd3b926d69482b33ef5f47a
 
             return ps.executeUpdate();
 

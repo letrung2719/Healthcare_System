@@ -27,6 +27,8 @@ import model.Specialities;
 @WebServlet(name = "ServiceDetailControl", urlPatterns = {"/serdetail"})
 public class ServiceDetailControl extends HttpServlet {
 
+    private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,20 +47,20 @@ public class ServiceDetailControl extends HttpServlet {
         Services s = dao.getServiceByID(id);
         String specID = s.getType_id();
 
-        int avrate = dao.AverageRateServices(id);
+        int avrate = dao.averageRateServices(id);
         Specialities spec = dao.getSpecByID(specID);
         String type_id = dao.getServiceByID(id).getType_id();
         List<Services> listS = dao.getTop4Last(type_id);
         List<ServiceFeedbacks> listF = dao.getAllComment(id);
         int totalfeedback = listF.size();
-        
+
         HttpSession session = request.getSession();
-        Account a = (Account)session.getAttribute("acc");
-        Patient p = new Patient();
+        Account a = (Account) session.getAttribute("acc");
+
         if (a != null) {
             if (a.getAuthor_id() == 2) {
-                p = (Patient)session.getAttribute("user");
-                List<ServiceFeedbacks> check = dao.checkPatientComment((int)p.getPatientID(), id);
+                Patient p = (Patient) session.getAttribute("user");
+                List<ServiceFeedbacks> check = dao.checkPatientComment((int) p.getPatientID(), id);
                 if (check.isEmpty()) {
                     request.setAttribute("check", 1);
                 } else {
@@ -66,7 +68,7 @@ public class ServiceDetailControl extends HttpServlet {
                 }
             }
         }
-        
+
         request.setAttribute("avrate", avrate);
         request.setAttribute("totalfeedback", totalfeedback);
         request.setAttribute("detail", s);

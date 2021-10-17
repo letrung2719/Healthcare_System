@@ -17,7 +17,8 @@ import model.Doctor;
 import model.Patient;
 
 public class LoginControl extends HttpServlet {
-    
+
+    private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
 
     /**
@@ -38,9 +39,9 @@ public class LoginControl extends HttpServlet {
         Account a = accountDb.login(user, pass);
         PatientDAO patientDb = new PatientDAO();
         DoctorDAO doctorDb = new DoctorDAO();
-        
+
         request.setAttribute("username", user);
-        
+
         if (a == null) {
             request.setAttribute("mess", resourceBundle.getString("invalid_account"));
             request.getRequestDispatcher("login.jsp").forward(request, response);
