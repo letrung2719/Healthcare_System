@@ -141,8 +141,9 @@
                                                                     id="card_name"
                                                                     type="date"
                                                                     name="date"
-                                                                    
+
                                                                     required=""
+                                                                    onchange="changeDate(this.value)"
                                                                     />
                                                             </div>
                                                         </div>
@@ -151,17 +152,18 @@
                                                                 <label for="card_name">Time</label>
                                                                 <select
                                                                     class="form-control"
-                                                                    id="card_name"
-                                                                    name="slot_id"
+                                                                    id="time"
+                                                                    name="slot_id" 
+                                                                    onclick="changeTime(this.value)"
                                                                     >
-                                                                    <option value="1">7h - 8h</option>
-                                                                    <option value="2">8h - 9h</option>
-                                                                    <option value="3">9h - 10h</option>
-                                                                    <option value="4">10h - 11h</option>
-                                                                    <option value="5">11h - 12h</option>
-                                                                    <option value="6">14h - 15h</option>
-                                                                    <option value="7">15h - 16h</option>
-                                                                    <option value="8">16h - 17h</option>
+                                                                    <option value="7h-8h">7h - 8h</option>
+                                                                    <option value="8h - 9h">8h - 9h</option>
+                                                                    <option value="9h - 10h">9h - 10h</option>
+                                                                    <option value="10h - 11h">10h - 11h</option>
+                                                                    <option value="11h - 12h">11h - 12h</option>
+                                                                    <option value="14h - 15h">14h - 15h</option>
+                                                                    <option value="15h - 16h">15h - 16h</option>
+                                                                    <option value="16h - 17h">16h - 17h</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -221,12 +223,13 @@
                                                 <a href="doctor-profile.html">${service.title}</a>
                                             </h4>
                                             <div class="rating">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star"></i>
-                                                
+                                                <c:forEach begin="1" end="${fb.rate}">
+                                                    <i class="fas fa-star filled"></i>
+                                                </c:forEach>
+                                                <c:forEach begin="${fb.rate+1}" end="5">
+                                                    <i class="fas fa-star"></i>
+                                                </c:forEach>
+
                                             </div>
                                         </div>
                                     </div>
@@ -235,18 +238,27 @@
                                     <div class="booking-summary">
                                         <div class="booking-item-wrap">
                                             <ul class="booking-date">
-                                                <li>Date <span>16 Nov 2019</span></li>
-                                                <li>Time <span>10:00 AM</span></li>
+                                                <li>Date <span id="resDate"></span></li>
+                                                <li>Time <span id="resTime">7h-8h</span></li>
                                             </ul>
-
+                                            <script>
+                                                function changeDate(value) {
+                                                    document.getElementById("resDate").innerHTML = value;
+                                                }
+                                            </script>
+                                            <script>
+                                                function changeTime(value) {
+                                                    document.getElementById("resTime").innerHTML = value;
+                                                }
+                                            </script>
                                             <ul class="booking-fee">
-                                                <li>Reservation Fee <span>$100</span></li>
+                                                <li>Reservation Fee <span>${service.price} VND</span></li>
                                             </ul>
                                             <div class="booking-total">
                                                 <ul class="booking-total-list">
                                                     <li>
                                                         <span>Total</span>
-                                                        <span class="total-cost">$160</span>
+                                                        <span class="total-cost">${service.price} VND</span>
                                                     </li>
                                                 </ul>
                                             </div>
