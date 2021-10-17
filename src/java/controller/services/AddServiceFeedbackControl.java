@@ -23,7 +23,7 @@ import model.Patient;
  */
 @WebServlet(name = "AddServiceFeedbackControl", urlPatterns = {"/sendfeedback"})
 public class AddServiceFeedbackControl extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

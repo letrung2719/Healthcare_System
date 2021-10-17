@@ -27,7 +27,7 @@ import model.Specialities;
  */
 @WebServlet(name = "SortStarFeedbackControl", urlPatterns = {"/sortStarComment"})
 public class SortStarCommentControl extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -60,7 +60,7 @@ public class SortStarCommentControl extends HttpServlet {
         request.setAttribute("detail", s);
         //lấy dữ liệu Service và id Speciality của Service
         //
-        int avrate = dal.AverageRateServices(id);
+        int avrate = dal.averageRateServices(id);
         request.setAttribute("avrate", avrate);
         //lấy rate trung bình của service
         //

@@ -106,8 +106,8 @@ public class PatientDAO extends DBContext {
         ArrayList<Patient> list = new ArrayList<>();
         String sql = "select * from Patients ";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Patient p = new Patient();
                 p.setPatientID(rs.getInt(1));
@@ -120,8 +120,7 @@ public class PatientDAO extends DBContext {
                 p.setImage(rs.getString(7));
                 list.add(p);
             }
-            rs.close();
-            st.close();
+            
             connection.close();
 
         } catch (SQLException e) {
@@ -134,17 +133,16 @@ public class PatientDAO extends DBContext {
         String sql = "update Patients set Name = ?, gender=? , dob=?,phone=?,email=?\n"
                 + " where account_id=?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, p.getName());
-            st.setInt(2, p.getGender());
-            st.setString(3, p.getDob());
-            st.setString(4, p.getPhone());
-            st.setString(5, p.getEmail());
-            st.setInt(6, p.getAccountID());
-            rs.close();
-            st.close();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, p.getName());
+            ps.setInt(2, p.getGender());
+            ps.setString(3, p.getDob());
+            ps.setString(4, p.getPhone());
+            ps.setString(5, p.getEmail());
+            ps.setInt(6, p.getAccountID());
+           
 
-            return st.executeUpdate();
+            return ps.executeUpdate();
 
         } catch (SQLException ex) {
             System.out.println(ex);

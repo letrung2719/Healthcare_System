@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 
 public class DBContext {
+    
     private String pass(String pass){
         return pass;
     }

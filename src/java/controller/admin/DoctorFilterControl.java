@@ -26,6 +26,8 @@ import model.Specialities;
  */
 public class DoctorFilterControl extends HttpServlet {
 
+    private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,7 +54,7 @@ public class DoctorFilterControl extends HttpServlet {
         ServicesDAO dao = new ServicesDAO();
         List<Specialities> listSpec = dao.getAllSpecialities();
         DoctorDAO doctorDb = new DoctorDAO();
-        List<Doctor> listDoctors = doctorDb.search(name, dob, phone , email, gender, listSpec1);
+        List<Doctor> listDoctors = doctorDb.search(name, dob, phone, email, gender, listSpec1);
         request.setAttribute("doctorName", name);
         request.setAttribute("doctorPhone", phone);
         request.setAttribute("doctorDob", dob);

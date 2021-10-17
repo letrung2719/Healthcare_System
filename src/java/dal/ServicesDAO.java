@@ -429,7 +429,7 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
-    public int AverageRateServices(String service_id) {
+    public int averageRateServices(String service_id) {
         int average = 0;
         String sql = "SELECT ROUND(AVG([rate]),0)\n"
                 + "FROM [Service_Feedbacks]\n"
@@ -437,7 +437,7 @@ public class ServicesDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, service_id);
-            ResultSet rs = st.executeQuery();
+             rs = st.executeQuery();
             if (rs.next()) {
                 average = rs.getInt(1);
             }

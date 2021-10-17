@@ -14,7 +14,7 @@ import model.Specialities;
 
 @WebServlet(name = "ServicesControl", urlPatterns = {"/services"})
 public class ServicesControl extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
