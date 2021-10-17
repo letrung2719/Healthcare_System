@@ -31,7 +31,7 @@
                     <li class="${path == "/index.jsp" ? "active" : ""}"><a href="index.jsp">Home</a></li>              
                     <li class="${path == "/doctor.jsp" ? "active" : ""}"><a href="doctor?page=1">Doctors List</a></li>
                     <li class="${path == "/serviceslist.jsp" ? "active" : ""}"><a href="services">Services List</a></li>
-                    <li class="${path == "/blog.jsp" ? "active" : ""}"><a href="#">About us</a></li>
+                    <li class="${path == "/blog.jsp" ? "active" : ""}"><a href="blog-list">About us</a></li>
                     </c:if>
 
                 <c:if test="${sessionScope.acc.author_id == 1}">

@@ -580,6 +580,97 @@ INSERT [dbo].[Timetable] ([slot_id], [time]) VALUES (8, N'16h -17h')
 GO
 SET IDENTITY_INSERT [dbo].[Timetable] OFF
 GO
+SET IDENTITY_INSERT [dbo].[Blogs] ON 
+INSERT [dbo].[Blogs] ([blog_id], [title], [date], [image], [description]) 
+VALUES (1, N'Percutaneous heart valve replacement', CAST(N'2020-05-17' AS Date), N'https://vinmec-prod.s3.amazonaws.com/images/20190426_040437_971221_hep-ho-van-dong-mac.max-1800x1800.jpg', 
+N'The article was professionally consulted by Dr. Nguyen Van Duong - Interventional Cardiologist - Cardiovascular Center - Vinmec Central Park International General Hospital.
+
+Percutaneous valve replacement without surgery is one of the most complex heart valve replacement techniques in the world, helping patients'' health to be significantly improved, especially the ability to recover quickly. Vinmec is the first hospital in Vietnam to perform this technique independently. Please refer to the non-surgical percutaneous valve replacement at Vinmec to better understand this method.
+
+1. What is transcatheter aortic valve replacement (TAVI)?
+Percutaneous aortic valve replacement is currently an alternative to aortic valve replacement surgery in patients with aortic stenosis and at very high surgical risk or no longer indicated for surgery. The valve is attached to a device that is threaded through the skin into the ascending femoral artery and attached to the aortic valve.
+
+Percutaneous aortic valve replacement was first used in patients with tight aortic stenosis who were refused surgery by surgeons due to the high risk of surgery in 2002 and was performed by Dr. Interventional cardiologist Dr. Alain Cribier. Officially and regularly applied for about 10 years now. Currently, Vinmec is the first hospital in Vietnam to perform this technique independently.
+
+2. Designated object
+This method is only applicable to patients who:
+
+Patients over 60 years of age with severe aortic stenosis (valvular orifice area < 1 cm2, mean transvalvular gradient > 40 mmHg).
+Have aortic and peripheral artery anatomy appropriate to the technique.
+Have a desire to perform TAVI.
+Approved by the cardiology team (heart team including internal cardiologist, cardiothoracic surgeon, interventional cardiologist, anesthesiologist) approved.
+Patients with aortic valve stenosis
+Elderly patients with severe aortic stenosis can apply the technique
+banner image
+
+3. Implementation process
+This method is done through the following steps:
+
+Step 1: The patient will be performed laboratory tests (echocardiography, CT scan as well as other blood tests) to assess the anatomical fit of the valve structure and blood vessels. Coronary angiography and aortic arch, access artery assesses the extent of damage to the coronary system, the degree of calcification of the aortic valve as well as the vascular access.
+
+Step 2: Consultation through the cardiology team to get consensus and appropriate appointment for the patient. Explain to patients and relatives the indications, costs, possible complications before, during and after the procedure.
+
+Step 3: Do the trick.
+
+Outstanding advantage
+
+Percutaneous aortic valve replacement is one of the most modern and complex heart valve replacement techniques in the world. With this technique, doctors will thread a tube through the skin from the femoral artery to the aorta to replace the heart valve, which increases the likelihood of success, reduces the risk of bleeding, and avoids many dangerous complications.
+This method is less invasive, gentler and simpler than conventional aortic valve replacement surgery. Doctors do not have to drive along the patient''s sternum, do not have to run an artificial cardiopulmonary bypass machine, do not have general anesthesia, so the risk of complications is minimized.
+The patient''s recovery time is also faster, only 2-6 days compared to 1-2 weeks if open surgery.
+This is considered a lifeline for patients who cannot tolerate surgery because of old age, weakness or chronic diseases.
+
+4. Why should this technique be done at Vinmec?
+Percutaneous aortic valve replacement patient at Vinmec
+Percutaneous aortic valve replacement patient at Vinmec
+Vinmec is the only place in Vietnam that is equipped with a Hybrid room equipped with advanced equipment such as DSA angiography machine, anesthesia machine with the most closely integrated patient hemodynamic monitoring software (PiCCO system, entropy...). Therefore, Hybird operating room can meet the requirements of surgery and angioplasty, coronary stenting, aortic stent graft, open heart surgery, heart valve replacement for congenital heart diseases with the least invasive technique. , safely help patients recover health soon.
+
+The cardiology team works in unity and mutual support, doctors Pham Thanh Van, doctor Nguyen Van Phong, doctor Le Duc Hiep who participated in performing the surgery are all trained directly by foreign experts.
+
+As the only place in Vietnam awarded the certificate of "Independent aortic valve replacement center in Vietnam" and Prof. Vo Thanh Nhan is the first interventional cardiologist to be awarded the "Proctor" certificate in Vietnam. Vinmec''s further goal is to become an excellent interventional cardiology center according to US standards, integrating with the world''s level of cardiovascular intervention. ')
+INSERT [dbo].[Blogs] ([blog_id], [title], [date], [image], [description]) 
+VALUES (2, N'Robotic-assisted laparoscopy', CAST(N'2020-05-15' AS Date), N'https://vinmec-prod.s3.amazonaws.com/images/20191022_152728_263158_phau-thuat-robot-vi.max-1800x1800.jpg', 
+N'Robotic-assisted laparoscopy
+
+Posted by Master, Doctor Nguyen Ngoc Khanh - Head of Department of Gastroenterology - Urology - Robotic Surgery & Pediatric Surgery, Vinmec Times City International General Hospital.
+
+Robotic surgery with sophisticated structure can meet the surgical needs with the highest requirements. The article aims to provide readers with basic information about the history of development, generations of surgical robots, operation methods and achievements of current robotic surgery, especially the most modern surgical robots today. - Da Vinci.
+
+1. History of surgical robot development
+The term "robot" was first used by Czech playwright Karel Capek in 1921 in his play Rossom''s Universal Robots. It comes from the word “robota”, which means “forced labor”.
+The world''s first surgical robot was Arthrobot, used in Vancouver, Canada in 1983.
+In 1985, the robot PUMA560, performed CT-guided brain biopsies.
+In 1988, the robot PROBOT, at Imperial College London, performed prostate surgery.
+In 1992, Integrated Corporation''s ROBODOC robot performed precise femur grinding in hip replacement surgery, being the first robot approved by the FDA in 2008.
+In 1994, the first endoscopic camera holder AESOP robot was approved by the FDA. NASA funded Computer Motion, the company that produced AESOP, with the goal of creating a robotic arm that could be used in space but ended up being the center-camera arm in laparoscopic surgeries.
+The voice control upgrade was introduced in 1996 with AESOP 2000.
+Upgrading the 7-way operation to mimic the human hand was implemented in 1998 with AESOP 3000.
+ZEUS was introduced commercially in 1998 and started the idea of ​​remote robotic surgery.
+The merger of two companies Intuitive Surgical (founded 1995, products are Mona and Leonardo robots) with Computer Motion (the company that created the voice-controlled AESOP surgical robots and ZEUS remote surgery) in March, 2003 brought the surgical robotics industry to the next level, creating the Da Vinci surgical robotic system.
+Da Vinci has now produced up to the fourth generation Xi and the SP series of Single Incision Surgical Robots.
+2. Classification of Surgical Robots
+Depending on the classification criteria, there are different classifications. Based on the autonomous operation of the robot, it can be temporarily divided into 3 types:
+
+Active system: The robot operates essentially automatically (while still under the surgeon''s control) and performs pre-programmed tasks. PROBOT and ROBODOC are good examples of this system.
+Semi-active system: Partial automatic mixing with surgeon control.
+Passive system (Master–slave system): Operates under the complete control of the surgeon (Vinci® and ZEUS) without any pre-programming.
+3. How Surgical Robots Work Today 
+Active system: The robot operates essentially automatically (while still under the surgeon''s control) and performs pre-programmed tasks. PROBOT and ROBODOC are good examples of this system.
+Semi-active system: Partial automatic mixing with surgeon control.
+Passive system (Master–slave system): Operates under the complete control of the surgeon (Vinci® and ZEUS) without any pre-programming.
+3. How Surgical Robots Work Today
+Diagram of the robot system
+Diagram of robotic surgery system
+The robot has 3 separate but interconnected parts:
+
+The vision cart includes an endoscope camera, camcorder, computer - microprocessor - robot brain and other devices to create a 3D image of the operation.
+The da Vinci Xi . Surgical Robot System
+The da Vinci Xi . Surgical Robot System
+The tower, patient cart is a robotic component that directly performs surgery on a patient. It has robotic arms (4 arms), 3 of which can hold different surgical instruments and one holds a 3D camera. These arms are controlled by a computer that is able to accurately process and reproduce the movements of the surgeon''s hand. Articulated surgical instruments are connected to the robot''s arm and inserted into the patient''s body through a small tube called a cannule. The surgeon''s hand movements are scaled and filtered by the computer to remove the vibrations caused by hand tremors which are then converted into corresponding micro-motions of the surgical instruments. At the same time, the camera delivers realistic 3D images to the surgeon''s console. The reduction ratio can be adjusted, for example, if we choose 3:1 ratio, when the surgeon''s hand moves 6cm, the robot''s instrument moves exactly and 2cm respectively.
+Robot Tower
+Robot Tower
+The console is where the surgeo... (134 KB left)')
+SET IDENTITY_INSERT [dbo].[Blogs] OFF
+GO
 SET ANSI_PADDING ON
 GO
 /****** Object:  Index [UQ__Accounts__F3DBC57239A94B73]    Script Date: 17-Oct-21 8:08:50 PM ******/
