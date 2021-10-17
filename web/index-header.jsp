@@ -37,7 +37,7 @@
                 <c:if test="${sessionScope.acc.author_id == 1}">
                     <li><a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">Appointments</a></li>
                     <li><a href="#">My Patients</a></li>
-                    <li><a href="#">Reviews</a></li>
+                    <li><a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=1">Reviews</a></li>
                     </c:if>
 
                 <li class="login-link">
@@ -68,7 +68,7 @@
                         <span class="user-img">
                             <img
                                 class="rounded-circle"
-                                src="assets/img/patients/patient.jpg"
+                                src="${sessionScope.user.image}"
                                 width="31"
                                 alt="Ryan Taylor"
                                 />
@@ -96,7 +96,7 @@
                                 <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">
                                     <div class="avatar avatar-sm">
                                         <img
-                                            src="assets/img/patients/patient.jpg"
+                                            src="${sessionScope.user.image}"
                                             alt="User Image"
                                             class="avatar-img rounded-circle"
                                             />
