@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Appointment;
+
 import model.Doctor;
 import model.Patient;
+import model.Specialities;
 import model.Timetable;
 
 /**
@@ -35,12 +37,16 @@ public class AppointmentDAO extends DBContext {
     public int addNewAppointment(Appointment a) {
         String sql = "insert into Appointments (patient_id,doctor_id,date,slot_id,description,status) values (?,?,?,?,?,?)";
 
+        ServicesDAO dalService = new ServicesDAO();
+        TimetableDAO dalTime = new TimetableDAO();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, a.getPatient().getPatientID());
             st.setInt(2, a.getDoctor().getDoctorID());
             st.setString(3, a.getDate());
-            st.setInt(4, a.getSlot().getSlotID());
+            st.setInt(4, a.getSlot().getSlotID());    
+            Timetable s = dalTime.getTimeBySlotID(rs.getInt(4));
+            a.setSlot(s);
             st.setString(5, a.getDescription());
             st.setInt(6, a.getStatus());
             st.executeUpdate();
@@ -94,6 +100,37 @@ public class AppointmentDAO extends DBContext {
         return 0;
     }
 
+    public List<Appointment> getAppointmentAdmin() {
+        List<Appointment> list = new ArrayList<>();
+        String sql = "select * from Appointments";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            PatientDAO dalPatient = new PatientDAO();
+            DoctorDAO dalDoctor = new DoctorDAO();
+            ServicesDAO dalService = new ServicesDAO();
+
+            while (rs.next()) {
+                Appointment a = new Appointment();
+                a.setAppointmentID(rs.getInt(1));
+                Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));
+                a.setPatient(p);
+                Doctor d = dalDoctor.getDoctorByDoctorID(rs.getInt(3));
+                a.setDoctor(d);
+                a.setDate(rs.getString(4));
+                Timetable s = dalTimetable.getTimeBySlotID(rs.getInt(5));
+                a.setSlot(s);
+                a.setDescription(rs.getString(6));
+                a.setStatus(rs.getInt(7));
+                list.add(a);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    
     public List<Appointment> paginateAppointmentByDoctorID(int doctorID, int pageNumber, int numberOfItem) {
         List<Appointment> list = new ArrayList<>();
         String sql = "DECLARE @PageNumber AS INT\n"
@@ -105,6 +142,7 @@ public class AppointmentDAO extends DBContext {
                 + "OFFSET (@PageNumber-1)*@RowsOfPage ROWS\n"
                 + "FETCH NEXT @RowsOfPage ROWS ONLY";
         try {
+
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, pageNumber);
             ps.setInt(2, numberOfItem);
@@ -191,5 +229,11 @@ public class AppointmentDAO extends DBContext {
 //            System.out.println(a.toString());
 //        }
         System.out.println(db.getAppointmentByID(2));
+//        db.addNewAppointment(1, 2, "2021-10-10", 2);
+        List<Appointment> list = db.getAppointmentAdmin();
+        for (Appointment a : list) {
+            System.out.println(a);
+        }
+
     }
 }

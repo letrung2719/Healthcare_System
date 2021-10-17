@@ -5,8 +5,12 @@
     <!-- doccure/profile-settings.html  30 Nov 2019 04:12:18 GMT -->
     <head>
         <meta charset="utf-8" />
-        <title>Doccure</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"/>
+
+        <title>${detail.title}</title>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=0"
+        />
 
         <!-- Favicons -->
         <link href="assets/img/favicon.png" rel="icon" />
@@ -103,6 +107,7 @@
 
                                             <p class="doc-department">${spec.name}</p>
                                         <div class="rating">
+                                            
                                             <div class="review-count rating">
                                                 <i class="fas fa-star ${avrate > 0 ? "filled" : ""}"></i>
                                                 <i class="fas fa-star ${avrate > 1 ? "filled" : ""}"></i>
@@ -119,14 +124,18 @@
                                         </div>
                                         <h4 style="color: #00d2e6">Relate to:</h4>
                                         <div class="clinic-services">
-                                            <ul>
-                                                <c:forEach items="${listS}" var="o">
+
+                                            <c:forEach items="${listS}" var="o">
+                                                <c:if test="${o.title != detail.title}">
                                                     <li>
+
                                                         <a href="serdetail?sid=${o.service_id}">${o.title}</a>
                                                         <!--<span class="span"</span><br/>-->
+
                                                     </li>
-                                                </c:forEach>
-                                            </ul>
+                                                </c:if>
+                                            </c:forEach>
+
                                         </div>
                                     </div>
                                 </div>

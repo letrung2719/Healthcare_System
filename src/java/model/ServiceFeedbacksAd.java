@@ -1,20 +1,22 @@
 package model;
 
-public class ServiceFeedbacks {
+public class ServiceFeedbacksAd {
 
     private int feedback_id;
     private String content;
     private int rate;
+    private String image;
     private String patient;
     private int service_id;
 
-    public ServiceFeedbacks() {
+    public ServiceFeedbacksAd() {
     }
 
-    public ServiceFeedbacks(int feedback_id, String content, int rate, String patient, int service_id) {
+    public ServiceFeedbacksAd(int feedback_id, String content, int rate, String image, String patient, int service_id) {
         this.feedback_id = feedback_id;
         this.content = content;
         this.rate = rate;
+        this.image = image;
         this.patient = patient;
         this.service_id = service_id;
     }
@@ -43,6 +45,14 @@ public class ServiceFeedbacks {
         this.rate = rate;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getPatient() {
         return patient;
     }
@@ -61,7 +71,9 @@ public class ServiceFeedbacks {
 
     @Override
     public String toString() {
-        return "ServiceFeedbacks{" + "feedback_id=" + feedback_id + ", content=" + content + ", rate=" + rate + ", patient=" + patient + ", service_id=" + service_id + '}';
+        return "ServiceFeedbacks{" + "feedback_id=" + feedback_id + ", content=" + content + ", rate=" + rate + ", image=" + image + ", patient=" + patient + ", service_id=" + service_id + '}';
     }
+
+    
 
 }

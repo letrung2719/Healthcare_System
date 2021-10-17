@@ -3,12 +3,44 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/E:/FPT%20Semester/5_Fall%202021/SWP391/Healthcare_System/src/java/controller/blog/BlogDetailControl.java</file>
             <file>file:/E:/FPT%20Semester/5_Fall%202021/SWP391/Healthcare_System/web/index-header.jsp</file>
             <file>file:/E:/FPT%20Semester/5_Fall%202021/SWP391/Healthcare_System/web/index.jsp</file>
             <file>file:/E:/FPT%20Semester/5_Fall%202021/SWP391/Healthcare_System/web/blog-list.jsp</file>
             <file>file:/E:/FPT%20Semester/5_Fall%202021/SWP391/Healthcare_System/src/java/controller/blog/SearchListBlog.java</file>
             <file>file:/E:/FPT%20Semester/5_Fall%202021/SWP391/Healthcare_System/src/java/controller/blog/BlogListControl.java</file>
+=======
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/controller/blog/BlogDetailControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/controller/AppointmentBookingControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/nbproject/build-impl.xml</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/model/Appointment.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/context/DBContext.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/controller/AppointmentDetailControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/model/Blogs.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/web/admin/service-feedback.jsp</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/controller/SignUpControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/model/ServiceFeedbacks.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/web/admin/index.jsp</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/dal/TimetableDAO.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/web/admin/patient-list.jsp</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/model/Specialities.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/dal/AccountDAO.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/web/admin/review.jsp</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/dal/ServicesDAO.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/dal/AppointmentDAO.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/controller/BookingSuccessControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/web/admin/appointment.jsp</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/dal/DoctorDAO.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/controller/admin/SerFeedbackDashboardControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/web/service-detail.jsp</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/controller/admin/SeviceFeedbackAdControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/model/Timetable.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/controller/admin/DeleteServiceFeedbackAdControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/model/Services.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/model/ServiceFeedbacksAd.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV9/Healthcare_System/src/java/utility/Validate.java</file>
+>>>>>>> 133b18e97ddf66c2312d597c5be87b4228d6dd58
         </group>
     </open-files>
 </project-private>

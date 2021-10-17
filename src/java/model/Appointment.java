@@ -47,6 +47,7 @@ public class Appointment {
         this.status = status;
     }
 
+    
     public int getAppointmentID() {
         return appointmentID;
     }
@@ -117,4 +118,7 @@ public class Appointment {
     public String toString() {
         return "Appointment{" + "appointmentID=" + appointmentID + ", patient=" + patient + ", doctor=" + doctor + ", date=" + date + ", slot=" + slot + ", description=" + description + ", status=" + status + "}\n";
     }
+
+    
+    
 }
