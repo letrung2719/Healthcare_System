@@ -18,6 +18,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Appointment;
 import model.Doctor;
 
@@ -67,15 +69,22 @@ public class AppointmentBookingControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int account_id = Integer.parseInt(request.getParameter("account_id"));
-            DoctorDAO db = new DoctorDAO();
-            Doctor d = db.getDoctorByAccountID(account_id);
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("acc");
+        if (acc == null) {
+            request.setAttribute("mess", resourceBundle.getString("must_login"));
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            try {
+                int account_id = Integer.parseInt(request.getParameter("account_id"));
+                DoctorDAO db = new DoctorDAO();
+                Doctor d = db.getDoctorByAccountID(account_id);
 
-            request.setAttribute("doctor", d);
-            request.getRequestDispatcher("booking.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | ServletException e) {
-            System.out.println(e);
+                request.setAttribute("doctor", d);
+                request.getRequestDispatcher("booking.jsp").forward(request, response);
+            } catch (IOException | NumberFormatException | ServletException e) {
+                System.out.println(e);
+            }
         }
     }
 
@@ -101,14 +110,14 @@ public class AppointmentBookingControl extends HttpServlet {
             DoctorDAO db2 = new DoctorDAO();
             TimetableDAO db3 = new TimetableDAO();
             AppointmentDAO db4 = new AppointmentDAO();
-            
+
             Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, db3.getTimeBySlotID(slot_id), description, 1);
 
             List<Appointment> list = db4.getAllAppointmentByDoctorID(db2.getDoctorByDoctorID(doctor_id));
 
             for (Appointment appointment : list) {
                 if (a.getDate().equals(appointment.getDate())) {
-                    if (a.getSlot().getSlotID() ==  appointment.getSlot().getSlotID()) {
+                    if (a.getSlot().getSlotID() == appointment.getSlot().getSlotID()) {
                         request.setAttribute("mess", resourceBundle.getString("slot_busy"));
                         request.setAttribute("doctor", db2.getDoctorByDoctorID(doctor_id));
                         request.setAttribute("date", date);

@@ -1,3 +1,7 @@
+<%@page import="model.DoctorFeedbacks"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
+<%@page import="dal.DoctorFeedbacksDAO"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -62,20 +66,6 @@
                             </nav>
                             <h2 class="breadcrumb-title">Doctor List</h2>
                         </div>
-                        <div class="col-md-4 col-12 d-md-block d-none">
-                            <div class="sort-by">
-                                <span class="sort-title">Sort by</span>
-                                <span class="sortby-fliter">
-                                    <select class="select">
-                                        <option>Select</option>
-                                        <option class="sorting">Rating</option>
-                                        <option class="sorting">Popular</option>
-                                        <option class="sorting">Latest</option>
-                                        <option class="sorting">Free</option>
-                                    </select>
-                                </span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -117,7 +107,7 @@
                                                     <label class="custom_check">
 
                                                         <input type="checkbox" name="select_specialist" value="${spec.name}">
-                                                            <span class="checkmark"></span> ${spec.name}
+                                                        <span class="checkmark"></span> ${spec.name}
                                                     </label>
                                                 </div>
                                             </c:forEach>
@@ -134,13 +124,16 @@
 
                         <div class="col-md-12 col-lg-8 col-xl-9 ">
                             <c:forEach items="${listDoctors}" var="doctor">
-                                <!-- Doctor Widget -->
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="doctor-widget">
-                                            <div class="doc-info-left">
-                                                <div class="doctor-img">
-                                                    <a href="doctor_profile_view?id=${doctor.accountID}">
+                                <c:set var="feedbackDB" value="<%=new DoctorFeedbacksDAO()%>"></c:set>
+                                <c:set var="avgrate" value="${feedbackDB.getAverageRating(doctor.doctorID)}"></c:set>
+                                <c:set var="feedbackList" value="${feedbackDB.getAllDoctorFeedbacks(doctor.doctorID)}"></c:set>
+                                    <!-- Doctor Widget -->
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="doctor-widget">
+                                                <div class="doc-info-left">
+                                                    <div class="doctor-img">
+                                                        <a href="doctor_profile_view?id=${doctor.accountID}">
                                                         <img src="${doctor.image}" class="img-fluid" alt="User Image">
                                                     </a>
                                                 </div>
@@ -149,51 +142,20 @@
                                                     <p class="doc-speciality">${doctor.role}</p>
                                                     <h5 class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${doctor.spec.name}</h5>
                                                     <div class="rating">
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <span class="d-inline-block average-rating">(17)</span>
+                                                        <i class="fas fa-star ${avgrate > 0 ? "filled" : ""}"></i>
+                                                        <i class="fas fa-star ${avgrate > 1 ? "filled" : ""}"></i>
+                                                        <i class="fas fa-star ${avgrate > 2 ? "filled" : ""}"></i>
+                                                        <i class="fas fa-star ${avgrate > 3 ? "filled" : ""}"></i>
+                                                        <i class="fas fa-star ${avgrate > 4 ? "filled" : ""}"></i>
+                                                        <span class="d-inline-block average-rating">(${feedbackList.size()})</span>
                                                     </div>
-                                                    <!--                                                    <div class="clinic-details">
-                                                                                                            <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Florida, USA</p>
-                                                                                                            <ul class="clinic-gallery">
-                                                                                                                <li>
-                                                                                                                    <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
-                                                                                                                        <img src="assets/img/features/feature-01.jpg" alt="Feature">
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery">
-                                                                                                                        <img  src="assets/img/features/feature-02.jpg" alt="Feature">
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery">
-                                                                                                                        <img src="assets/img/features/feature-03.jpg" alt="Feature">
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery">
-                                                                                                                        <img src="assets/img/features/feature-04.jpg" alt="Feature">
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                            </ul>
-                                                                                                        </div>
-                                                                                                        <div class="clinic-services">
-                                                                                                            <span>Dental Fillings</span>
-                                                                                                            <span> Whitneing</span>
-                                                                                                        </div>-->
                                                 </div>
                                             </div>
                                             <div class="doc-info-right">
                                                 <div class="clini-infos">
                                                     <ul>
-                                                        <li><i class="far fa-thumbs-up"></i> 98%</li>
-                                                        <li><i class="far fa-comment"></i> 17 Feedback</li>
-
-                                                        <li><i class="far fa-money-bill-alt"></i> $300 - $1000 <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
+                                                        <li><i class="far fa-thumbs-up"></i> ${avgrate/5*100}%</li>
+                                                        <li><i class="far fa-comment"></i> ${feedbackList.size()} Feedbacks</li>
                                                     </ul>
                                                 </div>
                                                 <div class="clinic-booking">

@@ -6,15 +6,16 @@
 package controller;
 
 import dal.DoctorDAO;
+import dal.DoctorFeedbacksDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Doctor;
+import model.DoctorFeedbacks;
 import model.Specialities;
 
 /**
@@ -63,6 +64,7 @@ public class DoctorList extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("listDoctors", arr);
         request.setAttribute("listSpec", listSpec);
+        
         request.getRequestDispatcher("doctor.jsp").forward(request, response);
     }
 

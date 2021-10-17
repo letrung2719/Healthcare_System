@@ -3,6 +3,7 @@
     Created on : 03-Oct-2021, 13:24:47
     Author     : Admin
 --%>
+<%@page import="dal.DoctorFeedbacksDAO"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -82,34 +83,33 @@
                                         <p class="doc-speciality">${doctor.role}</p>
                                         <p class="doc-department">${doctor.spec.name}</p>
                                         <div class="rating">
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star"></i>
-                                            <span class="d-inline-block average-rating">(35)</span>
+                                            <i class="fas fa-star ${avgrate > 0 ? "filled" : ""}"></i>
+                                            <i class="fas fa-star ${avgrate > 1 ? "filled" : ""}"></i>
+                                            <i class="fas fa-star ${avgrate > 2 ? "filled" : ""}"></i>
+                                            <i class="fas fa-star ${avgrate > 3 ? "filled" : ""}"></i>
+                                            <i class="fas fa-star ${avgrate > 4 ? "filled" : ""}"></i>
+                                            <span class="d-inline-block average-rating">(${feedbacksList.size()})</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="doc-info-right">
                                     <div class="clini-infos">
                                         <ul>
-                                            <li><i class="far fa-thumbs-up"></i> 99%</li>
-
-                                            <li><i class="far fa-money-bill-alt"></i> $100 per hour </li>
+                                            <li><i class="far fa-thumbs-up"></i> ${avgrate/5*100}%</li>
+                                            <li><i class="far fa-comment"></i> ${feedbacksList.size()} Feedbacks</li>
                                         </ul>
                                     </div>
                                     <div class="doctor-action">
-                                        <a href="javascript:void(0)" class="btn btn-white fav-btn">
+                                        <a href="#" class="btn btn-white fav-btn">
                                             <i class="far fa-bookmark"></i>
                                         </a>
-                                        <a href="chat.html" class="btn btn-white msg-btn">
+                                        <a href="#" class="btn btn-white msg-btn">
                                             <i class="far fa-comment-alt"></i>
                                         </a>
-                                        <a href="javascript:void(0)" class="btn btn-white call-btn" data-toggle="modal" data-target="#voice_call">
+                                        <a href="#" class="btn btn-white call-btn">
                                             <i class="fas fa-phone"></i>
                                         </a>
-                                        <a href="javascript:void(0)" class="btn btn-white call-btn" data-toggle="modal" data-target="#video_call">
+                                        <a href="#" class="btn btn-white call-btn">
                                             <i class="fas fa-video"></i>
                                         </a>
                                     </div>
@@ -172,6 +172,112 @@
                                 <!-- /Overview Content -->
 
                                 <!-- Reviews Content -->
+                                <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
+
+                                    <!-- Review Listing -->
+                                    <div class="widget review-listing">
+                                        <c:forEach items="${feedbacksList}" var="feedback">
+                                            <ul class="comments-list">
+
+                                                <!-- Comment List -->
+                                                <li>
+                                                    <div class="comment" style="width: 100%">
+                                                        <img class="avatar avatar-sm rounded-circle" alt="user-image" src="assets/img/patients/patient.jpg">
+                                                        <div class="comment-body" style="width: 100%">
+                                                            <div class="meta-data">
+                                                                <span class="comment-author">${feedback.patient.name}</span>
+                                                                <span class="comment-date">Reviewed ${feedback.date}</span>
+                                                                <div class="review-count rating">
+                                                                    <i class="fas fa-star ${feedback.rate > 0 ? "filled" : ""}"></i>
+                                                                    <i class="fas fa-star ${feedback.rate > 1 ? "filled" : ""}"></i>
+                                                                    <i class="fas fa-star ${feedback.rate > 2 ? "filled" : ""}"></i>
+                                                                    <i class="fas fa-star ${feedback.rate > 3 ? "filled" : ""}"></i>
+                                                                    <i class="fas fa-star ${feedback.rate > 4 ? "filled" : ""}"></i>
+                                                                </div>
+                                                            </div>
+                                                            <p class="comment-content">
+                                                                ${feedback.content} 
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <c:if test="${feedback.patient.patientID == sessionScope.user.patientID}">
+                                                        <div class="actions" style="position:absolute;margin-top: -80px;margin-left: 85%">
+                                                            <a class="btn btn-sm bg-success-light" data-toggle="modal" href="abc">
+                                                                <i class="fe fe-pencil"></i> Edit
+                                                            </a>
+                                                            <a class="btn btn-sm bg-danger-light" data-toggle="modal" onclick="return confirm('Are you sure you want to delete this feedback?');" href="doctor_feedbacks?action=delete&&patient_id=${feedback.patient.patientID}&&doctor_id=${feedback.doctor.doctorID}">
+                                                                <i class="fe fe-trash"></i> Delete
+                                                            </a>
+                                                        </div>
+                                                    </c:if>
+                                                </li>
+                                                <!-- /Comment List -->
+                                            </ul>
+                                        </c:forEach>
+
+                                        <!-- Show All -->
+                                        <div class="all-feedback text-center">
+                                            <a href="#" class="btn btn-primary btn-sm">
+                                                Show all feedback <strong>(${feedbacksList.size()})</strong>
+                                            </a>
+                                        </div>
+                                        <!-- /Show All -->
+
+                                    </div>
+                                    <!-- /Review Listing -->
+
+                                    <!-- Write Review -->
+                                    <c:if test="${sessionScope.acc != null && check != true}">
+                                        <div class="write-review">
+                                            <h4>Write a review for <strong>Dr. ${doctor.name}</strong></h4>
+
+                                            <!-- Write Review Form -->
+                                            <form action="doctor_feedbacks" method="post">
+                                                <input type="hidden" name="patient_id" value="${sessionScope.user.patientID}">
+                                                <input type="hidden" name="doctor_id" value="${doctor.doctorID}">
+                                                <div class="form-group">
+                                                    <label>Review</label>
+                                                    <div class="star-rating">
+                                                        <input id="star-5" type="radio" name="rating" value="5">
+                                                        <label for="star-5" title="5 stars">
+                                                            <i class="active fa fa-star"></i>
+                                                        </label>
+                                                        <input id="star-4" type="radio" name="rating" value="4">
+                                                        <label for="star-4" title="4 stars">
+                                                            <i class="active fa fa-star"></i>
+                                                        </label>
+                                                        <input id="star-3" type="radio" name="rating" value="3">
+                                                        <label for="star-3" title="3 stars">
+                                                            <i class="active fa fa-star"></i>
+                                                        </label>
+                                                        <input id="star-2" type="radio" name="rating" value="2">
+                                                        <label for="star-2" title="2 stars">
+                                                            <i class="active fa fa-star"></i>
+                                                        </label>
+                                                        <input id="star-1" type="radio" name="rating" value="1">
+                                                        <label for="star-1" title="1 star">
+                                                            <i class="active fa fa-star"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Your review</label>
+                                                    <textarea id="review_desc" maxlength="100" class="form-control" name="content"></textarea>
+
+                                                    <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars">100</span> characters remaining</small></div>
+                                                </div>
+                                                <hr>
+                                                <div class="submit-section">
+                                                    <button type="submit" class="btn btn-primary submit-btn">Add Review</button>
+                                                </div>
+                                            </form>
+                                            <!-- /Write Review Form -->
+
+                                        </div>
+                                    </c:if>
+                                    <!-- /Write Review -->
+
+                                </div>
                                 <!-- /Reviews Content -->
 
                                 <!-- Business Hours Content -->
@@ -248,29 +354,29 @@
                     </div>
                 </div>	
             </div>
-                <!-- /Page Content -->
+            <!-- /Page Content -->
 
-                <!-- Footer -->
-                <jsp:include page="index-footer.jsp"/>
-                <!-- /Footer -->
+            <!-- Footer -->
+            <jsp:include page="index-footer.jsp"/>
+            <!-- /Footer -->
 
-            </div>
-            <!-- /Main Wrapper -->
+        </div>
+        <!-- /Main Wrapper -->
 
 
 
-            <!-- jQuery -->
-            <script src="assets/js/jquery.min.js"></script>
+        <!-- jQuery -->
+        <script src="assets/js/jquery.min.js"></script>
 
-            <!-- Bootstrap Core JS -->
-            <script src="assets/js/popper.min.js"></script>
-            <script src="assets/js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JS -->
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
 
-            <!-- Fancybox JS -->
-            <script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
+        <!-- Fancybox JS -->
+        <script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
 
-            <!-- Custom JS -->
-            <script src="assets/js/script.js"></script>
+        <!-- Custom JS -->
+        <script src="assets/js/script.js"></script>
 
     </body>
 

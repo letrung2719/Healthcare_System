@@ -5,16 +5,12 @@
     <!-- doccure/profile-settings.html  30 Nov 2019 04:12:18 GMT -->
     <head>
         <meta charset="utf-8" />
-<<<<<<< Updated upstream
-        <title>Profile Settings</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"/>
-=======
+
         <title>${detail.title}</title>
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, user-scalable=0"
-            />
->>>>>>> Stashed changes
+        />
 
         <!-- Favicons -->
         <link href="assets/img/favicon.png" rel="icon" />
@@ -111,102 +107,24 @@
 
                                             <p class="doc-department">${spec.name}</p>
                                         <div class="rating">
-                                            <c:if test="${avrate == 0}">
-                                                <div class="review-count rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${avrate == 1}">
-                                                <div class="review-count rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${avrate == 2}">
-                                                <div class="review-count rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${avrate == 3}">
-                                                <div class="review-count rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${avrate == 4}">
-                                                <div class="review-count rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${avrate == 5}">
-                                                <div class="review-count rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                </div>
-                                            </c:if>
+                                            
+                                            <div class="review-count rating">
+                                                <i class="fas fa-star ${avrate > 0 ? "filled" : ""}"></i>
+                                                <i class="fas fa-star ${avrate > 1 ? "filled" : ""}"></i>
+                                                <i class="fas fa-star ${avrate > 2 ? "filled" : ""}"></i>
+                                                <i class="fas fa-star ${avrate > 3 ? "filled" : ""}"></i>
+                                                <i class="fas fa-star ${avrate > 4 ? "filled" : ""}"></i>
+                                            </div>
                                             <span class="d-inline-block average-rating">(Average of ${totalfeedback} Feedbacks)</span>
                                         </div>
                                         <div class="clinic-details">
                                             <c:if test="${avrate >= 4}">
                                                 <p class="recommended" style="margin-bottom: 10px;font-weight: bold"> Recommended Service</p>
                                             </c:if>
-                                            <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA - <a href="javascript:void(0);">Get Directions</a></p>
-                                            <ul class="clinic-gallery">
-                                                <li>
-                                                    <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
-                                                        <img src="assets/img/features/feature-01.jpg" alt="Feature">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery">
-                                                        <img  src="assets/img/features/feature-02.jpg" alt="Feature Image">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery">
-                                                        <img src="assets/img/features/feature-03.jpg" alt="Feature">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery">
-                                                        <img src="assets/img/features/feature-04.jpg" alt="Feature">
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </div>
+                                        <h4 style="color: #00d2e6">Relate to:</h4>
                                         <div class="clinic-services">
-                                            <h2 style="color: #00d2e6">Relate to:</h2>
-<<<<<<< Updated upstream
-                                            <ul>
-                                                <c:forEach items="${listS}" var="o">
-                                                    <li>
-                                                        <a href="serdetail?sid=${o.service_id}">${o.title}</a>
-                                                        <!--<span class="span"</span><br/>-->
-                                                    </li>
-                                                </c:forEach>
-                                            </ul>
-=======
+
                                             <c:forEach items="${listS}" var="o">
                                                 <c:if test="${o.title != detail.title}">
                                                     <li>
@@ -218,36 +136,33 @@
                                                 </c:if>
                                             </c:forEach>
 
-
->>>>>>> Stashed changes
                                         </div>
                                     </div>
                                 </div>
                                 <div class="doc-info-right">
                                     <div class="clini-infos">
                                         <ul>
-                                            <li><i class="far fa-thumbs-up"></i> <c:if test="${avrate == 0}">0</c:if><c:if test="${avrate == 1}">20</c:if><c:if test="${avrate == 2}">40</c:if><c:if test="${avrate == 3}">60</c:if><c:if test="${avrate == 4}">80</c:if><c:if test="${avrate == 5}">100</c:if>%</li>
-                                            <li><i class="far fa-comment"></i> ${totalfeedback} Feedback</li>
-                                            <li><i class="fas fa-map-marker-alt"></i> Newyork, USA</li>
+                                            <li><i class="far fa-thumbs-up"></i> ${avrate/5*100}%</li>
+                                            <li><i class="far fa-comment"></i> ${totalfeedback} Feedbacks</li>
                                             <li><i class="far fa-money-bill-alt"></i> ${detail.price} VND </li>
                                         </ul>
                                     </div>
                                     <div class="doctor-action">
-                                        <a href="javascript:void(0)" class="btn btn-white fav-btn">
+                                        <a href="#" class="btn btn-white fav-btn">
                                             <i class="far fa-bookmark"></i>
                                         </a>
-                                        <a href="chat.html" class="btn btn-white msg-btn">
+                                        <a href="#" class="btn btn-white msg-btn">
                                             <i class="far fa-comment-alt"></i>
                                         </a>
-                                        <a href="javascript:void(0)" class="btn btn-white call-btn" data-toggle="modal" data-target="#voice_call">
+                                        <a href="#" class="btn btn-white call-btn">
                                             <i class="fas fa-phone"></i>
                                         </a>
-                                        <a href="javascript:void(0)" class="btn btn-white call-btn" data-toggle="modal" data-target="#video_call">
+                                        <a href="#" class="btn btn-white call-btn">
                                             <i class="fas fa-video"></i>
                                         </a>
                                     </div>
                                     <div class="clinic-booking">
-                                        <a class="apt-btn" href="booking.html">Book Appointment</a>
+                                        <a class="apt-btn" href="reservation?id=${detail.service_id}">Book Service</a>
                                     </div>
                                 </div>
                             </div>
@@ -348,60 +263,13 @@
                                                             <div id="hienlen${o.patient}">
                                                                 <div class="meta-data">
                                                                     <span class="comment-author">${o.patient}</span>
-                                                                    <c:if test="${o.rate == 0}">
-                                                                        <div class="review-count rating">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </c:if>
-                                                                    <c:if test="${o.rate == 1}">
-                                                                        <div class="review-count rating">
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </c:if>
-                                                                    <c:if test="${o.rate == 2}">
-                                                                        <div class="review-count rating">
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </c:if>
-                                                                    <c:if test="${o.rate == 3}">
-                                                                        <div class="review-count rating">
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </c:if>
-                                                                    <c:if test="${o.rate == 4}">
-                                                                        <div class="review-count rating">
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                    </c:if>
-                                                                    <c:if test="${o.rate == 5}">
-                                                                        <div class="review-count rating">
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                            <i class="fas fa-star filled"></i>
-                                                                        </div>
-                                                                    </c:if>
+                                                                    <div class="review-count rating">
+                                                                        <i class="fas fa-star ${o.rate > 0 ? "filled" : ""}"></i>
+                                                                        <i class="fas fa-star ${o.rate > 1 ? "filled" : ""}"></i>
+                                                                        <i class="fas fa-star ${o.rate > 2 ? "filled" : ""}"></i>
+                                                                        <i class="fas fa-star ${o.rate > 3 ? "filled" : ""}"></i>
+                                                                        <i class="fas fa-star ${o.rate > 4 ? "filled" : ""}"></i>
+                                                                    </div>
                                                                 </div>
                                                                 <p class="comment-content">
                                                                     ${o.content}
@@ -435,138 +303,26 @@
                                                                                 <span class="comment-author">${o.patient}</span>
                                                                             </div>
                                                                             <div class="star-rating">
-                                                                                <c:if test="${o.rate == 0}">
-                                                                                    <input id="star-5" type="radio" name="rating" value="5">
-                                                                                    <label for="star-5" title="5 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-4" type="radio" name="rating" value="4">
-                                                                                    <label for="star-4" title="4 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-3" type="radio" name="rating" value="3">
-                                                                                    <label for="star-3" title="3 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-2" type="radio" name="rating" value="2">
-                                                                                    <label for="star-2" title="2 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-1" type="radio" name="rating" value="1">
-                                                                                    <label for="star-1" title="1 star">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                </c:if>
-                                                                                <c:if test="${o.rate == 1}">
-                                                                                    <input id="star-5" type="radio" name="rating" value="5">
-                                                                                    <label for="star-5" title="5 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-4" type="radio" name="rating" value="4">
-                                                                                    <label for="star-4" title="4 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-3" type="radio" name="rating" value="3">
-                                                                                    <label for="star-3" title="3 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-2" type="radio" name="rating" value="2">
-                                                                                    <label for="star-2" title="2 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-1" type="radio" name="rating" value="1" checked>
-                                                                                    <label for="star-1" title="1 star">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                </c:if>
-                                                                                <c:if test="${o.rate == 2}">
-                                                                                    <input id="star-5" type="radio" name="rating" value="5">
-                                                                                    <label for="star-5" title="5 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-4" type="radio" name="rating" value="4">
-                                                                                    <label for="star-4" title="4 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-3" type="radio" name="rating" value="3">
-                                                                                    <label for="star-3" title="3 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-2" type="radio" name="rating" value="2" checked>
-                                                                                    <label for="star-2" title="2 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-1" type="radio" name="rating" value="1">
-                                                                                    <label for="star-1" title="1 star">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                </c:if>
-                                                                                <c:if test="${o.rate == 3}">
-                                                                                    <input id="star-5" type="radio" name="rating" value="5">
-                                                                                    <label for="star-5" title="5 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-4" type="radio" name="rating" value="4">
-                                                                                    <label for="star-4" title="4 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-3" type="radio" name="rating" value="3" checked>
-                                                                                    <label for="star-3" title="3 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-2" type="radio" name="rating" value="2">
-                                                                                    <label for="star-2" title="2 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-1" type="radio" name="rating" value="1">
-                                                                                    <label for="star-1" title="1 star">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                </c:if>
-                                                                                <c:if test="${o.rate == 4}">
-                                                                                    <input id="star-5" type="radio" name="rating" value="5">
-                                                                                    <label for="star-5" title="5 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-4" type="radio" name="rating" value="4" checked>
-                                                                                    <label for="star-4" title="4 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-3" type="radio" name="rating" value="3">
-                                                                                    <label for="star-3" title="3 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-2" type="radio" name="rating" value="2">
-                                                                                    <label for="star-2" title="2 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-1" type="radio" name="rating" value="1">
-                                                                                    <label for="star-1" title="1 star">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                </c:if>
-                                                                                <c:if test="${o.rate == 5}">
-                                                                                    <input id="star-5" type="radio" name="rating" value="5" checked>
-                                                                                    <label for="star-5" title="5 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-4" type="radio" name="rating" value="4">
-                                                                                    <label for="star-4" title="4 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-3" type="radio" name="rating" value="3">
-                                                                                    <label for="star-3" title="3 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-2" type="radio" name="rating" value="2">
-                                                                                    <label for="star-2" title="2 stars">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                    <input id="star-1" type="radio" name="rating" value="1">
-                                                                                    <label for="star-1" title="1 star">
-                                                                                        <i class="active fa fa-star"></i>
-                                                                                    </label>
-                                                                                </c:if>
+                                                                                <input id="star-5" type="radio" name="rating" value="5" ${o.rate == 5 ? "checked" : ""}>
+                                                                                <label for="star-5" title="5 stars">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
+                                                                                <input id="star-4" type="radio" name="rating" value="4" ${o.rate == 4 ? "checked" : ""}>
+                                                                                <label for="star-4" title="4 stars">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
+                                                                                <input id="star-3" type="radio" name="rating" value="3" ${o.rate == 3 ? "checked" : ""}>
+                                                                                <label for="star-3" title="3 stars">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
+                                                                                <input id="star-2" type="radio" name="rating" value="2" ${o.rate == 2 ? "checked" : ""}>
+                                                                                <label for="star-2" title="2 stars">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
+                                                                                <input id="star-1" type="radio" name="rating" value="1" ${o.rate == 1 ? "checked" : ""}>
+                                                                                <label for="star-1" title="1 star">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">

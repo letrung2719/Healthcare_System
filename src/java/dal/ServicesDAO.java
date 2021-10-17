@@ -56,7 +56,8 @@ public class ServicesDAO extends DBContext {
                         rs.getString(5),
                         rs.getInt(6)));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e);
         }
 
         return list;
@@ -90,7 +91,7 @@ public class ServicesDAO extends DBContext {
                 list.add(new Specialities(rs.getInt(1), rs.getString(2)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }

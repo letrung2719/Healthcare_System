@@ -1,28 +1,38 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.blog;
 
+import dal.BlogsDAO;
 import dal.DoctorDAO;
-import dal.DoctorFeedbacksDAO;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import model.Blogs;
 import model.Doctor;
-import model.DoctorFeedbacks;
-import model.Patient;
 
 /**
  *
  * @author Admin
  */
-public class ViewDoctorProfile extends HttpServlet {
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author admin
+ */
+public class BlogDetailControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,27 +46,11 @@ public class ViewDoctorProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int accountID = Integer.parseInt(request.getParameter("id"));
-        DoctorDAO doctorDb = new DoctorDAO();
-        Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
-        request.setAttribute("doctor", doctor);
-
-        DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();
-        List<DoctorFeedbacks> feedbacksList = feedbackDB.getAllDoctorFeedbacks(doctor.getDoctorID());
-        request.setAttribute("feedbacksList", feedbacksList);
-        int avgrate = feedbackDB.getAverageRating(doctor.getDoctorID());
-        request.setAttribute("avgrate", avgrate);
-
-        HttpSession session = request.getSession();
-        Patient curUser = (Patient) session.getAttribute("user");
-        if (curUser != null) {
-            for (DoctorFeedbacks fb : feedbacksList) {
-                if (fb.getPatient().getPatientID() == curUser.getPatientID() && fb.getDoctor().getDoctorID() == doctor.getDoctorID()) {
-                    request.setAttribute("check", true);
-                }
-            }
-        }
-        request.getRequestDispatcher("view-doctor-profile.jsp").forward(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        BlogsDAO bl = new BlogsDAO();
+        Blogs blog = bl.getBlogByBlogID(id);
+        request.setAttribute("blog", blog);
+        request.getRequestDispatcher("blog-detail.jsp").forward(request, response);  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
