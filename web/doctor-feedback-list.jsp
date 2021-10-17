@@ -89,16 +89,16 @@
                                     <div class="profile-info-widget">
                                         <a href="#" class="booking-doc-img">
                                             <img
-                                                src="assets/img/doctors/doctor-thumb-02.jpg"
+                                                src="${sessionScope.user.image}"
                                                 alt="User Image"
                                                 />
                                         </a>
                                         <div class="profile-det-info">
-                                            <h3>Dr. Darren Elder</h3>
+                                            <h3>${sessionScope.user.name}</h3>
 
                                             <div class="patient-details">
                                                 <h5 class="mb-0">
-                                                    BDS, MDS - Oral & Maxillofacial Surgery
+                                                    ${sessionScope.user.role}
                                                 </h5>
                                             </div>
                                         </div>
@@ -118,9 +118,9 @@
 
 
                                             <li class="active">
-                                                <a href="reviews.html">
+                                                <a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}">
                                                     <i class="fas fa-star"></i>
-                                                    <span>Reviews</span>
+                                                    <span>Feedbacks</span>
                                                 </a>
                                             </li>
 
