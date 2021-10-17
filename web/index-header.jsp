@@ -24,68 +24,21 @@
                     <i class="fas fa-times"></i>
                 </a>
             </div>
-            <ul class="main-nav">
-                <li>
-                    <a href="index.jsp">Home</a>
-                </li>
-                <!--                
-                                <li class="has-submenu">
-                                    <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="doctor_profile?id=${sessionScope.user.accountID}">Doctor Profile</a></li>
-                                        <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
-                                        <li><a href="appointments.html">Appointments</a></li>
-                                        <li><a href="schedule-timings.html">Schedule Timing</a></li>
-                                        <li><a href="my-patients.html">Patients List</a></li>
-                                        <li><a href="invoices.html">Invoices</a></li>
-                                        <li><a href="doctor_profile_setting?id=${sessionScope.user.accountID}">Profile Settings</a></li>
-                                        <li><a href="reviews.html">Reviews</a></li>
-                                    </ul>
-                                </li>
-                                <li class="has-submenu">
-                                    <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="patient_profile?id=${sessionScope.user.accountID}">Patients Profile</a></li>
-                                        <li><a href="booking.jsp">Booking</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="booking-success.jsp">Booking Success</a></li>
-                                        <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
-                                        <li><a href="favourites.html">Favourites</a></li>
-                                        <li><a href="change-password.jsp">Change Password</a></li>
-                                    </ul>
-                                </li>
-                                <li class="has-submenu">
-                                    <a href="#">Page <i class="fas fa-chevron-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="doctor?page=1">Doctor List</a></li>
-                                        <li><a href="services">Services</a></li>
-                                    </ul>
-                                </li>
-                -->
 
-                <li><a href="doctor?page=1">Doctors List</a></li>
-                <li><a href="services">Services List</a></li>
-                <li><a href="#">About us</a></li>
-                    <c:if test="${sessionScope.acc.author_id == 1}">
-                    <li class="has-submenu">
-                        <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
-                        <ul class="submenu">
-                            <li><a href="doctor_profile?id=${sessionScope.user.accountID}">Doctor Profile</a></li>
-                            <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
-                            <li><a href="doctorAppointmentControl?doctorID=1&indexPage=1">Appointments</a></li>
-                            <li><a href="schedule-timings.html">Schedule Timing</a></li>
-                            <li><a href="my-patients.html">Patients List</a></li>
-                            <li><a href="invoices.html">Invoices</a></li>
-                            <li><a href="doctor_profile_setting?id=${sessionScope.user.accountID}">Profile Settings</a></li>
-                            <li><a href="reviews.html">Reviews</a></li>
-                        </ul>
-                    </li>
-                </c:if>
-                <c:if test="${sessionScope.acc.author_id == 0}">
-                    <li>
-                        <a href="admin/index.jsp" target="_blank">Admin</a>
-                    </li>
-                </c:if>
+            <c:set var="path" value="<%=request.getServletPath()%>"/>
+            <ul class="main-nav">
+                <c:if test="${sessionScope.acc.author_id == 2 || sessionScope.acc == null}">
+                    <li class="${path == "/index.jsp" ? "active" : ""}"><a href="index.jsp">Home</a></li>              
+                    <li class="${path == "/doctor.jsp" ? "active" : ""}"><a href="doctor?page=1">Doctors List</a></li>
+                    <li class="${path == "/serviceslist.jsp" ? "active" : ""}"><a href="services">Services List</a></li>
+                    <li class="${path == "/blog.jsp" ? "active" : ""}"><a href="#">About us</a></li>
+                    </c:if>
+
+                <c:if test="${sessionScope.acc.author_id == 1}">
+                    <li><a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">Appointments</a></li>
+                    <li><a href="#">My Patients</a></li>
+                    <li><a href="#">Reviews</a></li>
+                    </c:if>
 
                 <li class="login-link">
                     <a href="login.jsp">Login / Signup</a>
@@ -135,12 +88,9 @@
                                     </div>
                                     <div class="user-text">
                                         <h6>${sessionScope.user.name}</h6>
-                                        <p class="text-muted mb-0">
-                                            <c:if test="${sessionScope.acc.author_id == 1}">Doctor</c:if>
-                                            <c:if test="${sessionScope.acc.author_id == 2}">Patient</c:if>
-                                            </p>
-                                        </div>
-                                    </a>
+                                        <p class="text-muted mb-0">Doctor</p>
+                                    </div>
+                                </a>
                             </c:if>
                             <c:if test="${sessionScope.acc.author_id == 2}">
                                 <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">
@@ -153,28 +103,17 @@
                                     </div>
                                     <div class="user-text">
                                         <h6>${sessionScope.user.name}</h6>
-                                        <p class="text-muted mb-0">
-                                            <c:if test="${sessionScope.acc.author_id == 1}">Doctor</c:if>
-                                            <c:if test="${sessionScope.acc.author_id == 2}">Patient</c:if>
-                                            </p>
-                                        </div>
-                                    </a>
+                                        <p class="text-muted mb-0">Patient</p>
+                                    </div>
+                                </a>
                             </c:if>
-
                         </div>
 
-                        <a class="dropdown-item" href="patient-dashboard.html"
-                           >Dashboard</a
-                        >
                         <c:if test="${sessionScope.acc.author_id == 1}">
-                            <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}"
-                               >Profile Settings</a
-                            >
+                            <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">Profile Settings</a>
                         </c:if>
                         <c:if test="${sessionScope.acc.author_id == 2}">
-                            <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}"
-                               >Profile Settings</a
-                            >
+                            <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">Profile Settings</a>
                         </c:if>
 
                         <a class="dropdown-item" href="logout">Logout</a>

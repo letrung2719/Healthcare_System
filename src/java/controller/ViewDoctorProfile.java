@@ -6,13 +6,17 @@
 package controller;
 
 import dal.DoctorDAO;
+import dal.DoctorFeedbacksDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Doctor;
+import model.DoctorFeedbacks;
+import model.Patient;
 
 /**
  *
@@ -36,6 +40,22 @@ public class ViewDoctorProfile extends HttpServlet {
         DoctorDAO doctorDb = new DoctorDAO();
         Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
         request.setAttribute("doctor", doctor);
+
+        DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();
+        List<DoctorFeedbacks> feedbacksList = feedbackDB.getAllDoctorFeedbacks(doctor.getDoctorID());
+        request.setAttribute("feedbacksList", feedbacksList);
+        int avgrate = feedbackDB.getAverageRating(doctor.getDoctorID());
+        request.setAttribute("avgrate", avgrate);
+
+        HttpSession session = request.getSession();
+        Patient curUser = (Patient) session.getAttribute("user");
+        if (curUser != null) {
+            for (DoctorFeedbacks fb : feedbacksList) {
+                if (fb.getPatient().getPatientID() == curUser.getPatientID() && fb.getDoctor().getDoctorID() == doctor.getDoctorID()) {
+                    request.setAttribute("check", true);
+                }
+            }
+        }
         request.getRequestDispatcher("view-doctor-profile.jsp").forward(request, response);
     }
 

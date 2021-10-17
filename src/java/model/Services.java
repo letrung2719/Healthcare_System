@@ -71,7 +71,9 @@ public class Services {
 
     @Override
     public String toString() {
-        return "Services{" + "service_id=" + service_id + ", title=" + title + ", type_id=" + type_id + ", image=" + image + ", description=" + description + ", price=" + price + '}';
+        return "Services{" + "service_id=" + service_id + ", title=" + title + ", type_id=" + type_id + ", price=" + price + "}\n";
     }
+
+    
     
 }

@@ -40,7 +40,7 @@
             <!-- Header -->
             <jsp:include page="index-header.jsp"/>
             <!-- /Header -->
-            
+
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
                     <div class="row align-items-center">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-                        
+
             <!-- Page Content -->
             <div class="content">
                 <div class="container-fluid">
@@ -85,13 +85,13 @@
                                     <div class="filter-widget">
                                         <h4>Sort list</h4>
                                         <style>
-                                            a:hover {
+                                            .text-muted:hover {
                                                 color: aqua !important;
                                             }
                                         </style>
-                                        <a href="sortlistservices?id=1" class="text-muted"><i class="fas fa-angle-up text-primary"></i>  Sort by highest to lowest Price</a><br>
-                                        <a href="sortlistservices?id=2" class="text-muted"><i class="fas fa-angle-down text-primary"></i>  Sort by lowest to highest Price</a><br>
-                                        <a href="sortlistservices?id=3" class="text-muted"><i class="fas fa-notes-medical text-primary"></i>  Sort by Specialist list</a><br>
+                                        <i class="fas fa-angle-up text-primary"></i><a href="sortlistservices?id=1" class="text-muted"> Sort by highest to lowest Price</a><br>
+                                        <i class="fas fa-angle-down text-primary"></i><a href="sortlistservices?id=2" class="text-muted"> Sort by lowest to highest Price</a><br>
+                                        <i class="fas fa-notes-medical text-primary"></i><a href="sortlistservices?id=3" class="text-muted"> Sort by Specialist list</a><br>
                                     </div>
                                 </div>
                                 <div class="card-body"> 
@@ -131,15 +131,19 @@
                                                 </div>
                                                 <div class="doc-info-cont">
                                                     <h4 class="doc-name"><a href="serdetail?sid=${o.service_id}">${o.title}</a></h4>
+
                                                     <h5 class="doc-department">${o.type_id}</h5>
-<!--                                                    <div class="rating">
+                                                    <div class="rating">
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star"></i>
                                                         <span class="d-inline-block average-rating">(17)</span>
-                                                    </div>-->
+                                                    </div>
+
+                                                    <h5 class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${o.type_id}</h5>
+
                                                     <div class="clinic-details">
                                                         <p style="margin: 0"><i class="far fa-money-bill-alt"></i>  ${o.price} VND</p>
                                                         <b>Description:</b><p style="margin: 0;width: 90%;height: 60px;overflow: hidden;-webkit-mask-image: linear-gradient(180deg, #000 75%, transparent);">${o.description}</p>
@@ -148,8 +152,22 @@
                                                 </div>
                                             </div>
                                             <div class="doc-info-right">
+
                                                 <div class="clinic-booking">
                                                     <a class="apt-btn" href="booking.html">Book Appointment</a>
+
+                                                <div class="clini-infos">
+                                                    <ul>
+                                                        <li><i class="far fa-thumbs-up"></i> 98%</li>
+                                                        <li><i class="far fa-comment"></i> 17 Feedback</li>
+
+                                                        <li><i class="far fa-money-bill-alt"></i> $300 - $1000 <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="clinic-booking">
+                                                    <a class="view-pro-btn" href="serdetail?sid=${o.service_id}">View Details</a>
+                                                    <a class="apt-btn" href="#">Book Service</a>
+
                                                 </div>
                                             </div>
                                         </div>

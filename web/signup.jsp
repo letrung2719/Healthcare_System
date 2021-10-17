@@ -57,8 +57,7 @@
                                     <div class="col-md-12 col-lg-6 login-right">
                                         <div class="login-header">
                                             <h3>
-                                                Patient Register
-                                                <a href="doctor-register.html">Are you a Doctor?</a>
+                                                Register a new account
                                             </h3>
                                         </div>
 
@@ -66,20 +65,12 @@
                                         <form action="signup" method="post">
                                             <p class="text-danger">${mess}</p>
                                             <div class="form-group form-focus">
-                                                <input name="user" type="text" class="form-control floating" required="" />
-                                                <label class="focus-label">User Name</label>
-                                            </div>
-                                            <div class="form-group form-focus">
                                                 <input name="name" type="text" class="form-control floating" value="${name}" required=""/>
                                                 <label class="focus-label">Your Name</label>
                                             </div>
                                             <div class="form-group ">
-                                                <label>Gender</label>
-                                                <select required="" name="gender" class="form-control select select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                                    <option data-select2-id="3">Select</option>
-                                                    <option value="male" >Male</option>
-                                                    <option value="female">Female</option>
-                                                </select>
+                                                <input type="radio" name="gender" value="1" ${gender == 1 ? "checked" : ""}> Male
+                                                <input type="radio" name="gender" value="0" ${gender == 0 ? "checked" : ""} style="margin-left: 50px"> Female
                                             </div>
                                             <div class="form-group form-focus">
                                                 <input name="email" type="text" class="form-control floating" value="${email}" required=""/>
@@ -88,6 +79,10 @@
                                             <div class="form-group form-focus">
                                                 <input name="phone" type="text" class="form-control floating" value="${phone}" required=""/>
                                                 <label class="focus-label">Mobile Number</label>
+                                            </div>
+                                            <div class="form-group form-focus">
+                                                <input name="user" type="text" class="form-control floating" value="${user}" required="" />
+                                                <label class="focus-label">Username</label>
                                             </div>
                                             <div class="form-group form-focus">
                                                 <input name="pass" type="password" class="form-control floating" required=""/>

@@ -5,7 +5,8 @@ import dal.DoctorDAO;
 import dal.PatientDAO;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ import model.Doctor;
 import model.Patient;
 
 public class LoginControl extends HttpServlet {
+    
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,15 +32,17 @@ public class LoginControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
+        String user = request.getParameter("username");
+        String pass = request.getParameter("password");
         AccountDAO accountDb = new AccountDAO();
         Account a = accountDb.login(user, pass);
         PatientDAO patientDb = new PatientDAO();
         DoctorDAO doctorDb = new DoctorDAO();
-
+        
+        request.setAttribute("username", user);
+        
         if (a == null) {
-            request.setAttribute("mess", "wrong user or pass");
+            request.setAttribute("mess", resourceBundle.getString("invalid_account"));
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();

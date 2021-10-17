@@ -39,7 +39,7 @@
             <!-- Header -->
             <jsp:include page="index-header.jsp"/>
             <!-- /Header -->
-
+            
             <!-- Home Banner -->
             <section class="section section-search">
                 <div class="container-fluid">

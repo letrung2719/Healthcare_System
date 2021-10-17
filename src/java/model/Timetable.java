@@ -9,14 +9,15 @@ package model;
  *
  * @author Admin
  */
-public class TimeTable {
-       private int slotID; 
-       private String time;
+public class Timetable {
 
-    public TimeTable() {
+    private int slotID;
+    private String time;
+
+    public Timetable() {
     }
 
-    public TimeTable(int slotID, String time) {
+    public Timetable(int slotID, String time) {
         this.slotID = slotID;
         this.time = time;
     }
@@ -39,8 +40,6 @@ public class TimeTable {
 
     @Override
     public String toString() {
-        return "TimeTable{" + "slotID=" + slotID + ", time=" + time + '}'+"\n";
+        return "TimeTable{" + "slotID=" + slotID + ", time=" + time + '}' + "\n";
     }
-       
-       
 }

@@ -125,9 +125,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-6">
-                                            <h3 class="text-warning">
-                                                ${mess}
-                                            </h3>
+                                            <p class="text-danger">${mess}</p>
                                             <!-- Change Password Form -->
                                             <form action="change_password" method="post">
                                                 <div class="form-group">

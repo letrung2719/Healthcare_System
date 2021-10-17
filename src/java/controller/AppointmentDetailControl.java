@@ -35,10 +35,27 @@ public class AppointmentDetailControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int appID = Integer.parseInt(request.getParameter("id"));
+        String inputStatus = request.getParameter("status");
         AppointmentDAO appDb = new AppointmentDAO();
         Appointment a = appDb.getAppointmentByID(appID);
+        
+        if (inputStatus != null) {
+            if (inputStatus.equals("cancel")) {
+                appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
+            }
+            if (inputStatus.equals("pending")) {
+                appDb.changeAppointmentStatus(a.getAppointmentID(), 1);
+            }
+            if (inputStatus.equals("complete")) {
+                appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
+            }
+            a = appDb.getAppointmentByID(appID);
+            request.setAttribute("app", a);
+            request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
+        }
         request.setAttribute("app", a);
         request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

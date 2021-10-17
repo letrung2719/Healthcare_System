@@ -13,6 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import model.Patient;
+import model.ServiceFeedbacks;
 import model.Services;
 import model.Specialities;
 
@@ -37,18 +41,38 @@ public class ServiceDetailControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String id = request.getParameter("sid");
         ServicesDAO dao = new ServicesDAO();
-        
-        
+
         Services s = dao.getServiceByID(id);
         String specID = s.getType_id();
-        
+
+        int avrate = dao.AverageRateServices(id);
         Specialities spec = dao.getSpecByID(specID);
         String type_id = dao.getServiceByID(id).getType_id();
         List<Services> listS = dao.getTop4Last(type_id);
+        List<ServiceFeedbacks> listF = dao.getAllComment(id);
+        int totalfeedback = listF.size();
         
+        HttpSession session = request.getSession();
+        Account a = (Account)session.getAttribute("acc");
+        Patient p = new Patient();
+        if (a != null) {
+            if (a.getAuthor_id() == 2) {
+                p = (Patient)session.getAttribute("user");
+                List<ServiceFeedbacks> check = dao.checkPatientComment((int)p.getPatientID(), id);
+                if (check.isEmpty()) {
+                    request.setAttribute("check", 1);
+                } else {
+                    request.setAttribute("check", 5);
+                }
+            }
+        }
+        
+        request.setAttribute("avrate", avrate);
+        request.setAttribute("totalfeedback", totalfeedback);
         request.setAttribute("detail", s);
         request.setAttribute("spec", spec);
         request.setAttribute("listS", listS);
+        request.setAttribute("listF", listF);
         request.getRequestDispatcher("service-detail.jsp").forward(request, response);
     }
 
