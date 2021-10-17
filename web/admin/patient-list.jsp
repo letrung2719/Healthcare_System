@@ -129,7 +129,13 @@
                                                     <c:forEach items="${listPatients}" var="user">
                                                         <tr>
                                                             <td>${user.patientID}</td>
-                                                            <td>${user.name}</td>
+                                                            <td> <!-- name-->
+                                                                <h2 class="table-avatar">
+                                                                    <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${user.image}" alt="Patient Image"></a>
+                                                                    <a>${user.name}</a>
+                                                                </h2>
+                                                            </td>
+
                                                             <td><c:if test="${user.gender == 1}">Male</c:if>
                                                                 <c:if test="${user.gender == 0}">Female</c:if>
                                                                 </td>

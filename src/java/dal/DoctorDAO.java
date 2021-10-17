@@ -209,10 +209,10 @@ public class DoctorDAO extends DBContext {
 
     public static void main(String[] args) {
         DoctorDAO doctorDb = new DoctorDAO();
-//        List<Doctor> list = doctorDb.getAllDoctor();
-//        System.out.println(list);
-        Doctor d = doctorDb.getDoctorByDoctorID(2);
-        System.out.println(d);
+        List<Doctor> list = doctorDb.getAllDoctor();
+        System.out.println(list);
+//        Doctor d = doctorDb.getDoctorByDoctorID(2);
+//        System.out.println(d);
 //        String[] listSpec 
 //        List<Doctor> list = doctorDb.search("", "", "", "", null, listSpec);
 //        System.out.println(list);

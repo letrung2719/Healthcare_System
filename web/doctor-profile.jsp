@@ -1,5 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@pagecontentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:14 GMT -->
@@ -75,94 +75,18 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                            <!-- Profile Sidebar -->
-                            <div class="profile-sidebar">
-                                <div class="widget-profile pro-widget-content">
-                                    <div class="profile-info-widget">
-                                        <a href="#" class="booking-doc-img">
-                                            <img src="${doctor.image}" alt="User Image" />
-                                        </a>
-                                        <div class="profile-det-info">
-                                            <h3>Dr. ${doctor.name}</h3>
 
-                                            <div class="patient-details">
-                                                <h5 class="mb-0">${doctor.role}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dashboard-widget">
-                                    <nav class="dashboard-menu">
-                                        <ul>
-                                            <li>
-                                                <a href="doctor-dashboard.html">
-                                                    <i class="fas fa-columns"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="appointments.html">
-                                                    <i class="fas fa-calendar-check"></i>
-                                                    <span>Appointments</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="my-patients.html">
-                                                    <i class="fas fa-user-injured"></i>
-                                                    <span>My Patients</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="schedule-timings.html">
-                                                    <i class="fas fa-hourglass-start"></i>
-                                                    <span>Schedule Timings</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="invoices.html">
-                                                    <i class="fas fa-file-invoice"></i>
-                                                    <span>Invoices</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="reviews.html">
-                                                    <i class="fas fa-star"></i>
-                                                    <span>Reviews</span>
-                                                </a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="doctor-profile-settings.html">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Profile Settings</span>
-                                                </a>
-                                            </li>
+                        <!-- Profile Sidebar -->
+                        <%@include file="doctor-sidebar.jsp" %>
+                        <!-- /Profile Sidebar -->
 
-                                            <li>
-                                                <a href="doctor-change-password.html">
-                                                    <i class="fas fa-lock"></i>
-                                                    <span>Change Password</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="logout">
-                                                    <i class="fas fa-sign-out-alt"></i>
-                                                    <span>Logout</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <!-- /Profile Sidebar -->
-                        </div>
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <h3 class="text-success">${thongbao}</h3>
                             <form action="doctor_profile_setting" method="post">
                                 <!-- Basic Information -->
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Basic Information</h4>
+                                        <h4 class="card-title">Doctor Information</h4>
                                         <div class="row form-row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -197,58 +121,32 @@
                                                 />
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label
-                                                        >Username <span class="text-danger">*</span></label
-                                                    >
-                                                    <input
-                                                        name="username"
-                                                        type="text"
-                                                        class="form-control"
-                                                        readonly
-                                                        value="${sessionScope.acc.user}"
-                                                        />
+                                                    <label>Username <span class="text-danger">*</span></label>
+                                                    <input name="username" type="text" class="form-control" readonly value="${sessionScope.acc.user}"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label
-                                                        >Email <span class="text-danger">*</span></label
-                                                    >
-                                                    <input
-                                                        name="email"
-                                                        type="email"
-                                                        class="form-control"
-                                                        readonly
-                                                        value="${doctor.email}"
-                                                        />
+                                                    <label>Email <span class="text-danger">*</span></label>
+                                                    <input name="email" type="email" class="form-control" readonly value="${doctor.email}"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Name <span class="text-danger">*</span></label>
-                                                    <input
-                                                        name="name"
-                                                        type="text"
-                                                        class="form-control"
-                                                        value="${doctor.name}"
-                                                        />
+                                                    <input name="name" type="text" class="form-control" value="${doctor.name}"/>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Phone Number</label>
-                                                    <input
-                                                        name="phone"
-                                                        type="text"
-                                                        class="form-control"
-                                                        value="${doctor.phone}"
-                                                        />
+                                                    <label>Phone Number <span class="text-danger">*</span></label>
+                                                    <input name="phone" type="text" class="form-control" value="${doctor.phone}"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Gender</label><br />
+                                                    <label>Gender <span class="text-danger">*</span></label><br />
                                                     <style>
                                                         .genderedit,
                                                         option {
@@ -283,15 +181,12 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group mb-0">
-                                                    <label>Date of Birth</label>
+                                                    <label>Date of Birth <span class="text-danger">*</span></label>
                                                     <input
                                                         name="dob"
                                                         type="text"
-                                                        pattern="\d{1,2}/\d{1,2}/\d{4}"
                                                         class="form-control"
-                                                        value="${doctor.dob}"
-
-                                                        />
+                                                        value="${doctor.dob}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -304,59 +199,16 @@
                                     <div class="card-body">
                                         <h4 class="card-title">About Me</h4>
                                         <div class="form-group mb-0">
-                                            <label>Biography</label>
-                                            <textarea
-                                                name="description"
-                                                class="form-control"
-                                                rows="5"
-                                                >
-                                                ${doctor.description}</textarea
-                                            >
+                                            <label>Description</label>
+                                            <textarea name="description" class="form-control" rows="5">${doctor.description}</textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /About Me -->
-                                <!-- Services and Specialization -->
-                                <div class="card services-card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Services and Specialization</h4>
-                                        <div class="form-group">
-                                            <label>Services</label>
-                                            <input
-                                                type="text"
-                                                data-role="tagsinput"
-                                                class="input-tags form-control"
-                                                placeholder="Enter Services"
-                                                name="services"
-                                                value="Tooth cleaning "
-                                                id="services"
-                                                />
-                                            <small class="form-text text-muted"
-                                                   >Note : Type & Press enter to add new services</small
-                                            >
-                                        </div>
-                                        <div class="form-group mb-0">
-                                            <label>Specialization </label>
-                                            <input
-                                                class="input-tags form-control"
-                                                type="text"
-                                                data-role="tagsinput"
-                                                placeholder="Enter Specialization"
-                                                name="specialist"
-                                                value="Children Care,Dental Care"
-                                                id="specialist"
-                                                />
-                                            <small class="form-text text-muted"
-                                                   >Note : Type & Press enter to add new
-                                                specialization</small
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Services and Specialization -->
+
                                 <div class="submit-section submit-btn-bottom">
                                     <button type="submit" class="btn btn-primary submit-btn">
-                                        Edit
+                                        Save changes
                                     </button>
                                 </div>
                             </form>
