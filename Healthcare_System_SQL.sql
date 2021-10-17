@@ -1,11 +1,75 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [HealthcareSystem]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Database [HealthcareSystem]    Script Date: 17-Oct-21 8:08:49 PM ******/
 CREATE DATABASE [HealthcareSystem]
 GO
 USE [HealthcareSystem]
 GO
-/****** Object:  Table [dbo].[Accounts]    Script Date: 15-Oct-21 1:29:56 AM ******/
+ALTER DATABASE [HealthcareSystem] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [HealthcareSystem] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [HealthcareSystem] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [HealthcareSystem] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [HealthcareSystem] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [HealthcareSystem] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [HealthcareSystem] SET  MULTI_USER 
+GO
+ALTER DATABASE [HealthcareSystem] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [HealthcareSystem] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [HealthcareSystem] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [HealthcareSystem] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [HealthcareSystem] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [HealthcareSystem] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [HealthcareSystem] SET QUERY_STORE = OFF
+GO
+USE [HealthcareSystem]
+GO
+/****** Object:  Table [dbo].[Accounts]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22,7 +86,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Appointments]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Appointments]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -41,7 +105,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Blogs]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Blogs]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -58,13 +122,14 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Doctor_Feedbacks]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Doctor_Feedbacks]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Doctor_Feedbacks](
 	[feedback_id] [int] IDENTITY(1,1) NOT NULL,
+	[date] [date] NULL,
 	[content] [nvarchar](max) NULL,
 	[rate] [int] NULL,
 	[patient_id] [int] NULL,
@@ -75,7 +140,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Doctors]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Doctors]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -98,7 +163,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Patients]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Patients]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -118,7 +183,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Reservations]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Reservations]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -129,13 +194,16 @@ CREATE TABLE [dbo].[Reservations](
 	[patient_id] [int] NULL,
 	[service_id] [int] NULL,
 	[price] [real] NULL,
+	[status] [int] NULL,
+	[slot_id] [int] NULL,
+	[description] [nvarchar](max) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[reservation_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Service_Feedbacks]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Service_Feedbacks]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -152,7 +220,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Services]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Services]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -170,7 +238,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Specialities]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Specialities]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -184,7 +252,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Timetable]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Table [dbo].[Timetable]    Script Date: 17-Oct-21 8:08:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -242,7 +310,7 @@ INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [sta
 GO
 INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (21, N'doctor20', N'12345', 1, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (22, N'patient1', N'123', 2, 1)
+INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (22, N'patient1', N'12345', 2, 1)
 GO
 INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (23, N'patient2', N'12345', 2, 1)
 GO
@@ -262,25 +330,31 @@ INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [sta
 GO
 INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (31, N'patient10', N'12345', 2, 1)
 GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (32, N'patient20', N'12345', 2, 1)
-GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (33, N'trung123', N'12345', 2, 1)
-GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (34, N'kienmongto', N'12345', 2, 1)
-GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (35, N'trung', N'12345', 2, 1)
-GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (36, N'patient123', N'12345', 2, 1)
-GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (37, N'patient24', N'12345', 2, 1)
-GO
-INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [status]) VALUES (38, N'kienmongto2', N'12345', 2, 1)
-GO
 SET IDENTITY_INSERT [dbo].[Accounts] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Doctor_Feedbacks] ON 
+GO
+INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (9, CAST(N'2021-10-17' AS Date), N'duoc phet', 4, 1, 3)
+GO
+INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (10, CAST(N'2021-10-17' AS Date), N'bad', 2, 2, 1)
+GO
+INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (11, CAST(N'2021-10-17' AS Date), N'okay', 4, 3, 1)
+GO
+INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (13, CAST(N'2021-10-17' AS Date), N'dfasdf', 4, 1, 2)
+GO
+INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (14, CAST(N'2021-10-17' AS Date), N'bad', 1, 1, 4)
+GO
+INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (15, CAST(N'2021-10-17' AS Date), N'fasdfasd', 5, 1, 6)
+GO
+INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (16, CAST(N'2021-10-17' AS Date), N'Æ°ertwer', 3, 1, 5)
+GO
+INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (18, CAST(N'2021-10-17' AS Date), N'eqwr', 4, 1, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Doctor_Feedbacks] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Doctors] ON 
 GO
-INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (1, N'Phiplippe Macaire', 1, CAST(N'1984-06-28' AS Date), N'0913028592', N'philippe02@gmail.com', N'Head of Department of Anesthesiology', 1, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'Professor, Doctor, Doctor Philippe Macaire has devoted more than 30 years in the field of Anesthesia - pain treatment, is a strong expert in: Anesthesia and resuscitation in pediatric surgery. Difficult airway management and difficult intubation. Ultrasound-guided vertebral plane (ESP) anesthesia for open-heart and thoracic surgery, new technique for the treatment of non-opioid pain. Monitoring ventilation for obese patients during bariatric surgery. Palliative care for the sick.', 2)
+INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (1, N'Phiplippe Macaire', 1, CAST(N'1984-06-28' AS Date), N'0913028592', N'philippe02@gmail.com', N'Head of Department of Anesthesiology', 1, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'                                                Professor, Doctor, Doctor Philippe Macaire has devoted more than 30 years in the field of Anesthesia - pain treatment, is a strong expert in: Anesthesia and resuscitation in pediatric surgery. Difficult airway management and difficult intubation. Ultrasound-guided vertebral plane (ESP) anesthesia for open-heart and thoracic surgery, new technique for the treatment of non-opioid pain. Monitoring ventilation for obese patients during bariatric surgery. Palliative care for the sick.', 2)
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (2, N'Khanritonchyk Aksana', 0, CAST(N'1990-12-20' AS Date), N'0382932501', N'aksana2012@gmail.com', N'Doctor of Obstetrics and Gynecology ', 10, N'https://vinmec-prod.s3.amazonaws.com/images/18_02_2019_07_24_42_217499.jpeg', N'Dr. Kharitonchyk Aksana has more than 20 years of experience in the field of Obstetrics and Gynecology, especially in treating fibroids, cysts, urinary incontinence, perimenopausal disorders, menopause, prenatal diagnosis. , genetic diseases, pregnancy management, treatment of male diseases, social diseases and male and female infertility...', 3)
 GO
@@ -344,17 +418,17 @@ INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email]
 GO
 INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (10, N'Nguyen Truong An', 1, CAST(N'1997-09-19' AS Date), N'0973567588', N'annt982@gmail.com', N'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/239243924_1681565942034178_3354816572299253193_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=saJjOdP01q4AX93onlD&_nc_ht=scontent.fhan3-3.fna&oh=5a160edc624c2c22e2474fbb8e46e870&oe=615A3E9B', 31)
 GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (11, N'Kien mong to', 0, CAST(N'1900-01-01' AS Date), N'0987654321', N'acbb@gmail.com', NULL, 32)
-GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (12, N'Trung Dep Trai Vai Ca Lon', 1, CAST(N'1900-01-01' AS Date), N'1234567890', N'acbb@gmail.com', NULL, 33)
-GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (15, N'abc', 0, CAST(N'1900-01-01' AS Date), N'0123456789', N'abc@gmail.com', N'', 34)
-GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (16, N'trungdeptrai', 0, CAST(N'1900-01-01' AS Date), N'1234567890', N'acbb@gmail.com', N'', 36)
-GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (18, N'Kien mong cuc to ', 1, CAST(N'1900-01-01' AS Date), N'0987654345', N'igoclubvicongdong@gmail.com', N'', 38)
-GO
 SET IDENTITY_INSERT [dbo].[Patients] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Service_Feedbacks] ON 
+GO
+INSERT [dbo].[Service_Feedbacks] ([feedback_id], [content], [rate], [patient_id], [service_id]) VALUES (2, N'sdfgsdfg', 3, 2, 2)
+GO
+INSERT [dbo].[Service_Feedbacks] ([feedback_id], [content], [rate], [patient_id], [service_id]) VALUES (3, N'sdfgsdfg', 5, 1, 2)
+GO
+INSERT [dbo].[Service_Feedbacks] ([feedback_id], [content], [rate], [patient_id], [service_id]) VALUES (6, N'qÆ°er', 3, 1, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Service_Feedbacks] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Services] ON 
 GO
@@ -508,7 +582,7 @@ SET IDENTITY_INSERT [dbo].[Timetable] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__Accounts__F3DBC5726016742D]    Script Date: 15-Oct-21 1:29:56 AM ******/
+/****** Object:  Index [UQ__Accounts__F3DBC57239A94B73]    Script Date: 17-Oct-21 8:08:50 PM ******/
 ALTER TABLE [dbo].[Accounts] ADD UNIQUE NONCLUSTERED 
 (
 	[username] ASC
@@ -543,6 +617,11 @@ REFERENCES [dbo].[Patients] ([patient_id])
 GO
 ALTER TABLE [dbo].[Reservations]  WITH CHECK ADD FOREIGN KEY([service_id])
 REFERENCES [dbo].[Services] ([service_id])
+GO
+ALTER TABLE [dbo].[Reservations]  WITH CHECK ADD  CONSTRAINT [FK_Reservations_Timetable] FOREIGN KEY([slot_id])
+REFERENCES [dbo].[Timetable] ([slot_id])
+GO
+ALTER TABLE [dbo].[Reservations] CHECK CONSTRAINT [FK_Reservations_Timetable]
 GO
 ALTER TABLE [dbo].[Service_Feedbacks]  WITH CHECK ADD FOREIGN KEY([patient_id])
 REFERENCES [dbo].[Patients] ([patient_id])
