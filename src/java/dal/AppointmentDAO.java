@@ -32,15 +32,12 @@ public class AppointmentDAO extends DBContext {
     public int addNewAppointment(Appointment a) {
         String sql = "insert into Appointments (patient_id,doctor_id,date,slot_id,description,status) values (?,?,?,?,?,?)";
 
-        TimetableDAO dalTime = new TimetableDAO();
         try {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, a.getPatient().getPatientID());
             ps.setInt(2, a.getDoctor().getDoctorID());
             ps.setString(3, a.getDate());
             ps.setInt(4, a.getSlot().getSlotID());
-            Timetable s = dalTime.getTimeBySlotID(rs.getInt(4));
-            a.setSlot(s);
             ps.setString(5, a.getDescription());
             ps.setInt(6, a.getStatus());
             ps.executeUpdate();
