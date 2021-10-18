@@ -29,6 +29,11 @@ public class AppointmentDAO extends DBContext {
     DoctorDAO dalDoctor = new DoctorDAO();
     TimetableDAO dalTimetable = new TimetableDAO();
 
+    /**
+     *
+     * @param a
+     * @return
+     */
     public int addNewAppointment(Appointment a) {
         String sql = "insert into Appointments (patient_id,doctor_id,date,slot_id,description,status) values (?,?,?,?,?,?)";
 
@@ -48,6 +53,11 @@ public class AppointmentDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param appID
+     * @return
+     */
     public Appointment getAppointmentByID(int appID) {
         String sql = "select  * from appointments where appointment_id = " + appID;
         try {
@@ -76,6 +86,11 @@ public class AppointmentDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param doctorID
+     * @return
+     */
     public int getAllDoctorAppointment(int doctorID) {
         String sql = "select count(*) from Appointments where doctor_id = " + doctorID;
         try {
@@ -91,6 +106,10 @@ public class AppointmentDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Appointment> getAppointmentAdmin() {
         List<Appointment> list = new ArrayList<>();
         String sql = "select * from Appointments";
@@ -117,6 +136,13 @@ public class AppointmentDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param doctorID
+     * @param pageNumber
+     * @param numberOfItem
+     * @return
+     */
     public List<Appointment> paginateAppointmentByDoctorID(int doctorID, int pageNumber, int numberOfItem) {
         List<Appointment> list = new ArrayList<>();
         String sql = "DECLARE @PageNumber AS INT\n"
@@ -156,6 +182,12 @@ public class AppointmentDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param appID
+     * @param status
+     * @return
+     */
     public int changeAppointmentStatus(int appID, int status) {
         String sql = "update appointments set status = " + status + " where appointment_id  = " + appID;
         try {
@@ -168,6 +200,11 @@ public class AppointmentDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param d
+     * @return
+     */
     public List<Appointment> getAllAppointmentByDoctorID(Doctor d) {
         List<Appointment> list = new ArrayList<>();
         String sql = "select * from Appointments where doctor_id = " + d.getDoctorID();
@@ -196,6 +233,11 @@ public class AppointmentDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param appID
+     * @return
+     */
     public int deleteAppointment(int appID) {
         String sql = "delete appointments where appointment_id =" + appID;
         try {
@@ -207,6 +249,10 @@ public class AppointmentDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         AppointmentDAO db = new AppointmentDAO();
         Doctor d = new Doctor(1, "name", 0, "", "0123456789", "abc@gamil.com", null, null, "", "", 1);

@@ -11,6 +11,12 @@ import java.util.regex.Pattern;
  * @author admin
  */
 public class Validate {
+
+    /**
+     *
+     * @param phone
+     * @return
+     */
     public boolean checkPhone(String phone){
         String regex = "\\d{10}";
         Pattern pattern = Pattern.compile(regex);
@@ -18,6 +24,10 @@ public class Validate {
         return matcher.matches();
     }
     
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Validate validate = new Validate();
         System.out.println(validate.checkPhone("asdfasdfasdf"));

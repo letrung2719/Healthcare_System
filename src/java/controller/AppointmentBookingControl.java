@@ -8,9 +8,10 @@ package controller;
 import dal.AppointmentDAO;
 import dal.DoctorDAO;
 import dal.PatientDAO;
-import dal.ServicesDAO;
 import dal.TimetableDAO;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,10 +30,17 @@ import model.Doctor;
  */
 public class AppointmentBookingControl extends HttpServlet {
     private static final long serialVersionUID = 9999L;
-    
-    
-    
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
+    
+    private void writeObject(ObjectOutputStream stream)
+            throws IOException {
+        stream.defaultWriteObject();
+    }
+
+    private void readObject(ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+    }
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

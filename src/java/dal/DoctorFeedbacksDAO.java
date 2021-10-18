@@ -26,6 +26,11 @@ public class DoctorFeedbacksDAO extends DBContext {
     PatientDAO patientDB = new PatientDAO();
     DoctorDAO doctorDB = new DoctorDAO();
 
+    /**
+     *
+     * @param feedback
+     * @return
+     */
     public int addNewDoctorFeedback(DoctorFeedbacks feedback) {
         String sql = "insert into Doctor_Feedbacks (date,content,rate,patient_id,doctor_id) values (?,?,?,?,?)";
         try {
@@ -42,6 +47,11 @@ public class DoctorFeedbacksDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param doctorID
+     * @return
+     */
     public List<DoctorFeedbacks> getAllDoctorFeedbacks(int doctorID) {
         List<DoctorFeedbacks> list = new ArrayList<>();
         String sql = "select * from Doctor_Feedbacks where doctor_id = ?";
@@ -59,6 +69,11 @@ public class DoctorFeedbacksDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param doctorID
+     * @return
+     */
     public int getAverageRating(int doctorID) {
         DoctorFeedbacksDAO doctorFeedbackDAO = new DoctorFeedbacksDAO();
         List<DoctorFeedbacks> list = doctorFeedbackDAO.getAllDoctorFeedbacks(doctorID);
@@ -73,6 +88,11 @@ public class DoctorFeedbacksDAO extends DBContext {
         }
     }
 
+    /**
+     *
+     * @param feedback
+     * @return
+     */
     public int updateDoctorFeedback(DoctorFeedbacks feedback) {
         String sql = "update Doctor_Feedbacks set date = ?, content = ?, rate = ? where patient_id = ? and doctor_id = ?";
         try {
@@ -89,6 +109,12 @@ public class DoctorFeedbacksDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param patientID
+     * @param doctorID
+     * @return
+     */
     public int deleteDoctorFeedback(int patientID, int doctorID) {
         String sql = "delete from Doctor_Feedbacks where patient_id = ? and doctor_id = ?";
         try {
@@ -102,11 +128,16 @@ public class DoctorFeedbacksDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param doctorID
+     * @return
+     */
     public int countAllDoctorFeedback(int doctorID) {
         String sql = "select count(*) from Doctor_Feedbacks where doctor_id = " + doctorID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
             }
@@ -116,6 +147,14 @@ public class DoctorFeedbacksDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param doctorID
+     * @param pageNumber
+     * @param numberOfItem
+     * @param sort
+     * @return
+     */
     public List<DoctorFeedbacks> paginateDoctorFeedbackByDoctorID(int doctorID, int pageNumber, int numberOfItem, String sort) {
         List<DoctorFeedbacks> list = new ArrayList<>();
         String sql = "DECLARE @PageNumber AS INT\n"
@@ -147,6 +186,10 @@ public class DoctorFeedbacksDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();
 //        Patient patient = new Patient(1, "abc", 0, "", "", "", 2, "");

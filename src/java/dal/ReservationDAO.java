@@ -17,6 +17,12 @@ import model.Reservation;
  */
 public class ReservationDAO extends DBContext {
     PreparedStatement st = null;
+
+    /**
+     *
+     * @param r
+     * @return
+     */
     public int addNewReservation(Reservation r) {
         String sql = "insert into Reservations (date,patient_id,service_id,price,slot_id,description,status) values (?,?,?,?,?,?,1)";
         try {
@@ -35,7 +41,10 @@ public class ReservationDAO extends DBContext {
         return 0;
     }
     
-
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         ReservationDAO db1 = new ReservationDAO();
         PatientDAO db2 = new PatientDAO();

@@ -20,6 +20,11 @@ public class TimetableDAO extends DBContext {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    /**
+     *
+     * @param slotID
+     * @return
+     */
     public Timetable getTimeBySlotID(int slotID) {
         String sql = "select * from Timetable where slot_id = ?";
         try {

@@ -61,7 +61,6 @@ public class AddServiceFeedbackControl extends HttpServlet {
         ServicesDAO dao = new ServicesDAO();
         dao.addComment(comment, rate, p.getPatientID(), serviceID);
         response.sendRedirect("serdetail?sid=" + serviceID);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

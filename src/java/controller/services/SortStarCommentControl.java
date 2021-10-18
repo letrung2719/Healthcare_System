@@ -7,7 +7,6 @@ package controller.services;
 
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -80,10 +79,9 @@ public class SortStarCommentControl extends HttpServlet {
         //
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("acc");
-        Patient p = new Patient();
         if (a != null) {
             if (a.getAuthor_id() == 2) {
-                p = (Patient) session.getAttribute("user");
+                Patient p = (Patient) session.getAttribute("user");
                 List<ServiceFeedbacks> check = dal.checkPatientComment((int) p.getPatientID(), id);
                 if (check.isEmpty()) {
                     request.setAttribute("check", 1);
