@@ -79,12 +79,12 @@
                                     <div class="profile-info-widget">
                                         <a href="#" class="booking-doc-img">
                                             <img
-                                                src="assets/img/patients/patient.jpg"
+                                                src="${Users.image}"
                                                 alt="User Image"
                                                 />
                                         </a>
                                         <div class="profile-det-info">
-                                            <h3>${Users.name} </h3>
+                                            <h3>${Users.name}</h3>
                                             <div class="patient-details">
                                                 <h5>
                                                     <i class="fas fa-birthday-cake"></i> ${Users.dob}

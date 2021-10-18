@@ -39,13 +39,13 @@
                                 <span>Appointments</span>
                             </a>
                         </li>
-<!--                        <li>
+                        <li>
                             <a href="#">
                                 <i class="fas fa-user-injured"></i>
                                 <span>My Patients</span>
                             </a>
-                        </li>-->
-                        <li>
+                        </li>
+                        <li class="${path == "/doctor-feedback-list.jsp" ? "active" : ""}">
                             <a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}">
                                 <i class="fas fa-star"></i>
                                 <span>Feedbacks</span>

@@ -8,7 +8,6 @@ package controller;
 import dal.AppointmentDAO;
 import dal.DoctorDAO;
 import dal.PatientDAO;
-import dal.ServicesDAO;
 import dal.TimetableDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Appointment;
-import model.Timetable;
 
 /**
  *

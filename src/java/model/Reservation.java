@@ -66,7 +66,7 @@ public class Reservation {
             String strDate = formatter.format(date1);
             this.date = strDate;
         } catch (ParseException ex) {
-            
+            System.out.println(ex);
         }
         
     }

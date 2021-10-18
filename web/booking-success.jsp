@@ -47,14 +47,9 @@
                                 <div class="card-body">
                                     <div class="success-cont">
                                         <i class="fas fa-check"></i>
-                                        <h3>Appointment booked Successfully!</h3>
-<<<<<<< Updated upstream
+                                        <h3>Appointment booked successfully!</h3>
                                         <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.slot.time} (${appointment.date})</strong></p>
-                                        <a href="index.jsp" class="btn btn-primary view-inv-btn">Home</a>
-=======
-                                        <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.date} ${appointment.slot.time}</strong></p>
-                                        <a href="#" class="btn btn-primary view-inv-btn">View Invoice</a>
->>>>>>> Stashed changes
+                                        <a href="doctor?page=1" class="btn btn-primary view-inv-btn">Continue Booking</a>
                                     </div>
                                 </div>
                             </div>

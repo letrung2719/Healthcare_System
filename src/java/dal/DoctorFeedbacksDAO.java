@@ -71,7 +71,22 @@ public class DoctorFeedbacksDAO extends DBContext {
         } else {
             return sum / list.size();
         }
+    }
 
+    public int updateDoctorFeedback(DoctorFeedbacks feedback) {
+        String sql = "update Doctor_Feedbacks set date = ?, content = ?, rate = ? where patient_id = ? and doctor_id = ?";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, feedback.getDate());
+            ps.setString(2, feedback.getContent());
+            ps.setInt(3, feedback.getRate());
+            ps.setInt(4, feedback.getPatient().getPatientID());
+            ps.setInt(5, feedback.getDoctor().getDoctorID());
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
     }
 
     public int deleteDoctorFeedback(int patientID, int doctorID) {
@@ -140,8 +155,12 @@ public class DoctorFeedbacksDAO extends DBContext {
 //        db.addNewDoctorFeedback(feedback);
 
 //        System.out.println(db.getAverageRating(2));
-        List<DoctorFeedbacks> list = db.paginateDoctorFeedbackByDoctorID(1, 1, 5, "feedback_id");
-        System.out.println(list);
+//        List<DoctorFeedbacks> list = db.paginateDoctorFeedbackByDoctorID(1, 1, 5, "feedback_id");
+//        System.out.println(list);
+        Patient patient = new Patient(1, "abc", 0, "", "", "", 2, "");
+        Doctor doctor = new Doctor(1, "", 0, "", "", "", "", null, "", "", 1);
+        DoctorFeedbacks fb = new DoctorFeedbacks("2021-11-11", "test", 5, patient, doctor);
+        db.updateDoctorFeedback(fb);
     }
 
 }

@@ -77,9 +77,8 @@
                                     <div class="success-cont">
                                         <i class="fas fa-check"></i>
                                         <h3>Reservation booked Successfully!</h3>
-                                        <p>Reservation booked with <strong>${reservation.service.title} Service</strong><br> on <strong>${reservation.date} ${reservation.slot.time}</strong></p>
-                                        <a href="#" class="btn btn-primary view-inv-btn">View Invoice</a>
-                                        <a href="services" class="btn btn-primary view-inv-btn">Continue booking</a>
+                                        <p>Reservation booked with <strong>${reservation.service.title} Service</strong><br> on <strong>${reservation.slot.time} (${reservation.date})</strong></p>
+                                        <a href="services" class="btn btn-primary view-inv-btn">Continue Booking</a>
                                     </div>
                                 </div>
                             </div>

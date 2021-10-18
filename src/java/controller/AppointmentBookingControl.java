@@ -114,9 +114,10 @@ public class AppointmentBookingControl extends HttpServlet {
             Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, db3.getTimeBySlotID(slot_id), description, 1);
 
             List<Appointment> list = db4.getAllAppointmentByDoctorID(db2.getDoctorByDoctorID(doctor_id));
-
+            
             for (Appointment appointment : list) {
                 if (a.getDate().equals(appointment.getDate())) {
+                    System.out.println(appointment.toString());
                     if (a.getSlot().getSlotID() == appointment.getSlot().getSlotID()) {
                         request.setAttribute("mess", resourceBundle.getString("slot_busy"));
                         request.setAttribute("doctor", db2.getDoctorByDoctorID(doctor_id));
@@ -125,10 +126,8 @@ public class AppointmentBookingControl extends HttpServlet {
                     }
                 }
             }
-
             request.setAttribute("appointment", a);
             request.getRequestDispatcher("booking-confirm.jsp").forward(request, response);
-
         } catch (IOException | NumberFormatException | ServletException e) {
             System.out.println(e);
         }

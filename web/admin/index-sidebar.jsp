@@ -21,8 +21,8 @@
                             <li class="${path == "/admin/profile.jsp" ? "active" : ""}">
                                 <a href="profile.jsp"><i class="fe fe-user-plus"></i> <span>Profile</span></a>
                             </li>
-                            <li class="${path == "/admin/appointment-list.jsp" ? "active" : ""}">
-                                <a href="appointment-list.jsp"><i class="fe fe-layout"></i> <span>Appointments</span></a>
+                            <li class="${path == "/admin/appointment.jsp" ? "active" : ""}">
+                                <a href="appoint"><i class="fe fe-layout"></i> <span>Appointments</span></a>
                             </li>
                             <li class="${path == "/admin/doctor-list.jsp" ? "active" : ""}">
                                 <a href="doctor_list"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
@@ -30,11 +30,8 @@
                             <li class="${path == "/admin/patient-list.jsp" ? "active" : ""}">
                                 <a href="patient_list"><i class="fe fe-user"></i> <span>Patients</span></a>
                             </li>
-                            <li class="${path == "/admin/reviews.jsp" ? "active" : ""}">
-                                <a href="reviews.jsp"><i class="fe fe-star-o"></i> <span>Reviews</span></a>
-                            </li>
-                            <li class="${path == "/admin/transactions-list.jsp" ? "active" : ""}">
-                                <a href="transactions-list.jsp"><i class="fe fe-activity"></i> <span>Transactions</span></a>
+                            <li class="${path == "/admin/review.jsp" ? "active" : ""} ${path == "/admin/service-feedback.jsp" ? "active" : ""}">
+                                <a href="review"><i class="fe fe-star-o"></i> <span>Service Reviews</span></a>
                             </li>
                             <li class="submenu ${path == "/admin/invoice-report.jsp" ? "active" : ""}" >
                                 <a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span class="menu-arrow"></span></a>

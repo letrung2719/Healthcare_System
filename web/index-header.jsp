@@ -31,13 +31,13 @@
                     <li class="${path == "/index.jsp" ? "active" : ""}"><a href="index.jsp">Home</a></li>              
                     <li class="${path == "/doctor.jsp" ? "active" : ""}"><a href="doctor?page=1">Doctors List</a></li>
                     <li class="${path == "/serviceslist.jsp" ? "active" : ""}"><a href="services">Services List</a></li>
-                    <li class="${path == "/blog.jsp" ? "active" : ""}"><a href="blog-list">About us</a></li>
+                    <li class="${path == "/blog-list.jsp" ? "active" : ""}"><a href="blog-list">About us</a></li>
                     </c:if>
 
                 <c:if test="${sessionScope.acc.author_id == 1}">
-                    <li><a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">Appointments</a></li>
-                    <li><a href="#">My Patients</a></li>
-                    <li><a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=1">Reviews</a></li>
+                    <li class="${path == "/doctor-appointment.jsp" ? "active" : ""}"><a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">Appointments</a></li>
+                    <li class="${path == "#" ? "active" : ""}"><a href="#">My Patients</a></li>
+                    <li class="${path == "/doctor-feedback-list.jsp" ? "active" : ""}"><a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=1">Feedbacks</a></li>
                     </c:if>
 
                 <li class="login-link">

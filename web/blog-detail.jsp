@@ -57,48 +57,53 @@
                                     </li>
                                 </ol>
                             </nav>
-                             <h2 class="breadcrumb-title">Information about our hospital</h2>
+                            <h2 class="breadcrumb-title">Information about our hospital</h2>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /Breadcrumb -->
             <!-- Page Content -->
-			<div class="content">
-				<div class="container">
-					<div class="row">
-						<div class="col-12">
-                                                    <h4 class="blog-name"style="justify-content: center;">${blog.title}</h4>
-                                                      <h6 class="blog-date"> ${blog.date}</h6>
-							<a href="blog-detail?id=${blog.blogID}">
-                                                        <img src="${blog.image}" class="img-fluid" alt="User Image">
-                                                    </a>
-                                                </div>
-                                                <div class="doc-info-cont">
-                                                    
-                                                  
-                                                    <span style="padding: 5px;" class="blog-description"> ${blog.description}</span>
-                                                   
-           
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="blog-name"style="justify-content: center;">${blog.title}</h4>
+                            <h6 class="blog-date"> ${blog.date}</h6>
+                            <a href="blog-detail?id=${blog.blogID}">
+                                <img src="${blog.image}" class="img-fluid" alt="User Image">
+                            </a>
+                        </div>
+                        <div class="doc-info-cont">
+
+
+                            <span style="padding: 5px;" class="blog-description"> ${blog.description}</span>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Main Wrapper -->
+
             <!-- Footer -->
             <jsp:include page="index-footer.jsp"/>
             <!-- /Footer -->
 
-        </div>
-        <!-- /Main Wrapper -->
+            <!-- jQuery -->
+            <script src="assets/js/jquery.min.js"></script>
 
-        <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+            <!-- Bootstrap Core JS -->
+            <script src="assets/js/popper.min.js"></script>
+            <script src="assets/js/bootstrap.min.js"></script>
 
-        <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+            <!-- Slick JS -->
+            <script src="assets/js/slick.js"></script>
 
-        <!-- Slick JS -->
-        <script src="assets/js/slick.js"></script>
-
-        <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+            <!-- Custom JS -->
+            <script src="assets/js/script.js"></script>
 
     </body>
 

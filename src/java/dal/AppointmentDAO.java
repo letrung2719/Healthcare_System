@@ -9,16 +9,11 @@ import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
-
 import java.util.List;
-
 import model.Appointment;
-
 import model.Doctor;
 import model.Patient;
-import model.Specialities;
 import model.Timetable;
 
 /**
@@ -45,8 +40,6 @@ public class AppointmentDAO extends DBContext {
             st.setInt(2, a.getDoctor().getDoctorID());
             st.setString(3, a.getDate());
             st.setInt(4, a.getSlot().getSlotID());    
-            Timetable s = dalTime.getTimeBySlotID(rs.getInt(4));
-            a.setSlot(s);
             st.setString(5, a.getDescription());
             st.setInt(6, a.getStatus());
             st.executeUpdate();
@@ -205,7 +198,7 @@ public class AppointmentDAO extends DBContext {
                 list.add(a);
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -223,17 +216,17 @@ public class AppointmentDAO extends DBContext {
 
     public static void main(String[] args) {
         AppointmentDAO db = new AppointmentDAO();
-//        Doctor d = new Doctor(1, "name", 0, "", "0123456789", "abc@gamil.com", null, null, "", "", 1);
-//        List<Appointment> list = db.getAllAppointmentByDoctorID(d);
-//        for (Appointment a : list) {
-//            System.out.println(a.toString());
-//        }
-        System.out.println(db.getAppointmentByID(2));
-//        db.addNewAppointment(1, 2, "2021-10-10", 2);
-        List<Appointment> list = db.getAppointmentAdmin();
+        Doctor d = new Doctor(1, "name", 0, "", "0123456789", "abc@gamil.com", null, null, "", "", 1);
+        List<Appointment> list = db.getAllAppointmentByDoctorID(d);
         for (Appointment a : list) {
-            System.out.println(a);
+            System.out.println(a.toString());
         }
+//        System.out.println(db.getAppointmentByID(2));
+////        db.addNewAppointment(1, 2, "2021-10-10", 2);
+//        List<Appointment> list = db.getAppointmentAdmin();
+//        for (Appointment a : list) {
+//            System.out.println(a);
+//        }
 
     }
 }

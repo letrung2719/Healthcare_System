@@ -16,20 +16,20 @@
         <title>Doccure</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
-        <!-- Favicons -->
+        <!--Favicons--> 
         <link href="assets/img/favicon.png" rel="icon">
 
-        <!-- Bootstrap CSS -->
+        <!--Bootstrap CSS--> 
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
-        <!-- Fontawesome CSS -->
+        <!--Fontawesome CSS--> 
         <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
         <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
 
-        <!-- Fancybox CSS -->
+        <!--Fancybox CSS--> 
         <link rel="stylesheet" href="assets/plugins/fancybox/jquery.fancybox.min.css">
 
-        <!-- Main CSS -->
+        <!--Main CSS--> 
         <link rel="stylesheet" href="assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -184,32 +184,95 @@
                                                     <div class="comment" style="width: 100%">
                                                         <img class="avatar avatar-sm rounded-circle" alt="user-image" src="assets/img/patients/patient.jpg">
                                                         <div class="comment-body" style="width: 100%">
-                                                            <div class="meta-data">
-                                                                <span class="comment-author">${feedback.patient.name}</span>
-                                                                <span class="comment-date">Reviewed ${feedback.date}</span>
-                                                                <div class="review-count rating">
-                                                                    <i class="fas fa-star ${feedback.rate > 0 ? "filled" : ""}"></i>
-                                                                    <i class="fas fa-star ${feedback.rate > 1 ? "filled" : ""}"></i>
-                                                                    <i class="fas fa-star ${feedback.rate > 2 ? "filled" : ""}"></i>
-                                                                    <i class="fas fa-star ${feedback.rate > 3 ? "filled" : ""}"></i>
-                                                                    <i class="fas fa-star ${feedback.rate > 4 ? "filled" : ""}"></i>
+                                                            <div id="show${feedback.patient}">
+                                                                <div class="meta-data">
+                                                                    <span class="comment-author">${feedback.patient.name}</span>
+                                                                    <span class="comment-date">Reviewed ${feedback.date}</span>
+                                                                    <div class="review-count rating">
+                                                                        <i class="fas fa-star ${feedback.rate > 0 ? "filled" : ""}"></i>
+                                                                        <i class="fas fa-star ${feedback.rate > 1 ? "filled" : ""}"></i>
+                                                                        <i class="fas fa-star ${feedback.rate > 2 ? "filled" : ""}"></i>
+                                                                        <i class="fas fa-star ${feedback.rate > 3 ? "filled" : ""}"></i>
+                                                                        <i class="fas fa-star ${feedback.rate > 4 ? "filled" : ""}"></i>
+                                                                    </div>
                                                                 </div>
+                                                                <p class="comment-content">
+                                                                    ${feedback.content} 
+                                                                </p>
                                                             </div>
-                                                            <p class="comment-content">
-                                                                ${feedback.content} 
-                                                            </p>
+
+                                                            <c:if test="${feedback.patient.patientID == sessionScope.user.patientID}">
+                                                                <div class="actions" style="position:absolute;margin-top: -48px;margin-left: 81%" id="editBtn">
+                                                                    <a class="btn btn-sm bg-success-light" data-toggle="modal" onclick="myFunctionEditfeedback()" href="#editDoctorFeedback">
+                                                                        <i class="fe fe-pencil"></i> Edit
+                                                                    </a>
+                                                                    <a class="btn btn-sm bg-danger-light" onclick="return confirm('Are you sure you want to delete this feedback?');" href="doctor_feedbacks?action=delete&&patient_id=${feedback.patient.patientID}&&doctor_id=${feedback.doctor.doctorID}">
+                                                                        <i class="fe fe-trash"></i> Delete
+                                                                    </a>
+                                                                </div>
+                                                                <script>
+                                                                    function myFunctionEditfeedback() {
+                                                                        var x = document.getElementById("editfeedback");
+                                                                        var y = document.getElementById("show${feedback.patient}");
+                                                                        if (x.style.display === "none") {
+                                                                            x.style.display = "block";
+                                                                            y.style.display = "none";
+                                                                            document.getElementById("editBtn").style.marginTop = "68px";
+                                                                        } else {
+                                                                            x.style.display = "none";
+                                                                            y.style.display = "block";
+                                                                            document.getElementById("editBtn").style.marginTop = "-48px";
+                                                                        }
+                                                                    }
+                                                                </script>
+                                                                <div id="editfeedback" style="display: none">
+                                                                    <form action="doctor_feedbacks" method="get">
+                                                                        <div class="form-group" style="margin-bottom: 5px">
+                                                                            <input type="hidden" value="edit" name="action">
+                                                                            <input type="hidden" value="${feedback.patient.patientID}" name="patient_id">
+                                                                            <input type="hidden" value="${feedback.doctor.doctorID}" name="doctor_id">
+                                                                            <div class="meta-data" >
+                                                                                <span class="comment-author">${feedback.patient.name}</span>
+                                                                                <span class="comment-date">Reviewed ${feedback.date}</span>
+                                                                            </div>
+                                                                            <div class="star-rating">
+                                                                                <input id="star-5" type="radio" name="rating" value="5" ${feedback.rate == 5 ? "checked" : ""}>
+                                                                                <label for="star-5" title="5 stars">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
+                                                                                <input id="star-4" type="radio" name="rating" value="4" ${feedback.rate == 4 ? "checked" : ""}>
+                                                                                <label for="star-4" title="4 stars">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
+                                                                                <input id="star-3" type="radio" name="rating" value="3" ${feedback.rate == 3 ? "checked" : ""}>
+                                                                                <label for="star-3" title="3 stars">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
+                                                                                <input id="star-2" type="radio" name="rating" value="2" ${feedback.rate == 2 ? "checked" : ""}>
+                                                                                <label for="star-2" title="2 stars">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
+                                                                                <input id="star-1" type="radio" name="rating" value="1" ${feedback.rate == 1 ? "checked" : ""}>
+                                                                                <label for="star-1" title="1 star">
+                                                                                    <i class="active fa fa-star"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>Your review</label>
+                                                                            <textarea id="review_desc" maxlength="100" class="form-control" placeholder="${feedback.content}" name="content" required></textarea>
+                                                                            <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars">100</span> characters remaining</small></div>
+                                                                        </div>
+                                                                        <hr>
+                                                                        <div class="submit-section">
+                                                                            <button type="submit" class="btn btn-primary submit-btn">Submit Editing</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
                                                     </div>
-                                                    <c:if test="${feedback.patient.patientID == sessionScope.user.patientID}">
-                                                        <div class="actions" style="position:absolute;margin-top: -80px;margin-left: 85%">
-                                                            <a class="btn btn-sm bg-success-light" data-toggle="modal" href="abc">
-                                                                <i class="fe fe-pencil"></i> Edit
-                                                            </a>
-                                                            <a class="btn btn-sm bg-danger-light" data-toggle="modal" onclick="return confirm('Are you sure you want to delete this feedback?');" href="doctor_feedbacks?action=delete&&patient_id=${feedback.patient.patientID}&&doctor_id=${feedback.doctor.doctorID}">
-                                                                <i class="fe fe-trash"></i> Delete
-                                                            </a>
-                                                        </div>
-                                                    </c:if>
+
                                                 </li>
                                                 <!-- /Comment List -->
                                             </ul>
@@ -377,6 +440,9 @@
 
         <!-- Custom JS -->
         <script src="assets/js/script.js"></script>
+
+        <!-- Select2 JS -->
+        <script src="assets/plugins/select2/js/select2.min.js"></script>
 
     </body>
 

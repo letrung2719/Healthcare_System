@@ -156,14 +156,14 @@
                                                                     name="slot_id" 
                                                                     onclick="changeTime(this.value)"
                                                                     >
-                                                                    <option value="7h-8h">7h - 8h</option>
-                                                                    <option value="8h - 9h">8h - 9h</option>
-                                                                    <option value="9h - 10h">9h - 10h</option>
-                                                                    <option value="10h - 11h">10h - 11h</option>
-                                                                    <option value="11h - 12h">11h - 12h</option>
-                                                                    <option value="14h - 15h">14h - 15h</option>
-                                                                    <option value="15h - 16h">15h - 16h</option>
-                                                                    <option value="16h - 17h">16h - 17h</option>
+                                                                    <option value="1">7h - 8h</option>
+                                                                    <option value="2">8h - 9h</option>
+                                                                    <option value="3">9h - 10h</option>
+                                                                    <option value="4">10h - 11h</option>
+                                                                    <option value="5">11h - 12h</option>
+                                                                    <option value="6">14h - 15h</option>
+                                                                    <option value="7">15h - 16h</option>
+                                                                    <option value="8">16h - 17h</option>
                                                                 </select>
                                                             </div>
                                                         </div>

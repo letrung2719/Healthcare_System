@@ -29,6 +29,7 @@ import model.Services;
 public class ReservationControl extends HttpServlet {
 
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -57,7 +58,7 @@ public class ReservationControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Patient curUser = (Patient) session.getAttribute("acc");
+        Patient curUser = (Patient) session.getAttribute("user");
         if (curUser == null) {
             request.setAttribute("mess", resourceBundle.getString("must_login"));
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -88,7 +89,6 @@ public class ReservationControl extends HttpServlet {
             int patientID = Integer.parseInt(request.getParameter("patientId"));
             String serviceId = request.getParameter("serviceID");
 
-//            Reservation(String date, Patient patient, Services service, double price, Timetable slot, String description)
             PatientDAO patientDb = new PatientDAO();
             ServicesDAO serviceDb = new ServicesDAO();
             TimetableDAO slotDb = new TimetableDAO();
@@ -103,9 +103,8 @@ public class ReservationControl extends HttpServlet {
 
             request.setAttribute("reservation", r);
             request.getRequestDispatcher("reservation-success.jsp").forward(request, response);
-
         } catch (NumberFormatException e) {
-
+            System.out.println(e);
         }
     }
 

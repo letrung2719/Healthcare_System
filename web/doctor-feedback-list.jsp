@@ -59,20 +59,20 @@
                             </nav>
                             <h2 class="breadcrumb-title">Reviews</h2>
                         </div>
-<!--                        <div class="col-md-4 col-12 d-md-block d-none">
-                            <div class="sort-by">
-                                <span class="sort-title">Sort by</span>
-                                <span class="sortby-fliter">
-                                    <select class="select">
-                                        <option>Select</option>
-                                        <option class="sorting">Rating</option>
-                                        <option class="sorting">Popular</option>
-                                        <option class="sorting">Latest</option>
-                                        <option class="sorting">Free</option>
-                                    </select>
-                                </span>
-                            </div>
-                        </div>-->
+                        <!--                        <div class="col-md-4 col-12 d-md-block d-none">
+                                                    <div class="sort-by">
+                                                        <span class="sort-title">Sort by</span>
+                                                        <span class="sortby-fliter">
+                                                            <select class="select">
+                                                                <option>Select</option>
+                                                                <option class="sorting">Rating</option>
+                                                                <option class="sorting">Popular</option>
+                                                                <option class="sorting">Latest</option>
+                                                                <option class="sorting">Free</option>
+                                                            </select>
+                                                        </span>
+                                                    </div>
+                                                </div>-->
                     </div>
                 </div>
             </div>
@@ -82,68 +82,11 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                            <!-- Profile Sidebar -->
-                            <div class="profile-sidebar">
-                                <div class="widget-profile pro-widget-content">
-                                    <div class="profile-info-widget">
-                                        <a href="#" class="booking-doc-img">
-                                            <img
-                                                src="${sessionScope.user.image}"
-                                                alt="User Image"
-                                                />
-                                        </a>
-                                        <div class="profile-det-info">
-                                            <h3>${sessionScope.user.name}</h3>
-
-                                            <div class="patient-details">
-                                                <h5 class="mb-0">
-                                                    ${sessionScope.user.role}
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dashboard-widget">
-                                    <nav class="dashboard-menu">
-                                        <ul>
-
-                                            <li>
-                                                <a href="appointments.html">
-                                                    <i class="fas fa-calendar-check"></i>
-                                                    <span>Appointments</span>
-                                                </a>
-                                            </li>
-
-
-
-                                            <li class="active">
-                                                <a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}">
-                                                    <i class="fas fa-star"></i>
-                                                    <span>Feedbacks</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="doctor-profile-settings.html">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Profile Settings</span>
-                                                </a>
-                                            </li>
-
-
-                                            <li>
-                                                <a href="index-2.html">
-                                                    <i class="fas fa-sign-out-alt"></i>
-                                                    <span>Logout</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <!-- /Profile Sidebar -->
-                        </div>
+                        
+                        <!-- Profile Sidebar -->
+                        <%@include file="doctor-sidebar.jsp" %>
+                        <!-- /Profile Sidebar -->
+                        
                         <div class="col-md-7 col-lg-8 col-xl-9">
 
 

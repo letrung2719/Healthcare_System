@@ -95,8 +95,7 @@
                                 <!-- Slider Item -->
                                 <div class="speicality-item text-center">
                                     <div class="speicality-img">
-                                        <img src="assets/img/specialities/specialities-02.png" class="img-fluid"
-                                             alt="Speciality">
+                                        <img src="assets/img/specialities/specialities-02.png" class="img-fluid" alt="Speciality">
                                         <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                                     </div>
                                     <p>Neurology</p>

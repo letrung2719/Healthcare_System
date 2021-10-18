@@ -8,8 +8,6 @@ package model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -73,21 +71,11 @@ public class Appointment {
     }
 
     public String getDate() {
-
         return date;
     }
 
     public void setDate(String date) {
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = formatter1.parse(date);
-            String strDate = formatter.format(date1);
-            this.date = strDate;
-        } catch (ParseException ex) {
-            
-        }
-
+        this.date = date;
     }
 
     public Timetable getSlot() {
@@ -118,7 +106,4 @@ public class Appointment {
     public String toString() {
         return "Appointment{" + "appointmentID=" + appointmentID + ", patient=" + patient + ", doctor=" + doctor + ", date=" + date + ", slot=" + slot + ", description=" + description + ", status=" + status + "}\n";
     }
-
-    
-    
 }

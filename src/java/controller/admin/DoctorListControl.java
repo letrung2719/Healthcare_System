@@ -8,7 +8,6 @@ package controller.admin;
 import dal.DoctorDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Doctor;
 import model.Specialities;
-
 
 /**
  *
@@ -36,13 +34,17 @@ public class DoctorListControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        DoctorDAO doctorDb = new DoctorDAO();
-        ServicesDAO dao = new ServicesDAO();
-        List<Specialities> listSpec = dao.getAllSpecialities();
-        List<Doctor> list = doctorDb.getAllDoctor();
-        request.setAttribute("listDoctors", list);
-        request.setAttribute("listSpec", listSpec);
-        request.getRequestDispatcher("doctor-list.jsp").forward(request, response);
+        try {
+            DoctorDAO doctorDb = new DoctorDAO();
+            ServicesDAO dao = new ServicesDAO();
+            List<Doctor> list = doctorDb.getAllDoctor();
+            List<Specialities> listSpec = dao.getAllSpecialities();
+            request.setAttribute("listDoctors", list);
+            request.setAttribute("listSpec", listSpec);
+            request.getRequestDispatcher("doctor-list.jsp").forward(request, response);
+        } catch (IOException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

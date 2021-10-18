@@ -73,13 +73,32 @@ public class DoctorFeedbacksControl extends HttpServlet {
                 int doctor_id = Integer.parseInt(request.getParameter("doctor_id"));
                 DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();
                 db.deleteDoctorFeedback(patient_id, doctor_id);
-                
+
                 DoctorDAO doctorDB = new DoctorDAO();
                 Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);
                 response.sendRedirect(request.getContextPath() + "/doctor_profile_view?id=" + doctor.getAccountID());
             }
+            
             if (action.equals("edit")) {
+                String content = request.getParameter("content");
+                int rating = Integer.parseInt(request.getParameter("rating"));
+                
+                Date curDate = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String date = formatter.format(curDate);
 
+                int patient_id = Integer.parseInt(request.getParameter("patient_id"));
+                PatientDAO patientDB = new PatientDAO();
+                Patient patient = patientDB.getPatientByPatientID(patient_id);
+
+                int doctor_id = Integer.parseInt(request.getParameter("doctor_id"));
+                DoctorDAO doctorDB = new DoctorDAO();
+                Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);
+
+                DoctorFeedbacks feedback = new DoctorFeedbacks(date, content, rating, patient, doctor);
+                DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();
+                feedbackDB.updateDoctorFeedback(feedback);
+                response.sendRedirect(request.getContextPath() + "/doctor_profile_view?id=" + doctor.getAccountID());
             }
         } catch (IOException | NumberFormatException e) {
             System.out.println(e);
