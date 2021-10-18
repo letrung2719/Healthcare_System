@@ -27,6 +27,7 @@ import model.Services;
  */
 @WebServlet(name = "ReservationControl", urlPatterns = {"/reservation"})
 public class ReservationControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
 
@@ -84,7 +85,8 @@ public class ReservationControl extends HttpServlet {
             throws ServletException, IOException {
         try {
             String date = request.getParameter("date");
-            int slot_id = Integer.parseInt(request.getParameter("slot_id"));
+            String slotTime = request.getParameter("slotTime");
+//            String description = (request.getParameter("description") == null) ? "" : request.getParameter("description");
             String description = request.getParameter("description");
             int patientID = Integer.parseInt(request.getParameter("patientId"));
             String serviceId = request.getParameter("serviceID");
@@ -96,8 +98,9 @@ public class ReservationControl extends HttpServlet {
                     patientDb.getPatientByPatientID(patientID),
                     serviceDb.getServiceByID(serviceId),
                     serviceDb.getServiceByID(serviceId).getPrice(),
-                    slotDb.getTimeBySlotID(slot_id),
+                    slotDb.getSlotByTime(slotTime),
                     description);
+
             ReservationDAO resDb = new ReservationDAO();
             resDb.addNewReservation(r);
 

@@ -34,4 +34,24 @@ public class TimetableDAO extends DBContext {
         }
         return null;
     }
+    public Timetable getSlotByTime(String time){
+        String sql;
+        sql = "select * from timetable where time = '"+time+"'";
+        try{
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            if (rs.next()){
+                return new Timetable(rs.getInt(1), rs.getString(2));
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+    public static void main(String[] args) {
+        TimetableDAO db = new TimetableDAO();
+        Timetable t = db.getSlotByTime("7h - 8h");
+        System.out.println(t);
+    }
 }

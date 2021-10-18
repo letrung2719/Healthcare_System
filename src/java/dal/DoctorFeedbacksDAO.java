@@ -105,8 +105,8 @@ public class DoctorFeedbacksDAO extends DBContext {
     public int countAllDoctorFeedback(int doctorID) {
         String sql = "select count(*) from Doctor_Feedbacks where doctor_id = " + doctorID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
             }
