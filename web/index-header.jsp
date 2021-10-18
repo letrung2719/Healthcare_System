@@ -70,7 +70,7 @@
                                 class="rounded-circle"
                                 src="${sessionScope.user.image}"
                                 width="31"
-                                alt="Ryan Taylor"
+                                alt=""
                                 />
                         </span>
                     </a>
@@ -82,7 +82,7 @@
                                     <div class="avatar avatar-sm">
                                         <img
                                             src="${sessionScope.user.image}"
-                                            alt="User Image"
+                                            alt=""
                                             class="avatar-img rounded-circle"
                                             />
                                     </div>
@@ -97,7 +97,7 @@
                                     <div class="avatar avatar-sm">
                                         <img
                                             src="${sessionScope.user.image}"
-                                            alt="User Image"
+                                            alt=""
                                             class="avatar-img rounded-circle"
                                             />
                                     </div>

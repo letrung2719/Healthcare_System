@@ -494,7 +494,7 @@ public class ServicesDAO extends DBContext {
 
     public static void main(String[] args) {
         ServicesDAO dao = new ServicesDAO();
-        List<Specialities> list = dao.getAllSpecialities();
+//        List<Specialities> list = dao.getAllSpecialities();
         List<Services> listS = dao.getAllServicesSortedDownPrice();
         System.out.println(listS);
     }
