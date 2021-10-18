@@ -23,7 +23,7 @@ import model.Patient;
  */
 @WebServlet(name = "EditProfileControl", urlPatterns = { "/patient_profile_setting" })
 public class PatientProfileSetting extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -78,7 +78,7 @@ public class PatientProfileSetting extends HttpServlet {
             String email = request.getParameter("email");
             Patient e = new Patient(id, name, gender, dob, phone, email, accountID, "");
             PatientDAO patientDb = new PatientDAO();
-            int res = patientDb.editPatient(e);
+            patientDb.editPatient(e);
             request.setAttribute("thongbao", resourceBundle.getString("success"));
             
             HttpSession session = request.getSession();

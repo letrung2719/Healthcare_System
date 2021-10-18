@@ -27,7 +27,7 @@ import model.Services;
  */
 @WebServlet(name = "ReservationControl", urlPatterns = {"/reservation"})
 public class ReservationControl extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
 
     /**

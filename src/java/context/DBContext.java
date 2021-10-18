@@ -4,7 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class DBContext {
+    
+    private String pass(String pass){
+        return pass;
+    }
     protected Connection connection;
     public DBContext(){
         try {
@@ -13,7 +18,7 @@ public class DBContext {
             String username = "sa";
             String password = "12345";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(url, username, pass(password));
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }

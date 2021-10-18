@@ -32,32 +32,33 @@ public class AppointmentDAO extends DBContext {
     public int addNewAppointment(Appointment a) {
         String sql = "insert into Appointments (patient_id,doctor_id,date,slot_id,description,status) values (?,?,?,?,?,?)";
 
-        ServicesDAO dalService = new ServicesDAO();
         TimetableDAO dalTime = new TimetableDAO();
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, a.getPatient().getPatientID());
-            st.setInt(2, a.getDoctor().getDoctorID());
-            st.setString(3, a.getDate());
-            st.setInt(4, a.getSlot().getSlotID());    
-            st.setString(5, a.getDescription());
-            st.setInt(6, a.getStatus());
-            st.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, a.getPatient().getPatientID());
+            ps.setInt(2, a.getDoctor().getDoctorID());
+            ps.setString(3, a.getDate());
+            ps.setInt(4, a.getSlot().getSlotID());
+            Timetable s = dalTime.getTimeBySlotID(rs.getInt(4));
+            a.setSlot(s);
+            ps.setString(5, a.getDescription());
+            ps.setInt(6, a.getStatus());
+            ps.executeUpdate();
             return 1;
         } catch (SQLException e) {
             System.out.println(e);
         }
         return 0;
     }
-   
+
     public Appointment getAppointmentByID(int appID) {
         String sql = "select  * from appointments where appointment_id = " + appID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
 
             if (rs.next()) {
-               
+
                 Appointment a = new Appointment();
                 a.setAppointmentID(rs.getInt(1));
                 Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));
@@ -72,7 +73,7 @@ public class AppointmentDAO extends DBContext {
                 a.setStatus(rs.getInt(7));
                 return a;
             }
-        } catch (SQLException  e) {
+        } catch (SQLException e) {
 
         }
         return null;
@@ -81,8 +82,8 @@ public class AppointmentDAO extends DBContext {
     public int getAllDoctorAppointment(int doctorID) {
         String sql = "select count(*) from Appointments where doctor_id = " + doctorID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
 
             if (rs.next()) {
                 return rs.getInt(1);
@@ -97,12 +98,8 @@ public class AppointmentDAO extends DBContext {
         List<Appointment> list = new ArrayList<>();
         String sql = "select * from Appointments";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            PatientDAO dalPatient = new PatientDAO();
-            DoctorDAO dalDoctor = new DoctorDAO();
-            ServicesDAO dalService = new ServicesDAO();
-
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Appointment a = new Appointment();
                 a.setAppointmentID(rs.getInt(1));
@@ -122,8 +119,7 @@ public class AppointmentDAO extends DBContext {
         }
         return list;
     }
-    
-    
+
     public List<Appointment> paginateAppointmentByDoctorID(int doctorID, int pageNumber, int numberOfItem) {
         List<Appointment> list = new ArrayList<>();
         String sql = "DECLARE @PageNumber AS INT\n"
@@ -136,7 +132,7 @@ public class AppointmentDAO extends DBContext {
                 + "FETCH NEXT @RowsOfPage ROWS ONLY";
         try {
 
-            PreparedStatement ps = connection.prepareStatement(sql);
+            ps = connection.prepareStatement(sql);
             ps.setInt(1, pageNumber);
             ps.setInt(2, numberOfItem);
             ps.setInt(3, doctorID);
@@ -166,8 +162,8 @@ public class AppointmentDAO extends DBContext {
     public int changeAppointmentStatus(int appID, int status) {
         String sql = "update appointments set status = " + status + " where appointment_id  = " + appID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            int rs = st.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            int rs = ps.executeUpdate();
             return rs;
         } catch (SQLException e) {
 
@@ -206,8 +202,8 @@ public class AppointmentDAO extends DBContext {
     public int deleteAppointment(int appID) {
         String sql = "delete appointments where appointment_id =" + appID;
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            return st.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            return ps.executeUpdate();
         } catch (SQLException e) {
 
         }

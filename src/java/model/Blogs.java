@@ -10,7 +10,7 @@ package model;
  * @author admin
  */
 public class Blogs {
-    private int BlogID;
+    private int blogID;
     private String title;
     private String date;
     private String image;
@@ -19,8 +19,8 @@ public class Blogs {
     public Blogs() {
     }
 
-    public Blogs(int BlogID, String title, String date, String image, String description) {
-        this.BlogID = BlogID;
+    public Blogs(int blogID, String title, String date, String image, String description) {
+        this.blogID = blogID;
         this.title = title;
         this.date = date;
         this.image = image;
@@ -28,11 +28,11 @@ public class Blogs {
     }
 
     public int getBlogID() {
-        return BlogID;
+        return blogID;
     }
 
     public void setBlogID(int BlogID) {
-        this.BlogID = BlogID;
+        this.blogID = BlogID;
     }
 
     public String getTitle() {

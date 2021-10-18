@@ -16,7 +16,7 @@ import model.Patient;
  * @author admin
  */
 public class UpdatePatientControl extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -69,7 +69,7 @@ public class UpdatePatientControl extends HttpServlet {
             String email = request.getParameter("email");
             Patient e = new Patient(id, name, gender, dob, phone, email, accountID,"");
             PatientDAO patientDb = new PatientDAO();
-            int res = patientDb.editPatient(e);
+            patientDb.editPatient(e);
             response.sendRedirect("patient_list");
         } catch (NumberFormatException ex) {
             System.out.println(ex);

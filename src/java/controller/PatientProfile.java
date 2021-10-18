@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Patient;
 
 public class PatientProfile extends HttpServlet {
-
+    private static final long serialVersionUID = 9999L;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
