@@ -41,7 +41,7 @@ public class TimetableDAO extends DBContext {
     }
     public Timetable getSlotByTime(String time){
         String sql;
-        sql = "select * from timetable where time = '"+time+"'";
+        sql = "select * from timetable where time = '"+ time+"'";
         try{
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
