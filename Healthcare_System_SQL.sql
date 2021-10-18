@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [HealthcareSystem]    Script Date: 17-Oct-21 8:08:49 PM ******/
+/****** Object:  Database [HealthcareSystem]    Script Date: 18-Oct-21 11:16:57 AM ******/
 CREATE DATABASE [HealthcareSystem]
 GO
 USE [HealthcareSystem]
@@ -21,7 +21,6 @@ ALTER DATABASE [HealthcareSystem] SET AUTO_SHRINK OFF
 GO
 ALTER DATABASE [HealthcareSystem] SET AUTO_UPDATE_STATISTICS ON 
 GO
-
 ALTER DATABASE [HealthcareSystem] SET CURSOR_CLOSE_ON_COMMIT OFF 
 GO
 ALTER DATABASE [HealthcareSystem] SET CURSOR_DEFAULT  GLOBAL 
@@ -70,7 +69,7 @@ ALTER DATABASE [HealthcareSystem] SET QUERY_STORE = OFF
 GO
 USE [HealthcareSystem]
 GO
-/****** Object:  Table [dbo].[Accounts]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Accounts]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -87,7 +86,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Appointments]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Appointments]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -106,7 +105,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Blogs]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Blogs]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -123,7 +122,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Doctor_Feedbacks]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Doctor_Feedbacks]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -141,7 +140,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Doctors]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Doctors]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -164,7 +163,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Patients]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Patients]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -184,7 +183,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Reservations]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Reservations]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -204,7 +203,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Service_Feedbacks]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Service_Feedbacks]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -221,7 +220,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Services]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Services]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -239,7 +238,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Specialities]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Specialities]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -253,7 +252,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Timetable]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Table [dbo].[Timetable]    Script Date: 18-Oct-21 11:16:57 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -333,35 +332,105 @@ INSERT [dbo].[Accounts] ([account_id], [username], [password], [author_id], [sta
 GO
 SET IDENTITY_INSERT [dbo].[Accounts] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Doctor_Feedbacks] ON 
+SET IDENTITY_INSERT [dbo].[Blogs] ON 
 GO
-INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (9, CAST(N'2021-10-17' AS Date), N'duoc phet', 4, 1, 3)
+INSERT [dbo].[Blogs] ([blog_id], [title], [date], [image], [description]) VALUES (1, N'Percutaneous heart valve replacement', CAST(N'2020-05-17' AS Date), N'https://vinmec-prod.s3.amazonaws.com/images/20190426_040437_971221_hep-ho-van-dong-mac.max-1800x1800.jpg', N'The article was professionally consulted by Dr. Nguyen Van Duong - Interventional Cardiologist - Cardiovascular Center - Vinmec Central Park International General Hospital.
+
+Percutaneous valve replacement without surgery is one of the most complex heart valve replacement techniques in the world, helping patients'' health to be significantly improved, especially the ability to recover quickly. Vinmec is the first hospital in Vietnam to perform this technique independently. Please refer to the non-surgical percutaneous valve replacement at Vinmec to better understand this method.
+
+1. What is transcatheter aortic valve replacement (TAVI)?
+Percutaneous aortic valve replacement is currently an alternative to aortic valve replacement surgery in patients with aortic stenosis and at very high surgical risk or no longer indicated for surgery. The valve is attached to a device that is threaded through the skin into the ascending femoral artery and attached to the aortic valve.
+
+Percutaneous aortic valve replacement was first used in patients with tight aortic stenosis who were refused surgery by surgeons due to the high risk of surgery in 2002 and was performed by Dr. Interventional cardiologist Dr. Alain Cribier. Officially and regularly applied for about 10 years now. Currently, Vinmec is the first hospital in Vietnam to perform this technique independently.
+
+2. Designated object
+This method is only applicable to patients who:
+
+Patients over 60 years of age with severe aortic stenosis (valvular orifice area < 1 cm2, mean transvalvular gradient > 40 mmHg).
+Have aortic and peripheral artery anatomy appropriate to the technique.
+Have a desire to perform TAVI.
+Approved by the cardiology team (heart team including internal cardiologist, cardiothoracic surgeon, interventional cardiologist, anesthesiologist) approved.
+Patients with aortic valve stenosis
+Elderly patients with severe aortic stenosis can apply the technique
+banner image
+
+3. Implementation process
+This method is done through the following steps:
+
+Step 1: The patient will be performed laboratory tests (echocardiography, CT scan as well as other blood tests) to assess the anatomical fit of the valve structure and blood vessels. Coronary angiography and aortic arch, access artery assesses the extent of damage to the coronary system, the degree of calcification of the aortic valve as well as the vascular access.
+
+Step 2: Consultation through the cardiology team to get consensus and appropriate appointment for the patient. Explain to patients and relatives the indications, costs, possible complications before, during and after the procedure.
+
+Step 3: Do the trick.
+
+Outstanding advantage
+
+Percutaneous aortic valve replacement is one of the most modern and complex heart valve replacement techniques in the world. With this technique, doctors will thread a tube through the skin from the femoral artery to the aorta to replace the heart valve, which increases the likelihood of success, reduces the risk of bleeding, and avoids many dangerous complications.
+This method is less invasive, gentler and simpler than conventional aortic valve replacement surgery. Doctors do not have to drive along the patient''s sternum, do not have to run an artificial cardiopulmonary bypass machine, do not have general anesthesia, so the risk of complications is minimized.
+The patient''s recovery time is also faster, only 2-6 days compared to 1-2 weeks if open surgery.
+This is considered a lifeline for patients who cannot tolerate surgery because of old age, weakness or chronic diseases.
+
+4. Why should this technique be done at Vinmec?
+Percutaneous aortic valve replacement patient at Vinmec
+Percutaneous aortic valve replacement patient at Vinmec
+Vinmec is the only place in Vietnam that is equipped with a Hybrid room equipped with advanced equipment such as DSA angiography machine, anesthesia machine with the most closely integrated patient hemodynamic monitoring software (PiCCO system, entropy...). Therefore, Hybird operating room can meet the requirements of surgery and angioplasty, coronary stenting, aortic stent graft, open heart surgery, heart valve replacement for congenital heart diseases with the least invasive technique. , safely help patients recover health soon.
+
+The cardiology team works in unity and mutual support, doctors Pham Thanh Van, doctor Nguyen Van Phong, doctor Le Duc Hiep who participated in performing the surgery are all trained directly by foreign experts.
+
+As the only place in Vietnam awarded the certificate of "Independent aortic valve replacement center in Vietnam" and Prof. Vo Thanh Nhan is the first interventional cardiologist to be awarded the "Proctor" certificate in Vietnam. Vinmec''s further goal is to become an excellent interventional cardiology center according to US standards, integrating with the world''s level of cardiovascular intervention. ')
 GO
-INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (10, CAST(N'2021-10-17' AS Date), N'bad', 2, 2, 1)
+INSERT [dbo].[Blogs] ([blog_id], [title], [date], [image], [description]) VALUES (2, N'Robotic-assisted laparoscopy', CAST(N'2020-05-15' AS Date), N'https://vinmec-prod.s3.amazonaws.com/images/20191022_152728_263158_phau-thuat-robot-vi.max-1800x1800.jpg', N'Robotic-assisted laparoscopy
+
+Posted by Master, Doctor Nguyen Ngoc Khanh - Head of Department of Gastroenterology - Urology - Robotic Surgery & Pediatric Surgery, Vinmec Times City International General Hospital.
+
+Robotic surgery with sophisticated structure can meet the surgical needs with the highest requirements. The article aims to provide readers with basic information about the history of development, generations of surgical robots, operation methods and achievements of current robotic surgery, especially the most modern surgical robots today. - Da Vinci.
+
+1. History of surgical robot development
+The term "robot" was first used by Czech playwright Karel Capek in 1921 in his play Rossom''s Universal Robots. It comes from the word “robota”, which means “forced labor”.
+The world''s first surgical robot was Arthrobot, used in Vancouver, Canada in 1983.
+In 1985, the robot PUMA560, performed CT-guided brain biopsies.
+In 1988, the robot PROBOT, at Imperial College London, performed prostate surgery.
+In 1992, Integrated Corporation''s ROBODOC robot performed precise femur grinding in hip replacement surgery, being the first robot approved by the FDA in 2008.
+In 1994, the first endoscopic camera holder AESOP robot was approved by the FDA. NASA funded Computer Motion, the company that produced AESOP, with the goal of creating a robotic arm that could be used in space but ended up being the center-camera arm in laparoscopic surgeries.
+The voice control upgrade was introduced in 1996 with AESOP 2000.
+Upgrading the 7-way operation to mimic the human hand was implemented in 1998 with AESOP 3000.
+ZEUS was introduced commercially in 1998 and started the idea of ​​remote robotic surgery.
+The merger of two companies Intuitive Surgical (founded 1995, products are Mona and Leonardo robots) with Computer Motion (the company that created the voice-controlled AESOP surgical robots and ZEUS remote surgery) in March, 2003 brought the surgical robotics industry to the next level, creating the Da Vinci surgical robotic system.
+Da Vinci has now produced up to the fourth generation Xi and the SP series of Single Incision Surgical Robots.
+2. Classification of Surgical Robots
+Depending on the classification criteria, there are different classifications. Based on the autonomous operation of the robot, it can be temporarily divided into 3 types:
+
+Active system: The robot operates essentially automatically (while still under the surgeon''s control) and performs pre-programmed tasks. PROBOT and ROBODOC are good examples of this system.
+Semi-active system: Partial automatic mixing with surgeon control.
+Passive system (Master–slave system): Operates under the complete control of the surgeon (Vinci® and ZEUS) without any pre-programming.
+3. How Surgical Robots Work Today 
+Active system: The robot operates essentially automatically (while still under the surgeon''s control) and performs pre-programmed tasks. PROBOT and ROBODOC are good examples of this system.
+Semi-active system: Partial automatic mixing with surgeon control.
+Passive system (Master–slave system): Operates under the complete control of the surgeon (Vinci® and ZEUS) without any pre-programming.
+3. How Surgical Robots Work Today
+Diagram of the robot system
+Diagram of robotic surgery system
+The robot has 3 separate but interconnected parts:
+
+The vision cart includes an endoscope camera, camcorder, computer - microprocessor - robot brain and other devices to create a 3D image of the operation.
+The da Vinci Xi . Surgical Robot System
+The da Vinci Xi . Surgical Robot System
+The tower, patient cart is a robotic component that directly performs surgery on a patient. It has robotic arms (4 arms), 3 of which can hold different surgical instruments and one holds a 3D camera. These arms are controlled by a computer that is able to accurately process and reproduce the movements of the surgeon''s hand. Articulated surgical instruments are connected to the robot''s arm and inserted into the patient''s body through a small tube called a cannule. The surgeon''s hand movements are scaled and filtered by the computer to remove the vibrations caused by hand tremors which are then converted into corresponding micro-motions of the surgical instruments. At the same time, the camera delivers realistic 3D images to the surgeon''s console. The reduction ratio can be adjusted, for example, if we choose 3:1 ratio, when the surgeon''s hand moves 6cm, the robot''s instrument moves exactly and 2cm respectively.
+Robot Tower
+Robot Tower
+The console is where the surgeo... (134 KB left)')
 GO
-INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (11, CAST(N'2021-10-17' AS Date), N'okay', 4, 3, 1)
-GO
-INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (13, CAST(N'2021-10-17' AS Date), N'dfasdf', 4, 1, 2)
-GO
-INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (14, CAST(N'2021-10-17' AS Date), N'bad', 1, 1, 4)
-GO
-INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (15, CAST(N'2021-10-17' AS Date), N'fasdfasd', 5, 1, 6)
-GO
-INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (16, CAST(N'2021-10-17' AS Date), N'Æ°ertwer', 3, 1, 5)
-GO
-INSERT [dbo].[Doctor_Feedbacks] ([feedback_id], [date], [content], [rate], [patient_id], [doctor_id]) VALUES (18, CAST(N'2021-10-17' AS Date), N'eqwr', 4, 1, 1)
-GO
-SET IDENTITY_INSERT [dbo].[Doctor_Feedbacks] OFF
+SET IDENTITY_INSERT [dbo].[Blogs] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Doctors] ON 
 GO
-INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (1, N'Phiplippe Macaire', 1, CAST(N'1984-06-28' AS Date), N'0913028592', N'philippe02@gmail.com', N'Head of Department of Anesthesiology', 1, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'                                                Professor, Doctor, Doctor Philippe Macaire has devoted more than 30 years in the field of Anesthesia - pain treatment, is a strong expert in: Anesthesia and resuscitation in pediatric surgery. Difficult airway management and difficult intubation. Ultrasound-guided vertebral plane (ESP) anesthesia for open-heart and thoracic surgery, new technique for the treatment of non-opioid pain. Monitoring ventilation for obese patients during bariatric surgery. Palliative care for the sick.', 2)
+INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (1, N'Phiplippe Macaire', 1, CAST(N'1984-06-28' AS Date), N'0913028592', N'philippe02@gmail.com', N'Head of Department of Anesthesiology', 1, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'Professor, Doctor, Doctor Philippe Macaire has devoted more than 30 years in the field of Anesthesia - pain treatment, is a strong expert in: Anesthesia and resuscitation in pediatric surgery. Difficult airway management and difficult intubation. Ultrasound-guided vertebral plane (ESP) anesthesia for open-heart and thoracic surgery, new technique for the treatment of non-opioid pain. Monitoring ventilation for obese patients during bariatric surgery. Palliative care for the sick.', 2)
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (2, N'Khanritonchyk Aksana', 0, CAST(N'1990-12-20' AS Date), N'0382932501', N'aksana2012@gmail.com', N'Doctor of Obstetrics and Gynecology ', 10, N'https://vinmec-prod.s3.amazonaws.com/images/18_02_2019_07_24_42_217499.jpeg', N'Dr. Kharitonchyk Aksana has more than 20 years of experience in the field of Obstetrics and Gynecology, especially in treating fibroids, cysts, urinary incontinence, perimenopausal disorders, menopause, prenatal diagnosis. , genetic diseases, pregnancy management, treatment of male diseases, social diseases and male and female infertility...', 3)
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (3, N'Reinel Martin', 1, CAST(N'1975-06-11' AS Date), N'0385923123', N'martin12n@gmail.com', N'Cardiologist', 4, N'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMJzEZNXtuRhy2YQE3p4mRfv6VhCsN2mWSEw&usqp=CAU', N'Master, Dr. Reinel Martin Alvarez Plasencia has 23 years of experience working in the field of Cardiology, especially with strong expertise in echocardiography and the treatment of cardiovascular diseases including hypertension, arterial disease. coronary, valvular diseases, heart failure, cardiomyopathies, cardiovascular diseases systemic disorders, dyslipidemia, congenital heart disease and arrhythmias.', 4)
 GO
-INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (4, N'Thanh Nhan', 1, CAST(N'1980-07-12' AS Date), N'0386123824', N'thanhnhan@gmail.com', N'Cardiologist ', 2, N'https://www.vinmec.com/vi/danh-sach/bac-si/vo-thanh-nhan-50866/tim-mach#!hinh-anh', N'The first expert in Vietnam on percutaneous arterial intervention (TAVI), has 40 years of experience teaching in the field of Cardiology at the University of Medicine and Pharmacy in Ho Chi Minh City, Cho Ray Hospital.', 5)
+INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (4, N'Thanh Nhan', 1, CAST(N'1980-07-12' AS Date), N'0386123824', N'thanhnhan@gmail.com', N'Cardiologist ', 2, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'The first expert in Vietnam on percutaneous arterial intervention (TAVI), has 40 years of experience teaching in the field of Cardiology at the University of Medicine and Pharmacy in Ho Chi Minh City, Cho Ray Hospital.', 5)
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (5, N'Pham Nhat An', 1, CAST(N'1988-09-17' AS Date), N'0273856283', N'anpn1709@gmail.com', N'Pediatrics Department', 11, N'https://vinmec-prod.s3.amazonaws.com/images/05_01_2019_03_03_31_362064.jpeg', N'Prof. TS.BS Pham Nhat An has 45 years of experience in the field of Pediatrics, specializing in examination, diagnosis and treatment of diseases in infants and young children; infectious diseases in children.', 6)
 GO
@@ -371,17 +440,17 @@ INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], 
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (8, N'Ton That Tri Dung', 1, CAST(N'1970-09-08' AS Date), N'0781239238', N'tttdung1@gmail.com', N'Head of Department of Medical Examination & Internal Medicine', 5, N'https://vinmec-prod.s3.amazonaws.com/images/01_07_2020_07_18_25_145197.jpeg', N'Doctor. Dr. Ton That Tri Dung has over 20 years of experience in neurology, specializing in neuroendocrine diseases - stroke; brain circuit intervention techniques; Examination, consultation and treatment of endocrine diseases and respiratory diseases.', 9)
 GO
-INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (9, N'Nguyen Dang Tuan', 1, CAST(N'1982-01-10' AS Date), N'0832456114', N'tuandlm@gmail.com', N'Head of Subcommittee on Emergency Resuscitation of the Health System', 6, N'https://vinmec.com/vi/danh-sach/bac-si/nguyen-dang-tuan-51111/hoi-suc-cap-cuu', N'Dr. Nguyen Dang Tuan - Head of the Emergency Resuscitation Subcommittee of Vinmec Health System, Head of the Organ Transplant Resuscitation and Surgery Unit of the Intensive Care Unit of Vinmec Times City Hospital. Doctor of Medicine specializing in Anesthesiology and Resuscitation, former resident of HSCC specialized hospital, Hanoi Medical University, with extensive experience in the field of Emergency Resuscitation (12 years working in the Department of Resuscitation). active in Bach Mai Hospital; 03 years at the HSCC Department of Vinmec Times City Hospital). Official member of the World Association of Cardiopulmonary Machine (ELSO) (Extracorporeal Life Support Organization)', 10)
+INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (9, N'Nguyen Dang Tuan', 1, CAST(N'1982-01-10' AS Date), N'0832456114', N'tuandlm@gmail.com', N'Head of Subcommittee on Emergency Resuscitation of the Health System', 6, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'Dr. Nguyen Dang Tuan - Head of the Emergency Resuscitation Subcommittee of Vinmec Health System, Head of the Organ Transplant Resuscitation and Surgery Unit of the Intensive Care Unit of Vinmec Times City Hospital. Doctor of Medicine specializing in Anesthesiology and Resuscitation, former resident of HSCC specialized hospital, Hanoi Medical University, with extensive experience in the field of Emergency Resuscitation (12 years working in the Department of Resuscitation). active in Bach Mai Hospital; 03 years at the HSCC Department of Vinmec Times City Hospital). Official member of the World Association of Cardiopulmonary Machine (ELSO) (Extracorporeal Life Support Organization)', 10)
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (10, N'Le Trong Binh', 1, CAST(N'1969-02-25' AS Date), N'0393728371', N'binhlt182@gmail.com', N'Head of Department of General Surgery', 9, N'https://vinmec-prod.s3.amazonaws.com/images/01_07_2020_06_49_06_620563.jpeg', N'Specialist I Le Trong Binh has more than 28 years of experience working in the field of Anesthesiology and Resuscitation, especially has strengths in: Anesthesiology: Cranial neurosurgery, thoracic surgery, cardiovascular surgery. , vascular interventions in adults and children. Anesthesia, analgesia for gastrointestinal, urological, endocrine, orthopedic surgery.', 11)
 GO
-INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (11, N'Doan Xuan Sinh', 1, CAST(N'1975-03-12' AS Date), N'0365854235', N'dxs321@gmail.com', N'Head of Diagnostic Imaging', 7, N'https://www.vinmec.com/vi/danh-sach/bac-si/doan-xuan-sinh-51118/chan-doan-hinh-anh', N'Specialist Doan Thi Hong Hanh has more than 28 years of experience working in the field of Anesthesiology and Resuscitation, especially has strengths in: Anesthesiology: Cranial neurosurgery, thoracic surgery, cardiovascular surgery. , vascular interventions in adults and children. Anesthesia, analgesia for gastrointestinal, urological, endocrine, orthopedic surgery.', 12)
+INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (11, N'Doan Xuan Sinh', 1, CAST(N'1975-03-12' AS Date), N'0365854235', N'dxs321@gmail.com', N'Head of Diagnostic Imaging', 7, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'Specialist Doan Thi Hong Hanh has more than 28 years of experience working in the field of Anesthesiology and Resuscitation, especially has strengths in: Anesthesiology: Cranial neurosurgery, thoracic surgery, cardiovascular surgery. , vascular interventions in adults and children. Anesthesia, analgesia for gastrointestinal, urological, endocrine, orthopedic surgery.', 12)
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (12, N'Doan Thi Hong Hanh', 0, CAST(N'1970-12-23' AS Date), N'0238472345', N'honghanh12@gmail.com', N'Head of the department', 16, N'https://vast.gov.vn/documents/20182/9219222/100nhakhtieubieuchaua.jpg/9d2de8e4-9732-4bdd-a7d2-ede48c8e1236?t=1592898843420', N'Dr. Doan Thi Hong Hanh has more than 30 years of experience in the field of microbiology testing, especially in clinical microbiology, consulting on drug resistance of pathogenic bacteria and culturing, isolating, identifying, and microbiological antibiotics. pathogenic bacteria, microbiological immunoassays…', 13)
 GO
-INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (13, N'Alyssa A. Grissom', 0, CAST(N'1980-11-21' AS Date), N'0355054625', N'anhtronsds2@gmail.com', N'Nursing Specialist', 21, N'https://www.vinmec.com/vi/danh-sach/bac-si/alyssa-a-grissom-51462/ung-buou', N'Master Alyssa A. Grissom has many years of experience in the field of clinical oncology nursing. MSc Alyssa A. Grissom has deep expertise in Adult Care Clinical nursing (caring for patients from infancy to old age). Caring for patients treated with chemotherapy and biologic therapy. MSc Alyssa A. Grissom received her Master''s degree from Loyola University Chicago (Maywood, Illinois) in December 2015. She attended intensive training courses in Cancer Risk Assessment at City of Hope and received a great deal. many professional certifications and certifications. Master Alyssa A. Grissom has many articles such as Presentation on the topic Genetic Cancer Risk Assessment: Implications for Oncology Nursing, 18th Annual Oncology Nursing Workshop at Northwestern Memorial Hospital ( 2015). Practitioner in Oncology (2016). Presentation on the topic of chemotherapy and biological therapy Multi-Gene Panel Testing for Hereditary Cancer Risk. Journal of the Advanced for Non-Cancer Issues, Nursing Training in the Great Halls of Christ Medical Center (2017). Nursing Care Plans: Diagnosis interventions and outcomes 10th edition. Print press. M. Gulanick and G.L. Myers ed. AA Grissom - Edited oncology related chapters and content to reflect evidence-based nursing practice, new technologies, new treatment modalities, and oncology standards of care. MSc Alyssa A. Grissom is also a member of the Oncology Nursing Association. Currently, Master Alyssa A. Grissom is holding the position of Nursing Specialist working at the Department of Oncology - Hematology at Vinmec Times City International Hospital.', 14)
+INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (13, N'Alyssa A. Grissom', 0, CAST(N'1980-11-21' AS Date), N'0355054625', N'anhtronsds2@gmail.com', N'Nursing Specialist', 21, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'Master Alyssa A. Grissom has many years of experience in the field of clinical oncology nursing. MSc Alyssa A. Grissom has deep expertise in Adult Care Clinical nursing (caring for patients from infancy to old age). Caring for patients treated with chemotherapy and biologic therapy. MSc Alyssa A. Grissom received her Master''s degree from Loyola University Chicago (Maywood, Illinois) in December 2015. She attended intensive training courses in Cancer Risk Assessment at City of Hope and received a great deal. many professional certifications and certifications. Master Alyssa A. Grissom has many articles such as Presentation on the topic Genetic Cancer Risk Assessment: Implications for Oncology Nursing, 18th Annual Oncology Nursing Workshop at Northwestern Memorial Hospital ( 2015). Practitioner in Oncology (2016). Presentation on the topic of chemotherapy and biological therapy Multi-Gene Panel Testing for Hereditary Cancer Risk. Journal of the Advanced for Non-Cancer Issues, Nursing Training in the Great Halls of Christ Medical Center (2017). Nursing Care Plans: Diagnosis interventions and outcomes 10th edition. Print press. M. Gulanick and G.L. Myers ed. AA Grissom - Edited oncology related chapters and content to reflect evidence-based nursing practice, new technologies, new treatment modalities, and oncology standards of care. MSc Alyssa A. Grissom is also a member of the Oncology Nursing Association. Currently, Master Alyssa A. Grissom is holding the position of Nursing Specialist working at the Department of Oncology - Hematology at Vinmec Times City International Hospital.', 14)
 GO
-INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (14, N'Vu Hong Thang', 1, CAST(N'1972-02-21' AS Date), N'0346284664', N'thangmnhj21@gmail.com', N'Oncology specialist', 19, N'https://www.vinmec.com/vi/danh-sach/bac-si/vu-hong-thang-51448/ung-buou#!hinh-anh', N'Associate Professor, Doctor, Doctor Vu Hong Thang has 26 years of experience working in the field of Oncology - Radiation Therapy, especially as an oncologist, specializing in breast cancer - gynecological diseases. , lung cancer, liver cancer, gallbladder, pancreas,... He is a doctor with a noble heart with the practice motto "Saving people is the greatest joy of the medical profession.". In 2015, he was honored to receive the title of Associate Professor of Medicine, a golden milestone marking his devoted career in the medical industry. Moreover, in the same year 2015 he also became the typical face of the medical industry on the occasion of 60 years of medical profession. Especially in 2018, Associate Professor Thang was honored with the Medal for the development of the medical industry. In order to achieve these resounding achievements, he has always made efforts to study and improve his expertise through many intensive courses in Sweden, Australia, Malaysia, and Singapore. At the same time, he also showed his enthusiasm in the profession through more than 100 scientific research works, articles that have great impact and bring effective applications in practice.', 15)
+INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (14, N'Vu Hong Thang', 1, CAST(N'1972-02-21' AS Date), N'0346284664', N'thangmnhj21@gmail.com', N'Oncology specialist', 19, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'Associate Professor, Doctor, Doctor Vu Hong Thang has 26 years of experience working in the field of Oncology - Radiation Therapy, especially as an oncologist, specializing in breast cancer - gynecological diseases. , lung cancer, liver cancer, gallbladder, pancreas,... He is a doctor with a noble heart with the practice motto "Saving people is the greatest joy of the medical profession.". In 2015, he was honored to receive the title of Associate Professor of Medicine, a golden milestone marking his devoted career in the medical industry. Moreover, in the same year 2015 he also became the typical face of the medical industry on the occasion of 60 years of medical profession. Especially in 2018, Associate Professor Thang was honored with the Medal for the development of the medical industry. In order to achieve these resounding achievements, he has always made efforts to study and improve his expertise through many intensive courses in Sweden, Australia, Malaysia, and Singapore. At the same time, he also showed his enthusiasm in the profession through more than 100 scientific research works, articles that have great impact and bring effective applications in practice.', 15)
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (15, N'Pham Ngoc Hoa', 1, CAST(N'1980-05-22' AS Date), N'032812937', N'hoa123@gmail.com', N'Doctor Diagnostic Imaging', 7, N'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCHB49DTKydTDhMIDTcOpNR0xZAkBwR3Rl_A&usqp=CAU', N'BSCK I Pham Ngoc Hoa has many years of experience in the field of Diagnostic Imaging, specializing in reading results (MRI, CT, X-ray); ultrasound (General, Cardiac, Vascular, Thyroid and Gynecological 3D, 4D); perform FNA of breast, thyroid and other tumors under ultrasound guidance.', 16)
 GO
@@ -389,7 +458,7 @@ INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], 
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (17, N'Nguyen Viet Nhan', 1, CAST(N'1983-05-20' AS Date), N'034879522', N'nhannth21@gmail.com', N'Genetic Consultant', 3, N'https://scontent.fhan3-3.fna.fbcdn.net/v/t1.6435-9/201178265_791166488437701_4752149825760262223_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=825194&_nc_ohc=M3WebZcQSWUAX9KoEvH&_nc_ht=scontent.fhan3-3.fna&oh=b4e4b98139e4215a0e2cb9be6fa14d2f&oe=617C9A8C', N'Assoc. Dr. Dr. Nguyen Viet Nhan has 45 years of experience in the field of Medical Genetics, specializing in genetic counseling for pregnant women with malformations and couples who have given birth to children with birth defects. genetic pathology, screening counseling - prenatal and neonatal diagnosis, premarital counseling. He was formerly Head of Physiology Department, Head of Medical Genetics Department, Deputy Director of Institute of Biomedicine at Hue University of Medicine and Pharmacy. Assoc. Dr. Dr. Nguyen Viet Nhan is currently a Genetic Consultant - Department of Fetal Medicine - Women''s Health Center - Vinmec Times City International Hospital.', 18)
 GO
-INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (18, N'Do Thi Ngoc Lan', 0, CAST(N'1967-05-01' AS Date), N'0198541365', N'lanngbam3@gmail.com', N'Doctor of Obstetrics and Gynecology ', 5, N'https://www.vinmec.com/vi/danh-sach/bac-si/do-thi-ngoc-lan-50852/san-phu', N'BSCK II Do Thi Ngoc Lan has over 30 years of experience in the field of Obstetrics and Gynecology, specializing in infertility surgery, gynecology, genital malformations, genital prolapse, laparoscopic treatment of ectopic pregnancy, fibroids uterus, ovarian cyst. She was the former Head of the Department of Gynecology and Surgery (Gynecology Department I) - National Hospital of Obstetrics and Gynecology, and was awarded the title of Excellent Doctor. Doctor II Do Thi Ngoc Lan is currently an Obstetrician and Gynecologist - Women''s Health Center - Vinmec Times City International Hospital.', 19)
+INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (18, N'Do Thi Ngoc Lan', 0, CAST(N'1967-05-01' AS Date), N'0198541365', N'lanngbam3@gmail.com', N'Doctor of Obstetrics and Gynecology ', 5, N'https://vinmec-prod.s3.amazonaws.com/images/15_08_2019_03_13_38_444466.jpeg', N'BSCK II Do Thi Ngoc Lan has over 30 years of experience in the field of Obstetrics and Gynecology, specializing in infertility surgery, gynecology, genital malformations, genital prolapse, laparoscopic treatment of ectopic pregnancy, fibroids uterus, ovarian cyst. She was the former Head of the Department of Gynecology and Surgery (Gynecology Department I) - National Hospital of Obstetrics and Gynecology, and was awarded the title of Excellent Doctor. Doctor II Do Thi Ngoc Lan is currently an Obstetrician and Gynecologist - Women''s Health Center - Vinmec Times City International Hospital.', 19)
 GO
 INSERT [dbo].[Doctors] ([doctor_id], [name], [gender], [dob], [phone], [email], [role], [type_id], [image], [description], [account_id]) VALUES (19, N'Pham Thi Thu Huong', 0, CAST(N'1988-05-25' AS Date), N'0826327465', N'huongas12@gmail.com', N'Head of Internal Gastroenterology - Hepatobiliary Unit', 17, N'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFGp4Zn855TGrbAgkrPl5kE4iRfLFOxN5FQA&usqp=CAU', N'MSc. Pham Thi Thu Huong has nearly 30 years of experience in the field of Gastroenterology - Hepatobiliary tract, specializing in the treatment of gastrointestinal - hepatobiliary diseases, intestinal lesions, endoscopic diagnosis of the stomach, colon colon, small intestine, early cancer screening, submucosal tumor diagnosis, biliary tract and pancreatic diseases.', 20)
 GO
@@ -401,35 +470,25 @@ SET IDENTITY_INSERT [dbo].[Patients] ON
 GO
 INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (1, N'Nguyen Van Truong', 1, CAST(N'2000-06-11' AS Date), N'0383567111', N'annv12@gmail.com', N'https://scontent.fhan3-4.fna.fbcdn.net/v/t1.6435-9/242537042_3083800925231735_4947795203312758325_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=b9115d&_nc_ohc=tgwFKVQX5AcAX9wbtfn&_nc_ht=scontent.fhan3-4.fna&oh=13a4efe2196c90138e67ceda0ea3e5c8&oe=617C5B16', 22)
 GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (2, N'Nguyen Thi Vanh', 0, CAST(N'2000-02-12' AS Date), N'0312385923', N'vanh192@gmail.com', N'https://scontent.fhan3-4.fna.fbcdn.net/v/t39.30808-6/p320x320/242126353_896042261015934_5335071054684681854_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=825194&_nc_ohc=99kCeXWK3agAX-6KAo4&_nc_ht=scontent.fhan3-4.fna&oh=5ba62ca34b4e6e7177fbc1d38b2cafe9&oe=6159788B', 23)
+INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (2, N'Nguyen Thi Vanh', 0, CAST(N'2000-02-12' AS Date), N'0312385923', N'vanh192@gmail.com', N'https://scontent.fhan3-3.fna.fbcdn.net/v/t1.6435-9/241564360_1473413899695590_8154715865166002527_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=xuPkBc9alCcAX8NYVOX&tn=u1P-gP8ACMpYg8Yi&_nc_ht=scontent.fhan3-3.fna&oh=12c3da1f8814d40de3e14ab00eea091f&oe=617C7BFD', 23)
 GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (3, N'Ngo Duy Toan', 1, CAST(N'1999-08-29' AS Date), N'0192758234', N'toannd01@gmail.com', N'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/242210405_3062510727315633_6992775182172591197_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=825194&_nc_ohc=N0N5PbaLT0cAX-dXjnz&_nc_ht=scontent.fhan3-3.fna&oh=f335ea474ebefe18ac573cadb0b6bac6&oe=615B25F6', 24)
+INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (3, N'Ngo Duy Toan', 1, CAST(N'1999-08-29' AS Date), N'0192758234', N'toannd01@gmail.com', N'https://scontent.fhan3-3.fna.fbcdn.net/v/t1.6435-9/241564360_1473413899695590_8154715865166002527_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=xuPkBc9alCcAX8NYVOX&tn=u1P-gP8ACMpYg8Yi&_nc_ht=scontent.fhan3-3.fna&oh=12c3da1f8814d40de3e14ab00eea091f&oe=617C7BFD', 24)
 GO
 INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (4, N'Le Thi Trung', 1, CAST(N'1997-11-26' AS Date), N'0128393451', N'trunglt012@gmail.com', N'https://scontent.fhan3-3.fna.fbcdn.net/v/t1.6435-9/241564360_1473413899695590_8154715865166002527_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=xuPkBc9alCcAX8NYVOX&tn=u1P-gP8ACMpYg8Yi&_nc_ht=scontent.fhan3-3.fna&oh=12c3da1f8814d40de3e14ab00eea091f&oe=617C7BFD', 25)
 GO
 INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (5, N'Dinh Thi Nhu', 0, CAST(N'1980-03-25' AS Date), N'0213741821', N'nhunt11@gmail.com', N'https://scontent.fhan3-4.fna.fbcdn.net/v/t1.6435-9/241495569_1470535206650126_5921393796434499586_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=b9115d&_nc_ohc=6I3tnxAkgjQAX_t_L-c&_nc_ht=scontent.fhan3-4.fna&oh=070f6358c1a7ca4788a4f9e5c4e67ae2&oe=617AB809', 26)
 GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (6, N'Kieu Viet Lam', 0, CAST(N'1999-05-27' AS Date), N'0283812362', N'kvl012@gmail.com', N'https://scontent.fhan3-4.fna.fbcdn.net/v/t39.30808-6/p280x280/241216016_402947867894769_8094768551584514777_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=825194&_nc_ohc=50tDVM_z_UMAX_oETlP&tn=u1P-gP8ACMpYg8Yi&_nc_ht=scontent.fhan3-4.fna&oh=494926ab0380400ab2935192041839d8&oe=615990C8', 27)
+INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (6, N'Kieu Viet Lam', 0, CAST(N'1999-05-27' AS Date), N'0283812362', N'kvl012@gmail.com', N'https://scontent.fhan3-3.fna.fbcdn.net/v/t1.6435-9/241564360_1473413899695590_8154715865166002527_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=xuPkBc9alCcAX8NYVOX&tn=u1P-gP8ACMpYg8Yi&_nc_ht=scontent.fhan3-3.fna&oh=12c3da1f8814d40de3e14ab00eea091f&oe=617C7BFD', 27)
 GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (7, N'Nhu Van Kien', 1, CAST(N'1997-09-19' AS Date), N'0913000275', N'kien0182@gmail.com', N'https://scontent.fhan3-1.fna.fbcdn.net/v/t39.30808-6/240605640_343100667497894_9004104371251076102_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=b9115d&_nc_ohc=pWkntihGSWUAX_bIFSo&_nc_ht=scontent.fhan3-1.fna&oh=94393dc85a5d75c8b8def338029f607a&oe=615ADB56', 28)
+INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (7, N'Nhu Van Kien', 1, CAST(N'1997-09-19' AS Date), N'0913000275', N'kien0182@gmail.com', N'https://scontent.fhan3-3.fna.fbcdn.net/v/t1.6435-9/241564360_1473413899695590_8154715865166002527_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=xuPkBc9alCcAX8NYVOX&tn=u1P-gP8ACMpYg8Yi&_nc_ht=scontent.fhan3-3.fna&oh=12c3da1f8814d40de3e14ab00eea091f&oe=617C7BFD', 28)
 GO
 INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (8, N'Kieu Van Linh', 1, CAST(N'2005-03-22' AS Date), N'0927851234', N'linhnt1285@gmail.com', N'https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-9/237638143_1494715690897204_9026484317449560289_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=b9115d&_nc_ohc=RF12WUO5AdcAX-RYOpL&_nc_ht=scontent.fhan4-1.fna&oh=4c41f25f3673022530c3268c9dd2f6bb&oe=617BD574', 29)
 GO
 INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (9, N'Nho Mai Anh', 0, CAST(N'2000-11-13' AS Date), N'0383561234', N'anhmtnhs12305@gmail.com', N'https://scontent.fhan3-4.fna.fbcdn.net/v/t1.6435-9/p480x480/240216883_3031580053785439_8179834460106778074_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=b9115d&_nc_ohc=LlIyaj-AS0QAX-t6k3O&_nc_ht=scontent.fhan3-4.fna&oh=04a9707ec9bd4dca4731d6abbd367640&oe=617BCBA3', 30)
 GO
-INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (10, N'Nguyen Truong An', 1, CAST(N'1997-09-19' AS Date), N'0973567588', N'annt982@gmail.com', N'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/239243924_1681565942034178_3354816572299253193_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=saJjOdP01q4AX93onlD&_nc_ht=scontent.fhan3-3.fna&oh=5a160edc624c2c22e2474fbb8e46e870&oe=615A3E9B', 31)
+INSERT [dbo].[Patients] ([patient_id], [name], [gender], [dob], [phone], [email], [image], [account_id]) VALUES (10, N'Nguyen Truong An', 1, CAST(N'1997-09-19' AS Date), N'0973567588', N'annt982@gmail.com', N'https://scontent.fhan3-3.fna.fbcdn.net/v/t1.6435-9/241564360_1473413899695590_8154715865166002527_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=b9115d&_nc_ohc=xuPkBc9alCcAX8NYVOX&tn=u1P-gP8ACMpYg8Yi&_nc_ht=scontent.fhan3-3.fna&oh=12c3da1f8814d40de3e14ab00eea091f&oe=617C7BFD', 31)
 GO
 SET IDENTITY_INSERT [dbo].[Patients] OFF
-GO
-SET IDENTITY_INSERT [dbo].[Service_Feedbacks] ON 
-GO
-INSERT [dbo].[Service_Feedbacks] ([feedback_id], [content], [rate], [patient_id], [service_id]) VALUES (2, N'sdfgsdfg', 3, 2, 2)
-GO
-INSERT [dbo].[Service_Feedbacks] ([feedback_id], [content], [rate], [patient_id], [service_id]) VALUES (3, N'sdfgsdfg', 5, 1, 2)
-GO
-INSERT [dbo].[Service_Feedbacks] ([feedback_id], [content], [rate], [patient_id], [service_id]) VALUES (6, N'qÆ°er', 3, 1, 1)
-GO
-SET IDENTITY_INSERT [dbo].[Service_Feedbacks] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Services] ON 
 GO
@@ -581,100 +640,9 @@ INSERT [dbo].[Timetable] ([slot_id], [time]) VALUES (8, N'16h -17h')
 GO
 SET IDENTITY_INSERT [dbo].[Timetable] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Blogs] ON 
-INSERT [dbo].[Blogs] ([blog_id], [title], [date], [image], [description]) 
-VALUES (1, N'Percutaneous heart valve replacement', CAST(N'2020-05-17' AS Date), N'https://vinmec-prod.s3.amazonaws.com/images/20190426_040437_971221_hep-ho-van-dong-mac.max-1800x1800.jpg', 
-N'The article was professionally consulted by Dr. Nguyen Van Duong - Interventional Cardiologist - Cardiovascular Center - Vinmec Central Park International General Hospital.
-
-Percutaneous valve replacement without surgery is one of the most complex heart valve replacement techniques in the world, helping patients'' health to be significantly improved, especially the ability to recover quickly. Vinmec is the first hospital in Vietnam to perform this technique independently. Please refer to the non-surgical percutaneous valve replacement at Vinmec to better understand this method.
-
-1. What is transcatheter aortic valve replacement (TAVI)?
-Percutaneous aortic valve replacement is currently an alternative to aortic valve replacement surgery in patients with aortic stenosis and at very high surgical risk or no longer indicated for surgery. The valve is attached to a device that is threaded through the skin into the ascending femoral artery and attached to the aortic valve.
-
-Percutaneous aortic valve replacement was first used in patients with tight aortic stenosis who were refused surgery by surgeons due to the high risk of surgery in 2002 and was performed by Dr. Interventional cardiologist Dr. Alain Cribier. Officially and regularly applied for about 10 years now. Currently, Vinmec is the first hospital in Vietnam to perform this technique independently.
-
-2. Designated object
-This method is only applicable to patients who:
-
-Patients over 60 years of age with severe aortic stenosis (valvular orifice area < 1 cm2, mean transvalvular gradient > 40 mmHg).
-Have aortic and peripheral artery anatomy appropriate to the technique.
-Have a desire to perform TAVI.
-Approved by the cardiology team (heart team including internal cardiologist, cardiothoracic surgeon, interventional cardiologist, anesthesiologist) approved.
-Patients with aortic valve stenosis
-Elderly patients with severe aortic stenosis can apply the technique
-banner image
-
-3. Implementation process
-This method is done through the following steps:
-
-Step 1: The patient will be performed laboratory tests (echocardiography, CT scan as well as other blood tests) to assess the anatomical fit of the valve structure and blood vessels. Coronary angiography and aortic arch, access artery assesses the extent of damage to the coronary system, the degree of calcification of the aortic valve as well as the vascular access.
-
-Step 2: Consultation through the cardiology team to get consensus and appropriate appointment for the patient. Explain to patients and relatives the indications, costs, possible complications before, during and after the procedure.
-
-Step 3: Do the trick.
-
-Outstanding advantage
-
-Percutaneous aortic valve replacement is one of the most modern and complex heart valve replacement techniques in the world. With this technique, doctors will thread a tube through the skin from the femoral artery to the aorta to replace the heart valve, which increases the likelihood of success, reduces the risk of bleeding, and avoids many dangerous complications.
-This method is less invasive, gentler and simpler than conventional aortic valve replacement surgery. Doctors do not have to drive along the patient''s sternum, do not have to run an artificial cardiopulmonary bypass machine, do not have general anesthesia, so the risk of complications is minimized.
-The patient''s recovery time is also faster, only 2-6 days compared to 1-2 weeks if open surgery.
-This is considered a lifeline for patients who cannot tolerate surgery because of old age, weakness or chronic diseases.
-
-4. Why should this technique be done at Vinmec?
-Percutaneous aortic valve replacement patient at Vinmec
-Percutaneous aortic valve replacement patient at Vinmec
-Vinmec is the only place in Vietnam that is equipped with a Hybrid room equipped with advanced equipment such as DSA angiography machine, anesthesia machine with the most closely integrated patient hemodynamic monitoring software (PiCCO system, entropy...). Therefore, Hybird operating room can meet the requirements of surgery and angioplasty, coronary stenting, aortic stent graft, open heart surgery, heart valve replacement for congenital heart diseases with the least invasive technique. , safely help patients recover health soon.
-
-The cardiology team works in unity and mutual support, doctors Pham Thanh Van, doctor Nguyen Van Phong, doctor Le Duc Hiep who participated in performing the surgery are all trained directly by foreign experts.
-
-As the only place in Vietnam awarded the certificate of "Independent aortic valve replacement center in Vietnam" and Prof. Vo Thanh Nhan is the first interventional cardiologist to be awarded the "Proctor" certificate in Vietnam. Vinmec''s further goal is to become an excellent interventional cardiology center according to US standards, integrating with the world''s level of cardiovascular intervention. ')
-INSERT [dbo].[Blogs] ([blog_id], [title], [date], [image], [description]) 
-VALUES (2, N'Robotic-assisted laparoscopy', CAST(N'2020-05-15' AS Date), N'https://vinmec-prod.s3.amazonaws.com/images/20191022_152728_263158_phau-thuat-robot-vi.max-1800x1800.jpg', 
-N'Robotic-assisted laparoscopy
-
-Posted by Master, Doctor Nguyen Ngoc Khanh - Head of Department of Gastroenterology - Urology - Robotic Surgery & Pediatric Surgery, Vinmec Times City International General Hospital.
-
-Robotic surgery with sophisticated structure can meet the surgical needs with the highest requirements. The article aims to provide readers with basic information about the history of development, generations of surgical robots, operation methods and achievements of current robotic surgery, especially the most modern surgical robots today. - Da Vinci.
-
-1. History of surgical robot development
-The term "robot" was first used by Czech playwright Karel Capek in 1921 in his play Rossom''s Universal Robots. It comes from the word “robota”, which means “forced labor”.
-The world''s first surgical robot was Arthrobot, used in Vancouver, Canada in 1983.
-In 1985, the robot PUMA560, performed CT-guided brain biopsies.
-In 1988, the robot PROBOT, at Imperial College London, performed prostate surgery.
-In 1992, Integrated Corporation''s ROBODOC robot performed precise femur grinding in hip replacement surgery, being the first robot approved by the FDA in 2008.
-In 1994, the first endoscopic camera holder AESOP robot was approved by the FDA. NASA funded Computer Motion, the company that produced AESOP, with the goal of creating a robotic arm that could be used in space but ended up being the center-camera arm in laparoscopic surgeries.
-The voice control upgrade was introduced in 1996 with AESOP 2000.
-Upgrading the 7-way operation to mimic the human hand was implemented in 1998 with AESOP 3000.
-ZEUS was introduced commercially in 1998 and started the idea of ​​remote robotic surgery.
-The merger of two companies Intuitive Surgical (founded 1995, products are Mona and Leonardo robots) with Computer Motion (the company that created the voice-controlled AESOP surgical robots and ZEUS remote surgery) in March, 2003 brought the surgical robotics industry to the next level, creating the Da Vinci surgical robotic system.
-Da Vinci has now produced up to the fourth generation Xi and the SP series of Single Incision Surgical Robots.
-2. Classification of Surgical Robots
-Depending on the classification criteria, there are different classifications. Based on the autonomous operation of the robot, it can be temporarily divided into 3 types:
-
-Active system: The robot operates essentially automatically (while still under the surgeon''s control) and performs pre-programmed tasks. PROBOT and ROBODOC are good examples of this system.
-Semi-active system: Partial automatic mixing with surgeon control.
-Passive system (Master–slave system): Operates under the complete control of the surgeon (Vinci® and ZEUS) without any pre-programming.
-3. How Surgical Robots Work Today 
-Active system: The robot operates essentially automatically (while still under the surgeon''s control) and performs pre-programmed tasks. PROBOT and ROBODOC are good examples of this system.
-Semi-active system: Partial automatic mixing with surgeon control.
-Passive system (Master–slave system): Operates under the complete control of the surgeon (Vinci® and ZEUS) without any pre-programming.
-3. How Surgical Robots Work Today
-Diagram of the robot system
-Diagram of robotic surgery system
-The robot has 3 separate but interconnected parts:
-
-The vision cart includes an endoscope camera, camcorder, computer - microprocessor - robot brain and other devices to create a 3D image of the operation.
-The da Vinci Xi . Surgical Robot System
-The da Vinci Xi . Surgical Robot System
-The tower, patient cart is a robotic component that directly performs surgery on a patient. It has robotic arms (4 arms), 3 of which can hold different surgical instruments and one holds a 3D camera. These arms are controlled by a computer that is able to accurately process and reproduce the movements of the surgeon''s hand. Articulated surgical instruments are connected to the robot''s arm and inserted into the patient''s body through a small tube called a cannule. The surgeon''s hand movements are scaled and filtered by the computer to remove the vibrations caused by hand tremors which are then converted into corresponding micro-motions of the surgical instruments. At the same time, the camera delivers realistic 3D images to the surgeon''s console. The reduction ratio can be adjusted, for example, if we choose 3:1 ratio, when the surgeon''s hand moves 6cm, the robot''s instrument moves exactly and 2cm respectively.
-Robot Tower
-Robot Tower
-The console is where the surgeo... (134 KB left)')
-SET IDENTITY_INSERT [dbo].[Blogs] OFF
-GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__Accounts__F3DBC57239A94B73]    Script Date: 17-Oct-21 8:08:50 PM ******/
+/****** Object:  Index [UQ__Accounts__F3DBC572F7770DBA]    Script Date: 18-Oct-21 11:16:57 AM ******/
 ALTER TABLE [dbo].[Accounts] ADD UNIQUE NONCLUSTERED 
 (
 	[username] ASC
