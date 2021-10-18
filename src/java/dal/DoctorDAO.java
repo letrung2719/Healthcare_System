@@ -28,9 +28,9 @@ public class DoctorDAO extends DBContext {
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
                 + "where account_id =?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, accountID);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, accountID);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 Doctor p = new Doctor();
                 p.setDoctorID(rs.getInt(1));
@@ -58,9 +58,9 @@ public class DoctorDAO extends DBContext {
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
                 + "where doctor_id =?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, doctorID);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, doctorID);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 Doctor p = new Doctor();
                 p.setDoctorID(rs.getInt(1));
@@ -87,14 +87,14 @@ public class DoctorDAO extends DBContext {
         String sql = "update Doctors set Name = ?, gender=? , dob=?,phone=?,description=?\n"
                 + " where account_id=?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, p.getName());
-            st.setInt(2, p.getGender());
-            st.setString(3, p.getDob());
-            st.setString(4, p.getPhone());
-            st.setString(5, p.getDescription());
-            st.setInt(6, p.getAccountID());
-            return st.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, p.getName());
+            ps.setInt(2, p.getGender());
+            ps.setString(3, p.getDob());
+            ps.setString(4, p.getPhone());
+            ps.setString(5, p.getDescription());
+            ps.setInt(6, p.getAccountID());
+            return ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -121,8 +121,8 @@ public class DoctorDAO extends DBContext {
         String sql = "select doctor_id,Doctors.name,gender,dob, phone,email,[role],Doctors.type_id,Specialities.name, [description], account_id,image\n"
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            rs = st.executeQuery();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Doctor p = new Doctor();
                 p.setDoctorID(rs.getInt(1));
