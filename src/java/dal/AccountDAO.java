@@ -20,6 +20,12 @@ public class AccountDAO extends DBContext {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    /**
+     *
+     * @param user
+     * @param pass
+     * @return
+     */
     public Account login(String user, String pass) {
         String sql = " select * from Accounts where username=? and password = ?";
         try {
@@ -36,6 +42,11 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param account_id
+     * @return
+     */
     public Account getAccountByID(int account_id) {
         String sql = " select * from Accounts where account_id=?";
         try {
@@ -51,6 +62,12 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param password
+     * @param account_id
+     * @return
+     */
     public int changePassword(String password, int account_id) {
         String sql = "update Accounts set password=? where account_id = ?";
         try {
@@ -64,8 +81,10 @@ public class AccountDAO extends DBContext {
         return 0;
     }
 
-    
-
+    /**
+     *
+     * @return
+     */
     public Account getNewestAccount() {
         String sql = "select top 1 * from Accounts order by account_id desc";
         try {
@@ -80,6 +99,11 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     */
     public void insertNewAccountPatient(String username, String password) {
         String sql = "insert into Accounts values(?,?,2,1)";
         try {
@@ -92,6 +116,11 @@ public class AccountDAO extends DBContext {
         }
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public Account checkAccountExist(String user) {
         String sql = "select * from accounts\n"
                 + "where [username] = ?\n";
@@ -108,6 +137,10 @@ public class AccountDAO extends DBContext {
         return null;
     }
     
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         AccountDAO accountDb = new AccountDAO();
         Account a = accountDb.getNewestAccount();

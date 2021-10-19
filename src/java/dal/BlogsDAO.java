@@ -22,6 +22,11 @@ public class BlogsDAO extends DBContext{
     PreparedStatement ps = null;
     ResultSet rs = null;
     
+    /**
+     *
+     * @param blogID
+     * @return
+     */
     public Blogs getBlogByBlogID(int blogID){
         String sql ="Select * FROM Blogs Where blog_id=?";
         try{
@@ -43,6 +48,10 @@ public class BlogsDAO extends DBContext{
         return null;
     }
     
+    /**
+     *
+     * @return
+     */
     public List<Blogs> getAllBlogs(){
         List<Blogs> list = new ArrayList<>();
         String sql ="Select blog_id,title,date,image,description FROM Blogs";
@@ -63,6 +72,12 @@ public class BlogsDAO extends DBContext{
         }
         return list;
     }
+
+    /**
+     *
+     * @param name
+     * @return
+     */
     public List<Blogs> getAllBlogsSearched(String name){
         List<Blogs> list = new ArrayList<>();
         String sql="Select [blog_id],[title],[date],[image],[description]\n"
@@ -70,7 +85,7 @@ public class BlogsDAO extends DBContext{
         try{
             ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + name + "%");
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while(rs.next()){
                 list.add(new Blogs(
                         rs.getInt(1),
@@ -84,6 +99,11 @@ public class BlogsDAO extends DBContext{
         }
         return list;
     }   
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         BlogsDAO bl = new BlogsDAO();
         List<Blogs> b = bl.getAllBlogsSearched("pe");

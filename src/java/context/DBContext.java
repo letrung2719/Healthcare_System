@@ -4,13 +4,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
+/**
+ *
+ * @author admin
+ */
 public class DBContext {
     
     private String pass(String pass){
         return pass;
     }
+    
+    /**
+     *
+     */
     protected Connection connection;
+
+    /**
+     *
+     */
     public DBContext(){
         try {
             // Edit URL , username, password to authenticate with your MS SQL Server
@@ -24,6 +35,10 @@ public class DBContext {
         }
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         DBContext db = new DBContext();
         System.out.println(db.toString());

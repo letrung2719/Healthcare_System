@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import model.Services;
 import model.Specialities;
 
+/**
+ *
+ * @author admin
+ */
 @WebServlet(name = "ServicesControl", urlPatterns = {"/services"})
 public class ServicesControl extends HttpServlet {
     private static final long serialVersionUID = 9999L;
@@ -19,7 +23,7 @@ public class ServicesControl extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param reques    t servlet request
+     * @param request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs

@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import model.Services;
 import model.Specialities;
 
+/**
+ *
+ * @author admin
+ */
 @WebServlet(name = "SortListServices", urlPatterns = {"/sortlistservices"})
 public class SortListServices extends HttpServlet {
     private static final long serialVersionUID = 9999L;

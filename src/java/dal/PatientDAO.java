@@ -23,6 +23,11 @@ public class PatientDAO extends DBContext {
     PreparedStatement ps2 = null;
     ResultSet rs = null;
 
+    /**
+     *
+     * @param accountID
+     * @return
+     */
     public Patient getPatientByAccountID(int accountID) {
         String sql = "select * from patients where account_id = ?";
         try {
@@ -47,6 +52,11 @@ public class PatientDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param patientID
+     * @return
+     */
     public Patient getPatientByPatientID(int patientID) {
         String sql = "select * from patients where patient_id = ?";
         try {
@@ -71,6 +81,10 @@ public class PatientDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void delete(int id) {
         String sql = " delete from Patients where account_id=?";
         String sql2 = " delete from Accounts where account_id=?";
@@ -86,6 +100,10 @@ public class PatientDAO extends DBContext {
         }
     }
 
+    /**
+     *
+     * @param u
+     */
     public void insertNewPatient(Patient u) {
         String sql = "insert into Patients(name,gender,dob,phone,email,image,account_id) values (?,?,?,?,?,?,?)";
         try {
@@ -103,6 +121,10 @@ public class PatientDAO extends DBContext {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Patient> getAllPatient() {
         ArrayList<Patient> list = new ArrayList<>();
         String sql = "select * from Patients ";
@@ -130,6 +152,11 @@ public class PatientDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public int editPatient(Patient p) {
         String sql = "update Patients set Name = ?, gender=? , dob=?,phone=?,email=?\n"
                 + " where account_id=?";
@@ -149,6 +176,10 @@ public class PatientDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         PatientDAO patientDb = new PatientDAO();
         patientDb.insertNewPatient(new Patient("abc", 0, "", "0123456789", "abc@gmail.com", 34, ""));

@@ -21,8 +21,14 @@ import model.Specialities;
 public class DoctorDAO extends DBContext {
 
     PreparedStatement ps = null;
+    PreparedStatement ps2 = null;
     ResultSet rs = null;
 
+    /**
+     *
+     * @param accountID
+     * @return
+     */
     public Doctor getDoctorByAccountID(int accountID) {
         String sql = "select doctor_id,Doctors.name,gender,dob,phone,email,role,Doctors.type_id,Specialities.name,description,account_id,image\n"
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
@@ -53,6 +59,11 @@ public class DoctorDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param doctorID
+     * @return
+     */
     public Doctor getDoctorByDoctorID(int doctorID) {
         String sql = "select doctor_id,Doctors.name,gender,dob,phone,email,role,Doctors.type_id,Specialities.name,description,account_id,image\n"
                 + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
@@ -83,6 +94,11 @@ public class DoctorDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public int editDoctor(Doctor p) {
         String sql = "update Doctors set Name = ?, gender=? , dob=?,phone=?,description=?\n"
                 + " where account_id=?";
@@ -101,21 +117,29 @@ public class DoctorDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void delete(int id) {
         String sql = " delete from doctors where account_id=?";
         String sql2 = " delete from Accounts where account_id=?";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            PreparedStatement st2 = connection.prepareStatement(sql2);
-            st.setInt(1, id);
-            st2.setInt(1, id);
-            st.executeUpdate();
-            st2.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            ps2 = connection.prepareStatement(sql2);
+            ps.setInt(1, id);
+            ps2.setInt(1, id);
+            ps.executeUpdate();
+            ps2.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Doctor> getAllDoctor() {
         ArrayList<Doctor> list = new ArrayList<>();
         String sql = "select doctor_id,Doctors.name,gender,dob, phone,email,[role],Doctors.type_id,Specialities.name, [description], account_id,image\n"
@@ -145,6 +169,13 @@ public class DoctorDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param list
+     * @param begin
+     * @param end
+     * @return
+     */
     public List<Doctor> getDoctorByPage(List<Doctor> list, int begin, int end) {
         List<Doctor> listDoctorByPage = new ArrayList<>();
         for (int i = begin; i < end; i++) {
@@ -153,6 +184,16 @@ public class DoctorDAO extends DBContext {
         return listDoctorByPage;
     }
 
+    /**
+     *
+     * @param doctorName
+     * @param dob
+     * @param phone
+     * @param email
+     * @param gender
+     * @param listSpec
+     * @return
+     */
     public List<Doctor> search(String doctorName, String dob, String phone, String email, Integer gender, List<String> listSpec) {
         List<Doctor> list = new ArrayList<>();
         String sql = "select doctor_id, Doctors.name,gender,phone,email,role,image,description,doctors.type_id,Specialities.name,account_id\n"
@@ -183,7 +224,6 @@ public class DoctorDAO extends DBContext {
             }
             sql += ")";
         }
-        System.out.println(sql);
 
         try {
             ps = connection.prepareStatement(sql);
@@ -209,6 +249,10 @@ public class DoctorDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         DoctorDAO doctorDb = new DoctorDAO();
         List<Doctor> list = doctorDb.getAllDoctor();

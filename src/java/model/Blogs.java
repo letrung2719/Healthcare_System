@@ -16,9 +16,20 @@ public class Blogs {
     private String image;
     private String description;
 
+    /**
+     *
+     */
     public Blogs() {
     }
 
+    /**
+     *
+     * @param blogID
+     * @param title
+     * @param date
+     * @param image
+     * @param description
+     */
     public Blogs(int blogID, String title, String date, String image, String description) {
         this.blogID = blogID;
         this.title = title;
@@ -27,42 +38,82 @@ public class Blogs {
         this.description = description;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBlogID() {
         return blogID;
     }
 
+    /**
+     *
+     * @param BlogID
+     */
     public void setBlogID(int BlogID) {
         this.blogID = BlogID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     *
+     * @param date
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImage() {
         return image;
     }
 
+    /**
+     *
+     * @param image
+     */
     public void setImage(String image) {
         this.image = image;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }

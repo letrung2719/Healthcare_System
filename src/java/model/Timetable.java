@@ -14,26 +14,50 @@ public class Timetable {
     private int slotID;
     private String time;
 
+    /**
+     *
+     */
     public Timetable() {
     }
 
+    /**
+     *
+     * @param slotID
+     * @param time
+     */
     public Timetable(int slotID, String time) {
         this.slotID = slotID;
         this.time = time;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getSlotID() {
         return slotID;
     }
 
+    /**
+     *
+     * @param slotID
+     */
     public void setSlotID(int slotID) {
         this.slotID = slotID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     *
+     * @param time
+     */
     public void setTime(String time) {
         this.time = time;
     }

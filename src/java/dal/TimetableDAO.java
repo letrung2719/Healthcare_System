@@ -20,6 +20,11 @@ public class TimetableDAO extends DBContext {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    /**
+     *
+     * @param slotID
+     * @return
+     */
     public Timetable getTimeBySlotID(int slotID) {
         String sql = "select * from Timetable where slot_id = ?";
         try {
@@ -36,7 +41,7 @@ public class TimetableDAO extends DBContext {
     }
     public Timetable getSlotByTime(String time){
         String sql;
-        sql = "select * from timetable where time = '"+time+"'";
+        sql = "select * from timetable where time = '"+ time+"'";
         try{
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();

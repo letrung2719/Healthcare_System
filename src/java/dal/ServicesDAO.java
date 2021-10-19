@@ -12,11 +12,20 @@ import model.Services;
 import model.Specialities;
 import model.Timetable;
 
+/**
+ *
+ * @author admin
+ */
 public class ServicesDAO extends DBContext {
 
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Services getServiceByID(String id) {
         String sql = "select * from [Services]\n"
                 + "where service_id = ?";
@@ -38,6 +47,11 @@ public class ServicesDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<Services> getTop4Last(String id) {
         List<Services> list = new ArrayList<>();
         String sql = "select top 4 * from [services]\n"
@@ -64,6 +78,11 @@ public class ServicesDAO extends DBContext {
 
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Specialities getSpecByID(String id) {
         String sql = "select * from Specialities\n"
                 + "where type_id = ?";
@@ -81,6 +100,10 @@ public class ServicesDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Specialities> getAllSpecialities() {
         List<Specialities> list = new ArrayList<>();
         String sql = "select * from Specialities";
@@ -96,6 +119,10 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Services> getAllServices() {
         List<Services> list = new ArrayList<>();
         String sql = "SELECT [service_id]\n"
@@ -123,6 +150,11 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public List<Services> getAllServicesSearched(String name) {
         List<Services> list = new ArrayList<>();
         String sql = "SELECT [service_id]\n"
@@ -152,6 +184,10 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Services> getAllServicesSortedSpecialities() {
         List<Services> list = new ArrayList<>();
         String sql = "SELECT [service_id]\n"
@@ -179,6 +215,10 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Services> getAllServicesSortedUpPrice() {
         List<Services> list = new ArrayList<>();
         String sql = "SELECT [service_id]\n"
@@ -206,6 +246,10 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Services> getAllServicesSortedDownPrice() {
         List<Services> list = new ArrayList<>();
         String sql = "SELECT [service_id]\n"
@@ -233,6 +277,11 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<Services> getAllServicesByTypeID(String id) {
         List<Services> list = new ArrayList<>();
         String sql = "select * from Services where type_id=?";
@@ -255,6 +304,11 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param listSpec
+     * @return
+     */
     public List<Services> searchSpecialities(List<String> listSpec) {
         List<Services> list = new ArrayList<>();
         String sql = "SELECT [service_id]\n"
@@ -293,6 +347,10 @@ public class ServicesDAO extends DBContext {
         return list;
     }
     
+    /**
+     *
+     * @return
+     */
     public List<Services> getAllServiceDashboard() {
         List<Services> list = new ArrayList<>();
         String sql = "SELECT [Services].[service_id]\n"
@@ -323,6 +381,11 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<ServiceFeedbacksAd> getAllCommentAd(String id) {
         List<ServiceFeedbacksAd> list = new ArrayList<>();
         String sql = "SELECT [feedback_id],[content],[rate], [Patients].[image], [Patients].[name], [service_id]\n"
@@ -350,6 +413,14 @@ public class ServicesDAO extends DBContext {
     
     //feedback
     //service feedback
+
+    /**
+     *
+     * @param comment
+     * @param rate
+     * @param patientID
+     * @param serviceID
+     */
     public void addComment(String comment, String rate, int patientID, String serviceID) {
         String sql = "INSERT INTO Service_Feedbacks ([content],[rate],[patient_id],service_id)\n"
                 + "VALUES (?,?,?,?);";
@@ -365,6 +436,10 @@ public class ServicesDAO extends DBContext {
         }
     }
     
+    /**
+     *
+     * @param fid
+     */
     public void deleteComment(int fid) {
         String sql = "delete from [Service_Feedbacks] where feedback_id = ?";
         try {
@@ -376,6 +451,11 @@ public class ServicesDAO extends DBContext {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<ServiceFeedbacks> getAllComment(String id) {
         List<ServiceFeedbacks> list = new ArrayList<>();
         String sql = "SELECT [feedback_id]\n"
@@ -402,6 +482,12 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param patient_id
+     * @param service_id
+     * @return
+     */
     public List<ServiceFeedbacks> checkPatientComment(int patient_id, String service_id) {
         List<ServiceFeedbacks> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) [feedback_id]\n"
@@ -429,6 +515,11 @@ public class ServicesDAO extends DBContext {
         return list;
     }
 
+    /**
+     *
+     * @param service_id
+     * @return
+     */
     public int averageRateServices(String service_id) {
         int average = 0;
         String sql = "SELECT ROUND(AVG([rate]),0)\n"
@@ -447,6 +538,12 @@ public class ServicesDAO extends DBContext {
         return average;
     }
     
+    /**
+     *
+     * @param id
+     * @param star
+     * @return
+     */
     public List<ServiceFeedbacks> getAllCommentSortedByStar(String id,String star) {
         List<ServiceFeedbacks> list = new ArrayList<>();
         String sql = "SELECT [feedback_id]\n"
@@ -474,6 +571,12 @@ public class ServicesDAO extends DBContext {
         return list;
     }
     
+    /**
+     *
+     * @param comment
+     * @param rate
+     * @param feedbackID
+     */
     public void editComment(String comment, String rate, String feedbackID) {
         String sql = "update Service_Feedbacks set content = ?, rate=?\n"
                 + " where feedback_id=?";
@@ -488,10 +591,10 @@ public class ServicesDAO extends DBContext {
         }
     }
     
-    
-
-    
-
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         ServicesDAO dao = new ServicesDAO();
 //        List<Specialities> list = dao.getAllSpecialities();

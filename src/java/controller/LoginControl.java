@@ -5,7 +5,8 @@ import dal.DoctorDAO;
 import dal.PatientDAO;
 
 import java.io.IOException;
-import java.util.Locale;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,10 +17,24 @@ import model.Account;
 import model.Doctor;
 import model.Patient;
 
+/**
+ *
+ * @author admin
+ */
 public class LoginControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
+
+    private void writeObject(ObjectOutputStream stream)
+            throws IOException {
+        stream.defaultWriteObject();
+    }
+
+    private void readObject(ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,11 +57,12 @@ public class LoginControl extends HttpServlet {
 
         request.setAttribute("username", user);
 
+        HttpSession session = request.getSession();
         if (a == null) {
             request.setAttribute("mess", resourceBundle.getString("invalid_account"));
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            HttpSession session = request.getSession();
+
             if (a.getAuthor_id() == 1) {
                 Doctor d = doctorDb.getDoctorByAccountID(a.getId());
                 session.setAttribute("user", d);
