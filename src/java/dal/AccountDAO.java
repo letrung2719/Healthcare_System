@@ -5,10 +5,12 @@
  */
 package dal;
 
-import context.DBContext;
+import dbcontext.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Account;
 
 /**
@@ -27,7 +29,7 @@ public class AccountDAO extends DBContext {
      * @return
      */
     public Account login(String user, String pass) {
-        String sql = " select * from Accounts where username=? and password = ?";
+        String sql = " select * from accounts where username=? and password = ?";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, user);
@@ -48,7 +50,7 @@ public class AccountDAO extends DBContext {
      * @return
      */
     public Account getAccountByID(int account_id) {
-        String sql = " select * from Accounts where account_id=?";
+        String sql = " select * from accounts where account_id=?";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setInt(1, account_id);
@@ -69,7 +71,7 @@ public class AccountDAO extends DBContext {
      * @return
      */
     public int changePassword(String password, int account_id) {
-        String sql = "update Accounts set password=? where account_id = ?";
+        String sql = "update accounts set password=? where account_id = ?";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, password);
@@ -86,13 +88,29 @@ public class AccountDAO extends DBContext {
      * @return
      */
     public Account getNewestAccount() {
-        String sql = "select top 1 * from Accounts order by account_id desc";
+        String sql = "select * from accounts order by account_id desc limit 1";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             rs = ps.executeQuery();
             if (rs.next()) {
                 return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getBoolean(5));
             }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public List<Account> getAllAccount() {
+        List<Account> ls = new ArrayList<>();
+        String sql = "select * from accounts";
+        try {
+            ps = connection.prepareStatement(sql);//truyen cau lenh len sql
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ls.add(new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getBoolean(5)));
+            }
+            return ls;
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -143,8 +161,10 @@ public class AccountDAO extends DBContext {
      */
     public static void main(String[] args) {
         AccountDAO accountDb = new AccountDAO();
-        Account a = accountDb.getNewestAccount();
+        Account a = accountDb.login("patient1", "123");
         System.out.println(a);
+//        int i = accountDb.changePassword("123", 22);
+//        System.out.println(i);
 
 //        System.out.println(accountDb.getNewestAccount());
 //        int i = accountDb.changePassword("abcd",2);

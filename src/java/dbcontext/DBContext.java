@@ -1,4 +1,4 @@
-package context;
+package dbcontext;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,14 +25,14 @@ public class DBContext {
     public DBContext(){
         try {
             // Edit URL , username, password to authenticate with your MS SQL Server
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=HealthcareSystem";
-            String username = "sa";
-            String password = "12345";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:mysql://localhost:3306/healthcare_system";
+            String username = "root";
+            String password = "trunglt27082001";
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, pass(password));
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
-        }
+        }        
     }
 
     /**
