@@ -7,12 +7,12 @@ import java.io.Serializable;
  * @author admin
  */
 public class Account implements Serializable{
+    private static final long serialVersionUID = 6106269076155338045L;
     private int id;
     private String user;
     private String pass;
     private int author_id;
     private boolean status;
-    private static final long serialVersionUID = 6106269076155338045L;
     
     /**
      *

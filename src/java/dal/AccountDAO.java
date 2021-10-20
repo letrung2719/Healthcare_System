@@ -101,6 +101,10 @@ public class AccountDAO extends DBContext {
         return null;
     }
     
+    /**
+     *
+     * @return
+     */
     public List<Account> getAllAccount() {
         List<Account> ls = new ArrayList<>();
         String sql = "select * from accounts";
@@ -123,7 +127,7 @@ public class AccountDAO extends DBContext {
      * @param password
      */
     public void insertNewAccountPatient(String username, String password) {
-        String sql = "insert into Accounts values(?,?,2,1)";
+        String sql = "insert into accounts(username,password,author_id,status) values(?,?,2,1)";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, username);
@@ -141,7 +145,7 @@ public class AccountDAO extends DBContext {
      */
     public Account checkAccountExist(String user) {
         String sql = "select * from accounts\n"
-                + "where [username] = ?\n";
+                + "where username = ?\n";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, user);
@@ -162,7 +166,7 @@ public class AccountDAO extends DBContext {
     public static void main(String[] args) {
         AccountDAO accountDb = new AccountDAO();
         Account a = accountDb.login("patient1", "123");
-        System.out.println(a);
+        System.out.println(a.getPass());
 //        int i = accountDb.changePassword("123", 22);
 //        System.out.println(i);
 

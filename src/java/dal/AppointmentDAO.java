@@ -255,11 +255,16 @@ public class AppointmentDAO extends DBContext {
      */
     public static void main(String[] args) {
         AppointmentDAO db = new AppointmentDAO();
+        Patient p = new Patient(1, "name", 0, "", "0123456789", "abc@gamil.com", 22, "");
         Doctor d = new Doctor(1, "name", 0, "", "0123456789", "abc@gamil.com", null, null, "", "", 1);
-        List<Appointment> list = db.getAllAppointmentByDoctorID(d);
-        for (Appointment a : list) {
-            System.out.println(a.toString());
-        }
+//        Appointment a = new Appointment(p, d, "2021-10-10", new Timetable(1, "7h - 8h"), "", 0);
+        Appointment a = db.getAppointmentByID(1);
+        System.out.println(a);
+//        List<Appointment> list = db.getAllAppointmentByDoctorID(d);
+//        for (Appointment a : list) {
+//            System.out.println(a.toString());
+//        }
+
 //        System.out.println(db.getAppointmentByID(2));
 ////        db.addNewAppointment(1, 2, "2021-10-10", 2);
 //        List<Appointment> list = db.getAppointmentAdmin();
