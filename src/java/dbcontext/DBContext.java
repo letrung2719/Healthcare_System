@@ -9,11 +9,13 @@ import java.sql.SQLException;
  * @author admin
  */
 public class DBContext {
-    
-    private String pass(String pass){
+
+    private final String condition = "allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false&requireSSL=false";
+
+    private String pass(String pass) {
         return pass;
     }
-    
+
     /**
      *
      */
@@ -22,17 +24,22 @@ public class DBContext {
     /**
      *
      */
-    public DBContext(){
+    public DBContext() {
         try {
             // Edit URL , username, password to authenticate with your MS SQL Server
-            String url = "jdbc:mysql://localhost:3306/healthcare_system";
+            String serverName = "localhost";
+            String portNumber = "3306";
+            String dbName = "healthcare_system";
+            String url = "jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName + "?" + condition;
+
             String username = "root";
             String password = "trunglt27082001";
             Class.forName("com.mysql.cj.jdbc.Driver");
+
             connection = DriverManager.getConnection(url, username, pass(password));
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
-        }        
+        }
     }
 
     /**

@@ -47,7 +47,7 @@ public class PatientDAO extends DBContext {
                 return p;
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return null;
     }
@@ -76,7 +76,7 @@ public class PatientDAO extends DBContext {
                 return p;
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return null;
     }
@@ -143,11 +143,9 @@ public class PatientDAO extends DBContext {
                 p.setImage(rs.getString(7));
                 list.add(p);
             }
-            
             connection.close();
-
         } catch (SQLException e) {
-
+            System.out.println(e);
         } 
         return list;
     }
@@ -158,7 +156,7 @@ public class PatientDAO extends DBContext {
      * @return
      */
     public int editPatient(Patient p) {
-        String sql = "update Patients set Name = ?, gender=? , dob=?,phone=?,email=?\n"
+        String sql = "update patients set Name = ?, gender = ? , dob = ?, phone = ?, email = ?\n"
                 + " where account_id=?";
         try {
             ps = connection.prepareStatement(sql);
@@ -169,7 +167,6 @@ public class PatientDAO extends DBContext {
             ps.setString(5, p.getEmail());
             ps.setInt(6, p.getAccountID());
             return ps.executeUpdate();
-
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -182,6 +179,9 @@ public class PatientDAO extends DBContext {
      */
     public static void main(String[] args) {
         PatientDAO patientDb = new PatientDAO();
-        patientDb.insertNewPatient(new Patient("abc", 0, "", "0123456789", "abc@gmail.com", 34, ""));
+//        Patient p = new Patient("Nguyen Van Minh", 0, "2001-12-12", "0123456789", "abc@gmail.com", 31, "");
+        List<Patient> p = patientDb.getAllPatient();
+        System.out.println(p);
+//        patientDb.insertNewPatient(new Patient("abc", 0, "", "0123456789", "abc@gmail.com", 34, ""));
     }
 }

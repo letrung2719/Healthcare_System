@@ -117,6 +117,11 @@ public class Blogs {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Blogs{" + "blogID=" + blogID + ", title=" + title + ", date=" + date + ", image=" + image + ", description=" + description + '}';
+    }
 }
     
     

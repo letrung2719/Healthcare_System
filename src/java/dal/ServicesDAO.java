@@ -10,7 +10,6 @@ import model.ServiceFeedbacks;
 import model.ServiceFeedbacksAd;
 import model.Services;
 import model.Specialities;
-import model.Timetable;
 
 /**
  *
@@ -27,7 +26,7 @@ public class ServicesDAO extends DBContext {
      * @return
      */
     public Services getServiceByID(String id) {
-        String sql = "select * from [Services]\n"
+        String sql = "select * from services\n"
                 + "where service_id = ?";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
@@ -54,9 +53,9 @@ public class ServicesDAO extends DBContext {
      */
     public List<Services> getTop4Last(String id) {
         List<Services> list = new ArrayList<>();
-        String sql = "select top 4 * from [services]\n"
+        String sql = "select * from services\n"
                 + "where type_id = ?\n"
-                + "order by service_id desc";
+                + "order by service_id desc limit 4";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, id);
@@ -73,9 +72,7 @@ public class ServicesDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
-
         return list;
-
     }
 
     /**
@@ -84,7 +81,7 @@ public class ServicesDAO extends DBContext {
      * @return
      */
     public Specialities getSpecByID(String id) {
-        String sql = "select * from Specialities\n"
+        String sql = "select * from specialities\n"
                 + "where type_id = ?";
         try {
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
@@ -106,7 +103,7 @@ public class ServicesDAO extends DBContext {
      */
     public List<Specialities> getAllSpecialities() {
         List<Specialities> list = new ArrayList<>();
-        String sql = "select * from Specialities";
+        String sql = "select * from specialities";
         try {
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -125,13 +122,13 @@ public class ServicesDAO extends DBContext {
      */
     public List<Services> getAllServices() {
         List<Services> list = new ArrayList<>();
-        String sql = "SELECT [service_id]\n"
-                + "      ,[title]\n"
-                + "      ,Specialities.[name]\n"
-                + "      ,[image]\n"
-                + "      ,[description]\n"
-                + "      ,[price]\n"
-                + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id]";
+        String sql = "select service_id\n"
+                + "      ,title\n"
+                + "      ,specialities.name\n"
+                + "      ,image\n"
+                + "      ,description\n"
+                + "      ,price\n"
+                + "from services join specialities on services.type_id = specialities.type_id";
         try {
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -145,7 +142,7 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(6)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -157,13 +154,13 @@ public class ServicesDAO extends DBContext {
      */
     public List<Services> getAllServicesSearched(String name) {
         List<Services> list = new ArrayList<>();
-        String sql = "SELECT [service_id]\n"
-                + "      ,[title]\n"
-                + "      ,Specialities.[name]\n"
-                + "      ,[image]\n"
-                + "      ,[description]\n"
-                + "      ,[price]\n"
-                + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] where [title] like ? or Specialities.[name] like ?";
+        String sql = "select service_id\n"
+                + "      ,title\n"
+                + "      ,specialities.name\n"
+                + "      ,image\n"
+                + "      ,description\n"
+                + "      ,price\n"
+                + "from services join specialities on services.type_id = specialities.type_id where title like ? or specialities.name like ?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + name + "%");
@@ -179,7 +176,7 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(6)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -190,16 +187,16 @@ public class ServicesDAO extends DBContext {
      */
     public List<Services> getAllServicesSortedSpecialities() {
         List<Services> list = new ArrayList<>();
-        String sql = "SELECT [service_id]\n"
-                + "      ,[title]\n"
-                + "      ,Specialities.[name]\n"
-                + "      ,[image]\n"
-                + "      ,[description]\n"
-                + "      ,[price]\n"
-                + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] order by [Services].[type_id] asc";
+        String sql = "select service_id\n"
+                + "      ,title\n"
+                + "      ,specialities.name\n"
+                + "      ,image\n"
+                + "      ,description\n"
+                + "      ,price\n"
+                + "from services join specialities on services.type_id = specialities.type_id order by services.type_id asc";
         try {
             ps = connection.prepareStatement(sql);
-             rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
                         rs.getInt(1),
@@ -221,13 +218,13 @@ public class ServicesDAO extends DBContext {
      */
     public List<Services> getAllServicesSortedUpPrice() {
         List<Services> list = new ArrayList<>();
-        String sql = "SELECT [service_id]\n"
-                + "      ,[title]\n"
-                + "      ,Specialities.[name]\n"
-                + "      ,[image]\n"
-                + "      ,[description]\n"
-                + "      ,[price]\n"
-                + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] order by [Services].[price] desc";
+        String sql = "select service_id\n"
+                + "      ,title\n"
+                + "      ,specialities.name\n"
+                + "      ,image\n"
+                + "      ,description\n"
+                + "      ,price\n"
+                + "from services join specialities on services.type_id = specialities.type_id order by services.price desc";
         try {
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -241,7 +238,7 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(6)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -252,13 +249,13 @@ public class ServicesDAO extends DBContext {
      */
     public List<Services> getAllServicesSortedDownPrice() {
         List<Services> list = new ArrayList<>();
-        String sql = "SELECT [service_id]\n"
-                + "      ,[title]\n"
-                + "      ,Specialities.[name]\n"
-                + "      ,[image]\n"
-                + "      ,[description]\n"
-                + "      ,[price]\n"
-                + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] order by [Services].[price] asc";
+        String sql = "select service_id\n"
+                + "      ,title\n"
+                + "      ,specialities.name\n"
+                + "      ,image\n"
+                + "      ,description\n"
+                + "      ,price\n"
+                + "from services join specialities on services.type_id = specialities.type_id order by services.price asc";
         try {
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -272,7 +269,7 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(6)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -284,7 +281,7 @@ public class ServicesDAO extends DBContext {
      */
     public List<Services> getAllServicesByTypeID(String id) {
         List<Services> list = new ArrayList<>();
-        String sql = "select * from Services where type_id=?";
+        String sql = "select * from services where type_id=?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, id);
@@ -299,7 +296,7 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(6)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -311,17 +308,17 @@ public class ServicesDAO extends DBContext {
      */
     public List<Services> searchSpecialities(List<String> listSpec) {
         List<Services> list = new ArrayList<>();
-        String sql = "SELECT [service_id]\n"
-                + "      ,[title]\n"
-                + "      ,Specialities.[name]\n"
-                + "      ,[image]\n"
-                + "      ,[description]\n"
-                + "      ,[price]\n"
-                + "FROM [Services] join [Specialities] ON [Services].[type_id] = [Specialities].[type_id] where 1=1 ";
+        String sql = "select service_id\n"
+                + "      ,title\n"
+                + "      ,specialities.name\n"
+                + "      ,image\n"
+                + "      ,description\n"
+                + "      ,price\n"
+                + "from services join specialities on services.type_id = specialities.type_id where 1=1 ";
         if (listSpec != null && !listSpec.isEmpty()) {
             sql += "and (";
             for (int i = 0; i < listSpec.size(); i++) {
-                sql += "Specialities.name = '" + listSpec.get(i) + "' ";
+                sql += "specialities.name = '" + listSpec.get(i) + "' ";
                 if (i < listSpec.size() - 1) {
                     sql += " or ";
                 }
@@ -342,27 +339,27 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(6)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
-    
+
     /**
      *
      * @return
      */
     public List<Services> getAllServiceDashboard() {
         List<Services> list = new ArrayList<>();
-        String sql = "SELECT [Services].[service_id]\n"
-                + "      ,[title]\n"
-                + "      ,[type_id]\n"
-                + "      ,[image]\n"
-                + "      ,(SELECT AVG([rate])\n"
-                + "        FROM [Service_Feedbacks]\n"
-                + "        where service_id =[Services].[service_id]) as rate\n"
-                + "      ,[price]\n"
-                + "FROM [HealthcareSystem].[dbo].[Services] join Service_Feedbacks on [Services].service_id = Service_Feedbacks.service_id\n"
-                + "group by [Services].[service_id],[title],[type_id],[image],[price]";
+        String sql = "select services.service_id\n"
+                + "      ,title\n"
+                + "      ,type_id\n"
+                + "      ,image\n"
+                + "      ,(select AVG(rate)\n"
+                + "        from service_feedbacks\n"
+                + "        where service_id =services.service_id) as rate\n"
+                + "      ,price\n"
+                + "from services join service_feedbacks on services.service_id = service_feedbacks.service_id\n"
+                + "group by services.service_id,title,type_id,image,price";
         try {
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -376,7 +373,7 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(6)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -388,9 +385,9 @@ public class ServicesDAO extends DBContext {
      */
     public List<ServiceFeedbacksAd> getAllCommentAd(String id) {
         List<ServiceFeedbacksAd> list = new ArrayList<>();
-        String sql = "SELECT [feedback_id],[content],[rate], [Patients].[image], [Patients].[name], [service_id]\n"
-                + "FROM [HealthcareSystem].[dbo].[Service_Feedbacks] join [Patients] \n"
-                + "ON [Service_Feedbacks].[patient_id] = [Patients].[patient_id] where [service_id] = ?";
+        String sql = "select feedback_id,content,rate,patients.image,Patients.name,service_id\n"
+                + "FROM Service_Feedbacks join Patients \n"
+                + "ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ?";
         try {
 
             ps = connection.prepareStatement(sql);
@@ -406,14 +403,13 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(6)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
-    
+
     //feedback
     //service feedback
-
     /**
      *
      * @param comment
@@ -422,7 +418,7 @@ public class ServicesDAO extends DBContext {
      * @param serviceID
      */
     public void addComment(String comment, String rate, int patientID, String serviceID) {
-        String sql = "INSERT INTO Service_Feedbacks ([content],[rate],[patient_id],service_id)\n"
+        String sql = "INSERT INTO Service_Feedbacks (content,rate,patient_id,service_id)\n"
                 + "VALUES (?,?,?,?);";
         try {
             ps = connection.prepareStatement(sql);
@@ -435,13 +431,13 @@ public class ServicesDAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     /**
      *
      * @param fid
      */
     public void deleteComment(int fid) {
-        String sql = "delete from [Service_Feedbacks] where feedback_id = ?";
+        String sql = "delete from Service_Feedbacks where feedback_id = ?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, fid);
@@ -458,12 +454,12 @@ public class ServicesDAO extends DBContext {
      */
     public List<ServiceFeedbacks> getAllComment(String id) {
         List<ServiceFeedbacks> list = new ArrayList<>();
-        String sql = "SELECT [feedback_id]\n"
-                + "      ,[content]\n"
-                + "      ,[rate]\n"
-                + "      , [Patients].[name]\n"
-                + "      ,[service_id]\n"
-                + "  FROM [HealthcareSystem].[dbo].[Service_Feedbacks] join [Patients] ON [Service_Feedbacks].[patient_id] = [Patients].[patient_id] where [service_id] = ?";
+        String sql = "SELECT feedback_id\n"
+                + "      ,content\n"
+                + "      ,rate\n"
+                + "      ,Patients.name\n"
+                + "      ,service_id\n"
+                + "  FROM Service_Feedbacks join Patients ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, id);
@@ -477,7 +473,7 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(5)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -490,12 +486,12 @@ public class ServicesDAO extends DBContext {
      */
     public List<ServiceFeedbacks> checkPatientComment(int patient_id, String service_id) {
         List<ServiceFeedbacks> list = new ArrayList<>();
-        String sql = "SELECT TOP (1000) [feedback_id]\n"
-                + "      ,[content]\n"
-                + "      ,[rate]\n"
-                + "      ,[patient_id]\n"
-                + "      ,[service_id]\n"
-                + "  FROM [HealthcareSystem].[dbo].[Service_Feedbacks] where [patient_id] = ? and [service_id] = ?";
+        String sql = "SELECT feedback_id\n"
+                + "      ,content\n"
+                + "      ,rate\n"
+                + "      ,patient_id\n"
+                + "      ,service_id\n"
+                + "  FROM Service_Feedbacks where patient_id = ? and service_id = ?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, patient_id);
@@ -510,7 +506,7 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(5)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -522,9 +518,9 @@ public class ServicesDAO extends DBContext {
      */
     public int averageRateServices(String service_id) {
         int average = 0;
-        String sql = "SELECT ROUND(AVG([rate]),0)\n"
-                + "FROM [Service_Feedbacks]\n"
-                + "where [service_id] = ?";
+        String sql = "SELECT ROUND(AVG(rate),0)\n"
+                + "FROM Service_Feedbacks\n"
+                + "where service_id = ?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, service_id);
@@ -533,25 +529,25 @@ public class ServicesDAO extends DBContext {
                 average = rs.getInt(1);
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return average;
     }
-    
+
     /**
      *
      * @param id
      * @param star
      * @return
      */
-    public List<ServiceFeedbacks> getAllCommentSortedByStar(String id,String star) {
+    public List<ServiceFeedbacks> getAllCommentSortedByStar(String id, String star) {
         List<ServiceFeedbacks> list = new ArrayList<>();
-        String sql = "SELECT [feedback_id]\n"
-                + "      ,[content]\n"
-                + "      ,[rate]\n"
-                + "      , [Patients].[name]\n"
-                + "      ,[service_id]\n"
-                + "  FROM [HealthcareSystem].[dbo].[Service_Feedbacks] join [Patients] ON [Service_Feedbacks].[patient_id] = [Patients].[patient_id] where [service_id] = ? and rate = ?";
+        String sql = "SELECT feedback_id\n"
+                + "      ,content\n"
+                + "      ,rate\n"
+                + "      ,Patients.name\n"
+                + "      ,service_id\n"
+                + "  FROM Service_Feedbacks join Patients ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ? and rate = ?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, id);
@@ -566,11 +562,11 @@ public class ServicesDAO extends DBContext {
                         rs.getInt(5)));
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
-    
+
     /**
      *
      * @param comment
@@ -590,7 +586,7 @@ public class ServicesDAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     /**
      *
      * @param args

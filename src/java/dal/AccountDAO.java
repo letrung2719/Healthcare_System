@@ -6,6 +6,7 @@
 package dal;
 
 import dbcontext.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -166,7 +167,7 @@ public class AccountDAO extends DBContext {
     public static void main(String[] args) {
         AccountDAO accountDb = new AccountDAO();
         Account a = accountDb.login("patient1", "123");
-        System.out.println(a.getPass());
+        System.out.println(a);
 //        int i = accountDb.changePassword("123", 22);
 //        System.out.println(i);
 

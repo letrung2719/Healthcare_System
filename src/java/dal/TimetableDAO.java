@@ -56,7 +56,7 @@ public class TimetableDAO extends DBContext {
     }
     public static void main(String[] args) {
         TimetableDAO db = new TimetableDAO();
-        Timetable t = db.getSlotByTime("7h - 8h");
+        Timetable t = db.getTimeBySlotID(2);
         System.out.println(t);
     }
 }

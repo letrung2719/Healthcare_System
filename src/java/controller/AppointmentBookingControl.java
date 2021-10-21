@@ -82,6 +82,7 @@ public class AppointmentBookingControl extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("acc");
+        
         if (acc == null) {
             request.setAttribute("mess", resourceBundle.getString("must_login"));
             request.getRequestDispatcher("login.jsp").forward(request, response);

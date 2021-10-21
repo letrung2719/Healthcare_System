@@ -28,7 +28,6 @@ public class AppointmentDAO extends DBContext {
     PatientDAO dalPatient = new PatientDAO();
     DoctorDAO dalDoctor = new DoctorDAO();
     TimetableDAO dalTimetable = new TimetableDAO();
-
     /**
      *
      * @param a
@@ -81,7 +80,7 @@ public class AppointmentDAO extends DBContext {
                 return a;
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return null;
     }
@@ -143,6 +142,7 @@ public class AppointmentDAO extends DBContext {
      * @param numberOfItem
      * @return
      */
+    //CHECK AGAIN
     public List<Appointment> paginateAppointmentByDoctorID(int doctorID, int pageNumber, int numberOfItem) {
         List<Appointment> list = new ArrayList<>();
         String sql = "DECLARE @PageNumber AS INT\n"
@@ -195,7 +195,7 @@ public class AppointmentDAO extends DBContext {
             int rs = ps.executeUpdate();
             return rs;
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return 0;
     }
@@ -239,12 +239,12 @@ public class AppointmentDAO extends DBContext {
      * @return
      */
     public int deleteAppointment(int appID) {
-        String sql = "delete appointments where appointment_id =" + appID;
+        String sql = "delete from appointments where appointment_id = " + appID;
         try {
             ps = connection.prepareStatement(sql);
             return ps.executeUpdate();
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return 0;
     }
@@ -255,11 +255,16 @@ public class AppointmentDAO extends DBContext {
      */
     public static void main(String[] args) {
         AppointmentDAO db = new AppointmentDAO();
-        Patient p = new Patient(1, "name", 0, "", "0123456789", "abc@gamil.com", 22, "");
+        Patient p = new Patient(3, "name", 0, "", "0123456789", "abc@gamil.com", 22, "");
         Doctor d = new Doctor(1, "name", 0, "", "0123456789", "abc@gamil.com", null, null, "", "", 1);
+        
+        List<Appointment> ls = db.paginateAppointmentByDoctorID(1, 1, 5);
+        System.out.println(ls);
 //        Appointment a = new Appointment(p, d, "2021-10-10", new Timetable(1, "7h - 8h"), "", 0);
-        Appointment a = db.getAppointmentByID(1);
-        System.out.println(a);
+//        db.addNewAppointment(a);
+//        db.deleteAppointment(3);
+//        System.out.println(a);
+
 //        List<Appointment> list = db.getAllAppointmentByDoctorID(d);
 //        for (Appointment a : list) {
 //            System.out.println(a.toString());

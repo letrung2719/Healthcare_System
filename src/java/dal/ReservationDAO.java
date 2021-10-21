@@ -36,7 +36,7 @@ public class ReservationDAO extends DBContext {
             
             return st.executeUpdate();
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return 0;
     }
@@ -50,12 +50,7 @@ public class ReservationDAO extends DBContext {
         PatientDAO db2 = new PatientDAO();
         ServicesDAO db3 = new ServicesDAO();
         TimetableDAO db4 = new TimetableDAO();
-        Reservation r = new Reservation("2021/10/15",
-                db2.getPatientByPatientID(2),
-                db3.getServiceByID("3"),
-                db3.getServiceByID("3").getPrice(),
-                db4.getTimeBySlotID(4),
-                "");
+        Reservation r = new Reservation("2021/10/15",db2.getPatientByPatientID(2),db3.getServiceByID("3"),db3.getServiceByID("3").getPrice(),db4.getTimeBySlotID(4),"");
         System.out.println(db1.addNewReservation(r));
     }
 }

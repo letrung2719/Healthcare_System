@@ -30,9 +30,9 @@ public class DoctorDAO extends DBContext {
      * @return
      */
     public Doctor getDoctorByAccountID(int accountID) {
-        String sql = "select doctor_id,Doctors.name,gender,dob,phone,email,role,Doctors.type_id,Specialities.name,description,account_id,image\n"
-                + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
-                + "where account_id =?";
+        String sql = "select doctor_id,doctors.name,gender,dob,phone,email,role,Doctors.type_id,specialities.name,description,account_id,image\n"
+                + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
+                + "where account_id = ?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, accountID);
@@ -65,8 +65,8 @@ public class DoctorDAO extends DBContext {
      * @return
      */
     public Doctor getDoctorByDoctorID(int doctorID) {
-        String sql = "select doctor_id,Doctors.name,gender,dob,phone,email,role,Doctors.type_id,Specialities.name,description,account_id,image\n"
-                + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
+        String sql = "select doctor_id,doctors.name,gender,dob,phone,email,role,Doctors.type_id,specialities.name,description,account_id,image\n"
+                + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
                 + "where doctor_id =?";
         try {
             ps = connection.prepareStatement(sql);
@@ -100,8 +100,8 @@ public class DoctorDAO extends DBContext {
      * @return
      */
     public int editDoctor(Doctor p) {
-        String sql = "update Doctors set Name = ?, gender=? , dob=?,phone=?,description=?\n"
-                + " where account_id=?";
+        String sql = "update doctors set name=?,gender=?,dob=?,phone=?,description=?\n"
+                + "where account_id = ?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, p.getName());
@@ -122,8 +122,8 @@ public class DoctorDAO extends DBContext {
      * @param id
      */
     public void delete(int id) {
-        String sql = " delete from doctors where account_id=?";
-        String sql2 = " delete from Accounts where account_id=?";
+        String sql = " delete from doctors where account_id = ?";
+        String sql2 = " delete from accounts where account_id = ?";
         try {
             ps = connection.prepareStatement(sql);
             ps2 = connection.prepareStatement(sql2);
@@ -142,8 +142,8 @@ public class DoctorDAO extends DBContext {
      */
     public List<Doctor> getAllDoctor() {
         ArrayList<Doctor> list = new ArrayList<>();
-        String sql = "select doctor_id,Doctors.name,gender,dob, phone,email,[role],Doctors.type_id,Specialities.name, [description], account_id,image\n"
-                + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id";
+        String sql = "select doctor_id,doctors.name,gender,dob, phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n"
+                + "from doctors join specialities on doctors.type_id = specialities.type_id";
         try {
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -164,7 +164,7 @@ public class DoctorDAO extends DBContext {
                 list.add(p);
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -196,11 +196,11 @@ public class DoctorDAO extends DBContext {
      */
     public List<Doctor> search(String doctorName, String dob, String phone, String email, Integer gender, List<String> listSpec) {
         List<Doctor> list = new ArrayList<>();
-        String sql = "select doctor_id, Doctors.name,gender,phone,email,role,image,description,doctors.type_id,Specialities.name,account_id\n"
-                + "from Doctors join Specialities on Doctors.type_id = Specialities.type_id\n"
-                + "where 1=1 ";
+        String sql = "select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id\n"
+                + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
+                + "where 1=1";
         if (doctorName != null && !doctorName.isEmpty()) {
-            sql += " AND Doctors.name like '%" + doctorName + "%'";
+            sql += " AND doctors.name like '%" + doctorName + "%'";
         }
         if (dob != null && !dob.isEmpty()) {
             sql += " AND dob like '%" + dob + "%'";
@@ -217,7 +217,7 @@ public class DoctorDAO extends DBContext {
         if (listSpec != null && !listSpec.isEmpty()) {
             sql += "and (";
             for (int i = 0; i < listSpec.size(); i++) {
-                sql += "Specialities.name = '" + listSpec.get(i) + "' ";
+                sql += "specialities.name = '" + listSpec.get(i) + "' ";
                 if (i < listSpec.size() - 1) {
                     sql += " or ";
                 }
@@ -244,7 +244,7 @@ public class DoctorDAO extends DBContext {
                 list.add(d);
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
         }
         return list;
     }
@@ -255,8 +255,11 @@ public class DoctorDAO extends DBContext {
      */
     public static void main(String[] args) {
         DoctorDAO doctorDb = new DoctorDAO();
+        Specialities spec = new Specialities(1, "abc");
+//        Doctor d = new Doctor(20, "Le Van Nam", 1, "2000-01-01", "0123456789", "abc@gmail.com", "Head of Department", spec, "abc", "abc", 21);
         List<Doctor> list = doctorDb.getAllDoctor();
-        System.out.println(list);
+        List<Doctor> d = doctorDb.getDoctorByPage(list, 1, 5);
+        System.out.println(d);
 //        Doctor d = doctorDb.getDoctorByDoctorID(2);
 //        System.out.println(d);
 //        String[] listSpec 
