@@ -7,6 +7,7 @@ package dal;
 
 import dbcontext.DBContext;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import java.sql.SQLException;
 import model.Reservation;
@@ -17,6 +18,7 @@ import model.Reservation;
  */
 public class ReservationDAO extends DBContext {
     PreparedStatement st = null;
+    ResultSet rs = null;
 
     /**
      *
@@ -37,6 +39,28 @@ public class ReservationDAO extends DBContext {
             return st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        }
+        return 0;
+    }
+    
+    public int countDuplicateReservationByPatientID(int patientID, int serviceID) {
+
+        String sql = "SELECT\n"
+                + "   COUNT(*)\n"
+                + "FROM\n"
+                + "    reservations r\n"
+                + "where \n"
+                + "	patient_id="+patientID+" and service_id="+serviceID+"\n"
+                + "GROUP BY\n"
+                + "    r.date, r.slot_id, r.patient_id";
+        try {
+            st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+
         }
         return 0;
     }

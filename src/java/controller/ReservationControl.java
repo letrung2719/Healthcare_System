@@ -32,7 +32,7 @@ public class ReservationControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
-    
+
     private void writeObject(ObjectOutputStream stream)
             throws IOException {
         stream.defaultWriteObject();
@@ -102,7 +102,7 @@ public class ReservationControl extends HttpServlet {
             String description = request.getParameter("description");
             int patientID = Integer.parseInt(request.getParameter("patientId"));
             String serviceId = request.getParameter("serviceID");
-
+            int serviceID = Integer.parseInt(serviceId);
             PatientDAO patientDb = new PatientDAO();
             ServicesDAO serviceDb = new ServicesDAO();
             TimetableDAO slotDb = new TimetableDAO();
@@ -114,10 +114,19 @@ public class ReservationControl extends HttpServlet {
                     description);
 
             ReservationDAO resDb = new ReservationDAO();
-            resDb.addNewReservation(r);
+            int count = resDb.countDuplicateReservationByPatientID(patientID, serviceID);
+            if (count > 0) {
+                Services s = serviceDb.getServiceByID(serviceId);
+                request.setAttribute("mess", "You had book this service");
+                request.setAttribute("service", s);
+                request.getRequestDispatcher("reservation.jsp").forward(request, response);
+            } else {
+                resDb.addNewReservation(r);
 
-            request.setAttribute("reservation", r);
-            request.getRequestDispatcher("reservation-success.jsp").forward(request, response);
+                request.setAttribute("reservation", r);
+                request.getRequestDispatcher("reservation-success.jsp").forward(request, response);
+            }
+
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
