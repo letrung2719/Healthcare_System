@@ -166,7 +166,7 @@ public class AccountDAO extends DBContext {
      */
     public static void main(String[] args) {
         AccountDAO accountDb = new AccountDAO();
-        Account a = accountDb.login("patient1", "123");
+        Account a = accountDb.login("patient1", "12345");
         System.out.println(a);
 //        int i = accountDb.changePassword("123", 22);
 //        System.out.println(i);
