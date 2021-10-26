@@ -63,7 +63,7 @@ public class DoctorList extends HttpServlet {
         request.setAttribute("listDoctors", arr);
         request.setAttribute("listSpec", listSpec);
         
-        request.getRequestDispatcher("doctor.jsp").forward(request, response);
+        request.getRequestDispatcher("doctors-list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

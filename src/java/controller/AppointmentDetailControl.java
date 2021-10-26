@@ -53,7 +53,7 @@ public class AppointmentDetailControl extends HttpServlet {
             request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
         }
         request.setAttribute("app", a);
-        request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
+        request.getRequestDispatcher("/doctor/appointment-detail.jsp").forward(request, response);
 
     }
 

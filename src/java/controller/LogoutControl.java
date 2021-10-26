@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Logout", urlPatterns = {"/logout"})
 public class LogoutControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
 
     /**
@@ -29,7 +30,10 @@ public class LogoutControl extends HttpServlet {
         HttpSession session = request.getSession();
         session.removeAttribute("acc");
         session.removeAttribute("user");
-        response.sendRedirect("index.jsp");
+        System.out.println("========================================================================");
+        System.out.println(request.getContextPath() + "/index.jsp");
+        System.out.println("========================================================================");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     /**

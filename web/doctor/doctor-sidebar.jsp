@@ -27,13 +27,13 @@
             <nav class="dashboard-menu">
                 <ul>
                     <c:set var="path" value="<%=request.getServletPath()%>"/>
-                        <li class="${path == "/doctor-profile.jsp" ? "active" : ""}">
+                        <li class="${path == "/doctor/doctor-profile.jsp" ? "active" : ""}">
                             <a href="doctor_profile?id=${sessionScope.user.accountID}">
                                 <i class="fas fa-user-cog"></i>
                                 <span>Profile Settings</span>
                             </a>
                         </li>
-                        <li class="${path == "/doctor-appointment.jsp" ? "active" : ""} ${path == "/appointment-detail.jsp" ? "active" : ""}">
+                        <li class="${path == "/doctor/doctor-appointment.jsp" ? "active" : ""} ${path == "/doctor/appointment-detail.jsp" ? "active" : ""}">
                             <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">
                                 <i class="fas fa-calendar-check"></i>
                                 <span>Appointments</span>
@@ -45,7 +45,7 @@
                                 <span>My Patients</span>
                             </a>
                         </li>
-                        <li class="${path == "/doctor-feedback-list.jsp" ? "active" : ""}">
+                        <li class="${path == "/doctor/doctor-feedback-list.jsp" ? "active" : ""}">
                             <a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}">
                                 <i class="fas fa-star"></i>
                                 <span>Feedbacks</span>

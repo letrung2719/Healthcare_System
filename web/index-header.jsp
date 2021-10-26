@@ -27,19 +27,10 @@
 
             <c:set var="path" value="<%=request.getServletPath()%>"/>
             <ul class="main-nav">
-                <c:if test="${sessionScope.acc.author_id == 2 || sessionScope.acc == null}">
                     <li class="${path == "/index.jsp" ? "active" : ""}"><a href="index.jsp">Home</a></li>              
-                    <li class="${path == "/doctor.jsp" ? "active" : ""}"><a href="doctor?page=1">My Doctors</a></li>
-                    <li class="${path == "/serviceslist.jsp" ? "active" : ""}"><a href="services">My Services</a></li>
-                    <li class="${path == "/blog-list.jsp" ? "active" : ""}"><a href="blog-list">My Blogs</a></li>
-                    </c:if>
-
-                <c:if test="${sessionScope.acc.author_id == 1}">
-                    <li class="${path == "/doctor-appointment.jsp" ? "active" : ""}"><a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">My Appointments</a></li>
-                    <li class="${path == "#" ? "active" : ""}"><a href="#">My Patients</a></li>
-                    <li class="${path == "/doctor-feedback-list.jsp" ? "active" : ""}"><a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=1">My Feedbacks</a></li>
-                    </c:if>
-
+                    <li class="${path == "/doctors-list.jsp" ? "active" : ""}"><a href="list_doctor?page=1">Doctors List</a></li>
+                    <li class="${path == "/services-list.jsp" ? "active" : ""}"><a href="services">Services List</a></li>
+                    <li class="${path == "/blog-list.jsp" ? "active" : ""}"><a href="blog-list">Blogs List</a></li>
                 <li class="login-link">
                     <a href="login.jsp">Login / Signup</a>
                 </li>

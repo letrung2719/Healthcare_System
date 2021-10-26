@@ -48,7 +48,7 @@ public class DoctorFeedbackListControl extends HttpServlet {
         int totalFeedback = db1.countAllDoctorFeedback(doctorID);
         int numberOfItem = 4;
         int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);
-        List<DoctorFeedbacks> listdFb = new ArrayList<DoctorFeedbacks>();
+        List<DoctorFeedbacks> listdFb = new ArrayList<>();
         
         if (sortBy == null) {
             listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, "feedback_id");
@@ -56,7 +56,7 @@ public class DoctorFeedbackListControl extends HttpServlet {
         request.setAttribute("listdFb", listdFb);
         request.setAttribute("indexPage", indexPage);
         request.setAttribute("numberOfPage", numberOfPage);
-        request.getRequestDispatcher("doctor-feedback-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/doctor/doctor-feedback-list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

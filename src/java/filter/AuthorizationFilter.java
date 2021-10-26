@@ -43,7 +43,7 @@ public class AuthorizationFilter implements Filter {
     /**
      *
      * @param servletRequest
-     * @param request The servlet request we are processing
+     * @param servletResponse
      * @param chain The filter chain we are processing
      *
      * @exception IOException if an input/output error occurs
@@ -70,6 +70,19 @@ public class AuthorizationFilter implements Filter {
             } else {
                 response.sendRedirect(request.getContextPath() + "/404-error.jsp");
             }
+        } else if (url.startsWith("/doctor")) {
+            HttpSession session = request.getSession();
+            Account acc = (Account) session.getAttribute("acc");
+            //Check user login or not
+            if (acc != null) {
+                if (acc.getAuthor_id() == 1) {
+                    chain.doFilter(servletRequest, servletResponse);
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/404-error.jsp");
+                }
+            } else {
+                response.sendRedirect(request.getContextPath() + "/404-error.jsp");
+            }
         } else {
             chain.doFilter(servletRequest, servletResponse);
         }
@@ -77,7 +90,8 @@ public class AuthorizationFilter implements Filter {
 
     /**
      * Return the filter configuration object for this filter.
-     * @return 
+     *
+     * @return
      */
     public FilterConfig getFilterConfig() {
         return (this.filterConfig);
@@ -95,13 +109,16 @@ public class AuthorizationFilter implements Filter {
     /**
      * Destroy method for this filter
      */
+    @Override
     public void destroy() {
     }
 
     /**
      * Init method for this filter
+     *
      * @param filterConfig
      */
+    @Override
     public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
@@ -119,7 +136,7 @@ public class AuthorizationFilter implements Filter {
         if (filterConfig == null) {
             return ("AuthorizationFilter()");
         }
-        StringBuffer sb = new StringBuffer("AuthorizationFilter(");
+        StringBuilder sb = new StringBuilder("AuthorizationFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
@@ -139,7 +156,7 @@ public class AuthorizationFilter implements Filter {
             pw.close();
             sw.close();
             stackTrace = sw.getBuffer().toString();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             System.out.println(ex);
         }
         return stackTrace;

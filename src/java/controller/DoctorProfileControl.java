@@ -35,7 +35,7 @@ public class DoctorProfileControl extends HttpServlet {
         DoctorDAO doctorDb = new DoctorDAO();
         Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
         request.setAttribute("doctor", doctor);
-        request.getRequestDispatcher("doctor-profile.jsp").forward(request, response);
+        request.getRequestDispatcher("/doctor/doctor-profile.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

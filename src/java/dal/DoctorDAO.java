@@ -30,7 +30,7 @@ public class DoctorDAO extends DBContext {
      * @return
      */
     public Doctor getDoctorByAccountID(int accountID) {
-        String sql = "select doctor_id,doctors.name,gender,dob,phone,email,role,Doctors.type_id,specialities.name,description,account_id,image\n"
+        String sql = "select doctor_id,doctors.name,gender,dob,phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n"
                 + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
                 + "where account_id = ?";
         try {
@@ -257,8 +257,9 @@ public class DoctorDAO extends DBContext {
         DoctorDAO doctorDb = new DoctorDAO();
         Specialities spec = new Specialities(1, "abc");
 //        Doctor d = new Doctor(20, "Le Van Nam", 1, "2000-01-01", "0123456789", "abc@gmail.com", "Head of Department", spec, "abc", "abc", 21);
-        List<Doctor> list = doctorDb.getAllDoctor();
-        List<Doctor> d = doctorDb.getDoctorByPage(list, 1, 5);
+//        List<Doctor> list = doctorDb.getAllDoctor();
+//        List<Doctor> d = doctorDb.getDoctorByPage(list, 1, 5);
+        Doctor d = doctorDb.getDoctorByAccountID(7);
         System.out.println(d);
 //        Doctor d = doctorDb.getDoctorByDoctorID(2);
 //        System.out.println(d);

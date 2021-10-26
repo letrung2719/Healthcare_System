@@ -130,7 +130,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DoctorList</servlet-name>
-        <url-pattern>/doctor</url-pattern>
+        <url-pattern>/list_doctor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewDoctorProfile</servlet-name>

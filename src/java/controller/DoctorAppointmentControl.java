@@ -48,15 +48,13 @@ public class DoctorAppointmentControl extends HttpServlet {
         List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);
         if (inputID != null) {
             int appID = Integer.parseInt(inputID);
-            System.out.println(inputID + " --------- " + appID);
             int temp = appDb.deleteAppointment(appID);
-            System.out.println(temp);
             response.sendRedirect("doctorAppointmentControl?doctorID=" + doctorID);
         } else {
             request.setAttribute("listApp", listApp);
             request.setAttribute("indexPage", indexPage);
             request.setAttribute("numberOfPage", numberOfPage);
-            request.getRequestDispatcher("doctor-appointment.jsp").forward(request, response);
+            request.getRequestDispatcher("/doctor/doctor-appointment.jsp").forward(request, response);
         }
     }
 

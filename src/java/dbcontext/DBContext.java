@@ -33,7 +33,7 @@ public class DBContext {
             String url = "jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName + "?" + condition;
 
             String username = "root";
-            String password = "trunglt27082001";
+            String password = "12345";
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             connection = DriverManager.getConnection(url, username, pass(password));

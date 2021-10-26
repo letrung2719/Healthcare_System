@@ -62,22 +62,21 @@ public class LoginControl extends HttpServlet {
             request.setAttribute("mess", resourceBundle.getString("invalid_account"));
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-
-            if (a.getAuthor_id() == 1) {
-                Doctor d = doctorDb.getDoctorByAccountID(a.getId());
-                session.setAttribute("user", d);
-            }
-            if (a.getAuthor_id() == 2) {
-                Patient p = patientDb.getPatientByAccountID(a.getId());
-                session.setAttribute("user", p);
-            }
-
             session.setAttribute("acc", a);
-
-            if (a.getAuthor_id() == 0) {
-                response.sendRedirect("admin/index.jsp");
-            } else {
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+            switch (a.getAuthor_id()) {
+                case 1:
+                    Doctor d = doctorDb.getDoctorByAccountID(a.getId());
+                    session.setAttribute("user", d);
+                    request.getRequestDispatcher("doctor/doctor-appointment.jsp").forward(request, response);
+                    break;
+                case 2:
+                    Patient p = patientDb.getPatientByAccountID(a.getId());
+                    session.setAttribute("user", p);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    break;
+                case 0:
+                    response.sendRedirect("admin/index.jsp");
+                    break;
             }
         }
     }

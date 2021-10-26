@@ -36,7 +36,7 @@ public class ServicesControl extends HttpServlet {
         List<Services> listServices = dal.getAllServices();
         request.setAttribute("listSpecialities", listSpecialities); 
         request.setAttribute("listServices", listServices); 
-        request.getRequestDispatcher("serviceslist.jsp").forward(request, response);
+        request.getRequestDispatcher("services-list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
