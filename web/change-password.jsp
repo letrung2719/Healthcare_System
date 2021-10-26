@@ -130,15 +130,15 @@
                                             <form action="change_password" method="post">
                                                 <div class="form-group">
                                                     <label>Old Password</label>
-                                                    <input type="password" class="form-control" name="oldPassword">
+                                                    <input type="password" class="form-control" name="oldPassword" value="${oldPassword}" required="">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>New Password</label>
-                                                    <input type="password" class="form-control" name="newPassword">
+                                                    <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Confirm Password</label>
-                                                    <input type="password" class="form-control" name="confirmPassword">
+                                                    <input type="password" class="form-control" name="confirmPassword"  value="${confirmPassword}" required="">
                                                 </div>
                                                 <div class="submit-section">
                                                     <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>

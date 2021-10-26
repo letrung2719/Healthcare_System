@@ -84,19 +84,33 @@ public class ChangePasswordControl extends HttpServlet {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
+        System.out.println("oldPassword : " + oldPassword);
+        System.out.println("password : " + acc.getPass());
+        System.out.println(acc.getPass().equals(oldPassword));
+        System.out.println(newPassword);
+        System.out.println(confirmPassword);
+
         AccountDAO accountDb = new AccountDAO();
         int id = acc.getId();
+        System.out.println(id);
+
         if (!acc.getPass().equals(oldPassword)) {
+            request.setAttribute("oldPassword", oldPassword);
+            request.setAttribute("confirmPassword", confirmPassword);
+            request.setAttribute("newPassword", newPassword);
             request.setAttribute("mess", resourceBundle.getString("invalid_pass"));
             request.getRequestDispatcher("change-password.jsp").forward(request, response);
         } else {
             if (!newPassword.equals(confirmPassword)) {
+                request.setAttribute("oldPassword", oldPassword);
+                request.setAttribute("newPassword", newPassword);
+                request.setAttribute("confirmPassword", confirmPassword);
                 request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
                 request.getRequestDispatcher("change-password.jsp").forward(request, response);
             } else {
                 accountDb.changePassword(newPassword, id);
-                request.setAttribute("thongbao", resourceBundle.getString("change_pass"));
-                request.getRequestDispatcher("patient_profile?id=" + id).forward(request, response);
+
+                response.sendRedirect("logout");
             }
         }
 
