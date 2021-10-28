@@ -172,15 +172,15 @@
                             <div class="load-more text-center">
                                 <ul class="pagination">
                                     <li class="page-item ">
-                                        <a class="page-link" href="doctor?page=${page-1}">Previous</a>
+                                        <a class="page-link" href="doctor-list?page=${page-1}">Previous</a>
                                     </li>
                                     <c:set var="page" value="${requestScope.page}"/>
                                     <c:forEach begin="1" end="${pageNumber}" var="i">
-                                        <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="doctor?page=${i}">${i}</a></li>
+                                        <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="doctor-list?page=${i}">${i}</a></li>
                                         </c:forEach>
 
                                     <li class="page-item">
-                                        <a class="page-link" href="doctor?page=${page+1}">Next</a>
+                                        <a class="page-link" href="doctor-list?page=${page+1}">Next</a>
                                     </li>
                                 </ul>	
                             </div>	

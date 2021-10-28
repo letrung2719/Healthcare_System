@@ -6,9 +6,8 @@
 package controller.admin;
 
 import dal.DoctorDAO;
-import dal.PatientDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author Admin
  */
 public class DeleteDoctorControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,13 +33,13 @@ public class DeleteDoctorControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id_raw=request.getParameter("id");
-        try{
-            int id=Integer.parseInt(id_raw);
+        String id_raw = request.getParameter("id");
+        try {
+            int id = Integer.parseInt(id_raw);
             DoctorDAO doctorDb = new DoctorDAO();
             doctorDb.delete(id);
             response.sendRedirect("doctor_list");
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException | SQLException e) {
             System.out.println(e);
         }
     }

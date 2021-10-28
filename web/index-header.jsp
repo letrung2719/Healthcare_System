@@ -28,7 +28,7 @@
             <c:set var="path" value="<%=request.getServletPath()%>"/>
             <ul class="main-nav">
                     <li class="${path == "/index.jsp" ? "active" : ""}"><a href="index.jsp">Home</a></li>              
-                    <li class="${path == "/doctors-list.jsp" ? "active" : ""}"><a href="list_doctor?page=1">Doctors List</a></li>
+                    <li class="${path == "/doctors-list.jsp" ? "active" : ""}"><a href="doctor-list?page=1">Doctors List</a></li>
                     <li class="${path == "/services-list.jsp" ? "active" : ""}"><a href="services">Services List</a></li>
                     <li class="${path == "/blog-list.jsp" ? "active" : ""}"><a href="blog-list">Blogs List</a></li>
                 <li class="login-link">

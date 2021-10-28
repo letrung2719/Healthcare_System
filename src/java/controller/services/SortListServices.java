@@ -3,6 +3,7 @@ package controller.services;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +19,9 @@ import model.Specialities;
  */
 @WebServlet(name = "SortListServices", urlPatterns = {"/sortlistservices"})
 public class SortListServices extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,29 +34,33 @@ public class SortListServices extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String choice = request.getParameter("id");
-        ServicesDAO dal = new ServicesDAO();
-        if (choice.equals("0")) {
-            String search = request.getParameter("txt");
-            List<Services> listServices = dal.getAllServicesSearched(search);
-            request.setAttribute("listServices", listServices);
-            request.setAttribute("tim", search);
+        try {
+            String choice = request.getParameter("id");
+            ServicesDAO dal = new ServicesDAO();
+            if (choice.equals("0")) {
+                String search = request.getParameter("txt");
+                List<Services> listServices = dal.getAllServicesSearched(search);
+                request.setAttribute("listServices", listServices);
+                request.setAttribute("tim", search);
+            }
+            if (choice.equals("1")) {
+                List<Services> listServices = dal.getAllServicesSortedUpPrice();
+                request.setAttribute("listServices", listServices);
+            }
+            if (choice.equals("2")) {
+                List<Services> listServices = dal.getAllServicesSortedDownPrice();
+                request.setAttribute("listServices", listServices);
+            }
+            if (choice.equals("3")) {
+                List<Services> listServices = dal.getAllServicesSortedSpecialities();
+                request.setAttribute("listServices", listServices);
+            }
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            request.setAttribute("listSpecialities", listSpecialities);
+            request.getRequestDispatcher("services-list.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
+            System.out.println(e);
         }
-        if (choice.equals("1")) {
-            List<Services> listServices = dal.getAllServicesSortedUpPrice();
-            request.setAttribute("listServices", listServices);
-        }
-        if (choice.equals("2")) {
-            List<Services> listServices = dal.getAllServicesSortedDownPrice();
-            request.setAttribute("listServices", listServices);
-        }
-        if (choice.equals("3")) {
-            List<Services> listServices = dal.getAllServicesSortedSpecialities();
-            request.setAttribute("listServices", listServices);
-        }
-        List<Specialities> listSpecialities = dal.getAllSpecialities();
-        request.setAttribute("listSpecialities", listSpecialities);
-        request.getRequestDispatcher("serviceslist.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

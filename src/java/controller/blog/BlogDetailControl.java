@@ -9,6 +9,7 @@ package controller.blog;
 import dal.BlogsDAO;
 import dal.DoctorDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +27,14 @@ import model.Doctor;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author admin
  */
 public class BlogDetailControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,11 +47,15 @@ public class BlogDetailControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int id = Integer.parseInt(request.getParameter("id"));
-        BlogsDAO bl = new BlogsDAO();
-        Blogs blog = bl.getBlogByBlogID(id);
-        request.setAttribute("blog", blog);
-        request.getRequestDispatcher("blog-detail.jsp").forward(request, response);  
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            BlogsDAO bl = new BlogsDAO();
+            Blogs blog = bl.getBlogByBlogID(id);
+            request.setAttribute("blog", blog);
+            request.getRequestDispatcher("blog-detail.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

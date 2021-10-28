@@ -8,6 +8,7 @@ package controller.admin;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DeleteServiceFeedbackAdControl", urlPatterns = {"/admin/delete_ser"})
 public class DeleteServiceFeedbackAdControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,17 +36,18 @@ public class DeleteServiceFeedbackAdControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-            /* TODO output your page here. You may use following sample code. */
+        try {
             String feedback_id = request.getParameter("fid");
             String serID = request.getParameter("serID");
 
             int id = Integer.parseInt(feedback_id);
             ServicesDAO feed = new ServicesDAO();
             feed.deleteComment(id);
-            request.getRequestDispatcher("/admin/serfeed?id="+serID).forward(request, response);
+            request.getRequestDispatcher("/admin-role/serfeed?id=" + serID).forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
 
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

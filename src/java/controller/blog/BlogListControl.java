@@ -7,6 +7,7 @@ package controller.blog;
 
 import dal.BlogsDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,9 @@ import model.Blogs;
  * @author admin
  */
 public class BlogListControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,10 +35,14 @@ public class BlogListControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        BlogsDAO bl = new BlogsDAO();
-        List<Blogs> listBlog = bl.getAllBlogs();
-        request.setAttribute("listBlog", listBlog);
-        request.getRequestDispatcher("blog-list.jsp").forward(request, response);
+        try {
+            BlogsDAO bl = new BlogsDAO();
+            List<Blogs> listBlog = bl.getAllBlogs();
+            request.setAttribute("listBlog", listBlog);
+            request.getRequestDispatcher("blog-list.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

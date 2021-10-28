@@ -3,6 +3,7 @@ package controller;
 import dal.PatientDAO;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import model.Patient;
  * @author admin
  */
 public class PatientProfile extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
 
     /**
@@ -26,11 +28,15 @@ public class PatientProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int patientID = Integer.parseInt(request.getParameter("id"));
-        PatientDAO patientDb = new PatientDAO();
-        Patient p = patientDb.getPatientByAccountID(patientID);
-        request.setAttribute("Users", p);
-        request.getRequestDispatcher("patient-profile.jsp").forward(request, response);
+        try {
+            int patientID = Integer.parseInt(request.getParameter("id"));
+            PatientDAO patientDb = new PatientDAO();
+            Patient p = patientDb.getPatientByAccountID(patientID);
+            request.setAttribute("Users", p);
+            request.getRequestDispatcher("patient-profile.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

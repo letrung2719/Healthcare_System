@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Appointment.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Appointment.java</span></div><h1>Appointment.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ *
+ * @author admin
+ */
+public class Appointment {
+
+    private int appointmentID;
+    private Patient patient;
+    private Doctor doctor;
+    private String date;
+    private Timetable slot;
+    private String description;
+    private int status;
+
+    /**
+     *
+     */
+<span class="nc" id="L29">    public Appointment() {</span>
+<span class="nc" id="L30">    }</span>
+
+    /**
+     *
+     * @param appointmentID
+     * @param patient
+     * @param doctor
+     * @param date
+     * @param slot
+     * @param description
+     * @param status
+     */
+<span class="nc" id="L42">    public Appointment(int appointmentID, Patient patient, Doctor doctor, String date, Timetable slot, String description, int status) {</span>
+<span class="nc" id="L43">        this.appointmentID = appointmentID;</span>
+<span class="nc" id="L44">        this.patient = patient;</span>
+<span class="nc" id="L45">        this.doctor = doctor;</span>
+<span class="nc" id="L46">        this.date = date;</span>
+<span class="nc" id="L47">        this.slot = slot;</span>
+<span class="nc" id="L48">        this.description = description;</span>
+<span class="nc" id="L49">        this.status = status;</span>
+<span class="nc" id="L50">    }</span>
+
+    /**
+     *
+     * @param patient
+     * @param doctor
+     * @param date
+     * @param slot
+     * @param description
+     * @param status
+     */
+<span class="nc" id="L61">    public Appointment(Patient patient, Doctor doctor, String date, Timetable slot, String description, int status) {</span>
+<span class="nc" id="L62">        this.patient = patient;</span>
+<span class="nc" id="L63">        this.doctor = doctor;</span>
+<span class="nc" id="L64">        this.date = date;</span>
+<span class="nc" id="L65">        this.slot = slot;</span>
+<span class="nc" id="L66">        this.description = description;</span>
+<span class="nc" id="L67">        this.status = status;</span>
+<span class="nc" id="L68">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public int getAppointmentID() {
+<span class="nc" id="L75">        return appointmentID;</span>
+    }
+
+    /**
+     *
+     * @param appointmentID
+     */
+    public void setAppointmentID(int appointmentID) {
+<span class="nc" id="L83">        this.appointmentID = appointmentID;</span>
+<span class="nc" id="L84">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public Patient getPatient() {
+<span class="nc" id="L91">        return patient;</span>
+    }
+
+    /**
+     *
+     * @param patient
+     */
+    public void setPatient(Patient patient) {
+<span class="nc" id="L99">        this.patient = patient;</span>
+<span class="nc" id="L100">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public Doctor getDoctor() {
+<span class="nc" id="L107">        return doctor;</span>
+    }
+
+    /**
+     *
+     * @param doctor
+     */
+    public void setDoctor(Doctor doctor) {
+<span class="nc" id="L115">        this.doctor = doctor;</span>
+<span class="nc" id="L116">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getDate() {
+<span class="nc" id="L123">        return date;</span>
+    }
+
+    /**
+     *
+     * @param date
+     */
+    public void setDate(String date) {
+<span class="nc" id="L131">        this.date = date;</span>
+<span class="nc" id="L132">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public Timetable getSlot() {
+<span class="nc" id="L139">        return slot;</span>
+    }
+
+    /**
+     *
+     * @param slot
+     */
+    public void setSlot(Timetable slot) {
+<span class="nc" id="L147">        this.slot = slot;</span>
+<span class="nc" id="L148">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getDescription() {
+<span class="nc" id="L155">        return description;</span>
+    }
+
+    /**
+     *
+     * @param description
+     */
+    public void setDescription(String description) {
+<span class="nc" id="L163">        this.description = description;</span>
+<span class="nc" id="L164">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public int getStatus() {
+<span class="nc" id="L171">        return status;</span>
+    }
+
+    /**
+     *
+     * @param status
+     */
+    public void setStatus(int status) {
+<span class="nc" id="L179">        this.status = status;</span>
+<span class="nc" id="L180">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L184">        return &quot;Appointment{&quot; + &quot;appointmentID=&quot; + appointmentID + &quot;, patient=&quot; + patient + &quot;, doctor=&quot; + doctor + &quot;, date=&quot; + date + &quot;, slot=&quot; + slot + &quot;, description=&quot; + description + &quot;, status=&quot; + status + &quot;}\n&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

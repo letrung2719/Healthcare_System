@@ -9,6 +9,7 @@ import dal.DoctorDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +63,7 @@ public class DoctorProfileSettting extends HttpServlet {
             System.out.println(res);
             request.setAttribute("thongbao", resourceBundle.getString("success"));
             request.getRequestDispatcher("doctor_profile?id=" + accountID).forward(request, response);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             System.out.println(ex);
         }
     }

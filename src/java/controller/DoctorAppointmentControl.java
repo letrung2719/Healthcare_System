@@ -7,6 +7,7 @@ package controller;
 
 import dal.AppointmentDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,9 @@ import model.Appointment;
  * @author Admin
  */
 public class DoctorAppointmentControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,29 +35,33 @@ public class DoctorAppointmentControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-        String inputID = request.getParameter("deleteID");
-        AppointmentDAO appDb = new AppointmentDAO();
-        int indexPage;
-        String getInputPage = request.getParameter("page");
-        if (getInputPage == null) {
-            indexPage = 1;
-        } else {
-            indexPage = Integer.parseInt(getInputPage);
-        }
-        int totalAppointment = appDb.getAllDoctorAppointment(doctorID);
-        int numberOfItem = 5;
-        int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
-        List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);
-        if (inputID != null) {
-            int appID = Integer.parseInt(inputID);
-            int temp = appDb.deleteAppointment(appID);
-            response.sendRedirect("doctorAppointmentControl?doctorID=" + doctorID);
-        } else {
-            request.setAttribute("listApp", listApp);
-            request.setAttribute("indexPage", indexPage);
-            request.setAttribute("numberOfPage", numberOfPage);
-            request.getRequestDispatcher("/doctor/doctor-appointment.jsp").forward(request, response);
+        try {
+            int doctorID = Integer.parseInt(request.getParameter("doctorID"));
+            String inputID = request.getParameter("deleteID");
+            AppointmentDAO appDb = new AppointmentDAO();
+            int indexPage;
+            String getInputPage = request.getParameter("page");
+            if (getInputPage == null) {
+                indexPage = 1;
+            } else {
+                indexPage = Integer.parseInt(getInputPage);
+            }
+            int totalAppointment = appDb.getAllDoctorAppointment(doctorID);
+            int numberOfItem = 5;
+            int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
+            List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);
+            if (inputID != null) {
+                int appID = Integer.parseInt(inputID);
+                int temp = appDb.deleteAppointment(appID);
+                response.sendRedirect(request.getContextPath() + "/doctorAppointmentControl?doctorID=" + doctorID);
+            } else {
+                request.setAttribute("listApp", listApp);
+                request.setAttribute("indexPage", indexPage);
+                request.setAttribute("numberOfPage", numberOfPage);
+                request.getRequestDispatcher("/doctor-role/doctor-appointment.jsp").forward(request, response);
+            }
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
         }
     }
 

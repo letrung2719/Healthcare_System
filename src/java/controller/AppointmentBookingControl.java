@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
@@ -94,7 +95,7 @@ public class AppointmentBookingControl extends HttpServlet {
 
                 request.setAttribute("doctor", d);
                 request.getRequestDispatcher("booking.jsp").forward(request, response);
-            } catch (IOException | NumberFormatException | ServletException e) {
+            } catch (IOException | NumberFormatException | ServletException | SQLException e) {
                 System.out.println(e);
             }
         }
@@ -140,7 +141,7 @@ public class AppointmentBookingControl extends HttpServlet {
             }
             request.setAttribute("appointment", a);
             request.getRequestDispatcher("booking-confirm.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | ServletException e) {
+        } catch (IOException | NumberFormatException | ServletException | SQLException e) {
             System.out.println(e);
         }
     }

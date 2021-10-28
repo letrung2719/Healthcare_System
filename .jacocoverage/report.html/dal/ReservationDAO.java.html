@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ReservationDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dal</a> &gt; <span class="el_source">ReservationDAO.java</span></div><h1>ReservationDAO.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dal;
+
+import dbcontext.DBContext;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import java.sql.SQLException;
+import model.Reservation;
+
+/**
+ *
+ * @author Admin
+ */
+<span class="fc" id="L19">public class ReservationDAO extends DBContext {</span>
+<span class="fc" id="L20">    PreparedStatement st = null;</span>
+<span class="fc" id="L21">    ResultSet rs = null;</span>
+
+    /**
+     *
+     * @param r
+     * @return
+     */
+    public int addNewReservation(Reservation r) {
+<span class="fc" id="L29">        String sql = &quot;insert into Reservations (date,patient_id,service_id,price,slot_id,description,status) values (?,?,?,?,?,?,1)&quot;;</span>
+        try {
+<span class="fc" id="L31">             st = connection.prepareStatement(sql);</span>
+<span class="nc" id="L32">            st.setString(1, r.getDate());</span>
+<span class="nc" id="L33">            st.setInt(2, r.getPatient().getPatientID());</span>
+<span class="nc" id="L34">            st.setInt(3, r.getService().getService_id());</span>
+<span class="nc" id="L35">            st.setDouble(4, r.getService().getPrice());</span>
+<span class="nc" id="L36">            st.setInt(5, r.getSlot().getSlotID());</span>
+<span class="nc" id="L37">            st.setString(6, r.getDescription());</span>
+            
+<span class="nc" id="L39">            return st.executeUpdate();</span>
+<span class="nc" id="L40">        } catch (SQLException e) {</span>
+<span class="nc" id="L41">            System.out.println(e);</span>
+        }
+<span class="nc" id="L43">        return 0;</span>
+    }
+    
+    public int countDuplicateReservationByPatientID(int patientID, int serviceID) {
+
+<span class="fc" id="L48">        String sql = &quot;SELECT\n&quot;</span>
+                + &quot;   COUNT(*)\n&quot;
+                + &quot;FROM\n&quot;
+                + &quot;    reservations r\n&quot;
+                + &quot;where \n&quot;
+                + &quot;	patient_id=&quot;+patientID+&quot; and service_id=&quot;+serviceID+&quot;\n&quot;
+                + &quot;GROUP BY\n&quot;
+                + &quot;    r.date, r.slot_id, r.patient_id&quot;;
+        try {
+<span class="fc" id="L57">            st = connection.prepareStatement(sql);</span>
+<span class="fc" id="L58">            rs = st.executeQuery();</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L60">                return rs.getInt(1);</span>
+            }
+<span class="nc" id="L62">        } catch (SQLException e) {</span>
+
+<span class="fc" id="L64">        }</span>
+<span class="fc" id="L65">        return 0;</span>
+    }
+    
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+<span class="nc" id="L73">        ReservationDAO db1 = new ReservationDAO();</span>
+<span class="nc" id="L74">        PatientDAO db2 = new PatientDAO();</span>
+<span class="nc" id="L75">        ServicesDAO db3 = new ServicesDAO();</span>
+<span class="nc" id="L76">        TimetableDAO db4 = new TimetableDAO();</span>
+<span class="nc" id="L77">        Reservation r = new Reservation(&quot;2021/10/15&quot;,db2.getPatientByPatientID(2),db3.getServiceByID(&quot;3&quot;),db3.getServiceByID(&quot;3&quot;).getPrice(),db4.getTimeBySlotID(4),&quot;&quot;);</span>
+<span class="nc" id="L78">        System.out.println(db1.addNewReservation(r));</span>
+<span class="nc" id="L79">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

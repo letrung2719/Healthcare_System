@@ -1,11 +1,14 @@
 package dal;
 
 import dbcontext.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.ServiceFeedbacks;
 import model.ServiceFeedbacksAd;
 import model.Services;
@@ -15,20 +18,24 @@ import model.Specialities;
  *
  * @author admin
  */
-public class ServicesDAO extends DBContext {
+public class ServicesDAO {
 
     PreparedStatement ps = null;
     ResultSet rs = null;
+
+    DBContext dbc = new DBContext();
+    Connection connection = null;
 
     /**
      *
      * @param id
      * @return
      */
-    public Services getServiceByID(String id) {
+    public Services getServiceByID(String id) throws SQLException {
         String sql = "select * from services\n"
                 + "where service_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -42,6 +49,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return null;
     }
@@ -51,12 +62,13 @@ public class ServicesDAO extends DBContext {
      * @param id
      * @return
      */
-    public List<Services> getTop4Last(String id) {
+    public List<Services> getTop4Last(String id) throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select * from services\n"
                 + "where type_id = ?\n"
                 + "order by service_id desc limit 4";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -71,6 +83,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -80,10 +96,11 @@ public class ServicesDAO extends DBContext {
      * @param id
      * @return
      */
-    public Specialities getSpecByID(String id) {
+    public Specialities getSpecByID(String id) throws SQLException {
         String sql = "select * from specialities\n"
                 + "where type_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -93,6 +110,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return null;
     }
@@ -101,10 +122,11 @@ public class ServicesDAO extends DBContext {
      *
      * @return
      */
-    public List<Specialities> getAllSpecialities() {
+    public List<Specialities> getAllSpecialities() throws SQLException {
         List<Specialities> list = new ArrayList<>();
         String sql = "select * from specialities";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -112,6 +134,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -120,7 +146,7 @@ public class ServicesDAO extends DBContext {
      *
      * @return
      */
-    public List<Services> getAllServices() {
+    public List<Services> getAllServices() throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select service_id\n"
                 + "      ,title\n"
@@ -130,6 +156,7 @@ public class ServicesDAO extends DBContext {
                 + "      ,price\n"
                 + "from services join specialities on services.type_id = specialities.type_id";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -143,6 +170,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -152,7 +183,7 @@ public class ServicesDAO extends DBContext {
      * @param name
      * @return
      */
-    public List<Services> getAllServicesSearched(String name) {
+    public List<Services> getAllServicesSearched(String name) throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select service_id\n"
                 + "      ,title\n"
@@ -162,6 +193,7 @@ public class ServicesDAO extends DBContext {
                 + "      ,price\n"
                 + "from services join specialities on services.type_id = specialities.type_id where title like ? or specialities.name like ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + name + "%");
             ps.setString(2, "%" + name + "%");
@@ -177,6 +209,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -185,7 +221,7 @@ public class ServicesDAO extends DBContext {
      *
      * @return
      */
-    public List<Services> getAllServicesSortedSpecialities() {
+    public List<Services> getAllServicesSortedSpecialities() throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select service_id\n"
                 + "      ,title\n"
@@ -195,6 +231,7 @@ public class ServicesDAO extends DBContext {
                 + "      ,price\n"
                 + "from services join specialities on services.type_id = specialities.type_id order by services.type_id asc";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -208,6 +245,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -216,7 +257,7 @@ public class ServicesDAO extends DBContext {
      *
      * @return
      */
-    public List<Services> getAllServicesSortedUpPrice() {
+    public List<Services> getAllServicesSortedUpPrice() throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select service_id\n"
                 + "      ,title\n"
@@ -226,6 +267,7 @@ public class ServicesDAO extends DBContext {
                 + "      ,price\n"
                 + "from services join specialities on services.type_id = specialities.type_id order by services.price desc";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -239,6 +281,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -247,7 +293,7 @@ public class ServicesDAO extends DBContext {
      *
      * @return
      */
-    public List<Services> getAllServicesSortedDownPrice() {
+    public List<Services> getAllServicesSortedDownPrice() throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select service_id\n"
                 + "      ,title\n"
@@ -257,6 +303,7 @@ public class ServicesDAO extends DBContext {
                 + "      ,price\n"
                 + "from services join specialities on services.type_id = specialities.type_id order by services.price asc";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -270,6 +317,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -279,10 +330,11 @@ public class ServicesDAO extends DBContext {
      * @param id
      * @return
      */
-    public List<Services> getAllServicesByTypeID(String id) {
+    public List<Services> getAllServicesByTypeID(String id) throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select * from services where type_id=?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -297,6 +349,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -306,7 +362,7 @@ public class ServicesDAO extends DBContext {
      * @param listSpec
      * @return
      */
-    public List<Services> searchSpecialities(List<String> listSpec) {
+    public List<Services> searchSpecialities(List<String> listSpec) throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select service_id\n"
                 + "      ,title\n"
@@ -327,6 +383,7 @@ public class ServicesDAO extends DBContext {
         }
         System.out.println(sql);
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -340,6 +397,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -348,7 +409,7 @@ public class ServicesDAO extends DBContext {
      *
      * @return
      */
-    public List<Services> getAllServiceDashboard() {
+    public List<Services> getAllServiceDashboard() throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select services.service_id\n"
                 + "      ,title\n"
@@ -361,6 +422,7 @@ public class ServicesDAO extends DBContext {
                 + "from services join service_feedbacks on services.service_id = service_feedbacks.service_id\n"
                 + "group by services.service_id,title,type_id,image,price";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -374,6 +436,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -383,13 +449,13 @@ public class ServicesDAO extends DBContext {
      * @param id
      * @return
      */
-    public List<ServiceFeedbacksAd> getAllCommentAd(String id) {
+    public List<ServiceFeedbacksAd> getAllCommentAd(String id) throws SQLException {
         List<ServiceFeedbacksAd> list = new ArrayList<>();
         String sql = "select feedback_id,content,rate,patients.image,Patients.name,service_id\n"
                 + "FROM Service_Feedbacks join Patients \n"
                 + "ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ?";
         try {
-
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -404,6 +470,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -417,10 +487,11 @@ public class ServicesDAO extends DBContext {
      * @param patientID
      * @param serviceID
      */
-    public void addComment(String comment, String rate, int patientID, String serviceID) {
+    public void addComment(String comment, String rate, int patientID, String serviceID) throws SQLException {
         String sql = "INSERT INTO Service_Feedbacks (content,rate,patient_id,service_id)\n"
                 + "VALUES (?,?,?,?);";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, comment);
             ps.setString(2, rate);
@@ -429,6 +500,10 @@ public class ServicesDAO extends DBContext {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
     }
 
@@ -436,14 +511,19 @@ public class ServicesDAO extends DBContext {
      *
      * @param fid
      */
-    public void deleteComment(int fid) {
+    public void deleteComment(int fid) throws SQLException {
         String sql = "delete from Service_Feedbacks where feedback_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, fid);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
     }
 
@@ -452,7 +532,7 @@ public class ServicesDAO extends DBContext {
      * @param id
      * @return
      */
-    public List<ServiceFeedbacks> getAllComment(String id) {
+    public List<ServiceFeedbacks> getAllComment(String id) throws SQLException {
         List<ServiceFeedbacks> list = new ArrayList<>();
         String sql = "SELECT feedback_id\n"
                 + "      ,content\n"
@@ -461,6 +541,7 @@ public class ServicesDAO extends DBContext {
                 + "      ,service_id\n"
                 + "  FROM Service_Feedbacks join Patients ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -474,6 +555,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -484,7 +569,7 @@ public class ServicesDAO extends DBContext {
      * @param service_id
      * @return
      */
-    public List<ServiceFeedbacks> checkPatientComment(int patient_id, String service_id) {
+    public List<ServiceFeedbacks> checkPatientComment(int patient_id, String service_id) throws SQLException {
         List<ServiceFeedbacks> list = new ArrayList<>();
         String sql = "SELECT feedback_id\n"
                 + "      ,content\n"
@@ -493,6 +578,7 @@ public class ServicesDAO extends DBContext {
                 + "      ,service_id\n"
                 + "  FROM Service_Feedbacks where patient_id = ? and service_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, patient_id);
             ps.setString(2, service_id);
@@ -507,6 +593,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -516,12 +606,13 @@ public class ServicesDAO extends DBContext {
      * @param service_id
      * @return
      */
-    public int averageRateServices(String service_id) {
+    public int averageRateServices(String service_id) throws SQLException {
         int average = 0;
         String sql = "SELECT ROUND(AVG(rate),0)\n"
                 + "FROM Service_Feedbacks\n"
                 + "where service_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, service_id);
             rs = ps.executeQuery();
@@ -530,6 +621,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return average;
     }
@@ -540,7 +635,7 @@ public class ServicesDAO extends DBContext {
      * @param star
      * @return
      */
-    public List<ServiceFeedbacks> getAllCommentSortedByStar(String id, String star) {
+    public List<ServiceFeedbacks> getAllCommentSortedByStar(String id, String star) throws SQLException {
         List<ServiceFeedbacks> list = new ArrayList<>();
         String sql = "SELECT feedback_id\n"
                 + "      ,content\n"
@@ -549,6 +644,7 @@ public class ServicesDAO extends DBContext {
                 + "      ,service_id\n"
                 + "  FROM Service_Feedbacks join Patients ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ? and rate = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             ps.setString(2, star);
@@ -563,6 +659,10 @@ public class ServicesDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -573,10 +673,11 @@ public class ServicesDAO extends DBContext {
      * @param rate
      * @param feedbackID
      */
-    public void editComment(String comment, String rate, String feedbackID) {
+    public void editComment(String comment, String rate, String feedbackID) throws SQLException {
         String sql = "update Service_Feedbacks set content = ?, rate=?\n"
                 + " where feedback_id=?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, comment);
             ps.setString(2, rate);
@@ -584,6 +685,10 @@ public class ServicesDAO extends DBContext {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
     }
 
@@ -592,9 +697,14 @@ public class ServicesDAO extends DBContext {
      * @param args
      */
     public static void main(String[] args) {
-        ServicesDAO dao = new ServicesDAO();
+        try {
+            ServicesDAO dao = new ServicesDAO();
 //        List<Specialities> list = dao.getAllSpecialities();
-        List<Services> listS = dao.getAllServicesSortedDownPrice();
-        System.out.println(listS);
+            List<Services> listS = dao.getAllServicesSortedDownPrice();
+            List<Specialities> ls = dao.getAllSpecialities();
+            System.out.println(ls);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ServicesDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dal</a> &gt; <span class="el_source">ServicesDAO.java</span></div><h1>ServicesDAO.java</h1><pre class="source lang-java linenums">package dal;
+
+import dbcontext.DBContext;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.ServiceFeedbacks;
+import model.ServiceFeedbacksAd;
+import model.Services;
+import model.Specialities;
+
+/**
+ *
+ * @author admin
+ */
+<span class="nc" id="L18">public class ServicesDAO extends DBContext {</span>
+
+<span class="nc" id="L20">    PreparedStatement ps = null;</span>
+<span class="nc" id="L21">    ResultSet rs = null;</span>
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Services getServiceByID(String id) {
+<span class="nc" id="L29">        String sql = &quot;select * from services\n&quot;</span>
+                + &quot;where service_id = ?&quot;;
+        try {
+<span class="nc" id="L32">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L33">            ps.setString(1, id);</span>
+<span class="nc" id="L34">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L36">                return new Services(rs.getInt(1),</span>
+<span class="nc" id="L37">                        rs.getString(2),</span>
+<span class="nc" id="L38">                        rs.getString(3),</span>
+<span class="nc" id="L39">                        rs.getString(4),</span>
+<span class="nc" id="L40">                        rs.getString(5),</span>
+<span class="nc" id="L41">                        rs.getInt(6));</span>
+            }
+<span class="nc" id="L43">        } catch (SQLException e) {</span>
+<span class="nc" id="L44">            System.out.println(e);</span>
+<span class="nc" id="L45">        }</span>
+<span class="nc" id="L46">        return null;</span>
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public List&lt;Services&gt; getTop4Last(String id) {
+<span class="nc" id="L55">        List&lt;Services&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L56">        String sql = &quot;select * from services\n&quot;</span>
+                + &quot;where type_id = ?\n&quot;
+                + &quot;order by service_id desc limit 4&quot;;
+        try {
+<span class="nc" id="L60">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L61">            ps.setString(1, id);</span>
+<span class="nc" id="L62">            rs = ps.executeQuery();</span>
+
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L65">                list.add(new Services(rs.getInt(1),</span>
+<span class="nc" id="L66">                        rs.getString(2),</span>
+<span class="nc" id="L67">                        rs.getString(3),</span>
+<span class="nc" id="L68">                        rs.getString(4),</span>
+<span class="nc" id="L69">                        rs.getString(5),</span>
+<span class="nc" id="L70">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L72">        } catch (SQLException e) {</span>
+<span class="nc" id="L73">            System.out.println(e);</span>
+<span class="nc" id="L74">        }</span>
+<span class="nc" id="L75">        return list;</span>
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Specialities getSpecByID(String id) {
+<span class="nc" id="L84">        String sql = &quot;select * from specialities\n&quot;</span>
+                + &quot;where type_id = ?&quot;;
+        try {
+<span class="nc" id="L87">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L88">            ps.setString(1, id);</span>
+<span class="nc" id="L89">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L91">                return new Specialities(rs.getInt(1),</span>
+<span class="nc" id="L92">                        rs.getString(2));</span>
+            }
+<span class="nc" id="L94">        } catch (SQLException e) {</span>
+<span class="nc" id="L95">            System.out.println(e);</span>
+<span class="nc" id="L96">        }</span>
+<span class="nc" id="L97">        return null;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List&lt;Specialities&gt; getAllSpecialities() {
+<span class="nc" id="L105">        List&lt;Specialities&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L106">        String sql = &quot;select * from specialities&quot;;</span>
+        try {
+<span class="nc" id="L108">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L109">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L111">                list.add(new Specialities(rs.getInt(1), rs.getString(2)));</span>
+            }
+<span class="nc" id="L113">        } catch (SQLException e) {</span>
+<span class="nc" id="L114">            System.out.println(e);</span>
+<span class="nc" id="L115">        }</span>
+<span class="nc" id="L116">        return list;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List&lt;Services&gt; getAllServices() {
+<span class="nc" id="L124">        List&lt;Services&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L125">        String sql = &quot;select service_id\n&quot;</span>
+                + &quot;      ,title\n&quot;
+                + &quot;      ,specialities.name\n&quot;
+                + &quot;      ,image\n&quot;
+                + &quot;      ,description\n&quot;
+                + &quot;      ,price\n&quot;
+                + &quot;from services join specialities on services.type_id = specialities.type_id&quot;;
+        try {
+<span class="nc" id="L133">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L134">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L136">                list.add(new Services(</span>
+<span class="nc" id="L137">                        rs.getInt(1),</span>
+<span class="nc" id="L138">                        rs.getString(2),</span>
+<span class="nc" id="L139">                        rs.getString(3),</span>
+<span class="nc" id="L140">                        rs.getString(4),</span>
+<span class="nc" id="L141">                        rs.getString(5),</span>
+<span class="nc" id="L142">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L144">        } catch (SQLException e) {</span>
+<span class="nc" id="L145">            System.out.println(e);</span>
+<span class="nc" id="L146">        }</span>
+<span class="nc" id="L147">        return list;</span>
+    }
+
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public List&lt;Services&gt; getAllServicesSearched(String name) {
+<span class="nc" id="L156">        List&lt;Services&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L157">        String sql = &quot;select service_id\n&quot;</span>
+                + &quot;      ,title\n&quot;
+                + &quot;      ,specialities.name\n&quot;
+                + &quot;      ,image\n&quot;
+                + &quot;      ,description\n&quot;
+                + &quot;      ,price\n&quot;
+                + &quot;from services join specialities on services.type_id = specialities.type_id where title like ? or specialities.name like ?&quot;;
+        try {
+<span class="nc" id="L165">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L166">            ps.setString(1, &quot;%&quot; + name + &quot;%&quot;);</span>
+<span class="nc" id="L167">            ps.setString(2, &quot;%&quot; + name + &quot;%&quot;);</span>
+<span class="nc" id="L168">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L170">                list.add(new Services(</span>
+<span class="nc" id="L171">                        rs.getInt(1),</span>
+<span class="nc" id="L172">                        rs.getString(2),</span>
+<span class="nc" id="L173">                        rs.getString(3),</span>
+<span class="nc" id="L174">                        rs.getString(4),</span>
+<span class="nc" id="L175">                        rs.getString(5),</span>
+<span class="nc" id="L176">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L178">        } catch (SQLException e) {</span>
+<span class="nc" id="L179">            System.out.println(e);</span>
+<span class="nc" id="L180">        }</span>
+<span class="nc" id="L181">        return list;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List&lt;Services&gt; getAllServicesSortedSpecialities() {
+<span class="nc" id="L189">        List&lt;Services&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L190">        String sql = &quot;select service_id\n&quot;</span>
+                + &quot;      ,title\n&quot;
+                + &quot;      ,specialities.name\n&quot;
+                + &quot;      ,image\n&quot;
+                + &quot;      ,description\n&quot;
+                + &quot;      ,price\n&quot;
+                + &quot;from services join specialities on services.type_id = specialities.type_id order by services.type_id asc&quot;;
+        try {
+<span class="nc" id="L198">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L199">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L201">                list.add(new Services(</span>
+<span class="nc" id="L202">                        rs.getInt(1),</span>
+<span class="nc" id="L203">                        rs.getString(2),</span>
+<span class="nc" id="L204">                        rs.getString(3),</span>
+<span class="nc" id="L205">                        rs.getString(4),</span>
+<span class="nc" id="L206">                        rs.getString(5),</span>
+<span class="nc" id="L207">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L209">        } catch (SQLException e) {</span>
+<span class="nc" id="L210">            System.out.println(e);</span>
+<span class="nc" id="L211">        }</span>
+<span class="nc" id="L212">        return list;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List&lt;Services&gt; getAllServicesSortedUpPrice() {
+<span class="nc" id="L220">        List&lt;Services&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L221">        String sql = &quot;select service_id\n&quot;</span>
+                + &quot;      ,title\n&quot;
+                + &quot;      ,specialities.name\n&quot;
+                + &quot;      ,image\n&quot;
+                + &quot;      ,description\n&quot;
+                + &quot;      ,price\n&quot;
+                + &quot;from services join specialities on services.type_id = specialities.type_id order by services.price desc&quot;;
+        try {
+<span class="nc" id="L229">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L230">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L232">                list.add(new Services(</span>
+<span class="nc" id="L233">                        rs.getInt(1),</span>
+<span class="nc" id="L234">                        rs.getString(2),</span>
+<span class="nc" id="L235">                        rs.getString(3),</span>
+<span class="nc" id="L236">                        rs.getString(4),</span>
+<span class="nc" id="L237">                        rs.getString(5),</span>
+<span class="nc" id="L238">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L240">        } catch (SQLException e) {</span>
+<span class="nc" id="L241">            System.out.println(e);</span>
+<span class="nc" id="L242">        }</span>
+<span class="nc" id="L243">        return list;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List&lt;Services&gt; getAllServicesSortedDownPrice() {
+<span class="nc" id="L251">        List&lt;Services&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L252">        String sql = &quot;select service_id\n&quot;</span>
+                + &quot;      ,title\n&quot;
+                + &quot;      ,specialities.name\n&quot;
+                + &quot;      ,image\n&quot;
+                + &quot;      ,description\n&quot;
+                + &quot;      ,price\n&quot;
+                + &quot;from services join specialities on services.type_id = specialities.type_id order by services.price asc&quot;;
+        try {
+<span class="nc" id="L260">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L261">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L263">                list.add(new Services(</span>
+<span class="nc" id="L264">                        rs.getInt(1),</span>
+<span class="nc" id="L265">                        rs.getString(2),</span>
+<span class="nc" id="L266">                        rs.getString(3),</span>
+<span class="nc" id="L267">                        rs.getString(4),</span>
+<span class="nc" id="L268">                        rs.getString(5),</span>
+<span class="nc" id="L269">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L271">        } catch (SQLException e) {</span>
+<span class="nc" id="L272">            System.out.println(e);</span>
+<span class="nc" id="L273">        }</span>
+<span class="nc" id="L274">        return list;</span>
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public List&lt;Services&gt; getAllServicesByTypeID(String id) {
+<span class="nc" id="L283">        List&lt;Services&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L284">        String sql = &quot;select * from services where type_id=?&quot;;</span>
+        try {
+<span class="nc" id="L286">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L287">            ps.setString(1, id);</span>
+<span class="nc" id="L288">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L290">                list.add(new Services(</span>
+<span class="nc" id="L291">                        rs.getInt(1),</span>
+<span class="nc" id="L292">                        rs.getString(2),</span>
+<span class="nc" id="L293">                        rs.getString(3),</span>
+<span class="nc" id="L294">                        rs.getString(4),</span>
+<span class="nc" id="L295">                        rs.getString(5),</span>
+<span class="nc" id="L296">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L298">        } catch (SQLException e) {</span>
+<span class="nc" id="L299">            System.out.println(e);</span>
+<span class="nc" id="L300">        }</span>
+<span class="nc" id="L301">        return list;</span>
+    }
+
+    /**
+     *
+     * @param listSpec
+     * @return
+     */
+    public List&lt;Services&gt; searchSpecialities(List&lt;String&gt; listSpec) {
+<span class="nc" id="L310">        List&lt;Services&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L311">        String sql = &quot;select service_id\n&quot;</span>
+                + &quot;      ,title\n&quot;
+                + &quot;      ,specialities.name\n&quot;
+                + &quot;      ,image\n&quot;
+                + &quot;      ,description\n&quot;
+                + &quot;      ,price\n&quot;
+                + &quot;from services join specialities on services.type_id = specialities.type_id where 1=1 &quot;;
+<span class="nc bnc" id="L318" title="All 4 branches missed.">        if (listSpec != null &amp;&amp; !listSpec.isEmpty()) {</span>
+<span class="nc" id="L319">            sql += &quot;and (&quot;;</span>
+<span class="nc bnc" id="L320" title="All 2 branches missed.">            for (int i = 0; i &lt; listSpec.size(); i++) {</span>
+<span class="nc" id="L321">                sql += &quot;specialities.name = '&quot; + listSpec.get(i) + &quot;' &quot;;</span>
+<span class="nc bnc" id="L322" title="All 2 branches missed.">                if (i &lt; listSpec.size() - 1) {</span>
+<span class="nc" id="L323">                    sql += &quot; or &quot;;</span>
+                }
+            }
+<span class="nc" id="L326">            sql += &quot;)&quot;;</span>
+        }
+<span class="nc" id="L328">        System.out.println(sql);</span>
+        try {
+<span class="nc" id="L330">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L331">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L332" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L333">                list.add(new Services(</span>
+<span class="nc" id="L334">                        rs.getInt(1),</span>
+<span class="nc" id="L335">                        rs.getString(2),</span>
+<span class="nc" id="L336">                        rs.getString(3),</span>
+<span class="nc" id="L337">                        rs.getString(4),</span>
+<span class="nc" id="L338">                        rs.getString(5),</span>
+<span class="nc" id="L339">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L341">        } catch (SQLException e) {</span>
+<span class="nc" id="L342">            System.out.println(e);</span>
+<span class="nc" id="L343">        }</span>
+<span class="nc" id="L344">        return list;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List&lt;Services&gt; getAllServiceDashboard() {
+<span class="nc" id="L352">        List&lt;Services&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L353">        String sql = &quot;select services.service_id\n&quot;</span>
+                + &quot;      ,title\n&quot;
+                + &quot;      ,type_id\n&quot;
+                + &quot;      ,image\n&quot;
+                + &quot;      ,(select AVG(rate)\n&quot;
+                + &quot;        from service_feedbacks\n&quot;
+                + &quot;        where service_id =services.service_id) as rate\n&quot;
+                + &quot;      ,price\n&quot;
+                + &quot;from services join service_feedbacks on services.service_id = service_feedbacks.service_id\n&quot;
+                + &quot;group by services.service_id,title,type_id,image,price&quot;;
+        try {
+<span class="nc" id="L364">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L365">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L366" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L367">                list.add(new Services(</span>
+<span class="nc" id="L368">                        rs.getInt(1),</span>
+<span class="nc" id="L369">                        rs.getString(2),</span>
+<span class="nc" id="L370">                        rs.getString(3),</span>
+<span class="nc" id="L371">                        rs.getString(4),</span>
+<span class="nc" id="L372">                        rs.getString(5),</span>
+<span class="nc" id="L373">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L375">        } catch (SQLException e) {</span>
+<span class="nc" id="L376">            System.out.println(e);</span>
+<span class="nc" id="L377">        }</span>
+<span class="nc" id="L378">        return list;</span>
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public List&lt;ServiceFeedbacksAd&gt; getAllCommentAd(String id) {
+<span class="nc" id="L387">        List&lt;ServiceFeedbacksAd&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L388">        String sql = &quot;select feedback_id,content,rate,patients.image,Patients.name,service_id\n&quot;</span>
+                + &quot;FROM Service_Feedbacks join Patients \n&quot;
+                + &quot;ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ?&quot;;
+        try {
+
+<span class="nc" id="L393">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L394">            ps.setString(1, id);</span>
+<span class="nc" id="L395">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L396" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L397">                list.add(new ServiceFeedbacksAd(</span>
+<span class="nc" id="L398">                        rs.getInt(1),</span>
+<span class="nc" id="L399">                        rs.getString(2),</span>
+<span class="nc" id="L400">                        rs.getInt(3),</span>
+<span class="nc" id="L401">                        rs.getString(4),</span>
+<span class="nc" id="L402">                        rs.getString(5),</span>
+<span class="nc" id="L403">                        rs.getInt(6)));</span>
+            }
+<span class="nc" id="L405">        } catch (SQLException e) {</span>
+<span class="nc" id="L406">            System.out.println(e);</span>
+<span class="nc" id="L407">        }</span>
+<span class="nc" id="L408">        return list;</span>
+    }
+
+    //feedback
+    //service feedback
+    /**
+     *
+     * @param comment
+     * @param rate
+     * @param patientID
+     * @param serviceID
+     */
+    public void addComment(String comment, String rate, int patientID, String serviceID) {
+<span class="nc" id="L421">        String sql = &quot;INSERT INTO Service_Feedbacks (content,rate,patient_id,service_id)\n&quot;</span>
+                + &quot;VALUES (?,?,?,?);&quot;;
+        try {
+<span class="nc" id="L424">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L425">            ps.setString(1, comment);</span>
+<span class="nc" id="L426">            ps.setString(2, rate);</span>
+<span class="nc" id="L427">            ps.setInt(3, patientID);</span>
+<span class="nc" id="L428">            ps.setString(4, serviceID);</span>
+<span class="nc" id="L429">            ps.executeUpdate();</span>
+<span class="nc" id="L430">        } catch (SQLException e) {</span>
+<span class="nc" id="L431">            System.out.println(e);</span>
+<span class="nc" id="L432">        }</span>
+<span class="nc" id="L433">    }</span>
+
+    /**
+     *
+     * @param fid
+     */
+    public void deleteComment(int fid) {
+<span class="nc" id="L440">        String sql = &quot;delete from Service_Feedbacks where feedback_id = ?&quot;;</span>
+        try {
+<span class="nc" id="L442">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L443">            ps.setInt(1, fid);</span>
+<span class="nc" id="L444">            ps.executeUpdate();</span>
+<span class="nc" id="L445">        } catch (SQLException e) {</span>
+<span class="nc" id="L446">            System.out.println(e);</span>
+<span class="nc" id="L447">        }</span>
+<span class="nc" id="L448">    }</span>
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public List&lt;ServiceFeedbacks&gt; getAllComment(String id) {
+<span class="nc" id="L456">        List&lt;ServiceFeedbacks&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L457">        String sql = &quot;SELECT feedback_id\n&quot;</span>
+                + &quot;      ,content\n&quot;
+                + &quot;      ,rate\n&quot;
+                + &quot;      ,Patients.name\n&quot;
+                + &quot;      ,service_id\n&quot;
+                + &quot;  FROM Service_Feedbacks join Patients ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ?&quot;;
+        try {
+<span class="nc" id="L464">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L465">            ps.setString(1, id);</span>
+<span class="nc" id="L466">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L467" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L468">                list.add(new ServiceFeedbacks(</span>
+<span class="nc" id="L469">                        rs.getInt(1),</span>
+<span class="nc" id="L470">                        rs.getString(2),</span>
+<span class="nc" id="L471">                        rs.getInt(3),</span>
+<span class="nc" id="L472">                        rs.getString(4),</span>
+<span class="nc" id="L473">                        rs.getInt(5)));</span>
+            }
+<span class="nc" id="L475">        } catch (SQLException e) {</span>
+<span class="nc" id="L476">            System.out.println(e);</span>
+<span class="nc" id="L477">        }</span>
+<span class="nc" id="L478">        return list;</span>
+    }
+
+    /**
+     *
+     * @param patient_id
+     * @param service_id
+     * @return
+     */
+    public List&lt;ServiceFeedbacks&gt; checkPatientComment(int patient_id, String service_id) {
+<span class="nc" id="L488">        List&lt;ServiceFeedbacks&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L489">        String sql = &quot;SELECT feedback_id\n&quot;</span>
+                + &quot;      ,content\n&quot;
+                + &quot;      ,rate\n&quot;
+                + &quot;      ,patient_id\n&quot;
+                + &quot;      ,service_id\n&quot;
+                + &quot;  FROM Service_Feedbacks where patient_id = ? and service_id = ?&quot;;
+        try {
+<span class="nc" id="L496">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L497">            ps.setInt(1, patient_id);</span>
+<span class="nc" id="L498">            ps.setString(2, service_id);</span>
+<span class="nc" id="L499">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L500" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L501">                list.add(new ServiceFeedbacks(</span>
+<span class="nc" id="L502">                        rs.getInt(1),</span>
+<span class="nc" id="L503">                        rs.getString(2),</span>
+<span class="nc" id="L504">                        rs.getInt(3),</span>
+<span class="nc" id="L505">                        rs.getString(4),</span>
+<span class="nc" id="L506">                        rs.getInt(5)));</span>
+            }
+<span class="nc" id="L508">        } catch (SQLException e) {</span>
+<span class="nc" id="L509">            System.out.println(e);</span>
+<span class="nc" id="L510">        }</span>
+<span class="nc" id="L511">        return list;</span>
+    }
+
+    /**
+     *
+     * @param service_id
+     * @return
+     */
+    public int averageRateServices(String service_id) {
+<span class="nc" id="L520">        int average = 0;</span>
+<span class="nc" id="L521">        String sql = &quot;SELECT ROUND(AVG(rate),0)\n&quot;</span>
+                + &quot;FROM Service_Feedbacks\n&quot;
+                + &quot;where service_id = ?&quot;;
+        try {
+<span class="nc" id="L525">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L526">            ps.setString(1, service_id);</span>
+<span class="nc" id="L527">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L528" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L529">                average = rs.getInt(1);</span>
+            }
+<span class="nc" id="L531">        } catch (SQLException e) {</span>
+<span class="nc" id="L532">            System.out.println(e);</span>
+<span class="nc" id="L533">        }</span>
+<span class="nc" id="L534">        return average;</span>
+    }
+
+    /**
+     *
+     * @param id
+     * @param star
+     * @return
+     */
+    public List&lt;ServiceFeedbacks&gt; getAllCommentSortedByStar(String id, String star) {
+<span class="nc" id="L544">        List&lt;ServiceFeedbacks&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L545">        String sql = &quot;SELECT feedback_id\n&quot;</span>
+                + &quot;      ,content\n&quot;
+                + &quot;      ,rate\n&quot;
+                + &quot;      ,Patients.name\n&quot;
+                + &quot;      ,service_id\n&quot;
+                + &quot;  FROM Service_Feedbacks join Patients ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ? and rate = ?&quot;;
+        try {
+<span class="nc" id="L552">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L553">            ps.setString(1, id);</span>
+<span class="nc" id="L554">            ps.setString(2, star);</span>
+<span class="nc" id="L555">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L556" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L557">                list.add(new ServiceFeedbacks(</span>
+<span class="nc" id="L558">                        rs.getInt(1),</span>
+<span class="nc" id="L559">                        rs.getString(2),</span>
+<span class="nc" id="L560">                        rs.getInt(3),</span>
+<span class="nc" id="L561">                        rs.getString(4),</span>
+<span class="nc" id="L562">                        rs.getInt(5)));</span>
+            }
+<span class="nc" id="L564">        } catch (SQLException e) {</span>
+<span class="nc" id="L565">            System.out.println(e);</span>
+<span class="nc" id="L566">        }</span>
+<span class="nc" id="L567">        return list;</span>
+    }
+
+    /**
+     *
+     * @param comment
+     * @param rate
+     * @param feedbackID
+     */
+    public void editComment(String comment, String rate, String feedbackID) {
+<span class="nc" id="L577">        String sql = &quot;update Service_Feedbacks set content = ?, rate=?\n&quot;</span>
+                + &quot; where feedback_id=?&quot;;
+        try {
+<span class="nc" id="L580">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L581">            ps.setString(1, comment);</span>
+<span class="nc" id="L582">            ps.setString(2, rate);</span>
+<span class="nc" id="L583">            ps.setString(3, feedbackID);</span>
+<span class="nc" id="L584">            ps.executeUpdate();</span>
+<span class="nc" id="L585">        } catch (SQLException e) {</span>
+<span class="nc" id="L586">            System.out.println(e);</span>
+<span class="nc" id="L587">        }</span>
+<span class="nc" id="L588">    }</span>
+
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+<span class="nc" id="L595">        ServicesDAO dao = new ServicesDAO();</span>
+//        List&lt;Specialities&gt; list = dao.getAllSpecialities();
+<span class="nc" id="L597">        List&lt;Services&gt; listS = dao.getAllServicesSortedDownPrice();</span>
+<span class="nc" id="L598">        System.out.println(listS);</span>
+<span class="nc" id="L599">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

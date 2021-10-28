@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PatientDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dal</a> &gt; <span class="el_source">PatientDAO.java</span></div><h1>PatientDAO.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dal;
+
+import dbcontext.DBContext;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.Patient;
+
+/**
+ *
+ * @author Admin
+ */
+<span class="nc" id="L20">public class PatientDAO extends DBContext {</span>
+
+<span class="nc" id="L22">    PreparedStatement ps = null;</span>
+<span class="nc" id="L23">    PreparedStatement ps2 = null;</span>
+<span class="nc" id="L24">    ResultSet rs = null;</span>
+
+    /**
+     *
+     * @param accountID
+     * @return
+     */
+    public Patient getPatientByAccountID(int accountID) {
+<span class="nc" id="L32">        String sql = &quot;select * from patients where account_id = ?&quot;;</span>
+        try {
+<span class="nc" id="L34">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L35">            ps.setInt(1, accountID);</span>
+<span class="nc" id="L36">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L38">                Patient p = new Patient();</span>
+<span class="nc" id="L39">                p.setPatientID(rs.getInt(1));</span>
+<span class="nc" id="L40">                p.setName(rs.getString(2));</span>
+<span class="nc" id="L41">                p.setGender(rs.getInt(3));</span>
+<span class="nc" id="L42">                p.setDob(rs.getString(4));</span>
+<span class="nc" id="L43">                p.setAccountID(rs.getInt(8));</span>
+<span class="nc" id="L44">                p.setPhone(rs.getString(5));</span>
+<span class="nc" id="L45">                p.setEmail(rs.getString(6));</span>
+<span class="nc" id="L46">                p.setImage(rs.getString(7));</span>
+<span class="nc" id="L47">                return p;</span>
+            }
+<span class="nc" id="L49">        } catch (SQLException e) {</span>
+<span class="nc" id="L50">            System.out.println(e);</span>
+<span class="nc" id="L51">        }</span>
+<span class="nc" id="L52">        return null;</span>
+    }
+
+    /**
+     *
+     * @param patientID
+     * @return
+     */
+    public Patient getPatientByPatientID(int patientID) {
+<span class="nc" id="L61">        String sql = &quot;select * from patients where patient_id = ?&quot;;</span>
+        try {
+<span class="nc" id="L63">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L64">            ps.setInt(1, patientID);</span>
+<span class="nc" id="L65">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L67">                Patient p = new Patient();</span>
+<span class="nc" id="L68">                p.setPatientID(rs.getInt(1));</span>
+<span class="nc" id="L69">                p.setName(rs.getString(2));</span>
+<span class="nc" id="L70">                p.setGender(rs.getInt(3));</span>
+<span class="nc" id="L71">                p.setDob(rs.getString(4));</span>
+<span class="nc" id="L72">                p.setAccountID(rs.getInt(8));</span>
+<span class="nc" id="L73">                p.setPhone(rs.getString(5));</span>
+<span class="nc" id="L74">                p.setEmail(rs.getString(6));</span>
+<span class="nc" id="L75">                p.setImage(rs.getString(7));</span>
+<span class="nc" id="L76">                return p;</span>
+            }
+<span class="nc" id="L78">        } catch (SQLException e) {</span>
+<span class="nc" id="L79">            System.out.println(e);</span>
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">        return null;</span>
+    }
+
+    /**
+     *
+     * @param id
+     */
+    public void delete(int id) {
+<span class="nc" id="L89">        String sql = &quot; delete from Patients where account_id=?&quot;;</span>
+<span class="nc" id="L90">        String sql2 = &quot; delete from Accounts where account_id=?&quot;;</span>
+        try {
+<span class="nc" id="L92">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L93">            ps2 = connection.prepareStatement(sql2);</span>
+<span class="nc" id="L94">            ps.setInt(1, id);</span>
+<span class="nc" id="L95">            ps2.setInt(1, id);</span>
+<span class="nc" id="L96">            ps.executeUpdate();</span>
+<span class="nc" id="L97">            ps2.executeUpdate();</span>
+<span class="nc" id="L98">        } catch (SQLException e) {</span>
+<span class="nc" id="L99">            System.out.println(e);</span>
+<span class="nc" id="L100">        }</span>
+<span class="nc" id="L101">    }</span>
+
+    /**
+     *
+     * @param u
+     */
+    public void insertNewPatient(Patient u) {
+<span class="nc" id="L108">        String sql = &quot;insert into Patients(name,gender,dob,phone,email,image,account_id) values (?,?,?,?,?,?,?)&quot;;</span>
+        try {
+<span class="nc" id="L110">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L111">            ps.setString(1, u.getName());</span>
+<span class="nc" id="L112">            ps.setInt(2, u.getGender());</span>
+<span class="nc" id="L113">            ps.setString(3, u.getDob());</span>
+<span class="nc" id="L114">            ps.setString(4, u.getPhone());</span>
+<span class="nc" id="L115">            ps.setString(5, u.getEmail());</span>
+<span class="nc" id="L116">            ps.setString(6, u.getImage());</span>
+<span class="nc" id="L117">            ps.setInt(7, u.getAccountID());</span>
+<span class="nc" id="L118">            ps.executeUpdate();</span>
+<span class="nc" id="L119">        } catch (SQLException e) {</span>
+<span class="nc" id="L120">            System.out.println(e);</span>
+<span class="nc" id="L121">        }</span>
+<span class="nc" id="L122">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public List&lt;Patient&gt; getAllPatient() {
+<span class="nc" id="L129">        ArrayList&lt;Patient&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L130">        String sql = &quot;select * from Patients &quot;;</span>
+        try {
+<span class="nc" id="L132">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L133">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L135">                Patient p = new Patient();</span>
+<span class="nc" id="L136">                p.setPatientID(rs.getInt(1));</span>
+<span class="nc" id="L137">                p.setName(rs.getString(2));</span>
+<span class="nc" id="L138">                p.setGender(rs.getInt(3));</span>
+<span class="nc" id="L139">                p.setDob(rs.getString(4));</span>
+<span class="nc" id="L140">                p.setAccountID(rs.getInt(8));</span>
+<span class="nc" id="L141">                p.setPhone(rs.getString(5));</span>
+<span class="nc" id="L142">                p.setEmail(rs.getString(6));</span>
+<span class="nc" id="L143">                p.setImage(rs.getString(7));</span>
+<span class="nc" id="L144">                list.add(p);</span>
+<span class="nc" id="L145">            }</span>
+<span class="nc" id="L146">            connection.close();</span>
+<span class="nc" id="L147">        } catch (SQLException e) {</span>
+<span class="nc" id="L148">            System.out.println(e);</span>
+<span class="nc" id="L149">        } </span>
+<span class="nc" id="L150">        return list;</span>
+    }
+
+    /**
+     *
+     * @param p
+     * @return
+     */
+    public int editPatient(Patient p) {
+<span class="nc" id="L159">        String sql = &quot;update patients set Name = ?, gender = ? , dob = ?, phone = ?, email = ?\n&quot;</span>
+                + &quot; where account_id=?&quot;;
+        try {
+<span class="nc" id="L162">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L163">            ps.setString(1, p.getName());</span>
+<span class="nc" id="L164">            ps.setInt(2, p.getGender());</span>
+<span class="nc" id="L165">            ps.setString(3, p.getDob());</span>
+<span class="nc" id="L166">            ps.setString(4, p.getPhone());</span>
+<span class="nc" id="L167">            ps.setString(5, p.getEmail());</span>
+<span class="nc" id="L168">            ps.setInt(6, p.getAccountID());</span>
+<span class="nc" id="L169">            return ps.executeUpdate();</span>
+<span class="nc" id="L170">        } catch (SQLException ex) {</span>
+<span class="nc" id="L171">            System.out.println(ex);</span>
+        }
+<span class="nc" id="L173">        return 0;</span>
+    }
+
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+<span class="nc" id="L181">        PatientDAO patientDb = new PatientDAO();</span>
+//        Patient p = new Patient(&quot;Nguyen Van Minh&quot;, 0, &quot;2001-12-12&quot;, &quot;0123456789&quot;, &quot;abc@gmail.com&quot;, 31, &quot;&quot;);
+<span class="nc" id="L183">        List&lt;Patient&gt; p = patientDb.getAllPatient();</span>
+<span class="nc" id="L184">        System.out.println(p);</span>
+//        patientDb.insertNewPatient(new Patient(&quot;abc&quot;, 0, &quot;&quot;, &quot;0123456789&quot;, &quot;abc@gmail.com&quot;, 34, &quot;&quot;));
+<span class="nc" id="L186">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

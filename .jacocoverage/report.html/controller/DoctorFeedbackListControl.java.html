@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DoctorFeedbackListControl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">controller</a> &gt; <span class="el_source">DoctorFeedbackListControl.java</span></div><h1>DoctorFeedbackListControl.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import dal.DoctorFeedbacksDAO;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import model.DoctorFeedbacks;
+
+/**
+ *
+ * @author Admin
+ */
+@WebServlet(name = &quot;DoctorFeedbackListControl&quot;, urlPatterns = {&quot;/doctorFeedbackList&quot;})
+<span class="nc" id="L24">public class DoctorFeedbackListControl extends HttpServlet {</span>
+    private static final long serialVersionUID = 9999L;
+    /**
+     * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+<span class="nc" id="L37">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L38">        int doctorID = Integer.parseInt(request.getParameter(&quot;doctorID&quot;));</span>
+        int indexPage;
+<span class="nc" id="L40">        String sortBy = request.getParameter(&quot;sort&quot;);</span>
+<span class="nc" id="L41">        String getInputPage = request.getParameter(&quot;page&quot;);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (getInputPage == null) {</span>
+<span class="nc" id="L43">            indexPage = 1;</span>
+        } else {
+<span class="nc" id="L45">            indexPage = Integer.parseInt(getInputPage);</span>
+        }
+<span class="nc" id="L47">        DoctorFeedbacksDAO db1 = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L48">        int totalFeedback = db1.countAllDoctorFeedback(doctorID);</span>
+<span class="nc" id="L49">        int numberOfItem = 4;</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);</span>
+<span class="nc" id="L51">        List&lt;DoctorFeedbacks&gt; listdFb = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (sortBy == null) {</span>
+<span class="nc" id="L54">            listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, &quot;feedback_id&quot;);</span>
+        }
+<span class="nc" id="L56">        request.setAttribute(&quot;listdFb&quot;, listdFb);</span>
+<span class="nc" id="L57">        request.setAttribute(&quot;indexPage&quot;, indexPage);</span>
+<span class="nc" id="L58">        request.setAttribute(&quot;numberOfPage&quot;, numberOfPage);</span>
+<span class="nc" id="L59">        request.getRequestDispatcher(&quot;/doctor/doctor-feedback-list.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L60">    }</span>
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
+    /**
+     * Handles the HTTP &lt;code&gt;GET&lt;/code&gt; method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+<span class="nc" id="L74">        processRequest(request, response);</span>
+<span class="nc" id="L75">    }</span>
+
+    /**
+     * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+<span class="nc" id="L88">        processRequest(request, response);</span>
+<span class="nc" id="L89">    }</span>
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+<span class="nc" id="L98">        return &quot;Short description&quot;;</span>
+    }// &lt;/editor-fold&gt;
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

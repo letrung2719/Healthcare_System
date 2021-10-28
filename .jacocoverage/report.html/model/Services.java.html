@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Services.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Services.java</span></div><h1>Services.java</h1><pre class="source lang-java linenums">
+package model;
+
+/**
+ *
+ * @author admin
+ */
+public class Services {
+    private int service_id;
+    private String title;
+    private String type_id;
+    private String image;
+    private String description;
+    private int price;
+
+    /**
+     *
+     */
+<span class="nc" id="L19">    public Services() {</span>
+<span class="nc" id="L20">    }</span>
+
+    /**
+     *
+     * @param service_id
+     * @param title
+     * @param type_id
+     * @param image
+     * @param description
+     * @param price
+     */
+<span class="nc" id="L31">    public Services(int service_id, String title, String type_id, String image, String description, int price) {</span>
+<span class="nc" id="L32">        this.service_id = service_id;</span>
+<span class="nc" id="L33">        this.title = title;</span>
+<span class="nc" id="L34">        this.type_id = type_id;</span>
+<span class="nc" id="L35">        this.image = image;</span>
+<span class="nc" id="L36">        this.description = description;</span>
+<span class="nc" id="L37">        this.price = price;</span>
+<span class="nc" id="L38">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public int getService_id() {
+<span class="nc" id="L45">        return service_id;</span>
+    }
+
+    /**
+     *
+     * @param service_id
+     */
+    public void setService_id(int service_id) {
+<span class="nc" id="L53">        this.service_id = service_id;</span>
+<span class="nc" id="L54">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getTitle() {
+<span class="nc" id="L61">        return title;</span>
+    }
+
+    /**
+     *
+     * @param title
+     */
+    public void setTitle(String title) {
+<span class="nc" id="L69">        this.title = title;</span>
+<span class="nc" id="L70">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getType_id() {
+<span class="nc" id="L77">        return type_id;</span>
+    }
+
+    /**
+     *
+     * @param type_id
+     */
+    public void setType_id(String type_id) {
+<span class="nc" id="L85">        this.type_id = type_id;</span>
+<span class="nc" id="L86">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getImage() {
+<span class="nc" id="L93">        return image;</span>
+    }
+
+    /**
+     *
+     * @param image
+     */
+    public void setImage(String image) {
+<span class="nc" id="L101">        this.image = image;</span>
+<span class="nc" id="L102">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getDescription() {
+<span class="nc" id="L109">        return description;</span>
+    }
+
+    /**
+     *
+     * @param description
+     */
+    public void setDescription(String description) {
+<span class="nc" id="L117">        this.description = description;</span>
+<span class="nc" id="L118">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public int getPrice() {
+<span class="nc" id="L125">        return price;</span>
+    }
+
+    /**
+     *
+     * @param price
+     */
+    public void setPrice(int price) {
+<span class="nc" id="L133">        this.price = price;</span>
+<span class="nc" id="L134">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L138">        return &quot;Services{&quot; + &quot;service_id=&quot; + service_id + &quot;, title=&quot; + title + &quot;, type_id=&quot; + type_id + &quot;, price=&quot; + price + &quot;}\n&quot;;</span>
+    }
+
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

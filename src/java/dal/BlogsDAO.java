@@ -6,30 +6,37 @@
 package dal;
 
 import dbcontext.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Blogs;
 
 /**
  *
  * @author admin
  */
-public class BlogsDAO extends DBContext {
+public class BlogsDAO {
 
     PreparedStatement ps = null;
     ResultSet rs = null;
+    
+    DBContext dbc = new DBContext();
+    Connection connection = null;
 
     /**
      *
      * @param blogID
      * @return
      */
-    public Blogs getBlogByBlogID(int blogID) {
+    public Blogs getBlogByBlogID(int blogID) throws SQLException {
         String sql = "select * from blogs where blog_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, blogID);
             rs = ps.executeQuery();
@@ -44,6 +51,10 @@ public class BlogsDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return null;
     }
@@ -52,10 +63,11 @@ public class BlogsDAO extends DBContext {
      *
      * @return
      */
-    public List<Blogs> getAllBlogs() {
+    public List<Blogs> getAllBlogs() throws SQLException {
         List<Blogs> list = new ArrayList<>();
         String sql = "select blog_id,title,date,image,description from blogs";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -68,7 +80,11 @@ public class BlogsDAO extends DBContext {
                 list.add(bl);
             }
         } catch (SQLException e) {
-
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -78,11 +94,12 @@ public class BlogsDAO extends DBContext {
      * @param name
      * @return
      */
-    public List<Blogs> getAllBlogsSearched(String name) {
+    public List<Blogs> getAllBlogsSearched(String name) throws SQLException {
         List<Blogs> list = new ArrayList<>();
         String sql = "select blog_id,title,date,image,description\n"
                 + "from blogs where title like ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + name + "%");
             rs = ps.executeQuery();
@@ -96,6 +113,10 @@ public class BlogsDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -105,13 +126,17 @@ public class BlogsDAO extends DBContext {
      * @param args
      */
     public static void main(String[] args) {
-        BlogsDAO bl = new BlogsDAO();
-        List<Blogs> b = bl.getAllBlogsSearched("");
+        try {
+            BlogsDAO bl = new BlogsDAO();
+            List<Blogs> b = bl.getAllBlogsSearched("");
 //        Blogs b = bl.getBlogByBlogID(1);
-        System.out.println(b);
+            System.out.println(b);
 //        Blogs b = bl.getBlogByBlogID(1);
 //        System.out.println(b);
 //        List<Blogs> blog = bl.getAllBlogs();
 //        System.out.println(blog);
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ReservationControl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">controller</a> &gt; <span class="el_source">ReservationControl.java</span></div><h1>ReservationControl.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import dal.PatientDAO;
+import dal.ReservationDAO;
+import dal.ServicesDAO;
+import dal.TimetableDAO;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ResourceBundle;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Patient;
+import model.Reservation;
+import model.Services;
+
+/**
+ *
+ * @author Admin
+ */
+@WebServlet(name = &quot;ReservationControl&quot;, urlPatterns = {&quot;/reservation&quot;})
+<span class="nc" id="L31">public class ReservationControl extends HttpServlet {</span>
+
+    private static final long serialVersionUID = 9999L;
+<span class="nc" id="L34">    ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;resources/message&quot;);</span>
+
+    private void writeObject(ObjectOutputStream stream)
+            throws IOException {
+<span class="nc" id="L38">        stream.defaultWriteObject();</span>
+<span class="nc" id="L39">    }</span>
+
+    private void readObject(ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+<span class="nc" id="L43">        stream.defaultReadObject();</span>
+<span class="nc" id="L44">    }</span>
+
+    /**
+     * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+<span class="nc" id="L57">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+
+<span class="nc" id="L59">    }</span>
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
+    /**
+     * Handles the HTTP &lt;code&gt;GET&lt;/code&gt; method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+<span class="nc" id="L73">        HttpSession session = request.getSession();</span>
+<span class="nc" id="L74">        Patient curUser = (Patient) session.getAttribute(&quot;user&quot;);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (curUser == null) {</span>
+<span class="nc" id="L76">            request.setAttribute(&quot;mess&quot;, resourceBundle.getString(&quot;must_login&quot;));</span>
+<span class="nc" id="L77">            request.getRequestDispatcher(&quot;login.jsp&quot;).forward(request, response);</span>
+        } else {
+<span class="nc" id="L79">            String serviceId = request.getParameter(&quot;id&quot;);</span>
+<span class="nc" id="L80">            ServicesDAO serviceDb = new ServicesDAO();</span>
+<span class="nc" id="L81">            Services s = serviceDb.getServiceByID(serviceId);</span>
+<span class="nc" id="L82">            request.setAttribute(&quot;service&quot;, s);</span>
+<span class="nc" id="L83">            request.getRequestDispatcher(&quot;reservation.jsp&quot;).forward(request, response);</span>
+        }
+<span class="nc" id="L85">    }</span>
+
+    /**
+     * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+<span class="nc" id="L99">            String date = request.getParameter(&quot;date&quot;);</span>
+<span class="nc" id="L100">            String slotTime = request.getParameter(&quot;slotTime&quot;);</span>
+//            String description = (request.getParameter(&quot;description&quot;) == null) ? &quot;&quot; : request.getParameter(&quot;description&quot;);
+<span class="nc" id="L102">            String description = request.getParameter(&quot;description&quot;);</span>
+<span class="nc" id="L103">            int patientID = Integer.parseInt(request.getParameter(&quot;patientId&quot;));</span>
+<span class="nc" id="L104">            String serviceId = request.getParameter(&quot;serviceID&quot;);</span>
+<span class="nc" id="L105">            int serviceID = Integer.parseInt(serviceId);</span>
+<span class="nc" id="L106">            PatientDAO patientDb = new PatientDAO();</span>
+<span class="nc" id="L107">            ServicesDAO serviceDb = new ServicesDAO();</span>
+<span class="nc" id="L108">            TimetableDAO slotDb = new TimetableDAO();</span>
+<span class="nc" id="L109">            Reservation r = new Reservation(date,</span>
+<span class="nc" id="L110">                    patientDb.getPatientByPatientID(patientID),</span>
+<span class="nc" id="L111">                    serviceDb.getServiceByID(serviceId),</span>
+<span class="nc" id="L112">                    serviceDb.getServiceByID(serviceId).getPrice(),</span>
+<span class="nc" id="L113">                    slotDb.getSlotByTime(slotTime),</span>
+                    description);
+
+<span class="nc" id="L116">            ReservationDAO resDb = new ReservationDAO();</span>
+<span class="nc" id="L117">            int count = resDb.countDuplicateReservationByPatientID(patientID, serviceID);</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">            if (count &gt; 0) {</span>
+<span class="nc" id="L119">                Services s = serviceDb.getServiceByID(serviceId);</span>
+<span class="nc" id="L120">                request.setAttribute(&quot;mess&quot;, &quot;You had book this service&quot;);</span>
+<span class="nc" id="L121">                request.setAttribute(&quot;service&quot;, s);</span>
+<span class="nc" id="L122">                request.getRequestDispatcher(&quot;reservation.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L123">            } else {</span>
+<span class="nc" id="L124">                resDb.addNewReservation(r);</span>
+
+<span class="nc" id="L126">                request.setAttribute(&quot;reservation&quot;, r);</span>
+<span class="nc" id="L127">                request.getRequestDispatcher(&quot;reservation-success.jsp&quot;).forward(request, response);</span>
+            }
+
+<span class="nc" id="L130">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L131">            System.out.println(e);</span>
+<span class="nc" id="L132">        }</span>
+<span class="nc" id="L133">    }</span>
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+<span class="nc" id="L142">        return &quot;Short description&quot;;</span>
+    }// &lt;/editor-fold&gt;
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

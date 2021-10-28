@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DoctorFeedbacksControl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">controller</a> &gt; <span class="el_source">DoctorFeedbacksControl.java</span></div><h1>DoctorFeedbacksControl.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import dal.DoctorDAO;
+import dal.DoctorFeedbacksDAO;
+import dal.PatientDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import model.Doctor;
+import model.DoctorFeedbacks;
+import model.Patient;
+
+/**
+ *
+ * @author admin
+ */
+@WebServlet(name = &quot;DoctorFeedbacksControl&quot;, urlPatterns = {&quot;/doctor_feedbacks&quot;})
+<span class="nc" id="L29">public class DoctorFeedbacksControl extends HttpServlet {</span>
+    private static final long serialVersionUID = 9999L;
+    /**
+     * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+<span class="nc" id="L42">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L43">        try (PrintWriter out = response.getWriter()) {</span>
+            /* TODO output your page here. You may use following sample code. */
+<span class="nc" id="L45">            out.println(&quot;&lt;!DOCTYPE html&gt;&quot;);</span>
+<span class="nc" id="L46">            out.println(&quot;&lt;html&gt;&quot;);</span>
+<span class="nc" id="L47">            out.println(&quot;&lt;head&gt;&quot;);</span>
+<span class="nc" id="L48">            out.println(&quot;&lt;title&gt;Servlet DoctorFeedbacksControl&lt;/title&gt;&quot;);</span>
+<span class="nc" id="L49">            out.println(&quot;&lt;/head&gt;&quot;);</span>
+<span class="nc" id="L50">            out.println(&quot;&lt;body&gt;&quot;);</span>
+<span class="nc" id="L51">            out.println(&quot;&lt;h1&gt;Servlet DoctorFeedbacksControl at &quot; + request.getContextPath() + &quot;&lt;/h1&gt;&quot;);</span>
+<span class="nc" id="L52">            out.println(&quot;&lt;/body&gt;&quot;);</span>
+<span class="nc" id="L53">            out.println(&quot;&lt;/html&gt;&quot;);</span>
+<span class="nc bnc" id="L54" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L55">    }</span>
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
+    /**
+     * Handles the HTTP &lt;code&gt;GET&lt;/code&gt; method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+<span class="nc" id="L70">            String action = request.getParameter(&quot;action&quot;);</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (action.equals(&quot;delete&quot;)) {</span>
+<span class="nc" id="L72">                int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
+<span class="nc" id="L73">                int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
+<span class="nc" id="L74">                DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L75">                db.deleteDoctorFeedback(patient_id, doctor_id);</span>
+
+<span class="nc" id="L77">                DoctorDAO doctorDB = new DoctorDAO();</span>
+<span class="nc" id="L78">                Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);</span>
+<span class="nc" id="L79">                response.sendRedirect(request.getContextPath() + &quot;/doctor_profile_view?id=&quot; + doctor.getAccountID());</span>
+            }
+            
+<span class="nc bnc" id="L82" title="All 2 branches missed.">            if (action.equals(&quot;edit&quot;)) {</span>
+<span class="nc" id="L83">                String content = request.getParameter(&quot;content&quot;);</span>
+<span class="nc" id="L84">                int rating = Integer.parseInt(request.getParameter(&quot;rating&quot;));</span>
+                
+<span class="nc" id="L86">                Date curDate = new Date();</span>
+<span class="nc" id="L87">                SimpleDateFormat formatter = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L88">                String date = formatter.format(curDate);</span>
+
+<span class="nc" id="L90">                int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
+<span class="nc" id="L91">                PatientDAO patientDB = new PatientDAO();</span>
+<span class="nc" id="L92">                Patient patient = patientDB.getPatientByPatientID(patient_id);</span>
+
+<span class="nc" id="L94">                int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
+<span class="nc" id="L95">                DoctorDAO doctorDB = new DoctorDAO();</span>
+<span class="nc" id="L96">                Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);</span>
+
+<span class="nc" id="L98">                DoctorFeedbacks feedback = new DoctorFeedbacks(date, content, rating, patient, doctor);</span>
+<span class="nc" id="L99">                DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L100">                feedbackDB.updateDoctorFeedback(feedback);</span>
+<span class="nc" id="L101">                response.sendRedirect(request.getContextPath() + &quot;/doctor_profile_view?id=&quot; + doctor.getAccountID());</span>
+            }
+<span class="nc" id="L103">        } catch (IOException | NumberFormatException e) {</span>
+<span class="nc" id="L104">            System.out.println(e);</span>
+<span class="nc" id="L105">        }</span>
+<span class="nc" id="L106">    }</span>
+
+    /**
+     * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+<span class="nc" id="L120">            String content = request.getParameter(&quot;content&quot;);</span>
+<span class="nc" id="L121">            int rating = Integer.parseInt(request.getParameter(&quot;rating&quot;));</span>
+<span class="nc" id="L122">            Date curDate = new Date();</span>
+<span class="nc" id="L123">            SimpleDateFormat formatter = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L124">            String date = formatter.format(curDate);</span>
+
+<span class="nc" id="L126">            int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
+<span class="nc" id="L127">            PatientDAO patientDB = new PatientDAO();</span>
+<span class="nc" id="L128">            Patient patient = patientDB.getPatientByPatientID(patient_id);</span>
+
+<span class="nc" id="L130">            int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
+<span class="nc" id="L131">            DoctorDAO doctorDB = new DoctorDAO();</span>
+<span class="nc" id="L132">            Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);</span>
+
+<span class="nc" id="L134">            DoctorFeedbacks feedback = new DoctorFeedbacks(date, content, rating, patient, doctor);</span>
+<span class="nc" id="L135">            DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L136">            feedbackDB.addNewDoctorFeedback(feedback);</span>
+<span class="nc" id="L137">            response.sendRedirect(request.getContextPath() + &quot;/doctor_profile_view?id=&quot; + doctor.getAccountID());</span>
+<span class="nc" id="L138">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L139">            System.out.println(e);</span>
+<span class="nc" id="L140">        }</span>
+<span class="nc" id="L141">    }</span>
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+<span class="nc" id="L150">        return &quot;Short description&quot;;</span>
+    }// &lt;/editor-fold&gt;
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

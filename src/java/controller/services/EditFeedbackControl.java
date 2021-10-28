@@ -9,6 +9,7 @@ import dal.PatientDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,9 @@ import model.Patient;
  */
 @WebServlet(name = "EditFeedbackControl", urlPatterns = {"/editfeedback"})
 public class EditFeedbackControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,28 +39,32 @@ public class EditFeedbackControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String serviceID = request.getParameter("serviceid");
-        String feedbackId = request.getParameter("fid");
-        String comment = request.getParameter("comment");
-        String rate = request.getParameter("rating");
-        if (rate == null) {
-            rate = "0";
-        }
-        
-        //
-        ArrayList<String> badWords = new ArrayList<String>();
-        badWords.add("shit");
-        badWords.add("stupid");
-        badWords.add("idiot");        
-        for (int i = 0; i < badWords.size(); i++) {
-            comment = comment.replaceAll("(?i)" + badWords.get(i), "****");
-        }
-        comment = comment.replaceAll("\\w*\\*{4}", "****");
-        //        
+        try {
+            String serviceID = request.getParameter("serviceid");
+            String feedbackId = request.getParameter("fid");
+            String comment = request.getParameter("comment");
+            String rate = request.getParameter("rating");
+            if (rate == null) {
+                rate = "0";
+            }
 
-        ServicesDAO dao = new ServicesDAO();
-        dao.editComment(comment, rate, feedbackId);
-        response.sendRedirect("serdetail?sid=" + serviceID);
+            //
+            ArrayList<String> badWords = new ArrayList<String>();
+            badWords.add("shit");
+            badWords.add("stupid");
+            badWords.add("idiot");
+            for (int i = 0; i < badWords.size(); i++) {
+                comment = comment.replaceAll("(?i)" + badWords.get(i), "****");
+            }
+            comment = comment.replaceAll("\\w*\\*{4}", "****");
+            //        
+
+            ServicesDAO dao = new ServicesDAO();
+            dao.editComment(comment, rate, feedbackId);
+            response.sendRedirect("serdetail?sid=" + serviceID);
+        } catch (IOException | SQLException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

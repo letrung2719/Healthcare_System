@@ -7,6 +7,7 @@ package controller;
 
 import dal.AppointmentDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,9 @@ import model.Appointment;
  */
 @WebServlet(name = "AppointmentDetailControl", urlPatterns = {"/appointmentDetailControl"})
 public class AppointmentDetailControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,29 +35,32 @@ public class AppointmentDetailControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        int appID = Integer.parseInt(request.getParameter("id"));
-        String inputStatus = request.getParameter("status");
-        AppointmentDAO appDb = new AppointmentDAO();
-        Appointment a = appDb.getAppointmentByID(appID);
-        
-        if (inputStatus != null) {
-            if (inputStatus.equals("cancel")) {
-                appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
-            }
-            if (inputStatus.equals("pending")) {
-                appDb.changeAppointmentStatus(a.getAppointmentID(), 1);
-            }
-            if (inputStatus.equals("complete")) {
-                appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
-            }
-            a = appDb.getAppointmentByID(appID);
-            request.setAttribute("app", a);
-            request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
-        }
-        request.setAttribute("app", a);
-        request.getRequestDispatcher("/doctor/appointment-detail.jsp").forward(request, response);
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            int appID = Integer.parseInt(request.getParameter("id"));
+            String inputStatus = request.getParameter("status");
+            AppointmentDAO appDb = new AppointmentDAO();
+            Appointment a = appDb.getAppointmentByID(appID);
 
+            if (inputStatus != null) {
+                if (inputStatus.equals("cancel")) {
+                    appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
+                }
+                if (inputStatus.equals("pending")) {
+                    appDb.changeAppointmentStatus(a.getAppointmentID(), 1);
+                }
+                if (inputStatus.equals("complete")) {
+                    appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
+                }
+                a = appDb.getAppointmentByID(appID);
+                request.setAttribute("app", a);
+                request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
+            }
+            request.setAttribute("app", a);
+            request.getRequestDispatcher("/doctor/appointment-detail.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -30,9 +30,6 @@ public class LogoutControl extends HttpServlet {
         HttpSession session = request.getSession();
         session.removeAttribute("acc");
         session.removeAttribute("user");
-        System.out.println("========================================================================");
-        System.out.println(request.getContextPath() + "/index.jsp");
-        System.out.println("========================================================================");
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

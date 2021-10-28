@@ -70,7 +70,7 @@ public class AuthorizationFilter implements Filter {
             } else {
                 response.sendRedirect(request.getContextPath() + "/404-error.jsp");
             }
-        } else if (url.startsWith("/doctor")) {
+        } else if (url.startsWith("/doctor-page")) {
             HttpSession session = request.getSession();
             Account acc = (Account) session.getAttribute("acc");
             //Check user login or not

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -97,7 +98,7 @@ public class PatientProfileSetting extends HttpServlet {
             session.setAttribute("user", e);
             
             request.getRequestDispatcher("patient_profile?id=" + accountID).forward(request, response);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             System.out.println(ex);
         }
     }

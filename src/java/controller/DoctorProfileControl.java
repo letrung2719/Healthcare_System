@@ -7,6 +7,7 @@ package controller;
 
 import dal.DoctorDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +32,15 @@ public class DoctorProfileControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try {
         int accountID = Integer.parseInt(request.getParameter("id"));
         DoctorDAO doctorDb = new DoctorDAO();
         Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
         request.setAttribute("doctor", doctor);
-        request.getRequestDispatcher("/doctor/doctor-profile.jsp").forward(request, response);
+        request.getRequestDispatcher("/doctor-role/doctor-profile.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

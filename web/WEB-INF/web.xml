@@ -102,23 +102,23 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateController</servlet-name>
-        <url-pattern>/admin/update</url-pattern>
+        <url-pattern>/admin-role/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DoctorListControl</servlet-name>
-        <url-pattern>/admin/doctor_list</url-pattern>
+        <url-pattern>/admin-role/doctor_list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateDoctorControl</servlet-name>
-        <url-pattern>/admin/update_doctor</url-pattern>
+        <url-pattern>/admin-role/update_doctor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteDoctorControl</servlet-name>
-        <url-pattern>/admin/delete_doctor</url-pattern>
+        <url-pattern>/admin-role/delete_doctor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DoctorFilterControl</servlet-name>
-        <url-pattern>/admin/doctor_filter</url-pattern>
+        <url-pattern>/admin-role/doctor_filter</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DoctorProfileControl</servlet-name>
@@ -130,7 +130,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DoctorList</servlet-name>
-        <url-pattern>/list_doctor</url-pattern>
+        <url-pattern>/doctor-list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewDoctorProfile</servlet-name>

@@ -7,6 +7,7 @@ import dal.PatientDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,36 +49,40 @@ public class LoginControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String user = request.getParameter("username");
-        String pass = request.getParameter("password");
-        AccountDAO accountDb = new AccountDAO();
-        Account a = accountDb.login(user, pass);
-        PatientDAO patientDb = new PatientDAO();
-        DoctorDAO doctorDb = new DoctorDAO();
+        try {
+            String user = request.getParameter("username");
+            String pass = request.getParameter("password");
+            AccountDAO accountDb = new AccountDAO();
+            Account a = accountDb.login(user, pass);
+            PatientDAO patientDb = new PatientDAO();
+            DoctorDAO doctorDb = new DoctorDAO();
 
-        request.setAttribute("username", user);
+            request.setAttribute("username", user);
 
-        HttpSession session = request.getSession();
-        if (a == null) {
-            request.setAttribute("mess", resourceBundle.getString("invalid_account"));
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
-            session.setAttribute("acc", a);
-            switch (a.getAuthor_id()) {
-                case 1:
-                    Doctor d = doctorDb.getDoctorByAccountID(a.getId());
-                    session.setAttribute("user", d);
-                    request.getRequestDispatcher("doctor/doctor-appointment.jsp").forward(request, response);
-                    break;
-                case 2:
-                    Patient p = patientDb.getPatientByAccountID(a.getId());
-                    session.setAttribute("user", p);
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                    break;
-                case 0:
-                    response.sendRedirect("admin/index.jsp");
-                    break;
+            HttpSession session = request.getSession();
+            if (a == null) {
+                request.setAttribute("mess", resourceBundle.getString("invalid_account"));
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                session.setAttribute("acc", a);
+                switch (a.getAuthor_id()) {
+                    case 1:
+                        Doctor d = doctorDb.getDoctorByAccountID(a.getId());
+                        session.setAttribute("user", d);
+                        request.getRequestDispatcher("doctor-role/doctor-appointment.jsp").forward(request, response);
+                        break;
+                    case 2:
+                        Patient p = patientDb.getPatientByAccountID(a.getId());
+                        session.setAttribute("user", p);
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                        break;
+                    case 0:
+                        response.sendRedirect("admin-role/index.jsp");
+                        break;
+                }
             }
+        } catch (IOException | SQLException | ServletException e) {
+            System.out.println(e);
         }
     }
 

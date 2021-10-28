@@ -1,22 +1,22 @@
-
 package controller.admin;
 
 import dal.PatientDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Patient;
 
-
 /**
  *
  * @author admin
  */
 public class UpdatePatientControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,7 +29,7 @@ public class UpdatePatientControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +58,7 @@ public class UpdatePatientControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try {
+        try {
             int id = Integer.parseInt(request.getParameter("id"));
             int accountID = Integer.parseInt(request.getParameter("accountID"));
             String name = request.getParameter("name");
@@ -67,11 +67,11 @@ public class UpdatePatientControl extends HttpServlet {
             String dob = request.getParameter("dob");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
-            Patient e = new Patient(id, name, gender, dob, phone, email, accountID,"");
+            Patient e = new Patient(id, name, gender, dob, phone, email, accountID, "");
             PatientDAO patientDb = new PatientDAO();
             patientDb.editPatient(e);
             response.sendRedirect("patient_list");
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             System.out.println(ex);
         }
     }

@@ -7,6 +7,7 @@ package controller;
 
 import dal.DoctorFeedbacksDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -22,7 +23,9 @@ import model.DoctorFeedbacks;
  */
 @WebServlet(name = "DoctorFeedbackListControl", urlPatterns = {"/doctorFeedbackList"})
 public class DoctorFeedbackListControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,28 +38,32 @@ public class DoctorFeedbackListControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-        int indexPage;
-        String sortBy = request.getParameter("sort");
-        String getInputPage = request.getParameter("page");
-        if (getInputPage == null) {
-            indexPage = 1;
-        } else {
-            indexPage = Integer.parseInt(getInputPage);
+        try {
+            int doctorID = Integer.parseInt(request.getParameter("doctorID"));
+            int indexPage;
+            String sortBy = request.getParameter("sort");
+            String getInputPage = request.getParameter("page");
+            if (getInputPage == null) {
+                indexPage = 1;
+            } else {
+                indexPage = Integer.parseInt(getInputPage);
+            }
+            DoctorFeedbacksDAO db1 = new DoctorFeedbacksDAO();
+            int totalFeedback = db1.countAllDoctorFeedback(doctorID);
+            int numberOfItem = 4;
+            int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);
+            List<DoctorFeedbacks> listdFb = new ArrayList<>();
+
+            if (sortBy == null) {
+                listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, "feedback_id");
+            }
+            request.setAttribute("listdFb", listdFb);
+            request.setAttribute("indexPage", indexPage);
+            request.setAttribute("numberOfPage", numberOfPage);
+            request.getRequestDispatcher("/doctor-role/doctor-feedback-list.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
         }
-        DoctorFeedbacksDAO db1 = new DoctorFeedbacksDAO();
-        int totalFeedback = db1.countAllDoctorFeedback(doctorID);
-        int numberOfItem = 4;
-        int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);
-        List<DoctorFeedbacks> listdFb = new ArrayList<>();
-        
-        if (sortBy == null) {
-            listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, "feedback_id");
-        }
-        request.setAttribute("listdFb", listdFb);
-        request.setAttribute("indexPage", indexPage);
-        request.setAttribute("numberOfPage", numberOfPage);
-        request.getRequestDispatcher("/doctor/doctor-feedback-list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

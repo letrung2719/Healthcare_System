@@ -8,6 +8,7 @@ package controller.services;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DeleteFeedbackControl", urlPatterns = {"/deleteFeedback"})
 public class DeleteFeedbackControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,11 +36,15 @@ public class DeleteFeedbackControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ServicesDAO dao = new ServicesDAO();
-        String serid = request.getParameter("sid");
-        int fid = Integer.parseInt(request.getParameter("fid"));
-        dao.deleteComment(fid);
-        response.sendRedirect("sortStarComment?star=all&&sid="+serid);
+        try {
+            ServicesDAO dao = new ServicesDAO();
+            String serid = request.getParameter("sid");
+            int fid = Integer.parseInt(request.getParameter("fid"));
+            dao.deleteComment(fid);
+            response.sendRedirect("sortStarComment?star=all&&sid=" + serid);
+        } catch (IOException | NumberFormatException | SQLException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

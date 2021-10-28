@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Account.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Account.java</span></div><h1>Account.java</h1><pre class="source lang-java linenums">package model;
+
+import java.io.Serializable;
+
+/**
+ *
+ * @author admin
+ */
+public class Account implements Serializable{
+    private static final long serialVersionUID = 6106269076155338045L;
+    private int id;
+    private String user;
+    private String pass;
+    private int author_id;
+    private boolean status;
+    
+    /**
+     *
+     */
+<span class="nc" id="L20">    public Account() {</span>
+<span class="nc" id="L21">    }</span>
+
+    /**
+     *
+     * @param id
+     * @param user
+     * @param pass
+     * @param author_id
+     * @param status
+     */
+<span class="fc" id="L31">    public Account(int id, String user, String pass, int author_id, boolean status) {</span>
+<span class="fc" id="L32">        this.id = id;</span>
+<span class="fc" id="L33">        this.user = user;</span>
+<span class="fc" id="L34">        this.pass = pass;</span>
+<span class="fc" id="L35">        this.author_id = author_id;</span>
+<span class="fc" id="L36">        this.status = status;</span>
+<span class="fc" id="L37">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public int getId() {
+<span class="nc" id="L44">        return id;</span>
+    }
+
+    /**
+     *
+     * @param id
+     */
+    public void setId(int id) {
+<span class="nc" id="L52">        this.id = id;</span>
+<span class="nc" id="L53">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getUser() {
+<span class="nc" id="L60">        return user;</span>
+    }
+
+    /**
+     *
+     * @param user
+     */
+    public void setUser(String user) {
+<span class="nc" id="L68">        this.user = user;</span>
+<span class="nc" id="L69">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getPass() {
+<span class="nc" id="L76">        return pass;</span>
+    }
+
+    /**
+     *
+     * @param pass
+     */
+    public void setPass(String pass) {
+<span class="nc" id="L84">        this.pass = pass;</span>
+<span class="nc" id="L85">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public int getAuthor_id() {
+<span class="nc" id="L92">        return author_id;</span>
+    }
+
+    /**
+     *
+     * @param author_id
+     */
+    public void setAuthor_id(int author_id) {
+<span class="nc" id="L100">        this.author_id = author_id;</span>
+<span class="nc" id="L101">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public boolean isStatus() {
+<span class="nc" id="L108">        return status;</span>
+    }
+
+    /**
+     *
+     * @param status
+     */
+    public void setStatus(boolean status) {
+<span class="nc" id="L116">        this.status = status;</span>
+<span class="nc" id="L117">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L121">        return &quot;Account{&quot; + &quot;id=&quot; + id + &quot;, user=&quot; + user + &quot;, pass=&quot; + pass + &quot;, author_id=&quot; + author_id + &quot;, status=&quot; + status + '}';</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

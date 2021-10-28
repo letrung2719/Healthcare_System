@@ -6,31 +6,39 @@
 package dal;
 
 import dbcontext.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Patient;
 
 /**
  *
  * @author Admin
  */
-public class PatientDAO extends DBContext {
+public class PatientDAO {
 
     PreparedStatement ps = null;
     PreparedStatement ps2 = null;
     ResultSet rs = null;
+    
+    DBContext dbc = new DBContext();
+    Connection connection = null;
 
     /**
      *
      * @param accountID
      * @return
+     * @throws java.sql.SQLException
      */
-    public Patient getPatientByAccountID(int accountID) {
+    public Patient getPatientByAccountID(int accountID) throws SQLException {
         String sql = "select * from patients where account_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, accountID);
             rs = ps.executeQuery();
@@ -48,6 +56,10 @@ public class PatientDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return null;
     }
@@ -57,9 +69,10 @@ public class PatientDAO extends DBContext {
      * @param patientID
      * @return
      */
-    public Patient getPatientByPatientID(int patientID) {
+    public Patient getPatientByPatientID(int patientID) throws SQLException {
         String sql = "select * from patients where patient_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, patientID);
             rs = ps.executeQuery();
@@ -77,6 +90,10 @@ public class PatientDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return null;
     }
@@ -85,10 +102,11 @@ public class PatientDAO extends DBContext {
      *
      * @param id
      */
-    public void delete(int id) {
+    public void delete(int id) throws SQLException {
         String sql = " delete from Patients where account_id=?";
         String sql2 = " delete from Accounts where account_id=?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps2 = connection.prepareStatement(sql2);
             ps.setInt(1, id);
@@ -97,6 +115,10 @@ public class PatientDAO extends DBContext {
             ps2.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
     }
 
@@ -104,9 +126,10 @@ public class PatientDAO extends DBContext {
      *
      * @param u
      */
-    public void insertNewPatient(Patient u) {
+    public void insertNewPatient(Patient u) throws SQLException {
         String sql = "insert into Patients(name,gender,dob,phone,email,image,account_id) values (?,?,?,?,?,?,?)";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);//truyen cau lenh len sql
             ps.setString(1, u.getName());
             ps.setInt(2, u.getGender());
@@ -118,6 +141,10 @@ public class PatientDAO extends DBContext {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
     }
 
@@ -125,10 +152,11 @@ public class PatientDAO extends DBContext {
      *
      * @return
      */
-    public List<Patient> getAllPatient() {
+    public List<Patient> getAllPatient() throws SQLException {
         ArrayList<Patient> list = new ArrayList<>();
         String sql = "select * from Patients ";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -146,7 +174,11 @@ public class PatientDAO extends DBContext {
             connection.close();
         } catch (SQLException e) {
             System.out.println(e);
-        } 
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
         return list;
     }
 
@@ -155,10 +187,11 @@ public class PatientDAO extends DBContext {
      * @param p
      * @return
      */
-    public int editPatient(Patient p) {
+    public int editPatient(Patient p) throws SQLException {
         String sql = "update patients set Name = ?, gender = ? , dob = ?, phone = ?, email = ?\n"
                 + " where account_id=?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, p.getName());
             ps.setInt(2, p.getGender());
@@ -169,6 +202,10 @@ public class PatientDAO extends DBContext {
             return ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return 0;
     }
@@ -178,10 +215,14 @@ public class PatientDAO extends DBContext {
      * @param args
      */
     public static void main(String[] args) {
-        PatientDAO patientDb = new PatientDAO();
+        try {
+            PatientDAO patientDb = new PatientDAO();
 //        Patient p = new Patient("Nguyen Van Minh", 0, "2001-12-12", "0123456789", "abc@gmail.com", 31, "");
-        List<Patient> p = patientDb.getAllPatient();
-        System.out.println(p);
+            List<Patient> p = patientDb.getAllPatient();
+            System.out.println(p);
 //        patientDb.insertNewPatient(new Patient("abc", 0, "", "0123456789", "abc@gmail.com", 34, ""));
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

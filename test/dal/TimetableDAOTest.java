@@ -6,10 +6,6 @@
 package dal;
 
 import model.Timetable;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,27 +14,29 @@ import static org.junit.Assert.*;
  * @author admin
  */
 public class TimetableDAOTest {
-    
-    TimetableDAO db = new TimetableDAO();
-    
+
     public TimetableDAOTest() {
     }
 
     @Test
-    public void testGetTimeBySlotID() {
+    public void testGetTimeBySlotID() throws Exception {
         System.out.println("getTimeBySlotID");
+        int slotID = 1;
+        TimetableDAO instance = new TimetableDAO();
         Timetable expResult = new Timetable(1, "7h - 8h");
-        Timetable result = db.getTimeBySlotID(1);
-        assertEquals(expResult, result);
+        Timetable result = instance.getTimeBySlotID(slotID);
+        assertEquals(expResult.getSlotID(), result.getSlotID());
+        assertEquals(expResult.getTime(), result.getTime());
     }
 
     @Test
-    public void testGetSlotByTime() {
+    public void testGetSlotByTime() throws Exception {
         System.out.println("getSlotByTime");
-        String time = "";
+        String time = "7h - 8h";
         TimetableDAO instance = new TimetableDAO();
-        Timetable expResult = null;
+        Timetable expResult = new Timetable(1, "7h - 8h");;
         Timetable result = instance.getSlotByTime(time);
-        assertEquals(expResult, result);
+        assertEquals(expResult.getSlotID(), result.getSlotID());
+        assertEquals(expResult.getTime(), result.getTime());
     }
 }

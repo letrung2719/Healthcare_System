@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Reservation.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Reservation.java</span></div><h1>Reservation.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ *
+ * @author Admin
+ */
+public class Reservation {
+    private int reservationID; 
+    private String date;
+    private Patient patient;
+    private Services service;
+    private double price;
+    private int status;
+    private Timetable slot;
+    private String description;
+
+    /**
+     *
+     */
+<span class="nc" id="L29">    public Reservation() {</span>
+<span class="nc" id="L30">    }</span>
+    
+    /**
+     *
+     * @param reservationID
+     * @param date
+     * @param patient
+     * @param service
+     * @param price
+     * @param status
+     * @param slot
+     * @param description
+     */
+<span class="nc" id="L43">    public Reservation(int reservationID, String date, Patient patient, Services service, double price, int status, Timetable slot, String description) {</span>
+<span class="nc" id="L44">        this.reservationID = reservationID;</span>
+<span class="nc" id="L45">        this.date = date;</span>
+<span class="nc" id="L46">        this.patient = patient;</span>
+<span class="nc" id="L47">        this.service = service;</span>
+<span class="nc" id="L48">        this.price = price;</span>
+<span class="nc" id="L49">        this.status = status;</span>
+<span class="nc" id="L50">        this.slot = slot;</span>
+<span class="nc" id="L51">        this.description = description;</span>
+<span class="nc" id="L52">    }</span>
+
+    /**
+     *
+     * @param date
+     * @param patient
+     * @param service
+     * @param price
+     * @param slot
+     * @param description
+     */
+<span class="nc" id="L63">    public Reservation(String date, Patient patient, Services service, double price, Timetable slot, String description) {</span>
+<span class="nc" id="L64">        this.date = date;</span>
+<span class="nc" id="L65">        this.patient = patient;</span>
+<span class="nc" id="L66">        this.service = service;</span>
+<span class="nc" id="L67">        this.price = price;</span>
+<span class="nc" id="L68">        this.slot = slot;</span>
+<span class="nc" id="L69">        this.description = description;</span>
+<span class="nc" id="L70">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public int getReservationID() {
+<span class="nc" id="L77">        return reservationID;</span>
+    }
+
+    /**
+     *
+     * @param reservationID
+     */
+    public void setReservationID(int reservationID) {
+<span class="nc" id="L85">        this.reservationID = reservationID;</span>
+<span class="nc" id="L86">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getDate() {
+<span class="nc" id="L93">        return date;</span>
+    }
+
+    /**
+     *
+     * @param date
+     */
+    public void setDate(String date) {
+        try {
+<span class="nc" id="L102">            SimpleDateFormat formatter = new SimpleDateFormat(&quot;dd MMM yyyy&quot;);</span>
+<span class="nc" id="L103">            SimpleDateFormat formatter1 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L104">            Date date1 = formatter1.parse(date);</span>
+<span class="nc" id="L105">            String strDate = formatter.format(date1);</span>
+<span class="nc" id="L106">            this.date = strDate;</span>
+<span class="nc" id="L107">        } catch (ParseException ex) {</span>
+<span class="nc" id="L108">            System.out.println(ex);</span>
+<span class="nc" id="L109">        }</span>
+        
+<span class="nc" id="L111">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public Patient getPatient() {
+<span class="nc" id="L118">        return patient;</span>
+    }
+
+    /**
+     *
+     * @param patient
+     */
+    public void setPatient(Patient patient) {
+<span class="nc" id="L126">        this.patient = patient;</span>
+<span class="nc" id="L127">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public Services getService() {
+<span class="nc" id="L134">        return service;</span>
+    }
+
+    /**
+     *
+     * @param service
+     */
+    public void setService(Services service) {
+<span class="nc" id="L142">        this.service = service;</span>
+<span class="nc" id="L143">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public double getPrice() {
+<span class="nc" id="L150">        return price;</span>
+    }
+
+    /**
+     *
+     * @param price
+     */
+    public void setPrice(double price) {
+<span class="nc" id="L158">        this.price = price;</span>
+<span class="nc" id="L159">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public int getStatus() {
+<span class="nc" id="L166">        return status;</span>
+    }
+
+    /**
+     *
+     * @param status
+     */
+    public void setStatus(int status) {
+<span class="nc" id="L174">        this.status = status;</span>
+<span class="nc" id="L175">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public Timetable getSlot() {
+<span class="nc" id="L182">        return slot;</span>
+    }
+
+    /**
+     *
+     * @param slot
+     */
+    public void setSlot(Timetable slot) {
+<span class="nc" id="L190">        this.slot = slot;</span>
+<span class="nc" id="L191">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public String getDescription() {
+<span class="nc" id="L198">        return description;</span>
+    }
+
+    /**
+     *
+     * @param description
+     */
+    public void setDescription(String description) {
+<span class="nc" id="L206">        this.description = description;</span>
+<span class="nc" id="L207">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L211">        return &quot;Reservation{&quot; + &quot;reservationID=&quot; + reservationID + &quot;, date=&quot; + date + &quot;, patient=&quot; + patient + &quot;, service=&quot; + service + &quot;, price=&quot; + price + &quot;, status=&quot; + status + &quot;, slot=&quot; + slot + &quot;}\n&quot;;</span>
+    }
+    
+    public static void main(String[] args) {
+<span class="nc" id="L215">        Reservation r = new Reservation(&quot;&quot;, null, null, 15, null, &quot;UT&quot;);</span>
+<span class="nc" id="L216">        System.out.println(r);</span>
+<span class="nc" id="L217">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

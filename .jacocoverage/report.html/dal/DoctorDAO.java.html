@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DoctorDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dal</a> &gt; <span class="el_source">DoctorDAO.java</span></div><h1>DoctorDAO.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dal;
+
+import dbcontext.DBContext;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.Doctor;
+import model.Specialities;
+
+/**
+ *
+ * @author Admin
+ */
+<span class="fc" id="L21">public class DoctorDAO extends DBContext {</span>
+
+<span class="fc" id="L23">    PreparedStatement ps = null;</span>
+<span class="fc" id="L24">    PreparedStatement ps2 = null;</span>
+<span class="fc" id="L25">    ResultSet rs = null;</span>
+
+    /**
+     *
+     * @param accountID
+     * @return
+     */
+    public Doctor getDoctorByAccountID(int accountID) {
+<span class="fc" id="L33">        String sql = &quot;select doctor_id,doctors.name,gender,dob,phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n&quot;</span>
+                + &quot;from doctors join specialities on doctors.type_id = specialities.type_id\n&quot;
+                + &quot;where account_id = ?&quot;;
+        try {
+<span class="fc" id="L37">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L38">            ps.setInt(1, accountID);</span>
+<span class="fc" id="L39">            rs = ps.executeQuery();</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L41">                Doctor p = new Doctor();</span>
+<span class="nc" id="L42">                p.setDoctorID(rs.getInt(1));</span>
+<span class="nc" id="L43">                p.setName(rs.getString(2));</span>
+<span class="nc" id="L44">                p.setGender(rs.getInt(3));</span>
+<span class="nc" id="L45">                p.setDob(rs.getString(4));</span>
+<span class="nc" id="L46">                p.setPhone(rs.getString(5));</span>
+<span class="nc" id="L47">                p.setEmail(rs.getString(6));</span>
+<span class="nc" id="L48">                p.setRole(rs.getString(7));</span>
+<span class="nc" id="L49">                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));</span>
+<span class="nc" id="L50">                p.setSpec(spec);</span>
+<span class="nc" id="L51">                p.setDescription(rs.getString(10));</span>
+<span class="nc" id="L52">                p.setImage(rs.getString(12));</span>
+<span class="nc" id="L53">                p.setAccountID(rs.getInt(11));</span>
+<span class="nc" id="L54">                return p;</span>
+            }
+<span class="nc" id="L56">        } catch (SQLException e) {</span>
+<span class="nc" id="L57">            System.out.println(e);</span>
+<span class="fc" id="L58">        }</span>
+<span class="fc" id="L59">        return null;</span>
+    }
+
+    /**
+     *
+     * @param doctorID
+     * @return
+     */
+    public Doctor getDoctorByDoctorID(int doctorID) {
+<span class="fc" id="L68">        String sql = &quot;select doctor_id,doctors.name,gender,dob,phone,email,role,Doctors.type_id,specialities.name,description,account_id,image\n&quot;</span>
+                + &quot;from doctors join specialities on doctors.type_id = specialities.type_id\n&quot;
+                + &quot;where doctor_id =?&quot;;
+        try {
+<span class="fc" id="L72">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L73">            ps.setInt(1, doctorID);</span>
+<span class="fc" id="L74">            rs = ps.executeQuery();</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L76">                Doctor p = new Doctor();</span>
+<span class="nc" id="L77">                p.setDoctorID(rs.getInt(1));</span>
+<span class="nc" id="L78">                p.setName(rs.getString(2));</span>
+<span class="nc" id="L79">                p.setGender(rs.getInt(3));</span>
+<span class="nc" id="L80">                p.setDob(rs.getString(4));</span>
+<span class="nc" id="L81">                p.setPhone(rs.getString(5));</span>
+<span class="nc" id="L82">                p.setEmail(rs.getString(6));</span>
+<span class="nc" id="L83">                p.setRole(rs.getString(7));</span>
+<span class="nc" id="L84">                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));</span>
+<span class="nc" id="L85">                p.setSpec(spec);</span>
+<span class="nc" id="L86">                p.setDescription(rs.getString(10));</span>
+<span class="nc" id="L87">                p.setImage(rs.getString(12));</span>
+<span class="nc" id="L88">                p.setAccountID(rs.getInt(11));</span>
+<span class="nc" id="L89">                return p;</span>
+            }
+<span class="nc" id="L91">        } catch (SQLException e) {</span>
+<span class="nc" id="L92">            System.out.println(e);</span>
+<span class="fc" id="L93">        }</span>
+<span class="fc" id="L94">        return null;</span>
+    }
+
+    /**
+     *
+     * @param p
+     * @return
+     */
+    public int editDoctor(Doctor p) {
+<span class="fc" id="L103">        String sql = &quot;update doctors set name=?,gender=?,dob=?,phone=?,description=?\n&quot;</span>
+                + &quot;where account_id = ?&quot;;
+        try {
+<span class="fc" id="L106">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L107">            ps.setString(1, p.getName());</span>
+<span class="nc" id="L108">            ps.setInt(2, p.getGender());</span>
+<span class="nc" id="L109">            ps.setString(3, p.getDob());</span>
+<span class="nc" id="L110">            ps.setString(4, p.getPhone());</span>
+<span class="nc" id="L111">            ps.setString(5, p.getDescription());</span>
+<span class="nc" id="L112">            ps.setInt(6, p.getAccountID());</span>
+<span class="nc" id="L113">            return ps.executeUpdate();</span>
+<span class="nc" id="L114">        } catch (SQLException ex) {</span>
+<span class="nc" id="L115">            System.out.println(ex);</span>
+        }
+<span class="nc" id="L117">        return 0;</span>
+    }
+
+    /**
+     *
+     * @param id
+     */
+    public void delete(int id) {
+<span class="fc" id="L125">        String sql = &quot; delete from doctors where account_id = ?&quot;;</span>
+<span class="fc" id="L126">        String sql2 = &quot; delete from accounts where account_id = ?&quot;;</span>
+        try {
+<span class="fc" id="L128">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L129">            ps2 = connection.prepareStatement(sql2);</span>
+<span class="fc" id="L130">            ps.setInt(1, id);</span>
+<span class="fc" id="L131">            ps2.setInt(1, id);</span>
+<span class="fc" id="L132">            ps.executeUpdate();</span>
+<span class="fc" id="L133">            ps2.executeUpdate();</span>
+<span class="nc" id="L134">        } catch (SQLException e) {</span>
+<span class="nc" id="L135">            System.out.println(e);</span>
+<span class="fc" id="L136">        }</span>
+<span class="fc" id="L137">    }</span>
+
+    /**
+     *
+     * @return
+     */
+    public List&lt;Doctor&gt; getAllDoctor() {
+<span class="fc" id="L144">        ArrayList&lt;Doctor&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L145">        String sql = &quot;select doctor_id,doctors.name,gender,dob, phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n&quot;</span>
+                + &quot;from doctors join specialities on doctors.type_id = specialities.type_id&quot;;
+        try {
+<span class="fc" id="L148">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L149">            rs = ps.executeQuery();</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc" id="L151">                Doctor p = new Doctor();</span>
+<span class="fc" id="L152">                p.setDoctorID(rs.getInt(1));</span>
+<span class="fc" id="L153">                p.setName(rs.getString(2));</span>
+<span class="fc" id="L154">                p.setGender(rs.getInt(3));</span>
+<span class="fc" id="L155">                p.setDob(rs.getString(4));</span>
+<span class="fc" id="L156">                p.setPhone(rs.getString(5));</span>
+<span class="fc" id="L157">                p.setEmail(rs.getString(6));</span>
+<span class="fc" id="L158">                p.setRole(rs.getString(7));</span>
+<span class="fc" id="L159">                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));</span>
+<span class="fc" id="L160">                p.setSpec(spec);</span>
+<span class="fc" id="L161">                p.setDescription(rs.getString(10));</span>
+<span class="fc" id="L162">                p.setImage(rs.getString(12));</span>
+<span class="fc" id="L163">                p.setAccountID(rs.getInt(11));</span>
+<span class="fc" id="L164">                list.add(p);</span>
+<span class="fc" id="L165">            }</span>
+<span class="nc" id="L166">        } catch (SQLException e) {</span>
+<span class="nc" id="L167">            System.out.println(e);</span>
+<span class="fc" id="L168">        }</span>
+<span class="fc" id="L169">        return list;</span>
+    }
+
+    /**
+     *
+     * @param list
+     * @param begin
+     * @param end
+     * @return
+     */
+    public List&lt;Doctor&gt; getDoctorByPage(List&lt;Doctor&gt; list, int begin, int end) {
+<span class="fc" id="L180">        List&lt;Doctor&gt; listDoctorByPage = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">        for (int i = begin; i &lt; end; i++) {</span>
+<span class="nc" id="L182">            listDoctorByPage.add(list.get(i));</span>
+        }
+<span class="fc" id="L184">        return listDoctorByPage;</span>
+    }
+
+    /**
+     *
+     * @param doctorName
+     * @param dob
+     * @param phone
+     * @param email
+     * @param gender
+     * @param listSpec
+     * @return
+     */
+    public List&lt;Doctor&gt; search(String doctorName, String dob, String phone, String email, Integer gender, List&lt;String&gt; listSpec) {
+<span class="fc" id="L198">        List&lt;Doctor&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L199">        String sql = &quot;select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id\n&quot;</span>
+                + &quot;from doctors join specialities on doctors.type_id = specialities.type_id\n&quot;
+                + &quot;where 1=1&quot;;
+<span class="pc bpc" id="L202" title="2 of 4 branches missed.">        if (doctorName != null &amp;&amp; !doctorName.isEmpty()) {</span>
+<span class="nc" id="L203">            sql += &quot; AND doctors.name like '%&quot; + doctorName + &quot;%'&quot;;</span>
+        }
+<span class="pc bpc" id="L205" title="2 of 4 branches missed.">        if (dob != null &amp;&amp; !dob.isEmpty()) {</span>
+<span class="nc" id="L206">            sql += &quot; AND dob like '%&quot; + dob + &quot;%'&quot;;</span>
+        }
+<span class="pc bpc" id="L208" title="2 of 4 branches missed.">        if (phone != null &amp;&amp; !phone.isEmpty()) {</span>
+<span class="nc" id="L209">            sql += &quot; AND phone like '%&quot; + phone + &quot;%'&quot;;</span>
+        }
+<span class="pc bpc" id="L211" title="2 of 4 branches missed.">        if (email != null &amp;&amp; !email.isEmpty()) {</span>
+<span class="nc" id="L212">            sql += &quot; AND email like '%&quot; + email + &quot;%'&quot;;</span>
+        }
+<span class="pc bpc" id="L214" title="1 of 2 branches missed.">        if (gender != null) {</span>
+<span class="nc" id="L215">            sql += &quot; AND gender = &quot; + gender;</span>
+        }
+<span class="pc bpc" id="L217" title="3 of 4 branches missed.">        if (listSpec != null &amp;&amp; !listSpec.isEmpty()) {</span>
+<span class="nc" id="L218">            sql += &quot;and (&quot;;</span>
+<span class="nc bnc" id="L219" title="All 2 branches missed.">            for (int i = 0; i &lt; listSpec.size(); i++) {</span>
+<span class="nc" id="L220">                sql += &quot;specialities.name = '&quot; + listSpec.get(i) + &quot;' &quot;;</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">                if (i &lt; listSpec.size() - 1) {</span>
+<span class="nc" id="L222">                    sql += &quot; or &quot;;</span>
+                }
+            }
+<span class="nc" id="L225">            sql += &quot;)&quot;;</span>
+        }
+
+        try {
+<span class="fc" id="L229">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L230">            rs = ps.executeQuery();</span>
+<span class="fc bfc" id="L231" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc" id="L232">                Doctor d = new Doctor();</span>
+<span class="fc" id="L233">                d.setDoctorID(rs.getInt(1));</span>
+<span class="fc" id="L234">                d.setName(rs.getString(2));</span>
+<span class="fc" id="L235">                d.setGender(rs.getInt(3));</span>
+<span class="fc" id="L236">                d.setPhone(rs.getString(4));</span>
+<span class="fc" id="L237">                d.setEmail(rs.getString(5));</span>
+<span class="fc" id="L238">                d.setRole(rs.getString(6));</span>
+<span class="fc" id="L239">                d.setImage(rs.getString(7));</span>
+<span class="fc" id="L240">                d.setDescription(rs.getString(8));</span>
+<span class="fc" id="L241">                Specialities spec = new Specialities(rs.getInt(9), rs.getString(10));</span>
+<span class="fc" id="L242">                d.setSpec(spec);</span>
+<span class="fc" id="L243">                d.setAccountID(rs.getInt(11));</span>
+<span class="fc" id="L244">                list.add(d);</span>
+<span class="fc" id="L245">            }</span>
+<span class="nc" id="L246">        } catch (SQLException e) {</span>
+<span class="nc" id="L247">            System.out.println(e);</span>
+<span class="fc" id="L248">        }</span>
+<span class="fc" id="L249">        return list;</span>
+    }
+
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+<span class="nc" id="L257">        DoctorDAO doctorDb = new DoctorDAO();</span>
+<span class="nc" id="L258">        Specialities spec = new Specialities(1, &quot;abc&quot;);</span>
+//        Doctor d = new Doctor(20, &quot;Le Van Nam&quot;, 1, &quot;2000-01-01&quot;, &quot;0123456789&quot;, &quot;abc@gmail.com&quot;, &quot;Head of Department&quot;, spec, &quot;abc&quot;, &quot;abc&quot;, 21);
+//        List&lt;Doctor&gt; list = doctorDb.getAllDoctor();
+//        List&lt;Doctor&gt; d = doctorDb.getDoctorByPage(list, 1, 5);
+<span class="nc" id="L262">        Doctor d = doctorDb.getDoctorByAccountID(7);</span>
+<span class="nc" id="L263">        System.out.println(d);</span>
+//        Doctor d = doctorDb.getDoctorByDoctorID(2);
+//        System.out.println(d);
+//        String[] listSpec 
+//        List&lt;Doctor&gt; list = doctorDb.search(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, null, listSpec);
+//        System.out.println(list);
+
+<span class="nc" id="L270">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

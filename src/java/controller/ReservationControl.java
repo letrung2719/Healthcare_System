@@ -12,6 +12,7 @@ import dal.TimetableDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,17 +71,21 @@ public class ReservationControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Patient curUser = (Patient) session.getAttribute("user");
-        if (curUser == null) {
-            request.setAttribute("mess", resourceBundle.getString("must_login"));
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
-            String serviceId = request.getParameter("id");
-            ServicesDAO serviceDb = new ServicesDAO();
-            Services s = serviceDb.getServiceByID(serviceId);
-            request.setAttribute("service", s);
-            request.getRequestDispatcher("reservation.jsp").forward(request, response);
+        try {
+            HttpSession session = request.getSession();
+            Patient curUser = (Patient) session.getAttribute("user");
+            if (curUser == null) {
+                request.setAttribute("mess", resourceBundle.getString("must_login"));
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                String serviceId = request.getParameter("id");
+                ServicesDAO serviceDb = new ServicesDAO();
+                Services s = serviceDb.getServiceByID(serviceId);
+                request.setAttribute("service", s);
+                request.getRequestDispatcher("reservation.jsp").forward(request, response);
+            }
+        } catch (IOException | SQLException | ServletException e) {
+            System.out.println(e);
         }
     }
 
@@ -98,7 +103,6 @@ public class ReservationControl extends HttpServlet {
         try {
             String date = request.getParameter("date");
             String slotTime = request.getParameter("slotTime");
-//            String description = (request.getParameter("description") == null) ? "" : request.getParameter("description");
             String description = request.getParameter("description");
             int patientID = Integer.parseInt(request.getParameter("patientId"));
             String serviceId = request.getParameter("serviceID");
@@ -127,7 +131,7 @@ public class ReservationControl extends HttpServlet {
                 request.getRequestDispatcher("reservation-success.jsp").forward(request, response);
             }
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | SQLException e) {
             System.out.println(e);
         }
     }

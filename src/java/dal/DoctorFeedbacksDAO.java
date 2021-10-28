@@ -6,11 +6,14 @@
 package dal;
 
 import dbcontext.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Doctor;
 import model.DoctorFeedbacks;
 import model.Patient;
@@ -19,21 +22,26 @@ import model.Patient;
  *
  * @author admin
  */
-public class DoctorFeedbacksDAO extends DBContext {
+public class DoctorFeedbacksDAO {
 
     PreparedStatement ps = null;
     ResultSet rs = null;
     PatientDAO patientDB = new PatientDAO();
     DoctorDAO doctorDB = new DoctorDAO();
+    
+    DBContext dbc = new DBContext();
+    Connection connection = null;
 
     /**
      *
      * @param feedback
      * @return
+     * @throws java.sql.SQLException
      */
-    public int addNewDoctorFeedback(DoctorFeedbacks feedback) {
+    public int addNewDoctorFeedback(DoctorFeedbacks feedback) throws SQLException {
         String sql = "insert into Doctor_Feedbacks (date,content,rate,patient_id,doctor_id) values (?,?,?,?,?)";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, feedback.getDate());
             ps.setString(2, feedback.getContent());
@@ -43,6 +51,10 @@ public class DoctorFeedbacksDAO extends DBContext {
             return ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return 0;
     }
@@ -51,11 +63,13 @@ public class DoctorFeedbacksDAO extends DBContext {
      *
      * @param doctorID
      * @return
+     * @throws java.sql.SQLException
      */
-    public List<DoctorFeedbacks> getAllDoctorFeedbacks(int doctorID) {
+    public List<DoctorFeedbacks> getAllDoctorFeedbacks(int doctorID) throws SQLException {
         List<DoctorFeedbacks> list = new ArrayList<>();
         String sql = "select * from Doctor_Feedbacks where doctor_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, doctorID);
             rs = ps.executeQuery();
@@ -65,6 +79,10 @@ public class DoctorFeedbacksDAO extends DBContext {
             return list;
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return null;
     }
@@ -73,8 +91,9 @@ public class DoctorFeedbacksDAO extends DBContext {
      *
      * @param doctorID
      * @return
+     * @throws java.sql.SQLException
      */
-    public int getAverageRating(int doctorID) {
+    public int getAverageRating(int doctorID) throws SQLException {
         DoctorFeedbacksDAO doctorFeedbackDAO = new DoctorFeedbacksDAO();
         List<DoctorFeedbacks> list = doctorFeedbackDAO.getAllDoctorFeedbacks(doctorID);
         int sum = 0;
@@ -92,10 +111,12 @@ public class DoctorFeedbacksDAO extends DBContext {
      *
      * @param feedback
      * @return
+     * @throws java.sql.SQLException
      */
-    public int updateDoctorFeedback(DoctorFeedbacks feedback) {
+    public int updateDoctorFeedback(DoctorFeedbacks feedback) throws SQLException {
         String sql = "update Doctor_Feedbacks set date = ?, content = ?, rate = ? where patient_id = ? and doctor_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, feedback.getDate());
             ps.setString(2, feedback.getContent());
@@ -105,6 +126,10 @@ public class DoctorFeedbacksDAO extends DBContext {
             return ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return 0;
     }
@@ -114,16 +139,22 @@ public class DoctorFeedbacksDAO extends DBContext {
      * @param patientID
      * @param doctorID
      * @return
+     * @throws java.sql.SQLException
      */
-    public int deleteDoctorFeedback(int patientID, int doctorID) {
+    public int deleteDoctorFeedback(int patientID, int doctorID) throws SQLException {
         String sql = "delete from Doctor_Feedbacks where patient_id = ? and doctor_id = ?";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, patientID);
             ps.setInt(2, doctorID);
             return ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return 0;
     }
@@ -132,10 +163,12 @@ public class DoctorFeedbacksDAO extends DBContext {
      *
      * @param doctorID
      * @return
+     * @throws java.sql.SQLException
      */
-    public int countAllDoctorFeedback(int doctorID) {
+    public int countAllDoctorFeedback(int doctorID) throws SQLException {
         String sql = "select count(*) from Doctor_Feedbacks where doctor_id = " + doctorID;
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -143,6 +176,10 @@ public class DoctorFeedbacksDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return 0;
     }
@@ -154,8 +191,9 @@ public class DoctorFeedbacksDAO extends DBContext {
      * @param numberOfItem
      * @param sort
      * @return
+     * @throws java.sql.SQLException
      */
-    public List<DoctorFeedbacks> paginateDoctorFeedbackByDoctorID(int doctorID, int pageNumber, int numberOfItem, String sort) {
+    public List<DoctorFeedbacks> paginateDoctorFeedbackByDoctorID(int doctorID, int pageNumber, int numberOfItem, String sort) throws SQLException {
         List<DoctorFeedbacks> list = new ArrayList<>();
         String sql = "DECLARE @PageNumber AS INT\n"
                 + "DECLARE @RowsOfPage AS INT\n"
@@ -166,6 +204,7 @@ public class DoctorFeedbacksDAO extends DBContext {
                 + "OFFSET (@PageNumber-1)*@RowsOfPage ROWS\n"
                 + "FETCH NEXT @RowsOfPage ROWS ONLY";
         try {
+            connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -182,6 +221,10 @@ public class DoctorFeedbacksDAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
         return list;
     }
@@ -191,7 +234,8 @@ public class DoctorFeedbacksDAO extends DBContext {
      * @param args
      */
     public static void main(String[] args) {
-        DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();
+        try {
+            DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();
 //        Patient patient = new Patient(1, "abc", 0, "", "", "", 2, "");
 //        Doctor doctor = new Doctor(5, "", 0, "", "", "", "", null, "", "", 1);
 //        DoctorFeedbacks feedback = new DoctorFeedbacks("2021-11-21", "abcacfa", 4, patient, doctor);
@@ -200,10 +244,13 @@ public class DoctorFeedbacksDAO extends DBContext {
 //        System.out.println(db.getAverageRating(2));
 //        List<DoctorFeedbacks> list = db.paginateDoctorFeedbackByDoctorID(1, 1, 5, "feedback_id");
 //        System.out.println(list);
-        Patient patient = new Patient(1, "abc", 0, "", "", "", 2, "");
-        Doctor doctor = new Doctor(1, "", 0, "", "", "", "", null, "", "", 1);
-        DoctorFeedbacks fb = new DoctorFeedbacks("2021-11-11", "test", 5, patient, doctor);
-        db.updateDoctorFeedback(fb);
+            Patient patient = new Patient(1, "abc", 0, "", "", "", 2, "");
+            Doctor doctor = new Doctor(1, "", 0, "", "", "", "", null, "", "", 1);
+            DoctorFeedbacks fb = new DoctorFeedbacks("2021-11-11", "test", 5, patient, doctor);
+            db.updateDoctorFeedback(fb);
+        } catch (SQLException ex) {
+            Logger.getLogger(DoctorFeedbacksDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

@@ -7,6 +7,7 @@ package controller.admin;
 
 import dal.AppointmentDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +22,9 @@ import model.Appointment;
  */
 @WebServlet(name = "AppointmentAdControl", urlPatterns = {"/admin/appoint"})
 public class AppointmentAdControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,11 +37,15 @@ public class AppointmentAdControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        AppointmentDAO dao = new AppointmentDAO();
-        List<Appointment> ListA = dao.getAppointmentAdmin();
-        
-        request.setAttribute("ListA", ListA);
-        request.getRequestDispatcher("/admin/appointment.jsp").forward(request, response);
+        try {
+            AppointmentDAO dao = new AppointmentDAO();
+            List<Appointment> ListA = dao.getAppointmentAdmin();
+
+            request.setAttribute("ListA", ListA);
+            request.getRequestDispatcher("/admin-role/appointment.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

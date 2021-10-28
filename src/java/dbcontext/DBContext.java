@@ -12,21 +12,10 @@ public class DBContext {
 
     private final String condition = "allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false&requireSSL=false";
 
-    private String pass(String pass) {
-        return pass;
-    }
-
-    /**
-     *
-     */
-    protected Connection connection;
-
-    /**
-     *
-     */
-    public DBContext() {
+    public Connection getConnection() {
         try {
             // Edit URL , username, password to authenticate with your MS SQL Server
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String serverName = "localhost";
             String portNumber = "3306";
             String dbName = "healthcare_system";
@@ -34,12 +23,13 @@ public class DBContext {
 
             String username = "root";
             String password = "12345";
-            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            connection = DriverManager.getConnection(url, username, pass(password));
+            Connection connection = DriverManager.getConnection(url, username, password);
+            return connection;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
+        return null;
     }
 
     /**
@@ -48,6 +38,6 @@ public class DBContext {
      */
     public static void main(String[] args) {
         DBContext db = new DBContext();
-        System.out.println(db.toString());
+        System.out.println(db.getConnection());
     }
 }

@@ -8,6 +8,7 @@ package controller.services;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +26,9 @@ import model.Specialities;
  */
 @WebServlet(name = "SearchSpecialities", urlPatterns = {"/searchspecialities"})
 public class SearchSpecialities extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,14 +41,18 @@ public class SearchSpecialities extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String[] arraySpec = request.getParameterValues("select_specialist");
-        List<String> listSpec = arraySpec == null ? new ArrayList<>() : Arrays.asList(arraySpec);
-        ServicesDAO dal = new ServicesDAO();
-        List<Specialities> listSpecialities = dal.getAllSpecialities();
-        List<Services> listServices = dal.searchSpecialities(listSpec);
-        request.setAttribute("listSpecialities", listSpecialities);
-        request.setAttribute("listServices", listServices);
-        request.getRequestDispatcher("serviceslist.jsp").forward(request, response);
+        try {
+            String[] arraySpec = request.getParameterValues("select_specialist");
+            List<String> listSpec = arraySpec == null ? new ArrayList<>() : Arrays.asList(arraySpec);
+            ServicesDAO dal = new ServicesDAO();
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            List<Services> listServices = dal.searchSpecialities(listSpec);
+            request.setAttribute("listSpecialities", listSpecialities);
+            request.setAttribute("listServices", listServices);
+            request.getRequestDispatcher("services-list.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

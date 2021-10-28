@@ -7,6 +7,7 @@ package controller.services;
 
 import dal.ServicesDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,9 @@ import model.Specialities;
  */
 @WebServlet(name = "SortStarFeedbackControl", urlPatterns = {"/sortStarComment"})
 public class SortStarCommentControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,60 +42,55 @@ public class SortStarCommentControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //////////
-        //
-        String star = request.getParameter("star");
-        String id = request.getParameter("sid");
-        ServicesDAO dal = new ServicesDAO();
-        if (star.equals("all")) {
-            List<ServiceFeedbacks> listF = dal.getAllComment(id);
-            request.setAttribute("listF", listF);
-        } else {
-            List<ServiceFeedbacks> listFs = dal.getAllCommentSortedByStar(id, star);
-            request.setAttribute("listF", listFs);
-        }
+        try {
+            String star = request.getParameter("star");
+            String id = request.getParameter("sid");
+            ServicesDAO dal = new ServicesDAO();
+            if (star.equals("all")) {
+                List<ServiceFeedbacks> listF = dal.getAllComment(id);
+                request.setAttribute("listF", listF);
+            } else {
+                List<ServiceFeedbacks> listFs = dal.getAllCommentSortedByStar(id, star);
+                request.setAttribute("listF", listFs);
+            }
 
-        //lấy list các feedback của service có id trên và hiện theo số sao quy định
-        //
-        Services s = dal.getServiceByID(id);
-        String specID = s.getType_id();
-        request.setAttribute("detail", s);
-        //lấy dữ liệu Service và id Speciality của Service
-        //
-        int avrate = dal.averageRateServices(id);
-        request.setAttribute("avrate", avrate);
-        //lấy rate trung bình của service
-        //
-        Specialities spec = dal.getSpecByID(specID);
-        request.setAttribute("spec", spec);
-        //lấy ra specialitie của Service
-        //
-        String type_id = dal.getServiceByID(id).getType_id();
-        List<Services> listS = dal.getTop4Last(type_id);
-        request.setAttribute("listS", listS);
-        //lấy ra 4 service liên quan theo specialitie
-        //
-        List<ServiceFeedbacks> listF = dal.getAllComment(id);
-        int totalfeedback = listF.size();
-        request.setAttribute("totalfeedback", totalfeedback);
-        //số feedback của service
-        //
-        HttpSession session = request.getSession();
-        Account a = (Account) session.getAttribute("acc");
-        if (a != null) {
-            if (a.getAuthor_id() == 2) {
-                Patient p = (Patient) session.getAttribute("user");
-                List<ServiceFeedbacks> check = dal.checkPatientComment((int) p.getPatientID(), id);
-                if (check.isEmpty()) {
-                    request.setAttribute("check", 1);
-                } else {
-                    request.setAttribute("check", 5);
+            //lấy list các feedback của service có id trên và hiện theo số sao quy định
+            Services s = dal.getServiceByID(id);
+            String specID = s.getType_id();
+            request.setAttribute("detail", s);
+            //lấy dữ liệu Service và id Speciality của Service
+            int avrate = dal.averageRateServices(id);
+            request.setAttribute("avrate", avrate);
+            //lấy rate trung bình của service
+            Specialities spec = dal.getSpecByID(specID);
+            request.setAttribute("spec", spec);
+            //lấy ra specialitie của Service
+            String type_id = dal.getServiceByID(id).getType_id();
+            List<Services> listS = dal.getTop4Last(type_id);
+            request.setAttribute("listS", listS);
+            //lấy ra 4 service liên quan theo specialitie
+            List<ServiceFeedbacks> listF = dal.getAllComment(id);
+            int totalfeedback = listF.size();
+            request.setAttribute("totalfeedback", totalfeedback);
+            //số feedback của service
+            HttpSession session = request.getSession();
+            Account a = (Account) session.getAttribute("acc");
+            if (a != null) {
+                if (a.getAuthor_id() == 2) {
+                    Patient p = (Patient) session.getAttribute("user");
+                    List<ServiceFeedbacks> check = dal.checkPatientComment((int) p.getPatientID(), id);
+                    if (check.isEmpty()) {
+                        request.setAttribute("check", 1);
+                    } else {
+                        request.setAttribute("check", 5);
+                    }
                 }
             }
+            request.getRequestDispatcher("service-detail.jsp").forward(request, response);
+
+        } catch (IOException | SQLException | ServletException e) {
+            System.out.println(e);
         }
-        ////////
-        request.getRequestDispatcher("service-detail.jsp").forward(request, response);
-        ////////
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

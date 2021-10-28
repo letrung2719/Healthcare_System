@@ -8,6 +8,7 @@ package controller.admin;
 import dal.DoctorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,9 @@ import model.Specialities;
  * @author Admin
  */
 public class UpdateDoctorControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,7 +37,7 @@ public class UpdateDoctorControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            
+
             int accountID = Integer.parseInt(request.getParameter("accountID"));
             String name = request.getParameter("name");
             String gender_raw = request.getParameter("gender");
@@ -47,7 +50,7 @@ public class UpdateDoctorControl extends HttpServlet {
             DoctorDAO doctorDb = new DoctorDAO();
             doctorDb.editDoctor(d);
             response.sendRedirect("doctor_list");
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | SQLException ex) {
             System.out.println(ex);
         }
     }

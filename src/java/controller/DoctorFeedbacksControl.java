@@ -10,6 +10,7 @@ import dal.DoctorFeedbacksDAO;
 import dal.PatientDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -100,7 +101,7 @@ public class DoctorFeedbacksControl extends HttpServlet {
                 feedbackDB.updateDoctorFeedback(feedback);
                 response.sendRedirect(request.getContextPath() + "/doctor_profile_view?id=" + doctor.getAccountID());
             }
-        } catch (IOException | NumberFormatException e) {
+        } catch (IOException | NumberFormatException | SQLException e) {
             System.out.println(e);
         }
     }
@@ -135,7 +136,7 @@ public class DoctorFeedbacksControl extends HttpServlet {
             DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();
             feedbackDB.addNewDoctorFeedback(feedback);
             response.sendRedirect(request.getContextPath() + "/doctor_profile_view?id=" + doctor.getAccountID());
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | SQLException e) {
             System.out.println(e);
         }
     }

@@ -6,6 +6,7 @@ import dal.PatientDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,9 +21,10 @@ import model.Patient;
  * @author admin
  */
 public class SignUpControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
-    
+
     private void writeObject(ObjectOutputStream stream)
             throws IOException {
         stream.defaultWriteObject();
@@ -62,44 +64,48 @@ public class SignUpControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String name = request.getParameter("name");
-        int gender = Integer.parseInt(request.getParameter("gender"));
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        String repass = request.getParameter("repass");
+        try {
+            String name = request.getParameter("name");
+            int gender = Integer.parseInt(request.getParameter("gender"));
+            String phone = request.getParameter("phone");
+            String email = request.getParameter("email");
+            String user = request.getParameter("user");
+            String pass = request.getParameter("pass");
+            String repass = request.getParameter("repass");
 
-        request.setAttribute("name", name);
-        request.setAttribute("gender", gender);
-        request.setAttribute("phone", phone);
-        request.setAttribute("email", email);
-        request.setAttribute("user", user);
+            request.setAttribute("name", name);
+            request.setAttribute("gender", gender);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.setAttribute("user", user);
 
-        Validate validate = new Validate();
-        if (validate.checkPhone(phone) == false) {
-            request.setAttribute("mess", resourceBundle.getString("invalid_phone"));
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
-        }
-
-        if (!pass.equals(repass)) {
-            request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
-
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
-        } else {
-            PatientDAO patientDb = new PatientDAO();
-            AccountDAO accountDb = new AccountDAO();
-            Account a = accountDb.checkAccountExist(user);
-            if (a == null) { //Account a chua ton tai
-                accountDb.insertNewAccountPatient(user, pass);
-                Account account = accountDb.getNewestAccount();
-                Patient u = new Patient(name, gender, "", phone, email, account.getId(), "");
-                patientDb.insertNewPatient(u);
-                response.sendRedirect("login.jsp");
-            } else {
-                request.setAttribute("mess", resourceBundle.getString("existed_account"));
+            Validate validate = new Validate();
+            if (validate.checkPhone(phone) == false) {
+                request.setAttribute("mess", resourceBundle.getString("invalid_phone"));
                 request.getRequestDispatcher("signup.jsp").forward(request, response);
             }
+
+            if (!pass.equals(repass)) {
+                request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
+
+                request.getRequestDispatcher("signup.jsp").forward(request, response);
+            } else {
+                PatientDAO patientDb = new PatientDAO();
+                AccountDAO accountDb = new AccountDAO();
+                Account a = accountDb.checkAccountExist(user);
+                if (a == null) { //Account a chua ton tai
+                    accountDb.insertNewAccountPatient(user, pass);
+                    Account account = accountDb.getNewestAccount();
+                    Patient u = new Patient(name, gender, "", phone, email, account.getId(), "");
+                    patientDb.insertNewPatient(u);
+                    response.sendRedirect("login.jsp");
+                } else {
+                    request.setAttribute("mess", resourceBundle.getString("existed_account"));
+                    request.getRequestDispatcher("signup.jsp").forward(request, response);
+                }
+            }
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
         }
     }
 

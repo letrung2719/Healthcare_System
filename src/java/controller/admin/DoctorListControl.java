@@ -8,6 +8,7 @@ package controller.admin;
 import dal.DoctorDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +43,7 @@ public class DoctorListControl extends HttpServlet {
             request.setAttribute("listDoctors", list);
             request.setAttribute("listSpec", listSpec);
             request.getRequestDispatcher("doctor-list.jsp").forward(request, response);
-        } catch (IOException | ServletException e) {
+        } catch (IOException | ServletException | SQLException e) {
             System.out.println(e);
         }
     }

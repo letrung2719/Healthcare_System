@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AppointmentDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Healthcare_System&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dal</a> &gt; <span class="el_source">AppointmentDAO.java</span></div><h1>AppointmentDAO.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dal;
+
+import dbcontext.DBContext;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.Appointment;
+import model.Doctor;
+import model.Patient;
+import model.Timetable;
+
+/**
+ *
+ * @author admin
+ */
+<span class="nc" id="L23">public class AppointmentDAO extends DBContext {</span>
+
+<span class="nc" id="L25">    PreparedStatement ps = null;</span>
+<span class="nc" id="L26">    ResultSet rs = null;</span>
+
+<span class="nc" id="L28">    PatientDAO dalPatient = new PatientDAO();</span>
+<span class="nc" id="L29">    DoctorDAO dalDoctor = new DoctorDAO();</span>
+<span class="nc" id="L30">    TimetableDAO dalTimetable = new TimetableDAO();</span>
+    /**
+     *
+     * @param a
+     * @return
+     */
+    public int addNewAppointment(Appointment a) {
+<span class="nc" id="L37">        String sql = &quot;insert into Appointments (patient_id,doctor_id,date,slot_id,description,status) values (?,?,?,?,?,?)&quot;;</span>
+
+        try {
+<span class="nc" id="L40">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L41">            ps.setInt(1, a.getPatient().getPatientID());</span>
+<span class="nc" id="L42">            ps.setInt(2, a.getDoctor().getDoctorID());</span>
+<span class="nc" id="L43">            ps.setString(3, a.getDate());</span>
+<span class="nc" id="L44">            ps.setInt(4, a.getSlot().getSlotID());</span>
+<span class="nc" id="L45">            ps.setString(5, a.getDescription());</span>
+<span class="nc" id="L46">            ps.setInt(6, a.getStatus());</span>
+<span class="nc" id="L47">            ps.executeUpdate();</span>
+<span class="nc" id="L48">            return 1;</span>
+<span class="nc" id="L49">        } catch (SQLException e) {</span>
+<span class="nc" id="L50">            System.out.println(e);</span>
+        }
+<span class="nc" id="L52">        return 0;</span>
+    }
+
+    /**
+     *
+     * @param appID
+     * @return
+     */
+    public Appointment getAppointmentByID(int appID) {
+<span class="nc" id="L61">        String sql = &quot;select  * from appointments where appointment_id = &quot; + appID;</span>
+        try {
+<span class="nc" id="L63">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L64">            rs = ps.executeQuery();</span>
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">            if (rs.next()) {</span>
+
+<span class="nc" id="L68">                Appointment a = new Appointment();</span>
+<span class="nc" id="L69">                a.setAppointmentID(rs.getInt(1));</span>
+<span class="nc" id="L70">                Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));</span>
+<span class="nc" id="L71">                a.setPatient(p);</span>
+<span class="nc" id="L72">                Doctor d = dalDoctor.getDoctorByDoctorID(rs.getInt(3));</span>
+<span class="nc" id="L73">                a.setDoctor(d);</span>
+
+<span class="nc" id="L75">                a.setDate(rs.getString(4));</span>
+<span class="nc" id="L76">                Timetable t = dalTimetable.getTimeBySlotID(rs.getInt(5));</span>
+<span class="nc" id="L77">                a.setSlot(t);</span>
+<span class="nc" id="L78">                a.setDescription(rs.getString(6));</span>
+<span class="nc" id="L79">                a.setStatus(rs.getInt(7));</span>
+<span class="nc" id="L80">                return a;</span>
+            }
+<span class="nc" id="L82">        } catch (SQLException e) {</span>
+<span class="nc" id="L83">            System.out.println(e);</span>
+<span class="nc" id="L84">        }</span>
+<span class="nc" id="L85">        return null;</span>
+    }
+
+    /**
+     *
+     * @param doctorID
+     * @return
+     */
+    public int getAllDoctorAppointment(int doctorID) {
+<span class="nc" id="L94">        String sql = &quot;select count(*) from Appointments where doctor_id = &quot; + doctorID;</span>
+        try {
+<span class="nc" id="L96">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L97">            rs = ps.executeQuery();</span>
+
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L100">                return rs.getInt(1);</span>
+            }
+<span class="nc" id="L102">        } catch (SQLException e) {</span>
+<span class="nc" id="L103">            System.out.println(e);</span>
+<span class="nc" id="L104">        }</span>
+<span class="nc" id="L105">        return 0;</span>
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List&lt;Appointment&gt; getAppointmentAdmin() {
+<span class="nc" id="L113">        List&lt;Appointment&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L114">        String sql = &quot;select * from Appointments&quot;;</span>
+        try {
+<span class="nc" id="L116">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L117">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L119">                Appointment a = new Appointment();</span>
+<span class="nc" id="L120">                a.setAppointmentID(rs.getInt(1));</span>
+<span class="nc" id="L121">                Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));</span>
+<span class="nc" id="L122">                a.setPatient(p);</span>
+<span class="nc" id="L123">                Doctor d = dalDoctor.getDoctorByDoctorID(rs.getInt(3));</span>
+<span class="nc" id="L124">                a.setDoctor(d);</span>
+<span class="nc" id="L125">                a.setDate(rs.getString(4));</span>
+<span class="nc" id="L126">                Timetable s = dalTimetable.getTimeBySlotID(rs.getInt(5));</span>
+<span class="nc" id="L127">                a.setSlot(s);</span>
+<span class="nc" id="L128">                a.setDescription(rs.getString(6));</span>
+<span class="nc" id="L129">                a.setStatus(rs.getInt(7));</span>
+<span class="nc" id="L130">                list.add(a);</span>
+<span class="nc" id="L131">            }</span>
+<span class="nc" id="L132">        } catch (SQLException e) {</span>
+<span class="nc" id="L133">            System.out.println(e);</span>
+<span class="nc" id="L134">        }</span>
+<span class="nc" id="L135">        return list;</span>
+    }
+
+    /**
+     *
+     * @param doctorID
+     * @param pageNumber
+     * @param numberOfItem
+     * @return
+     */
+    //CHECK AGAIN
+    public List&lt;Appointment&gt; paginateAppointmentByDoctorID(int doctorID, int pageNumber, int numberOfItem) {
+<span class="nc" id="L147">        List&lt;Appointment&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L148">        String sql = &quot;DECLARE @PageNumber AS INT\n&quot;</span>
+                + &quot;DECLARE @RowsOfPage AS INT\n&quot;
+                + &quot;SET @PageNumber=?\n&quot;
+                + &quot;SET @RowsOfPage=?\n&quot;
+                + &quot;SELECT * FROM Appointments where doctor_id =?\n&quot;
+                + &quot;ORDER BY appointment_id \n&quot;
+                + &quot;OFFSET (@PageNumber-1)*@RowsOfPage ROWS\n&quot;
+                + &quot;FETCH NEXT @RowsOfPage ROWS ONLY&quot;;
+        try {
+
+<span class="nc" id="L158">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L159">            ps.setInt(1, pageNumber);</span>
+<span class="nc" id="L160">            ps.setInt(2, numberOfItem);</span>
+<span class="nc" id="L161">            ps.setInt(3, doctorID);</span>
+<span class="nc" id="L162">            rs = ps.executeQuery();</span>
+
+<span class="nc bnc" id="L164" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L165">                Appointment a = new Appointment();</span>
+<span class="nc" id="L166">                a.setAppointmentID(rs.getInt(1));</span>
+<span class="nc" id="L167">                Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));</span>
+<span class="nc" id="L168">                a.setPatient(p);</span>
+<span class="nc" id="L169">                Doctor d = dalDoctor.getDoctorByDoctorID(rs.getInt(3));</span>
+<span class="nc" id="L170">                a.setDoctor(d);</span>
+<span class="nc" id="L171">                a.setDate(rs.getString(4));</span>
+
+<span class="nc" id="L173">                Timetable slot = dalTimetable.getTimeBySlotID(rs.getInt(5));</span>
+<span class="nc" id="L174">                a.setSlot(slot);</span>
+<span class="nc" id="L175">                a.setDescription(rs.getString(6));</span>
+<span class="nc" id="L176">                a.setStatus(rs.getInt(7));</span>
+<span class="nc" id="L177">                list.add(a);</span>
+<span class="nc" id="L178">            }</span>
+<span class="nc" id="L179">        } catch (SQLException e) {</span>
+<span class="nc" id="L180">            System.out.println(e);</span>
+<span class="nc" id="L181">        }</span>
+<span class="nc" id="L182">        return list;</span>
+    }
+
+    /**
+     *
+     * @param appID
+     * @param status
+     * @return
+     */
+    public int changeAppointmentStatus(int appID, int status) {
+<span class="nc" id="L192">        String sql = &quot;update appointments set status = &quot; + status + &quot; where appointment_id  = &quot; + appID;</span>
+        try {
+<span class="nc" id="L194">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L195">            int rs = ps.executeUpdate();</span>
+<span class="nc" id="L196">            return rs;</span>
+<span class="nc" id="L197">        } catch (SQLException e) {</span>
+<span class="nc" id="L198">            System.out.println(e);</span>
+        }
+<span class="nc" id="L200">        return 0;</span>
+    }
+
+    /**
+     *
+     * @param d
+     * @return
+     */
+    public List&lt;Appointment&gt; getAllAppointmentByDoctorID(Doctor d) {
+<span class="nc" id="L209">        List&lt;Appointment&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L210">        String sql = &quot;select * from Appointments where doctor_id = &quot; + d.getDoctorID();</span>
+        try {
+<span class="nc" id="L212">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L213">            rs = ps.executeQuery();</span>
+
+<span class="nc bnc" id="L215" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L216">                Appointment a = new Appointment();</span>
+<span class="nc" id="L217">                a.setAppointmentID(rs.getInt(1));</span>
+<span class="nc" id="L218">                Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));</span>
+<span class="nc" id="L219">                a.setPatient(p);</span>
+<span class="nc" id="L220">                a.setDoctor(d);</span>
+<span class="nc" id="L221">                a.setDate(rs.getString(4));</span>
+<span class="nc" id="L222">                Timetable slot = dalTimetable.getTimeBySlotID(rs.getInt(5));</span>
+<span class="nc" id="L223">                a.setSlot(slot);</span>
+<span class="nc" id="L224">                Timetable t = dalTimetable.getTimeBySlotID(rs.getInt(5));</span>
+<span class="nc" id="L225">                a.setSlot(t);</span>
+<span class="nc" id="L226">                a.setDescription(rs.getString(6));</span>
+<span class="nc" id="L227">                a.setStatus(rs.getInt(7));</span>
+<span class="nc" id="L228">                list.add(a);</span>
+<span class="nc" id="L229">            }</span>
+<span class="nc" id="L230">        } catch (SQLException e) {</span>
+<span class="nc" id="L231">            System.out.println(e);</span>
+<span class="nc" id="L232">        }</span>
+<span class="nc" id="L233">        return list;</span>
+    }
+
+    /**
+     *
+     * @param appID
+     * @return
+     */
+    public int deleteAppointment(int appID) {
+<span class="nc" id="L242">        String sql = &quot;delete from appointments where appointment_id = &quot; + appID;</span>
+        try {
+<span class="nc" id="L244">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L245">            return ps.executeUpdate();</span>
+<span class="nc" id="L246">        } catch (SQLException e) {</span>
+<span class="nc" id="L247">            System.out.println(e);</span>
+        }
+<span class="nc" id="L249">        return 0;</span>
+    }
+
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+<span class="nc" id="L257">        AppointmentDAO db = new AppointmentDAO();</span>
+<span class="nc" id="L258">        Patient p = new Patient(3, &quot;name&quot;, 0, &quot;&quot;, &quot;0123456789&quot;, &quot;abc@gamil.com&quot;, 22, &quot;&quot;);</span>
+<span class="nc" id="L259">        Doctor d = new Doctor(1, &quot;name&quot;, 0, &quot;&quot;, &quot;0123456789&quot;, &quot;abc@gamil.com&quot;, null, null, &quot;&quot;, &quot;&quot;, 1);</span>
+        
+<span class="nc" id="L261">       List&lt;Appointment&gt; ls = db.getAllAppointmentByDoctorID(d);</span>
+<span class="nc" id="L262">        System.out.println(ls);</span>
+<span class="nc" id="L263">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

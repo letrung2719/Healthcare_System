@@ -8,6 +8,7 @@ package controller.admin;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,9 @@ import model.Services;
  */
 @WebServlet(name = "SerFeedbackDashboardControl", urlPatterns = {"/admin/review"})
 public class SerFeedbackDashboardControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,12 +38,15 @@ public class SerFeedbackDashboardControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ServicesDAO dal = new ServicesDAO();
-        List<Services> serDash = dal.getAllServiceDashboard();
-        
-        
-        request.setAttribute("serD", serDash);
-        request.getRequestDispatcher("/admin/review.jsp").forward(request, response);
+        try {
+            ServicesDAO dal = new ServicesDAO();
+            List<Services> serDash = dal.getAllServiceDashboard();
+
+            request.setAttribute("serD", serDash);
+            request.getRequestDispatcher("/admin-role/review.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

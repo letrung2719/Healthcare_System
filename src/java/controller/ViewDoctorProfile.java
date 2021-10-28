@@ -8,6 +8,7 @@ package controller;
 import dal.DoctorDAO;
 import dal.DoctorFeedbacksDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +24,9 @@ import model.Patient;
  * @author Admin
  */
 public class ViewDoctorProfile extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,27 +39,31 @@ public class ViewDoctorProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int accountID = Integer.parseInt(request.getParameter("id"));
-        DoctorDAO doctorDb = new DoctorDAO();
-        Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
-        request.setAttribute("doctor", doctor);
+        try {
+            int accountID = Integer.parseInt(request.getParameter("id"));
+            DoctorDAO doctorDb = new DoctorDAO();
+            Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
+            request.setAttribute("doctor", doctor);
 
-        DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();
-        List<DoctorFeedbacks> feedbacksList = feedbackDB.getAllDoctorFeedbacks(doctor.getDoctorID());
-        request.setAttribute("feedbacksList", feedbacksList);
-        int avgrate = feedbackDB.getAverageRating(doctor.getDoctorID());
-        request.setAttribute("avgrate", avgrate);
+            DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();
+            List<DoctorFeedbacks> feedbacksList = feedbackDB.getAllDoctorFeedbacks(doctor.getDoctorID());
+            request.setAttribute("feedbacksList", feedbacksList);
+            int avgrate = feedbackDB.getAverageRating(doctor.getDoctorID());
+            request.setAttribute("avgrate", avgrate);
 
-        HttpSession session = request.getSession();
-        Patient curUser = (Patient) session.getAttribute("user");
-        if (curUser != null) {
-            for (DoctorFeedbacks fb : feedbacksList) {
-                if (fb.getPatient().getPatientID() == curUser.getPatientID() && fb.getDoctor().getDoctorID() == doctor.getDoctorID()) {
-                    request.setAttribute("check", true);
+            HttpSession session = request.getSession();
+            Patient curUser = (Patient) session.getAttribute("user");
+            if (curUser != null) {
+                for (DoctorFeedbacks fb : feedbacksList) {
+                    if (fb.getPatient().getPatientID() == curUser.getPatientID() && fb.getDoctor().getDoctorID() == doctor.getDoctorID()) {
+                        request.setAttribute("check", true);
+                    }
                 }
             }
+            request.getRequestDispatcher("view-doctor-profile.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
         }
-        request.getRequestDispatcher("view-doctor-profile.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
