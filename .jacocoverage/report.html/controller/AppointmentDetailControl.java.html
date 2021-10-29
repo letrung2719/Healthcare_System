@@ -7,6 +7,7 @@ package controller;
 
 import dal.AppointmentDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +20,10 @@ import model.Appointment;
  * @author Admin
  */
 @WebServlet(name = &quot;AppointmentDetailControl&quot;, urlPatterns = {&quot;/appointmentDetailControl&quot;})
-<span class="nc" id="L22">public class AppointmentDetailControl extends HttpServlet {</span>
+<span class="nc" id="L23">public class AppointmentDetailControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -32,30 +35,33 @@ import model.Appointment;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L35">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L36">        int appID = Integer.parseInt(request.getParameter(&quot;id&quot;));</span>
-<span class="nc" id="L37">        String inputStatus = request.getParameter(&quot;status&quot;);</span>
-<span class="nc" id="L38">        AppointmentDAO appDb = new AppointmentDAO();</span>
-<span class="nc" id="L39">        Appointment a = appDb.getAppointmentByID(appID);</span>
-        
-<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (inputStatus != null) {</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">            if (inputStatus.equals(&quot;cancel&quot;)) {</span>
-<span class="nc" id="L43">                appDb.changeAppointmentStatus(a.getAppointmentID(), 0);</span>
-            }
-<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (inputStatus.equals(&quot;pending&quot;)) {</span>
-<span class="nc" id="L46">                appDb.changeAppointmentStatus(a.getAppointmentID(), 1);</span>
-            }
-<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (inputStatus.equals(&quot;complete&quot;)) {</span>
-<span class="nc" id="L49">                appDb.changeAppointmentStatus(a.getAppointmentID(), 2);</span>
-            }
-<span class="nc" id="L51">            a = appDb.getAppointmentByID(appID);</span>
-<span class="nc" id="L52">            request.setAttribute(&quot;app&quot;, a);</span>
-<span class="nc" id="L53">            request.getRequestDispatcher(&quot;appointment-detail.jsp&quot;).forward(request, response);</span>
-        }
-<span class="nc" id="L55">        request.setAttribute(&quot;app&quot;, a);</span>
-<span class="nc" id="L56">        request.getRequestDispatcher(&quot;/doctor/appointment-detail.jsp&quot;).forward(request, response);</span>
+        try {
+<span class="nc" id="L39">            response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L40">            int appID = Integer.parseInt(request.getParameter(&quot;id&quot;));</span>
+<span class="nc" id="L41">            String inputStatus = request.getParameter(&quot;status&quot;);</span>
+<span class="nc" id="L42">            AppointmentDAO appDb = new AppointmentDAO();</span>
+<span class="nc" id="L43">            Appointment a = appDb.getAppointmentByID(appID);</span>
 
-<span class="nc" id="L58">    }</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (inputStatus != null) {</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                if (inputStatus.equals(&quot;cancel&quot;)) {</span>
+<span class="nc" id="L47">                    appDb.changeAppointmentStatus(a.getAppointmentID(), 0);</span>
+                }
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (inputStatus.equals(&quot;pending&quot;)) {</span>
+<span class="nc" id="L50">                    appDb.changeAppointmentStatus(a.getAppointmentID(), 1);</span>
+                }
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                if (inputStatus.equals(&quot;complete&quot;)) {</span>
+<span class="nc" id="L53">                    appDb.changeAppointmentStatus(a.getAppointmentID(), 2);</span>
+                }
+<span class="nc" id="L55">                a = appDb.getAppointmentByID(appID);</span>
+<span class="nc" id="L56">                request.setAttribute(&quot;app&quot;, a);</span>
+<span class="nc" id="L57">                request.getRequestDispatcher(&quot;appointment-detail.jsp&quot;).forward(request, response);</span>
+            }
+<span class="nc" id="L59">            request.setAttribute(&quot;app&quot;, a);</span>
+<span class="nc" id="L60">            request.getRequestDispatcher(&quot;/doctor/appointment-detail.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L61">        } catch (IOException | NumberFormatException | SQLException | ServletException e) {</span>
+<span class="nc" id="L62">            System.out.println(e);</span>
+<span class="nc" id="L63">        }</span>
+<span class="nc" id="L64">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -69,8 +75,8 @@ import model.Appointment;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L72">        processRequest(request, response);</span>
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L78">        processRequest(request, response);</span>
+<span class="nc" id="L79">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -83,8 +89,8 @@ import model.Appointment;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L86">        processRequest(request, response);</span>
-<span class="nc" id="L87">    }</span>
+<span class="nc" id="L92">        processRequest(request, response);</span>
+<span class="nc" id="L93">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -93,7 +99,7 @@ import model.Appointment;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L96">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L102">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

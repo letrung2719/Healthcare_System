@@ -8,6 +8,7 @@ package controller.admin;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +22,10 @@ import model.Services;
  * @author ASUS
  */
 @WebServlet(name = &quot;SerFeedbackDashboardControl&quot;, urlPatterns = {&quot;/admin/review&quot;})
-<span class="nc" id="L24">public class SerFeedbackDashboardControl extends HttpServlet {</span>
+<span class="nc" id="L25">public class SerFeedbackDashboardControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -34,14 +37,17 @@ import model.Services;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L37">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L38">        ServicesDAO dal = new ServicesDAO();</span>
-<span class="nc" id="L39">        List&lt;Services&gt; serDash = dal.getAllServiceDashboard();</span>
-        
-        
-<span class="nc" id="L42">        request.setAttribute(&quot;serD&quot;, serDash);</span>
-<span class="nc" id="L43">        request.getRequestDispatcher(&quot;/admin/review.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L44">    }</span>
+<span class="nc" id="L40">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L42">            ServicesDAO dal = new ServicesDAO();</span>
+<span class="nc" id="L43">            List&lt;Services&gt; serDash = dal.getAllServiceDashboard();</span>
+
+<span class="nc" id="L45">            request.setAttribute(&quot;serD&quot;, serDash);</span>
+<span class="nc" id="L46">            request.getRequestDispatcher(&quot;/admin-role/review.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L47">        } catch (IOException | SQLException | ServletException e) {</span>
+<span class="nc" id="L48">            System.out.println(e);</span>
+<span class="nc" id="L49">        }</span>
+<span class="nc" id="L50">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -55,8 +61,8 @@ import model.Services;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L58">        processRequest(request, response);</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L64">        processRequest(request, response);</span>
+<span class="nc" id="L65">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -69,8 +75,8 @@ import model.Services;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L72">        processRequest(request, response);</span>
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L78">        processRequest(request, response);</span>
+<span class="nc" id="L79">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -79,7 +85,7 @@ import model.Services;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L82">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L88">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

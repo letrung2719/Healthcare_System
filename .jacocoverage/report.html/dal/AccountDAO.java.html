@@ -6,62 +6,79 @@
 package dal;
 
 import dbcontext.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Account;
 
 /**
  *
  * @author Admin
  */
-<span class="fc" id="L20">public class AccountDAO extends DBContext {</span>
+<span class="nc" id="L23">public class AccountDAO {</span>
 
-<span class="fc" id="L22">    PreparedStatement ps = null;</span>
-<span class="fc" id="L23">    ResultSet rs = null;</span>
+<span class="nc" id="L25">    PreparedStatement ps = null;</span>
+<span class="nc" id="L26">    ResultSet rs = null;</span>
+<span class="nc" id="L27">    DBContext dbc = new DBContext();</span>
+<span class="nc" id="L28">    Connection connection = null;</span>
 
     /**
      *
      * @param user
      * @param pass
      * @return
+     * @throws java.sql.SQLException
      */
-    public Account login(String user, String pass) {
-<span class="fc" id="L32">        String sql = &quot; select * from accounts where username=? and password = ?&quot;;</span>
+    public Account login(String user, String pass) throws SQLException {
+<span class="nc" id="L38">        String sql = &quot; select * from accounts where username=? and password = ?&quot;;</span>
         try {
-<span class="fc" id="L34">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
-<span class="fc" id="L35">            ps.setString(1, user);</span>
-<span class="fc" id="L36">            ps.setString(2, pass);</span>
-<span class="fc" id="L37">            rs = ps.executeQuery();//chay cau lenh tra ve</span>
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">            while (rs.next()) {</span>
-<span class="fc" id="L39">                return new Account(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5));</span>
+<span class="nc" id="L40">            connection = dbc.getConnection();</span>
+<span class="nc" id="L41">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L42">            ps.setString(1, user);</span>
+<span class="nc" id="L43">            ps.setString(2, pass);</span>
+<span class="nc" id="L44">            rs = ps.executeQuery();//chay cau lenh tra ve</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L46">                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5));</span>
             }
-<span class="nc" id="L41">        } catch (SQLException e) {</span>
-<span class="nc" id="L42">            System.out.println(e);</span>
-<span class="nc" id="L43">        }</span>
-<span class="nc" id="L44">        return null;</span>
+<span class="nc" id="L48">        } catch (SQLException e) {</span>
+<span class="nc" id="L49">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L51" title="All 8 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L52">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L55">        return null;</span>
     }
 
     /**
      *
      * @param account_id
      * @return
+     * @throws java.sql.SQLException
      */
-    public Account getAccountByID(int account_id) {
-<span class="nc" id="L53">        String sql = &quot; select * from accounts where account_id=?&quot;;</span>
+    public Account getAccountByID(int account_id) throws SQLException {
+<span class="nc" id="L65">        String sql = &quot; select * from accounts where account_id=?&quot;;</span>
         try {
-<span class="nc" id="L55">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
-<span class="nc" id="L56">            ps.setInt(1, account_id);</span>
-<span class="nc" id="L57">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">            if (rs.next()) {</span>
-<span class="nc" id="L59">                return new Account(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5));</span>
+<span class="nc" id="L67">            connection = dbc.getConnection();</span>
+<span class="nc" id="L68">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L69">            ps.setInt(1, account_id);</span>
+<span class="nc" id="L70">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L72">                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5));</span>
             }
-<span class="nc" id="L61">        } catch (SQLException e) {</span>
-<span class="nc" id="L62">            System.out.println(e);</span>
-<span class="nc" id="L63">        }</span>
-<span class="nc" id="L64">        return null;</span>
+<span class="nc" id="L74">        } catch (SQLException e) {</span>
+<span class="nc" id="L75">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L77" title="All 8 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L78">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L81">        return null;</span>
     }
 
     /**
@@ -69,110 +86,143 @@ import model.Account;
      * @param password
      * @param account_id
      * @return
+     * @throws java.sql.SQLException
      */
-    public int changePassword(String password, int account_id) {
-<span class="nc" id="L74">        String sql = &quot;update accounts set password=? where account_id = ?&quot;;</span>
+    public int changePassword(String password, int account_id) throws SQLException {
+<span class="nc" id="L92">        String sql = &quot;update accounts set password=? where account_id = ?&quot;;</span>
         try {
-<span class="nc" id="L76">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
-<span class="nc" id="L77">            ps.setString(1, password);</span>
-<span class="nc" id="L78">            ps.setInt(2, account_id);</span>
-<span class="nc" id="L79">            return ps.executeUpdate();</span>
-<span class="nc" id="L80">        } catch (SQLException e) {</span>
-<span class="nc" id="L81">            System.out.println(e);</span>
+<span class="nc" id="L94">            connection = dbc.getConnection();</span>
+<span class="nc" id="L95">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L96">            ps.setString(1, password);</span>
+<span class="nc" id="L97">            ps.setInt(2, account_id);</span>
+<span class="nc" id="L98">            return ps.executeUpdate();</span>
+<span class="nc" id="L99">        } catch (SQLException e) {</span>
+<span class="nc" id="L100">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L102" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L103">                connection.close();</span>
+            }
         }
-<span class="nc" id="L83">        return 0;</span>
+<span class="nc" id="L106">        return 0;</span>
     }
 
     /**
      *
-     * @return
+     * @return @throws java.sql.SQLException
      */
-    public Account getNewestAccount() {
-<span class="nc" id="L91">        String sql = &quot;select * from accounts order by account_id desc limit 1&quot;;</span>
+    public Account getNewestAccount() throws SQLException {
+<span class="nc" id="L114">        String sql = &quot;select * from accounts order by account_id desc limit 1&quot;;</span>
         try {
-<span class="nc" id="L93">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
-<span class="nc" id="L94">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (rs.next()) {</span>
-<span class="nc" id="L96">                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getBoolean(5));</span>
+<span class="nc" id="L116">            connection = dbc.getConnection();</span>
+<span class="nc" id="L117">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L118">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L120">                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5));</span>
             }
-<span class="nc" id="L98">        } catch (SQLException e) {</span>
-<span class="nc" id="L99">            System.out.println(e);</span>
-<span class="nc" id="L100">        }</span>
-<span class="nc" id="L101">        return null;</span>
+<span class="nc" id="L122">        } catch (SQLException e) {</span>
+<span class="nc" id="L123">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L125" title="All 8 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L126">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L129">        return null;</span>
     }
-    
+
     /**
      *
-     * @return
+     * @return @throws java.sql.SQLException
      */
-    public List&lt;Account&gt; getAllAccount() {
-<span class="nc" id="L109">        List&lt;Account&gt; ls = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L110">        String sql = &quot;select * from accounts&quot;;</span>
+    public List&lt;Account&gt; getAllAccount() throws SQLException {
+<span class="nc" id="L137">        List&lt;Account&gt; ls = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L138">        String sql = &quot;select * from accounts&quot;;</span>
         try {
-<span class="nc" id="L112">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
-<span class="nc" id="L113">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc" id="L115">                ls.add(new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getBoolean(5)));</span>
+<span class="nc" id="L140">            connection = dbc.getConnection();</span>
+<span class="nc" id="L141">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L142">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L144">                ls.add(new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5)));</span>
             }
-<span class="nc" id="L117">            return ls;</span>
-<span class="nc" id="L118">        } catch (SQLException e) {</span>
-<span class="nc" id="L119">            System.out.println(e);</span>
+<span class="nc" id="L146">            return ls;</span>
+<span class="nc" id="L147">        } catch (SQLException e) {</span>
+<span class="nc" id="L148">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L150" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L151">                connection.close();</span>
+            }
         }
-<span class="nc" id="L121">        return null;</span>
+<span class="nc" id="L154">        return null;</span>
     }
 
     /**
      *
      * @param username
      * @param password
+     * @throws java.sql.SQLException
      */
-    public void insertNewAccountPatient(String username, String password) {
-<span class="nc" id="L130">        String sql = &quot;insert into accounts(username,password,author_id,status) values(?,?,2,1)&quot;;</span>
+    public void insertNewAccountPatient(String username, String password) throws SQLException {
+<span class="nc" id="L164">        String sql = &quot;insert into accounts(username,password,author_id,status) values(?,?,2,1)&quot;;</span>
         try {
-<span class="nc" id="L132">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
-<span class="nc" id="L133">            ps.setString(1, username);</span>
-<span class="nc" id="L134">            ps.setString(2, password);</span>
-<span class="nc" id="L135">            ps.executeUpdate();</span>
-<span class="nc" id="L136">        } catch (SQLException e) {</span>
-<span class="nc" id="L137">            System.out.println(e);</span>
-<span class="nc" id="L138">        }</span>
-<span class="nc" id="L139">    }</span>
+<span class="nc" id="L166">            connection = dbc.getConnection();</span>
+<span class="nc" id="L167">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L168">            ps.setString(1, username);</span>
+<span class="nc" id="L169">            ps.setString(2, password);</span>
+<span class="nc" id="L170">            ps.executeUpdate();</span>
+<span class="nc" id="L171">        } catch (SQLException e) {</span>
+<span class="nc" id="L172">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L174" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L175">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L178">    }</span>
 
     /**
      *
      * @param user
      * @return
+     * @throws java.sql.SQLException
      */
-    public Account checkAccountExist(String user) {
-<span class="nc" id="L147">        String sql = &quot;select * from accounts\n&quot;</span>
+    public Account checkAccountExist(String user) throws SQLException {
+<span class="nc" id="L187">        String sql = &quot;select * from accounts\n&quot;</span>
                 + &quot;where username = ?\n&quot;;
         try {
-<span class="nc" id="L150">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
-<span class="nc" id="L151">            ps.setString(1, user);</span>
-<span class="nc" id="L152">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L153" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc" id="L154">                return new Account(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5));</span>
+<span class="nc" id="L190">            connection = dbc.getConnection();</span>
+<span class="nc" id="L191">            ps = connection.prepareStatement(sql);//truyen cau lenh len sql</span>
+<span class="nc" id="L192">            ps.setString(1, user);</span>
+<span class="nc" id="L193">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L195">                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5));</span>
             }
-<span class="nc" id="L156">        } catch (SQLException e) {</span>
-<span class="nc" id="L157">            System.out.println(e);</span>
-<span class="nc" id="L158">        }</span>
-<span class="nc" id="L159">        return null;</span>
+<span class="nc" id="L197">        } catch (SQLException e) {</span>
+<span class="nc" id="L198">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L200" title="All 8 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L201">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L204">        return null;</span>
     }
-    
+
     /**
      *
      * @param args
      */
     public static void main(String[] args) {
-<span class="nc" id="L167">        AccountDAO accountDb = new AccountDAO();</span>
-<span class="nc" id="L168">        Account a = accountDb.login(&quot;patient1&quot;, &quot;12345&quot;);</span>
-<span class="nc" id="L169">        System.out.println(a);</span>
+<span class="nc" id="L212">        AccountDAO accountDb = new AccountDAO();</span>
+        Account a;
+        try {
+<span class="nc" id="L215">            a = accountDb.login(&quot;patient1&quot;, &quot;12345&quot;);</span>
+<span class="nc" id="L216">            System.out.println(a);</span>
+<span class="nc" id="L217">        } catch (SQLException ex) {</span>
+<span class="nc" id="L218">            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L219">        }</span>
 //        int i = accountDb.changePassword(&quot;123&quot;, 22);
 //        System.out.println(i);
 
 //        System.out.println(accountDb.getNewestAccount());
 //        int i = accountDb.changePassword(&quot;abcd&quot;,2);
 //        System.out.println(i);
-<span class="nc" id="L176">    }</span>
+<span class="nc" id="L226">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

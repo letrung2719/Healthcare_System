@@ -6,71 +6,87 @@
 package dal;
 
 import dbcontext.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Blogs;
 
 /**
  *
  * @author admin
  */
-<span class="nc" id="L20">public class BlogsDAO extends DBContext {</span>
+<span class="nc" id="L23">public class BlogsDAO {</span>
 
-<span class="nc" id="L22">    PreparedStatement ps = null;</span>
-<span class="nc" id="L23">    ResultSet rs = null;</span>
+<span class="nc" id="L25">    PreparedStatement ps = null;</span>
+<span class="nc" id="L26">    ResultSet rs = null;</span>
+    
+<span class="nc" id="L28">    DBContext dbc = new DBContext();</span>
+<span class="nc" id="L29">    Connection connection = null;</span>
 
     /**
      *
      * @param blogID
      * @return
      */
-    public Blogs getBlogByBlogID(int blogID) {
-<span class="nc" id="L31">        String sql = &quot;select * from blogs where blog_id = ?&quot;;</span>
+    public Blogs getBlogByBlogID(int blogID) throws SQLException {
+<span class="nc" id="L37">        String sql = &quot;select * from blogs where blog_id = ?&quot;;</span>
         try {
-<span class="nc" id="L33">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L34">            ps.setInt(1, blogID);</span>
-<span class="nc" id="L35">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">            if (rs.next()) {</span>
-<span class="nc" id="L37">                Blogs b = new Blogs();</span>
-<span class="nc" id="L38">                b.setBlogID(rs.getInt(1));</span>
-<span class="nc" id="L39">                b.setTitle(rs.getString(2));</span>
-<span class="nc" id="L40">                b.setDate(rs.getString(3));</span>
-<span class="nc" id="L41">                b.setImage(rs.getString(4));</span>
-<span class="nc" id="L42">                b.setDescription(rs.getString(5));</span>
-<span class="nc" id="L43">                return b;</span>
+<span class="nc" id="L39">            connection = dbc.getConnection();</span>
+<span class="nc" id="L40">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L41">            ps.setInt(1, blogID);</span>
+<span class="nc" id="L42">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L44">                Blogs b = new Blogs();</span>
+<span class="nc" id="L45">                b.setBlogID(rs.getInt(1));</span>
+<span class="nc" id="L46">                b.setTitle(rs.getString(2));</span>
+<span class="nc" id="L47">                b.setDate(rs.getString(3));</span>
+<span class="nc" id="L48">                b.setImage(rs.getString(4));</span>
+<span class="nc" id="L49">                b.setDescription(rs.getString(5));</span>
+<span class="nc" id="L50">                return b;</span>
             }
-<span class="nc" id="L45">        } catch (SQLException e) {</span>
-<span class="nc" id="L46">            System.out.println(e);</span>
-<span class="nc" id="L47">        }</span>
-<span class="nc" id="L48">        return null;</span>
+<span class="nc" id="L52">        } catch (SQLException e) {</span>
+<span class="nc" id="L53">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L55" title="All 8 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L56">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L59">        return null;</span>
     }
 
     /**
      *
      * @return
      */
-    public List&lt;Blogs&gt; getAllBlogs() {
-<span class="nc" id="L56">        List&lt;Blogs&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L57">        String sql = &quot;select blog_id,title,date,image,description from blogs&quot;;</span>
+    public List&lt;Blogs&gt; getAllBlogs() throws SQLException {
+<span class="nc" id="L67">        List&lt;Blogs&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L68">        String sql = &quot;select blog_id,title,date,image,description from blogs&quot;;</span>
         try {
-<span class="nc" id="L59">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L60">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc" id="L62">                Blogs bl = new Blogs();</span>
-<span class="nc" id="L63">                bl.setBlogID(rs.getInt(1));</span>
-<span class="nc" id="L64">                bl.setTitle(rs.getString(2));</span>
-<span class="nc" id="L65">                bl.setDate(rs.getString(3));</span>
-<span class="nc" id="L66">                bl.setImage(rs.getString(4));</span>
-<span class="nc" id="L67">                bl.setDescription(rs.getString(5));</span>
-<span class="nc" id="L68">                list.add(bl);</span>
-<span class="nc" id="L69">            }</span>
-<span class="nc" id="L70">        } catch (SQLException e) {</span>
-
-<span class="nc" id="L72">        }</span>
-<span class="nc" id="L73">        return list;</span>
+<span class="nc" id="L70">            connection = dbc.getConnection();</span>
+<span class="nc" id="L71">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L72">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L74">                Blogs bl = new Blogs();</span>
+<span class="nc" id="L75">                bl.setBlogID(rs.getInt(1));</span>
+<span class="nc" id="L76">                bl.setTitle(rs.getString(2));</span>
+<span class="nc" id="L77">                bl.setDate(rs.getString(3));</span>
+<span class="nc" id="L78">                bl.setImage(rs.getString(4));</span>
+<span class="nc" id="L79">                bl.setDescription(rs.getString(5));</span>
+<span class="nc" id="L80">                list.add(bl);</span>
+<span class="nc" id="L81">            }</span>
+<span class="nc" id="L82">        } catch (SQLException e) {</span>
+<span class="nc" id="L83">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L85" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L86">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L89">        return list;</span>
     }
 
     /**
@@ -78,26 +94,31 @@ import model.Blogs;
      * @param name
      * @return
      */
-    public List&lt;Blogs&gt; getAllBlogsSearched(String name) {
-<span class="nc" id="L82">        List&lt;Blogs&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L83">        String sql = &quot;select blog_id,title,date,image,description\n&quot;</span>
+    public List&lt;Blogs&gt; getAllBlogsSearched(String name) throws SQLException {
+<span class="nc" id="L98">        List&lt;Blogs&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L99">        String sql = &quot;select blog_id,title,date,image,description\n&quot;</span>
                 + &quot;from blogs where title like ?&quot;;
         try {
-<span class="nc" id="L86">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L87">            ps.setString(1, &quot;%&quot; + name + &quot;%&quot;);</span>
-<span class="nc" id="L88">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L89" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc" id="L90">                list.add(new Blogs(</span>
-<span class="nc" id="L91">                        rs.getInt(1),</span>
-<span class="nc" id="L92">                        rs.getString(2),</span>
-<span class="nc" id="L93">                        rs.getString(3),</span>
-<span class="nc" id="L94">                        rs.getString(4),</span>
-<span class="nc" id="L95">                        rs.getString(5)));</span>
+<span class="nc" id="L102">            connection = dbc.getConnection();</span>
+<span class="nc" id="L103">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L104">            ps.setString(1, &quot;%&quot; + name + &quot;%&quot;);</span>
+<span class="nc" id="L105">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L107">                list.add(new Blogs(</span>
+<span class="nc" id="L108">                        rs.getInt(1),</span>
+<span class="nc" id="L109">                        rs.getString(2),</span>
+<span class="nc" id="L110">                        rs.getString(3),</span>
+<span class="nc" id="L111">                        rs.getString(4),</span>
+<span class="nc" id="L112">                        rs.getString(5)));</span>
             }
-<span class="nc" id="L97">        } catch (SQLException e) {</span>
-<span class="nc" id="L98">            System.out.println(e);</span>
-<span class="nc" id="L99">        }</span>
-<span class="nc" id="L100">        return list;</span>
+<span class="nc" id="L114">        } catch (SQLException e) {</span>
+<span class="nc" id="L115">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L117" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L118">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L121">        return list;</span>
     }
 
     /**
@@ -105,14 +126,18 @@ import model.Blogs;
      * @param args
      */
     public static void main(String[] args) {
-<span class="nc" id="L108">        BlogsDAO bl = new BlogsDAO();</span>
-<span class="nc" id="L109">        List&lt;Blogs&gt; b = bl.getAllBlogsSearched(&quot;&quot;);</span>
+        try {
+<span class="nc" id="L130">            BlogsDAO bl = new BlogsDAO();</span>
+<span class="nc" id="L131">            List&lt;Blogs&gt; b = bl.getAllBlogsSearched(&quot;&quot;);</span>
 //        Blogs b = bl.getBlogByBlogID(1);
-<span class="nc" id="L111">        System.out.println(b);</span>
+<span class="nc" id="L133">            System.out.println(b);</span>
 //        Blogs b = bl.getBlogByBlogID(1);
 //        System.out.println(b);
 //        List&lt;Blogs&gt; blog = bl.getAllBlogs();
 //        System.out.println(blog);
-<span class="nc" id="L116">    }</span>
+<span class="nc" id="L138">        } catch (SQLException ex) {</span>
+<span class="nc" id="L139">            Logger.getLogger(BlogsDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L140">        }</span>
+<span class="nc" id="L141">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

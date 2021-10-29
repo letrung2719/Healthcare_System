@@ -144,6 +144,7 @@ public class DoctorDAO {
     /**
      *
      * @param id
+     * @throws java.sql.SQLException
      */
     public void delete(int id) throws SQLException {
         String sql = " delete from doctors where account_id = ?";

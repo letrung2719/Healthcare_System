@@ -6,11 +6,14 @@
 package dal;
 
 import dbcontext.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Doctor;
 import model.DoctorFeedbacks;
 import model.Patient;
@@ -19,72 +22,88 @@ import model.Patient;
  *
  * @author admin
  */
-<span class="nc" id="L22">public class DoctorFeedbacksDAO extends DBContext {</span>
+<span class="nc" id="L25">public class DoctorFeedbacksDAO {</span>
 
-<span class="nc" id="L24">    PreparedStatement ps = null;</span>
-<span class="nc" id="L25">    ResultSet rs = null;</span>
-<span class="nc" id="L26">    PatientDAO patientDB = new PatientDAO();</span>
-<span class="nc" id="L27">    DoctorDAO doctorDB = new DoctorDAO();</span>
+<span class="nc" id="L27">    PreparedStatement ps = null;</span>
+<span class="nc" id="L28">    ResultSet rs = null;</span>
+<span class="nc" id="L29">    PatientDAO patientDB = new PatientDAO();</span>
+<span class="nc" id="L30">    DoctorDAO doctorDB = new DoctorDAO();</span>
+    
+<span class="nc" id="L32">    DBContext dbc = new DBContext();</span>
+<span class="nc" id="L33">    Connection connection = null;</span>
 
     /**
      *
      * @param feedback
      * @return
+     * @throws java.sql.SQLException
      */
-    public int addNewDoctorFeedback(DoctorFeedbacks feedback) {
-<span class="nc" id="L35">        String sql = &quot;insert into Doctor_Feedbacks (date,content,rate,patient_id,doctor_id) values (?,?,?,?,?)&quot;;</span>
+    public int addNewDoctorFeedback(DoctorFeedbacks feedback) throws SQLException {
+<span class="nc" id="L42">        String sql = &quot;insert into Doctor_Feedbacks (date,content,rate,patient_id,doctor_id) values (?,?,?,?,?)&quot;;</span>
         try {
-<span class="nc" id="L37">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L38">            ps.setString(1, feedback.getDate());</span>
-<span class="nc" id="L39">            ps.setString(2, feedback.getContent());</span>
-<span class="nc" id="L40">            ps.setInt(3, feedback.getRate());</span>
-<span class="nc" id="L41">            ps.setInt(4, feedback.getPatient().getPatientID());</span>
-<span class="nc" id="L42">            ps.setInt(5, feedback.getDoctor().getDoctorID());</span>
-<span class="nc" id="L43">            return ps.executeUpdate();</span>
-<span class="nc" id="L44">        } catch (SQLException e) {</span>
-<span class="nc" id="L45">            System.out.println(e);</span>
-        }
-<span class="nc" id="L47">        return 0;</span>
-    }
-
-    /**
-     *
-     * @param doctorID
-     * @return
-     */
-    public List&lt;DoctorFeedbacks&gt; getAllDoctorFeedbacks(int doctorID) {
-<span class="nc" id="L56">        List&lt;DoctorFeedbacks&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L57">        String sql = &quot;select * from Doctor_Feedbacks where doctor_id = ?&quot;;</span>
-        try {
-<span class="nc" id="L59">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L60">            ps.setInt(1, doctorID);</span>
-<span class="nc" id="L61">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L62" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc" id="L63">                list.add(new DoctorFeedbacks(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), patientDB.getPatientByPatientID(rs.getInt(5)), doctorDB.getDoctorByDoctorID(rs.getInt(6))));</span>
+<span class="nc" id="L44">            connection = dbc.getConnection();</span>
+<span class="nc" id="L45">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L46">            ps.setString(1, feedback.getDate());</span>
+<span class="nc" id="L47">            ps.setString(2, feedback.getContent());</span>
+<span class="nc" id="L48">            ps.setInt(3, feedback.getRate());</span>
+<span class="nc" id="L49">            ps.setInt(4, feedback.getPatient().getPatientID());</span>
+<span class="nc" id="L50">            ps.setInt(5, feedback.getDoctor().getDoctorID());</span>
+<span class="nc" id="L51">            return ps.executeUpdate();</span>
+<span class="nc" id="L52">        } catch (SQLException e) {</span>
+<span class="nc" id="L53">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L55" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L56">                connection.close();</span>
             }
-<span class="nc" id="L65">            return list;</span>
-<span class="nc" id="L66">        } catch (SQLException e) {</span>
-<span class="nc" id="L67">            System.out.println(e);</span>
         }
-<span class="nc" id="L69">        return null;</span>
+<span class="nc" id="L59">        return 0;</span>
     }
 
     /**
      *
      * @param doctorID
      * @return
+     * @throws java.sql.SQLException
      */
-    public int getAverageRating(int doctorID) {
-<span class="nc" id="L78">        DoctorFeedbacksDAO doctorFeedbackDAO = new DoctorFeedbacksDAO();</span>
-<span class="nc" id="L79">        List&lt;DoctorFeedbacks&gt; list = doctorFeedbackDAO.getAllDoctorFeedbacks(doctorID);</span>
-<span class="nc" id="L80">        int sum = 0;</span>
-<span class="nc bnc" id="L81" title="All 2 branches missed.">        for (DoctorFeedbacks feedbacks : list) {</span>
-<span class="nc" id="L82">            sum += feedbacks.getRate();</span>
-<span class="nc" id="L83">        }</span>
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (sum == 0) {</span>
-<span class="nc" id="L85">            return 0;</span>
+    public List&lt;DoctorFeedbacks&gt; getAllDoctorFeedbacks(int doctorID) throws SQLException {
+<span class="nc" id="L69">        List&lt;DoctorFeedbacks&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L70">        String sql = &quot;select * from Doctor_Feedbacks where doctor_id = ?&quot;;</span>
+        try {
+<span class="nc" id="L72">            connection = dbc.getConnection();</span>
+<span class="nc" id="L73">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L74">            ps.setInt(1, doctorID);</span>
+<span class="nc" id="L75">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L77">                list.add(new DoctorFeedbacks(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), patientDB.getPatientByPatientID(rs.getInt(5)), doctorDB.getDoctorByDoctorID(rs.getInt(6))));</span>
+            }
+<span class="nc" id="L79">            return list;</span>
+<span class="nc" id="L80">        } catch (SQLException e) {</span>
+<span class="nc" id="L81">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L83" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L84">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L87">        return null;</span>
+    }
+
+    /**
+     *
+     * @param doctorID
+     * @return
+     * @throws java.sql.SQLException
+     */
+    public int getAverageRating(int doctorID) throws SQLException {
+<span class="nc" id="L97">        DoctorFeedbacksDAO doctorFeedbackDAO = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L98">        List&lt;DoctorFeedbacks&gt; list = doctorFeedbackDAO.getAllDoctorFeedbacks(doctorID);</span>
+<span class="nc" id="L99">        int sum = 0;</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        for (DoctorFeedbacks feedbacks : list) {</span>
+<span class="nc" id="L101">            sum += feedbacks.getRate();</span>
+<span class="nc" id="L102">        }</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (sum == 0) {</span>
+<span class="nc" id="L104">            return 0;</span>
         } else {
-<span class="nc" id="L87">            return sum / list.size();</span>
+<span class="nc" id="L106">            return sum / list.size();</span>
         }
     }
 
@@ -92,21 +111,27 @@ import model.Patient;
      *
      * @param feedback
      * @return
+     * @throws java.sql.SQLException
      */
-    public int updateDoctorFeedback(DoctorFeedbacks feedback) {
-<span class="nc" id="L97">        String sql = &quot;update Doctor_Feedbacks set date = ?, content = ?, rate = ? where patient_id = ? and doctor_id = ?&quot;;</span>
+    public int updateDoctorFeedback(DoctorFeedbacks feedback) throws SQLException {
+<span class="nc" id="L117">        String sql = &quot;update Doctor_Feedbacks set date = ?, content = ?, rate = ? where patient_id = ? and doctor_id = ?&quot;;</span>
         try {
-<span class="nc" id="L99">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L100">            ps.setString(1, feedback.getDate());</span>
-<span class="nc" id="L101">            ps.setString(2, feedback.getContent());</span>
-<span class="nc" id="L102">            ps.setInt(3, feedback.getRate());</span>
-<span class="nc" id="L103">            ps.setInt(4, feedback.getPatient().getPatientID());</span>
-<span class="nc" id="L104">            ps.setInt(5, feedback.getDoctor().getDoctorID());</span>
-<span class="nc" id="L105">            return ps.executeUpdate();</span>
-<span class="nc" id="L106">        } catch (SQLException e) {</span>
-<span class="nc" id="L107">            System.out.println(e);</span>
+<span class="nc" id="L119">            connection = dbc.getConnection();</span>
+<span class="nc" id="L120">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L121">            ps.setString(1, feedback.getDate());</span>
+<span class="nc" id="L122">            ps.setString(2, feedback.getContent());</span>
+<span class="nc" id="L123">            ps.setInt(3, feedback.getRate());</span>
+<span class="nc" id="L124">            ps.setInt(4, feedback.getPatient().getPatientID());</span>
+<span class="nc" id="L125">            ps.setInt(5, feedback.getDoctor().getDoctorID());</span>
+<span class="nc" id="L126">            return ps.executeUpdate();</span>
+<span class="nc" id="L127">        } catch (SQLException e) {</span>
+<span class="nc" id="L128">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L130" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L131">                connection.close();</span>
+            }
         }
-<span class="nc" id="L109">        return 0;</span>
+<span class="nc" id="L134">        return 0;</span>
     }
 
     /**
@@ -114,37 +139,49 @@ import model.Patient;
      * @param patientID
      * @param doctorID
      * @return
+     * @throws java.sql.SQLException
      */
-    public int deleteDoctorFeedback(int patientID, int doctorID) {
-<span class="nc" id="L119">        String sql = &quot;delete from Doctor_Feedbacks where patient_id = ? and doctor_id = ?&quot;;</span>
+    public int deleteDoctorFeedback(int patientID, int doctorID) throws SQLException {
+<span class="nc" id="L145">        String sql = &quot;delete from Doctor_Feedbacks where patient_id = ? and doctor_id = ?&quot;;</span>
         try {
-<span class="nc" id="L121">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L122">            ps.setInt(1, patientID);</span>
-<span class="nc" id="L123">            ps.setInt(2, doctorID);</span>
-<span class="nc" id="L124">            return ps.executeUpdate();</span>
-<span class="nc" id="L125">        } catch (SQLException e) {</span>
-<span class="nc" id="L126">            System.out.println(e);</span>
+<span class="nc" id="L147">            connection = dbc.getConnection();</span>
+<span class="nc" id="L148">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L149">            ps.setInt(1, patientID);</span>
+<span class="nc" id="L150">            ps.setInt(2, doctorID);</span>
+<span class="nc" id="L151">            return ps.executeUpdate();</span>
+<span class="nc" id="L152">        } catch (SQLException e) {</span>
+<span class="nc" id="L153">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L155" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L156">                connection.close();</span>
+            }
         }
-<span class="nc" id="L128">        return 0;</span>
+<span class="nc" id="L159">        return 0;</span>
     }
 
     /**
      *
      * @param doctorID
      * @return
+     * @throws java.sql.SQLException
      */
-    public int countAllDoctorFeedback(int doctorID) {
-<span class="nc" id="L137">        String sql = &quot;select count(*) from Doctor_Feedbacks where doctor_id = &quot; + doctorID;</span>
+    public int countAllDoctorFeedback(int doctorID) throws SQLException {
+<span class="nc" id="L169">        String sql = &quot;select count(*) from Doctor_Feedbacks where doctor_id = &quot; + doctorID;</span>
         try {
-<span class="nc" id="L139">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L140">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L141" title="All 2 branches missed.">            if (rs.next()) {</span>
-<span class="nc" id="L142">                return rs.getInt(1);</span>
+<span class="nc" id="L171">            connection = dbc.getConnection();</span>
+<span class="nc" id="L172">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L173">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L175">                return rs.getInt(1);</span>
             }
-<span class="nc" id="L144">        } catch (SQLException e) {</span>
-<span class="nc" id="L145">            System.out.println(e);</span>
-<span class="nc" id="L146">        }</span>
-<span class="nc" id="L147">        return 0;</span>
+<span class="nc" id="L177">        } catch (SQLException e) {</span>
+<span class="nc" id="L178">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L180" title="All 8 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L181">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L184">        return 0;</span>
     }
 
     /**
@@ -154,10 +191,11 @@ import model.Patient;
      * @param numberOfItem
      * @param sort
      * @return
+     * @throws java.sql.SQLException
      */
-    public List&lt;DoctorFeedbacks&gt; paginateDoctorFeedbackByDoctorID(int doctorID, int pageNumber, int numberOfItem, String sort) {
-<span class="nc" id="L159">        List&lt;DoctorFeedbacks&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L160">        String sql = &quot;DECLARE @PageNumber AS INT\n&quot;</span>
+    public List&lt;DoctorFeedbacks&gt; paginateDoctorFeedbackByDoctorID(int doctorID, int pageNumber, int numberOfItem, String sort) throws SQLException {
+<span class="nc" id="L197">        List&lt;DoctorFeedbacks&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L198">        String sql = &quot;DECLARE @PageNumber AS INT\n&quot;</span>
                 + &quot;DECLARE @RowsOfPage AS INT\n&quot;
                 + &quot;SET @PageNumber=&quot; + pageNumber + &quot;\n&quot;
                 + &quot;SET @RowsOfPage=&quot; + numberOfItem + &quot;\n&quot;
@@ -166,24 +204,29 @@ import model.Patient;
                 + &quot;OFFSET (@PageNumber-1)*@RowsOfPage ROWS\n&quot;
                 + &quot;FETCH NEXT @RowsOfPage ROWS ONLY&quot;;
         try {
-<span class="nc" id="L169">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L170">            rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L171" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc" id="L172">                DoctorFeedbacks df = new DoctorFeedbacks();</span>
-<span class="nc" id="L173">                df.setFeedbackID(rs.getInt(1));</span>
-<span class="nc" id="L174">                df.setDate(rs.getString(2));</span>
-<span class="nc" id="L175">                df.setContent(rs.getString(3));</span>
-<span class="nc" id="L176">                df.setRate(rs.getInt(4));</span>
-<span class="nc" id="L177">                Patient p = patientDB.getPatientByPatientID(rs.getInt(5));</span>
-<span class="nc" id="L178">                Doctor d = doctorDB.getDoctorByDoctorID(rs.getInt(6));</span>
-<span class="nc" id="L179">                df.setPatient(p);</span>
-<span class="nc" id="L180">                df.setDoctor(d);</span>
-<span class="nc" id="L181">                list.add(df);</span>
-<span class="nc" id="L182">            }</span>
-<span class="nc" id="L183">        } catch (SQLException e) {</span>
-<span class="nc" id="L184">            System.out.println(e);</span>
-<span class="nc" id="L185">        }</span>
-<span class="nc" id="L186">        return list;</span>
+<span class="nc" id="L207">            connection = dbc.getConnection();</span>
+<span class="nc" id="L208">            ps = connection.prepareStatement(sql);</span>
+<span class="nc" id="L209">            rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L211">                DoctorFeedbacks df = new DoctorFeedbacks();</span>
+<span class="nc" id="L212">                df.setFeedbackID(rs.getInt(1));</span>
+<span class="nc" id="L213">                df.setDate(rs.getString(2));</span>
+<span class="nc" id="L214">                df.setContent(rs.getString(3));</span>
+<span class="nc" id="L215">                df.setRate(rs.getInt(4));</span>
+<span class="nc" id="L216">                Patient p = patientDB.getPatientByPatientID(rs.getInt(5));</span>
+<span class="nc" id="L217">                Doctor d = doctorDB.getDoctorByDoctorID(rs.getInt(6));</span>
+<span class="nc" id="L218">                df.setPatient(p);</span>
+<span class="nc" id="L219">                df.setDoctor(d);</span>
+<span class="nc" id="L220">                list.add(df);</span>
+<span class="nc" id="L221">            }</span>
+<span class="nc" id="L222">        } catch (SQLException e) {</span>
+<span class="nc" id="L223">            System.out.println(e);</span>
+        } finally {
+<span class="nc bnc" id="L225" title="All 6 branches missed.">            if (connection != null) {</span>
+<span class="nc" id="L226">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L229">        return list;</span>
     }
 
     /**
@@ -191,7 +234,8 @@ import model.Patient;
      * @param args
      */
     public static void main(String[] args) {
-<span class="nc" id="L194">        DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();</span>
+        try {
+<span class="nc" id="L238">            DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();</span>
 //        Patient patient = new Patient(1, &quot;abc&quot;, 0, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2, &quot;&quot;);
 //        Doctor doctor = new Doctor(5, &quot;&quot;, 0, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, null, &quot;&quot;, &quot;&quot;, 1);
 //        DoctorFeedbacks feedback = new DoctorFeedbacks(&quot;2021-11-21&quot;, &quot;abcacfa&quot;, 4, patient, doctor);
@@ -200,11 +244,14 @@ import model.Patient;
 //        System.out.println(db.getAverageRating(2));
 //        List&lt;DoctorFeedbacks&gt; list = db.paginateDoctorFeedbackByDoctorID(1, 1, 5, &quot;feedback_id&quot;);
 //        System.out.println(list);
-<span class="nc" id="L203">        Patient patient = new Patient(1, &quot;abc&quot;, 0, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2, &quot;&quot;);</span>
-<span class="nc" id="L204">        Doctor doctor = new Doctor(1, &quot;&quot;, 0, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, null, &quot;&quot;, &quot;&quot;, 1);</span>
-<span class="nc" id="L205">        DoctorFeedbacks fb = new DoctorFeedbacks(&quot;2021-11-11&quot;, &quot;test&quot;, 5, patient, doctor);</span>
-<span class="nc" id="L206">        db.updateDoctorFeedback(fb);</span>
-<span class="nc" id="L207">    }</span>
+<span class="nc" id="L247">            Patient patient = new Patient(1, &quot;abc&quot;, 0, &quot;&quot;, &quot;&quot;, &quot;&quot;, 2, &quot;&quot;);</span>
+<span class="nc" id="L248">            Doctor doctor = new Doctor(1, &quot;&quot;, 0, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, null, &quot;&quot;, &quot;&quot;, 1);</span>
+<span class="nc" id="L249">            DoctorFeedbacks fb = new DoctorFeedbacks(&quot;2021-11-11&quot;, &quot;test&quot;, 5, patient, doctor);</span>
+<span class="nc" id="L250">            db.updateDoctorFeedback(fb);</span>
+<span class="nc" id="L251">        } catch (SQLException ex) {</span>
+<span class="nc" id="L252">            Logger.getLogger(DoctorFeedbacksDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L253">        }</span>
+<span class="nc" id="L254">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

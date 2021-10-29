@@ -7,6 +7,7 @@ package controller.admin;
 
 import dal.AppointmentDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +21,10 @@ import model.Appointment;
  * @author ASUS
  */
 @WebServlet(name = &quot;AppointmentAdControl&quot;, urlPatterns = {&quot;/admin/appoint&quot;})
-<span class="nc" id="L23">public class AppointmentAdControl extends HttpServlet {</span>
+<span class="nc" id="L24">public class AppointmentAdControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -33,13 +36,17 @@ import model.Appointment;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L36">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L37">        AppointmentDAO dao = new AppointmentDAO();</span>
-<span class="nc" id="L38">        List&lt;Appointment&gt; ListA = dao.getAppointmentAdmin();</span>
-        
-<span class="nc" id="L40">        request.setAttribute(&quot;ListA&quot;, ListA);</span>
-<span class="nc" id="L41">        request.getRequestDispatcher(&quot;/admin/appointment.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L42">    }</span>
+<span class="nc" id="L39">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L41">            AppointmentDAO dao = new AppointmentDAO();</span>
+<span class="nc" id="L42">            List&lt;Appointment&gt; ListA = dao.getAppointmentAdmin();</span>
+
+<span class="nc" id="L44">            request.setAttribute(&quot;ListA&quot;, ListA);</span>
+<span class="nc" id="L45">            request.getRequestDispatcher(&quot;/admin-role/appointment.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L46">        } catch (IOException | SQLException | ServletException e) {</span>
+<span class="nc" id="L47">            System.out.println(e);</span>
+<span class="nc" id="L48">        }</span>
+<span class="nc" id="L49">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -53,8 +60,8 @@ import model.Appointment;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L56">        processRequest(request, response);</span>
-<span class="nc" id="L57">    }</span>
+<span class="nc" id="L63">        processRequest(request, response);</span>
+<span class="nc" id="L64">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -67,8 +74,8 @@ import model.Appointment;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L70">        processRequest(request, response);</span>
-<span class="nc" id="L71">    }</span>
+<span class="nc" id="L77">        processRequest(request, response);</span>
+<span class="nc" id="L78">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -77,7 +84,7 @@ import model.Appointment;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L80">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L87">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

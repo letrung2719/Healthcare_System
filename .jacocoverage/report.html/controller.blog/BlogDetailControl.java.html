@@ -9,6 +9,7 @@ package controller.blog;
 import dal.BlogsDAO;
 import dal.DoctorDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +27,14 @@ import model.Doctor;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author admin
  */
 <span class="nc" id="L34">public class BlogDetailControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -44,13 +46,17 @@ import model.Doctor;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L47">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L48">        int id = Integer.parseInt(request.getParameter(&quot;id&quot;));</span>
-<span class="nc" id="L49">        BlogsDAO bl = new BlogsDAO();</span>
-<span class="nc" id="L50">        Blogs blog = bl.getBlogByBlogID(id);</span>
-<span class="nc" id="L51">        request.setAttribute(&quot;blog&quot;, blog);</span>
-<span class="nc" id="L52">        request.getRequestDispatcher(&quot;blog-detail.jsp&quot;).forward(request, response);  </span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L49">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L51">            int id = Integer.parseInt(request.getParameter(&quot;id&quot;));</span>
+<span class="nc" id="L52">            BlogsDAO bl = new BlogsDAO();</span>
+<span class="nc" id="L53">            Blogs blog = bl.getBlogByBlogID(id);</span>
+<span class="nc" id="L54">            request.setAttribute(&quot;blog&quot;, blog);</span>
+<span class="nc" id="L55">            request.getRequestDispatcher(&quot;blog-detail.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L56">        } catch (IOException | NumberFormatException | SQLException | ServletException e) {</span>
+<span class="nc" id="L57">            System.out.println(e);</span>
+<span class="nc" id="L58">        }</span>
+<span class="nc" id="L59">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -64,8 +70,8 @@ import model.Doctor;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L67">        processRequest(request, response);</span>
-<span class="nc" id="L68">    }</span>
+<span class="nc" id="L73">        processRequest(request, response);</span>
+<span class="nc" id="L74">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -78,8 +84,8 @@ import model.Doctor;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L81">        processRequest(request, response);</span>
-<span class="nc" id="L82">    }</span>
+<span class="nc" id="L87">        processRequest(request, response);</span>
+<span class="nc" id="L88">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -88,7 +94,7 @@ import model.Doctor;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L91">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L97">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

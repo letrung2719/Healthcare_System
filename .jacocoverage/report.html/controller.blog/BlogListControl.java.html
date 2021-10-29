@@ -7,6 +7,7 @@ package controller.blog;
 
 import dal.BlogsDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,10 @@ import model.Blogs;
  *
  * @author admin
  */
-<span class="nc" id="L21">public class BlogListControl extends HttpServlet {</span>
+<span class="nc" id="L22">public class BlogListControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -31,12 +34,16 @@ import model.Blogs;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L34">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L35">        BlogsDAO bl = new BlogsDAO();</span>
-<span class="nc" id="L36">        List&lt;Blogs&gt; listBlog = bl.getAllBlogs();</span>
-<span class="nc" id="L37">        request.setAttribute(&quot;listBlog&quot;, listBlog);</span>
-<span class="nc" id="L38">        request.getRequestDispatcher(&quot;blog-list.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L39">    }</span>
+<span class="nc" id="L37">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L39">            BlogsDAO bl = new BlogsDAO();</span>
+<span class="nc" id="L40">            List&lt;Blogs&gt; listBlog = bl.getAllBlogs();</span>
+<span class="nc" id="L41">            request.setAttribute(&quot;listBlog&quot;, listBlog);</span>
+<span class="nc" id="L42">            request.getRequestDispatcher(&quot;blog-list.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L43">        } catch (IOException | SQLException | ServletException e) {</span>
+<span class="nc" id="L44">            System.out.println(e);</span>
+<span class="nc" id="L45">        }</span>
+<span class="nc" id="L46">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -50,8 +57,8 @@ import model.Blogs;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L53">        processRequest(request, response);</span>
-<span class="nc" id="L54">    }</span>
+<span class="nc" id="L60">        processRequest(request, response);</span>
+<span class="nc" id="L61">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -64,8 +71,8 @@ import model.Blogs;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L67">        processRequest(request, response);</span>
-<span class="nc" id="L68">    }</span>
+<span class="nc" id="L74">        processRequest(request, response);</span>
+<span class="nc" id="L75">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -74,7 +81,7 @@ import model.Blogs;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L77">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L84">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

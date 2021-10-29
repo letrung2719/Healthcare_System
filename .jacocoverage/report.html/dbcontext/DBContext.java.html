@@ -8,41 +8,37 @@ import java.sql.SQLException;
  *
  * @author admin
  */
-public class DBContext {
-<span class="fc" id="L12">    private final String condition = &quot;allowPublicKeyRetrieval=true&amp;verifyServerCertificate=false&amp;useSSL=false&amp;requireSSL=false&quot;;</span>
-    /**
-     *
-     */
-    protected Connection connection;
+<span class="fc" id="L11">public class DBContext {</span>
 
-    /**
-     *
-     */
-<span class="fc" id="L21">    public DBContext() {</span>
+<span class="fc" id="L13">    private final String condition = &quot;allowPublicKeyRetrieval=true&amp;verifyServerCertificate=false&amp;useSSL=false&amp;requireSSL=false&quot;;</span>
+
+    public Connection getConnection() {
         try {
             // Edit URL , username, password to authenticate with your MS SQL Server
-<span class="fc" id="L24">            String serverName = &quot;localhost&quot;;</span>
-<span class="fc" id="L25">            String portNumber = &quot;3306&quot;;</span>
-<span class="fc" id="L26">            String dbName = &quot;healthcare_system&quot;;</span>
-<span class="fc" id="L27">            String url = &quot;jdbc:mysql://&quot; + serverName + &quot;:&quot; + portNumber + &quot;/&quot; + dbName + &quot;?&quot; + condition;</span>
+<span class="fc" id="L18">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span>
+<span class="fc" id="L19">            String serverName = &quot;localhost&quot;;</span>
+<span class="fc" id="L20">            String portNumber = &quot;3306&quot;;</span>
+<span class="fc" id="L21">            String dbName = &quot;healthcare_system&quot;;</span>
+<span class="fc" id="L22">            String url = &quot;jdbc:mysql://&quot; + serverName + &quot;:&quot; + portNumber + &quot;/&quot; + dbName + &quot;?&quot; + condition;</span>
 
-<span class="fc" id="L29">            String username = &quot;root&quot;;</span>
-<span class="fc" id="L30">            String password = &quot;12345&quot;;</span>
-<span class="fc" id="L31">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span>
+<span class="fc" id="L24">            String username = &quot;root&quot;;</span>
+<span class="fc" id="L25">            String password = &quot;12345&quot;;</span>
 
-<span class="fc" id="L33">            connection = DriverManager.getConnection(url, username, password);</span>
-<span class="nc" id="L34">        } catch (ClassNotFoundException | SQLException ex) {</span>
-<span class="nc" id="L35">            System.out.println(ex);</span>
-<span class="fc" id="L36">        }</span>
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L27">            Connection connection = DriverManager.getConnection(url, username, password);</span>
+<span class="fc" id="L28">            return connection;</span>
+<span class="nc" id="L29">        } catch (ClassNotFoundException | SQLException ex) {</span>
+<span class="nc" id="L30">            System.out.println(ex);</span>
+        }
+<span class="nc" id="L32">        return null;</span>
+    }
 
     /**
      *
      * @param args
      */
     public static void main(String[] args) {
-<span class="fc" id="L44">        DBContext db = new DBContext();</span>
-<span class="fc" id="L45">        System.out.println(db.toString());</span>
-<span class="fc" id="L46">    }</span>
+<span class="nc" id="L40">        DBContext db = new DBContext();</span>
+<span class="nc" id="L41">        System.out.println(db.getConnection());</span>
+<span class="nc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

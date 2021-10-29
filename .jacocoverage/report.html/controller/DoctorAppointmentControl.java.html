@@ -7,6 +7,7 @@ package controller;
 
 import dal.AppointmentDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,10 @@ import model.Appointment;
  *
  * @author Admin
  */
-<span class="nc" id="L21">public class DoctorAppointmentControl extends HttpServlet {</span>
+<span class="nc" id="L22">public class DoctorAppointmentControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -31,32 +34,36 @@ import model.Appointment;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L34">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L35">        int doctorID = Integer.parseInt(request.getParameter(&quot;doctorID&quot;));</span>
-<span class="nc" id="L36">        String inputID = request.getParameter(&quot;deleteID&quot;);</span>
-<span class="nc" id="L37">        AppointmentDAO appDb = new AppointmentDAO();</span>
-        int indexPage;
-<span class="nc" id="L39">        String getInputPage = request.getParameter(&quot;page&quot;);</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (getInputPage == null) {</span>
-<span class="nc" id="L41">            indexPage = 1;</span>
-        } else {
-<span class="nc" id="L43">            indexPage = Integer.parseInt(getInputPage);</span>
-        }
-<span class="nc" id="L45">        int totalAppointment = appDb.getAllDoctorAppointment(doctorID);</span>
-<span class="nc" id="L46">        int numberOfItem = 5;</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);</span>
-<span class="nc" id="L48">        List&lt;Appointment&gt; listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (inputID != null) {</span>
-<span class="nc" id="L50">            int appID = Integer.parseInt(inputID);</span>
-<span class="nc" id="L51">            int temp = appDb.deleteAppointment(appID);</span>
-<span class="nc" id="L52">            response.sendRedirect(&quot;doctorAppointmentControl?doctorID=&quot; + doctorID);</span>
-<span class="nc" id="L53">        } else {</span>
-<span class="nc" id="L54">            request.setAttribute(&quot;listApp&quot;, listApp);</span>
-<span class="nc" id="L55">            request.setAttribute(&quot;indexPage&quot;, indexPage);</span>
-<span class="nc" id="L56">            request.setAttribute(&quot;numberOfPage&quot;, numberOfPage);</span>
-<span class="nc" id="L57">            request.getRequestDispatcher(&quot;/doctor/doctor-appointment.jsp&quot;).forward(request, response);</span>
-        }
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L37">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L39">            int doctorID = Integer.parseInt(request.getParameter(&quot;doctorID&quot;));</span>
+<span class="nc" id="L40">            String inputID = request.getParameter(&quot;deleteID&quot;);</span>
+<span class="nc" id="L41">            AppointmentDAO appDb = new AppointmentDAO();</span>
+            int indexPage;
+<span class="nc" id="L43">            String getInputPage = request.getParameter(&quot;page&quot;);</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (getInputPage == null) {</span>
+<span class="nc" id="L45">                indexPage = 1;</span>
+            } else {
+<span class="nc" id="L47">                indexPage = Integer.parseInt(getInputPage);</span>
+            }
+<span class="nc" id="L49">            int totalAppointment = appDb.getAllDoctorAppointment(doctorID);</span>
+<span class="nc" id="L50">            int numberOfItem = 5;</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);</span>
+<span class="nc" id="L52">            List&lt;Appointment&gt; listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            if (inputID != null) {</span>
+<span class="nc" id="L54">                int appID = Integer.parseInt(inputID);</span>
+<span class="nc" id="L55">                int temp = appDb.deleteAppointment(appID);</span>
+<span class="nc" id="L56">                response.sendRedirect(request.getContextPath() + &quot;/doctorAppointmentControl?doctorID=&quot; + doctorID);</span>
+<span class="nc" id="L57">            } else {</span>
+<span class="nc" id="L58">                request.setAttribute(&quot;listApp&quot;, listApp);</span>
+<span class="nc" id="L59">                request.setAttribute(&quot;indexPage&quot;, indexPage);</span>
+<span class="nc" id="L60">                request.setAttribute(&quot;numberOfPage&quot;, numberOfPage);</span>
+<span class="nc" id="L61">                request.getRequestDispatcher(&quot;/doctor-role/doctor-appointment.jsp&quot;).forward(request, response);</span>
+            }
+<span class="nc" id="L63">        } catch (IOException | NumberFormatException | SQLException | ServletException e) {</span>
+<span class="nc" id="L64">            System.out.println(e);</span>
+<span class="nc" id="L65">        }</span>
+<span class="nc" id="L66">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -70,8 +77,8 @@ import model.Appointment;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L73">        processRequest(request, response);</span>
-<span class="nc" id="L74">    }</span>
+<span class="nc" id="L80">        processRequest(request, response);</span>
+<span class="nc" id="L81">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -84,8 +91,8 @@ import model.Appointment;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L87">        processRequest(request, response);</span>
-<span class="nc" id="L88">    }</span>
+<span class="nc" id="L94">        processRequest(request, response);</span>
+<span class="nc" id="L95">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -94,7 +101,7 @@ import model.Appointment;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L97">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L104">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

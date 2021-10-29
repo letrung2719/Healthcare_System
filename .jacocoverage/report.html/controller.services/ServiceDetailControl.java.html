@@ -7,6 +7,7 @@ package controller.services;
 
 import dal.ServicesDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +26,7 @@ import model.Specialities;
  * @author ASUS
  */
 @WebServlet(name = &quot;ServiceDetailControl&quot;, urlPatterns = {&quot;/serdetail&quot;})
-<span class="nc" id="L28">public class ServiceDetailControl extends HttpServlet {</span>
+<span class="nc" id="L29">public class ServiceDetailControl extends HttpServlet {</span>
 
     private static final long serialVersionUID = 9999L;
 
@@ -40,43 +41,47 @@ import model.Specialities;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L43">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L44">        String id = request.getParameter(&quot;sid&quot;);</span>
-<span class="nc" id="L45">        ServicesDAO dao = new ServicesDAO();</span>
+<span class="nc" id="L44">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L46">            String id = request.getParameter(&quot;sid&quot;);</span>
+<span class="nc" id="L47">            ServicesDAO dao = new ServicesDAO();</span>
 
-<span class="nc" id="L47">        Services s = dao.getServiceByID(id);</span>
-<span class="nc" id="L48">        String specID = s.getType_id();</span>
+<span class="nc" id="L49">            Services s = dao.getServiceByID(id);</span>
+<span class="nc" id="L50">            String specID = s.getType_id();</span>
 
-<span class="nc" id="L50">        int avrate = dao.averageRateServices(id);</span>
-<span class="nc" id="L51">        Specialities spec = dao.getSpecByID(specID);</span>
-<span class="nc" id="L52">        String type_id = dao.getServiceByID(id).getType_id();</span>
-<span class="nc" id="L53">        List&lt;Services&gt; listS = dao.getTop4Last(type_id);</span>
-<span class="nc" id="L54">        List&lt;ServiceFeedbacks&gt; listF = dao.getAllComment(id);</span>
-<span class="nc" id="L55">        int totalfeedback = listF.size();</span>
+<span class="nc" id="L52">            int avrate = dao.averageRateServices(id);</span>
+<span class="nc" id="L53">            Specialities spec = dao.getSpecByID(specID);</span>
+<span class="nc" id="L54">            String type_id = dao.getServiceByID(id).getType_id();</span>
+<span class="nc" id="L55">            List&lt;Services&gt; listS = dao.getTop4Last(type_id);</span>
+<span class="nc" id="L56">            List&lt;ServiceFeedbacks&gt; listF = dao.getAllComment(id);</span>
+<span class="nc" id="L57">            int totalfeedback = listF.size();</span>
 
-<span class="nc" id="L57">        HttpSession session = request.getSession();</span>
-<span class="nc" id="L58">        Account a = (Account) session.getAttribute(&quot;acc&quot;);</span>
+<span class="nc" id="L59">            HttpSession session = request.getSession();</span>
+<span class="nc" id="L60">            Account a = (Account) session.getAttribute(&quot;acc&quot;);</span>
 
-<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (a != null) {</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">            if (a.getAuthor_id() == 2) {</span>
-<span class="nc" id="L62">                Patient p = (Patient) session.getAttribute(&quot;user&quot;);</span>
-<span class="nc" id="L63">                List&lt;ServiceFeedbacks&gt; check = dao.checkPatientComment((int) p.getPatientID(), id);</span>
-<span class="nc bnc" id="L64" title="All 2 branches missed.">                if (check.isEmpty()) {</span>
-<span class="nc" id="L65">                    request.setAttribute(&quot;check&quot;, 1);</span>
-                } else {
-<span class="nc" id="L67">                    request.setAttribute(&quot;check&quot;, 5);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">            if (a != null) {</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">                if (a.getAuthor_id() == 2) {</span>
+<span class="nc" id="L64">                    Patient p = (Patient) session.getAttribute(&quot;user&quot;);</span>
+<span class="nc" id="L65">                    List&lt;ServiceFeedbacks&gt; check = dao.checkPatientComment((int) p.getPatientID(), id);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                    if (check.isEmpty()) {</span>
+<span class="nc" id="L67">                        request.setAttribute(&quot;check&quot;, 1);</span>
+                    } else {
+<span class="nc" id="L69">                        request.setAttribute(&quot;check&quot;, 5);</span>
+                    }
                 }
             }
-        }
 
-<span class="nc" id="L72">        request.setAttribute(&quot;avrate&quot;, avrate);</span>
-<span class="nc" id="L73">        request.setAttribute(&quot;totalfeedback&quot;, totalfeedback);</span>
-<span class="nc" id="L74">        request.setAttribute(&quot;detail&quot;, s);</span>
-<span class="nc" id="L75">        request.setAttribute(&quot;spec&quot;, spec);</span>
-<span class="nc" id="L76">        request.setAttribute(&quot;listS&quot;, listS);</span>
-<span class="nc" id="L77">        request.setAttribute(&quot;listF&quot;, listF);</span>
-<span class="nc" id="L78">        request.getRequestDispatcher(&quot;service-detail.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L79">    }</span>
+<span class="nc" id="L74">            request.setAttribute(&quot;avrate&quot;, avrate);</span>
+<span class="nc" id="L75">            request.setAttribute(&quot;totalfeedback&quot;, totalfeedback);</span>
+<span class="nc" id="L76">            request.setAttribute(&quot;detail&quot;, s);</span>
+<span class="nc" id="L77">            request.setAttribute(&quot;spec&quot;, spec);</span>
+<span class="nc" id="L78">            request.setAttribute(&quot;listS&quot;, listS);</span>
+<span class="nc" id="L79">            request.setAttribute(&quot;listF&quot;, listF);</span>
+<span class="nc" id="L80">            request.getRequestDispatcher(&quot;service-detail.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L81">        } catch (IOException | SQLException | ServletException e) {</span>
+<span class="nc" id="L82">            System.out.println(e);</span>
+<span class="nc" id="L83">        }</span>
+<span class="nc" id="L84">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -90,8 +95,8 @@ import model.Specialities;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L93">        processRequest(request, response);</span>
-<span class="nc" id="L94">    }</span>
+<span class="nc" id="L98">        processRequest(request, response);</span>
+<span class="nc" id="L99">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -104,8 +109,8 @@ import model.Specialities;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L107">        processRequest(request, response);</span>
-<span class="nc" id="L108">    }</span>
+<span class="nc" id="L112">        processRequest(request, response);</span>
+<span class="nc" id="L113">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -114,7 +119,7 @@ import model.Specialities;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L117">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L122">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

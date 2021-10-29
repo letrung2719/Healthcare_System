@@ -8,6 +8,7 @@ package controller.services;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,8 +25,10 @@ import model.Specialities;
  * @author hp
  */
 @WebServlet(name = &quot;SearchSpecialities&quot;, urlPatterns = {&quot;/searchspecialities&quot;})
-<span class="nc" id="L27">public class SearchSpecialities extends HttpServlet {</span>
+<span class="nc" id="L28">public class SearchSpecialities extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -37,16 +40,20 @@ import model.Specialities;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L40">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L41">        String[] arraySpec = request.getParameterValues(&quot;select_specialist&quot;);</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        List&lt;String&gt; listSpec = arraySpec == null ? new ArrayList&lt;&gt;() : Arrays.asList(arraySpec);</span>
-<span class="nc" id="L43">        ServicesDAO dal = new ServicesDAO();</span>
-<span class="nc" id="L44">        List&lt;Specialities&gt; listSpecialities = dal.getAllSpecialities();</span>
-<span class="nc" id="L45">        List&lt;Services&gt; listServices = dal.searchSpecialities(listSpec);</span>
-<span class="nc" id="L46">        request.setAttribute(&quot;listSpecialities&quot;, listSpecialities);</span>
-<span class="nc" id="L47">        request.setAttribute(&quot;listServices&quot;, listServices);</span>
-<span class="nc" id="L48">        request.getRequestDispatcher(&quot;serviceslist.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L43">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L45">            String[] arraySpec = request.getParameterValues(&quot;select_specialist&quot;);</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">            List&lt;String&gt; listSpec = arraySpec == null ? new ArrayList&lt;&gt;() : Arrays.asList(arraySpec);</span>
+<span class="nc" id="L47">            ServicesDAO dal = new ServicesDAO();</span>
+<span class="nc" id="L48">            List&lt;Specialities&gt; listSpecialities = dal.getAllSpecialities();</span>
+<span class="nc" id="L49">            List&lt;Services&gt; listServices = dal.searchSpecialities(listSpec);</span>
+<span class="nc" id="L50">            request.setAttribute(&quot;listSpecialities&quot;, listSpecialities);</span>
+<span class="nc" id="L51">            request.setAttribute(&quot;listServices&quot;, listServices);</span>
+<span class="nc" id="L52">            request.getRequestDispatcher(&quot;services-list.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L53">        } catch (IOException | SQLException | ServletException e) {</span>
+<span class="nc" id="L54">            System.out.println(e);</span>
+<span class="nc" id="L55">        }</span>
+<span class="nc" id="L56">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -60,8 +67,8 @@ import model.Specialities;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L63">        processRequest(request, response);</span>
-<span class="nc" id="L64">    }</span>
+<span class="nc" id="L70">        processRequest(request, response);</span>
+<span class="nc" id="L71">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -74,8 +81,8 @@ import model.Specialities;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L77">        processRequest(request, response);</span>
-<span class="nc" id="L78">    }</span>
+<span class="nc" id="L84">        processRequest(request, response);</span>
+<span class="nc" id="L85">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -84,7 +91,7 @@ import model.Specialities;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L87">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L94">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

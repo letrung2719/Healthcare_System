@@ -9,6 +9,7 @@ import dal.DoctorDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +25,7 @@ import model.Specialities;
  *
  * @author Admin
  */
-<span class="nc" id="L27">public class DoctorFilterControl extends HttpServlet {</span>
+<span class="nc" id="L28">public class DoctorFilterControl extends HttpServlet {</span>
 
     private static final long serialVersionUID = 9999L;
 
@@ -39,31 +40,35 @@ import model.Specialities;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L42">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L43">        String name = request.getParameter(&quot;name&quot;);</span>
-<span class="nc" id="L44">        String phone = request.getParameter(&quot;phone&quot;);</span>
-<span class="nc" id="L45">        String gender_raw = request.getParameter(&quot;gender&quot;);</span>
-<span class="nc" id="L46">        Integer gender = null;</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (gender_raw != null) {</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">            gender = gender_raw.equalsIgnoreCase(&quot;Male&quot;) ? 1 : 0;</span>
-        }
-<span class="nc" id="L50">        String dob = request.getParameter(&quot;dob&quot;);</span>
-<span class="nc" id="L51">        String email = request.getParameter(&quot;email&quot;);</span>
-<span class="nc" id="L52">        String[] arraySpec1 = request.getParameterValues(&quot;select_specialist&quot;);</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">        List&lt;String&gt; listSpec1 = arraySpec1 == null ? new ArrayList&lt;&gt;() : Arrays.asList(arraySpec1);</span>
-<span class="nc" id="L54">        ServicesDAO dao = new ServicesDAO();</span>
-<span class="nc" id="L55">        List&lt;Specialities&gt; listSpec = dao.getAllSpecialities();</span>
-<span class="nc" id="L56">        DoctorDAO doctorDb = new DoctorDAO();</span>
-<span class="nc" id="L57">        List&lt;Doctor&gt; listDoctors = doctorDb.search(name, dob, phone, email, gender, listSpec1);</span>
-<span class="nc" id="L58">        request.setAttribute(&quot;doctorName&quot;, name);</span>
-<span class="nc" id="L59">        request.setAttribute(&quot;doctorPhone&quot;, phone);</span>
-<span class="nc" id="L60">        request.setAttribute(&quot;doctorDob&quot;, dob);</span>
-<span class="nc" id="L61">        request.setAttribute(&quot;doctorEmail&quot;, email);</span>
-<span class="nc" id="L62">        request.setAttribute(&quot;gender&quot;, gender);</span>
-<span class="nc" id="L63">        request.setAttribute(&quot;listDoctors&quot;, listDoctors);</span>
-<span class="nc" id="L64">        request.setAttribute(&quot;listSpec&quot;, listSpec);</span>
-<span class="nc" id="L65">        request.getRequestDispatcher(&quot;doctor-list.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L66">    }</span>
+<span class="nc" id="L43">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L45">            String name = request.getParameter(&quot;name&quot;);</span>
+<span class="nc" id="L46">            String phone = request.getParameter(&quot;phone&quot;);</span>
+<span class="nc" id="L47">            String gender_raw = request.getParameter(&quot;gender&quot;);</span>
+<span class="nc" id="L48">            Integer gender = null;</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">            if (gender_raw != null) {</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                gender = gender_raw.equalsIgnoreCase(&quot;Male&quot;) ? 1 : 0;</span>
+            }
+<span class="nc" id="L52">            String dob = request.getParameter(&quot;dob&quot;);</span>
+<span class="nc" id="L53">            String email = request.getParameter(&quot;email&quot;);</span>
+<span class="nc" id="L54">            String[] arraySpec1 = request.getParameterValues(&quot;select_specialist&quot;);</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">            List&lt;String&gt; listSpec1 = arraySpec1 == null ? new ArrayList&lt;&gt;() : Arrays.asList(arraySpec1);</span>
+<span class="nc" id="L56">            ServicesDAO dao = new ServicesDAO();</span>
+<span class="nc" id="L57">            List&lt;Specialities&gt; listSpec = dao.getAllSpecialities();</span>
+<span class="nc" id="L58">            DoctorDAO doctorDb = new DoctorDAO();</span>
+<span class="nc" id="L59">            List&lt;Doctor&gt; listDoctors = doctorDb.search(name, dob, phone, email, gender, listSpec1);</span>
+<span class="nc" id="L60">            request.setAttribute(&quot;doctorName&quot;, name);</span>
+<span class="nc" id="L61">            request.setAttribute(&quot;doctorPhone&quot;, phone);</span>
+<span class="nc" id="L62">            request.setAttribute(&quot;doctorDob&quot;, dob);</span>
+<span class="nc" id="L63">            request.setAttribute(&quot;doctorEmail&quot;, email);</span>
+<span class="nc" id="L64">            request.setAttribute(&quot;gender&quot;, gender);</span>
+<span class="nc" id="L65">            request.setAttribute(&quot;listDoctors&quot;, listDoctors);</span>
+<span class="nc" id="L66">            request.setAttribute(&quot;listSpec&quot;, listSpec);</span>
+<span class="nc" id="L67">            request.getRequestDispatcher(&quot;doctor-list.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L68">        } catch (IOException | SQLException | ServletException e) {</span>
+<span class="nc" id="L69">            System.out.println(e);</span>
+<span class="nc" id="L70">        }</span>
+<span class="nc" id="L71">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -77,8 +82,8 @@ import model.Specialities;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L80">        processRequest(request, response);</span>
-<span class="nc" id="L81">    }</span>
+<span class="nc" id="L85">        processRequest(request, response);</span>
+<span class="nc" id="L86">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -91,8 +96,8 @@ import model.Specialities;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L94">        processRequest(request, response);</span>
-<span class="nc" id="L95">    }</span>
+<span class="nc" id="L99">        processRequest(request, response);</span>
+<span class="nc" id="L100">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -101,7 +106,7 @@ import model.Specialities;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L104">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L109">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

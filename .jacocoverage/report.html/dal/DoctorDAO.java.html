@@ -6,11 +6,14 @@
 package dal;
 
 import dbcontext.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Doctor;
 import model.Specialities;
 
@@ -18,155 +21,187 @@ import model.Specialities;
  *
  * @author Admin
  */
-<span class="fc" id="L21">public class DoctorDAO extends DBContext {</span>
+<span class="fc" id="L24">public class DoctorDAO {</span>
 
-<span class="fc" id="L23">    PreparedStatement ps = null;</span>
-<span class="fc" id="L24">    PreparedStatement ps2 = null;</span>
-<span class="fc" id="L25">    ResultSet rs = null;</span>
+<span class="fc" id="L26">    PreparedStatement ps = null;</span>
+<span class="fc" id="L27">    PreparedStatement ps2 = null;</span>
+<span class="fc" id="L28">    ResultSet rs = null;</span>
+    
+<span class="fc" id="L30">    DBContext dbc = new DBContext();</span>
+<span class="fc" id="L31">    Connection connection = null;</span>
 
     /**
      *
      * @param accountID
      * @return
+     * @throws java.sql.SQLException
      */
-    public Doctor getDoctorByAccountID(int accountID) {
-<span class="fc" id="L33">        String sql = &quot;select doctor_id,doctors.name,gender,dob,phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n&quot;</span>
+    public Doctor getDoctorByAccountID(int accountID) throws SQLException {
+<span class="fc" id="L40">        String sql = &quot;select doctor_id,doctors.name,gender,dob,phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n&quot;</span>
                 + &quot;from doctors join specialities on doctors.type_id = specialities.type_id\n&quot;
                 + &quot;where account_id = ?&quot;;
         try {
-<span class="fc" id="L37">            ps = connection.prepareStatement(sql);</span>
-<span class="fc" id="L38">            ps.setInt(1, accountID);</span>
-<span class="fc" id="L39">            rs = ps.executeQuery();</span>
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">            if (rs.next()) {</span>
-<span class="nc" id="L41">                Doctor p = new Doctor();</span>
-<span class="nc" id="L42">                p.setDoctorID(rs.getInt(1));</span>
-<span class="nc" id="L43">                p.setName(rs.getString(2));</span>
-<span class="nc" id="L44">                p.setGender(rs.getInt(3));</span>
-<span class="nc" id="L45">                p.setDob(rs.getString(4));</span>
-<span class="nc" id="L46">                p.setPhone(rs.getString(5));</span>
-<span class="nc" id="L47">                p.setEmail(rs.getString(6));</span>
-<span class="nc" id="L48">                p.setRole(rs.getString(7));</span>
-<span class="nc" id="L49">                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));</span>
-<span class="nc" id="L50">                p.setSpec(spec);</span>
-<span class="nc" id="L51">                p.setDescription(rs.getString(10));</span>
-<span class="nc" id="L52">                p.setImage(rs.getString(12));</span>
-<span class="nc" id="L53">                p.setAccountID(rs.getInt(11));</span>
-<span class="nc" id="L54">                return p;</span>
+<span class="fc" id="L44">            connection = dbc.getConnection();</span>
+<span class="fc" id="L45">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L46">            ps.setInt(1, accountID);</span>
+<span class="fc" id="L47">            rs = ps.executeQuery();</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">            if (rs.next()) {</span>
+<span class="fc" id="L49">                Doctor p = new Doctor();</span>
+<span class="fc" id="L50">                p.setDoctorID(rs.getInt(1));</span>
+<span class="fc" id="L51">                p.setName(rs.getString(2));</span>
+<span class="fc" id="L52">                p.setGender(rs.getInt(3));</span>
+<span class="fc" id="L53">                p.setDob(rs.getString(4));</span>
+<span class="fc" id="L54">                p.setPhone(rs.getString(5));</span>
+<span class="fc" id="L55">                p.setEmail(rs.getString(6));</span>
+<span class="fc" id="L56">                p.setRole(rs.getString(7));</span>
+<span class="fc" id="L57">                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));</span>
+<span class="fc" id="L58">                p.setSpec(spec);</span>
+<span class="fc" id="L59">                p.setDescription(rs.getString(10));</span>
+<span class="fc" id="L60">                p.setImage(rs.getString(12));</span>
+<span class="fc" id="L61">                p.setAccountID(rs.getInt(11));</span>
+<span class="fc" id="L62">                return p;</span>
             }
-<span class="nc" id="L56">        } catch (SQLException e) {</span>
-<span class="nc" id="L57">            System.out.println(e);</span>
-<span class="fc" id="L58">        }</span>
-<span class="fc" id="L59">        return null;</span>
+<span class="nc" id="L64">        } catch (SQLException e) {</span>
+<span class="nc" id="L65">            System.out.println(e);</span>
+        } finally {
+<span class="pc bpc" id="L67" title="7 of 8 branches missed.">            if (connection != null) {</span>
+<span class="pc" id="L68">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L71">        return null;</span>
     }
 
     /**
      *
      * @param doctorID
      * @return
+     * @throws java.sql.SQLException
      */
-    public Doctor getDoctorByDoctorID(int doctorID) {
-<span class="fc" id="L68">        String sql = &quot;select doctor_id,doctors.name,gender,dob,phone,email,role,Doctors.type_id,specialities.name,description,account_id,image\n&quot;</span>
+    public Doctor getDoctorByDoctorID(int doctorID) throws SQLException {
+<span class="fc" id="L81">        String sql = &quot;select doctor_id,doctors.name,gender,dob,phone,email,role,Doctors.type_id,specialities.name,description,account_id,image\n&quot;</span>
                 + &quot;from doctors join specialities on doctors.type_id = specialities.type_id\n&quot;
                 + &quot;where doctor_id =?&quot;;
         try {
-<span class="fc" id="L72">            ps = connection.prepareStatement(sql);</span>
-<span class="fc" id="L73">            ps.setInt(1, doctorID);</span>
-<span class="fc" id="L74">            rs = ps.executeQuery();</span>
-<span class="pc bpc" id="L75" title="1 of 2 branches missed.">            if (rs.next()) {</span>
-<span class="nc" id="L76">                Doctor p = new Doctor();</span>
-<span class="nc" id="L77">                p.setDoctorID(rs.getInt(1));</span>
-<span class="nc" id="L78">                p.setName(rs.getString(2));</span>
-<span class="nc" id="L79">                p.setGender(rs.getInt(3));</span>
-<span class="nc" id="L80">                p.setDob(rs.getString(4));</span>
-<span class="nc" id="L81">                p.setPhone(rs.getString(5));</span>
-<span class="nc" id="L82">                p.setEmail(rs.getString(6));</span>
-<span class="nc" id="L83">                p.setRole(rs.getString(7));</span>
-<span class="nc" id="L84">                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));</span>
-<span class="nc" id="L85">                p.setSpec(spec);</span>
-<span class="nc" id="L86">                p.setDescription(rs.getString(10));</span>
-<span class="nc" id="L87">                p.setImage(rs.getString(12));</span>
-<span class="nc" id="L88">                p.setAccountID(rs.getInt(11));</span>
-<span class="nc" id="L89">                return p;</span>
+<span class="fc" id="L85">            connection = dbc.getConnection();</span>
+<span class="fc" id="L86">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L87">            ps.setInt(1, doctorID);</span>
+<span class="fc" id="L88">            rs = ps.executeQuery();</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">            if (rs.next()) {</span>
+<span class="fc" id="L90">                Doctor p = new Doctor();</span>
+<span class="fc" id="L91">                p.setDoctorID(rs.getInt(1));</span>
+<span class="fc" id="L92">                p.setName(rs.getString(2));</span>
+<span class="fc" id="L93">                p.setGender(rs.getInt(3));</span>
+<span class="fc" id="L94">                p.setDob(rs.getString(4));</span>
+<span class="fc" id="L95">                p.setPhone(rs.getString(5));</span>
+<span class="fc" id="L96">                p.setEmail(rs.getString(6));</span>
+<span class="fc" id="L97">                p.setRole(rs.getString(7));</span>
+<span class="fc" id="L98">                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));</span>
+<span class="fc" id="L99">                p.setSpec(spec);</span>
+<span class="fc" id="L100">                p.setDescription(rs.getString(10));</span>
+<span class="fc" id="L101">                p.setImage(rs.getString(12));</span>
+<span class="fc" id="L102">                p.setAccountID(rs.getInt(11));</span>
+<span class="fc" id="L103">                return p;</span>
             }
-<span class="nc" id="L91">        } catch (SQLException e) {</span>
-<span class="nc" id="L92">            System.out.println(e);</span>
-<span class="fc" id="L93">        }</span>
-<span class="fc" id="L94">        return null;</span>
+<span class="nc" id="L105">        } catch (SQLException e) {</span>
+<span class="nc" id="L106">            System.out.println(e);</span>
+        } finally {
+<span class="pc bpc" id="L108" title="7 of 8 branches missed.">            if (connection != null) {</span>
+<span class="pc" id="L109">                connection.close();</span>
+            }
+        }
+<span class="nc" id="L112">        return null;</span>
     }
 
     /**
      *
      * @param p
      * @return
+     * @throws java.sql.SQLException
      */
-    public int editDoctor(Doctor p) {
-<span class="fc" id="L103">        String sql = &quot;update doctors set name=?,gender=?,dob=?,phone=?,description=?\n&quot;</span>
+    public int editDoctor(Doctor p) throws SQLException {
+<span class="fc" id="L122">        String sql = &quot;update doctors set name=?,gender=?,dob=?,phone=?,description=?\n&quot;</span>
                 + &quot;where account_id = ?&quot;;
         try {
-<span class="fc" id="L106">            ps = connection.prepareStatement(sql);</span>
-<span class="nc" id="L107">            ps.setString(1, p.getName());</span>
-<span class="nc" id="L108">            ps.setInt(2, p.getGender());</span>
-<span class="nc" id="L109">            ps.setString(3, p.getDob());</span>
-<span class="nc" id="L110">            ps.setString(4, p.getPhone());</span>
-<span class="nc" id="L111">            ps.setString(5, p.getDescription());</span>
-<span class="nc" id="L112">            ps.setInt(6, p.getAccountID());</span>
-<span class="nc" id="L113">            return ps.executeUpdate();</span>
-<span class="nc" id="L114">        } catch (SQLException ex) {</span>
-<span class="nc" id="L115">            System.out.println(ex);</span>
+<span class="fc" id="L125">            connection = dbc.getConnection();</span>
+<span class="fc" id="L126">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L127">            ps.setString(1, p.getName());</span>
+<span class="fc" id="L128">            ps.setInt(2, p.getGender());</span>
+<span class="fc" id="L129">            ps.setString(3, p.getDob());</span>
+<span class="fc" id="L130">            ps.setString(4, p.getPhone());</span>
+<span class="fc" id="L131">            ps.setString(5, p.getDescription());</span>
+<span class="fc" id="L132">            ps.setInt(6, p.getAccountID());</span>
+<span class="fc" id="L133">            return ps.executeUpdate();</span>
+<span class="nc" id="L134">        } catch (SQLException ex) {</span>
+<span class="nc" id="L135">            System.out.println(ex);</span>
+        } finally {
+<span class="pc bpc" id="L137" title="5 of 6 branches missed.">            if (connection != null) {</span>
+<span class="pc" id="L138">                connection.close();</span>
+            }
         }
-<span class="nc" id="L117">        return 0;</span>
+<span class="nc" id="L141">        return 0;</span>
     }
 
     /**
      *
      * @param id
+     * @throws java.sql.SQLException
      */
-    public void delete(int id) {
-<span class="fc" id="L125">        String sql = &quot; delete from doctors where account_id = ?&quot;;</span>
-<span class="fc" id="L126">        String sql2 = &quot; delete from accounts where account_id = ?&quot;;</span>
+    public void delete(int id) throws SQLException {
+<span class="fc" id="L150">        String sql = &quot; delete from doctors where account_id = ?&quot;;</span>
+<span class="fc" id="L151">        String sql2 = &quot; delete from accounts where account_id = ?&quot;;</span>
         try {
-<span class="fc" id="L128">            ps = connection.prepareStatement(sql);</span>
-<span class="fc" id="L129">            ps2 = connection.prepareStatement(sql2);</span>
-<span class="fc" id="L130">            ps.setInt(1, id);</span>
-<span class="fc" id="L131">            ps2.setInt(1, id);</span>
-<span class="fc" id="L132">            ps.executeUpdate();</span>
-<span class="fc" id="L133">            ps2.executeUpdate();</span>
-<span class="nc" id="L134">        } catch (SQLException e) {</span>
-<span class="nc" id="L135">            System.out.println(e);</span>
-<span class="fc" id="L136">        }</span>
-<span class="fc" id="L137">    }</span>
+<span class="fc" id="L153">            connection = dbc.getConnection();</span>
+<span class="fc" id="L154">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L155">            ps2 = connection.prepareStatement(sql2);</span>
+<span class="fc" id="L156">            ps.setInt(1, id);</span>
+<span class="fc" id="L157">            ps2.setInt(1, id);</span>
+<span class="fc" id="L158">            ps.executeUpdate();</span>
+<span class="fc" id="L159">            ps2.executeUpdate();</span>
+<span class="nc" id="L160">        } catch (SQLException e) {</span>
+<span class="nc" id="L161">            System.out.println(e);</span>
+        } finally {
+<span class="pc bpc" id="L163" title="5 of 6 branches missed.">            if (connection != null) {</span>
+<span class="pc" id="L164">                connection.close();</span>
+            }
+        }
+<span class="fc" id="L167">    }</span>
 
     /**
      *
-     * @return
+     * @return @throws java.sql.SQLException
      */
-    public List&lt;Doctor&gt; getAllDoctor() {
-<span class="fc" id="L144">        ArrayList&lt;Doctor&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L145">        String sql = &quot;select doctor_id,doctors.name,gender,dob, phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n&quot;</span>
+    public List&lt;Doctor&gt; getAllDoctor() throws SQLException {
+<span class="fc" id="L174">        ArrayList&lt;Doctor&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L175">        String sql = &quot;select doctor_id,doctors.name,gender,dob, phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n&quot;</span>
                 + &quot;from doctors join specialities on doctors.type_id = specialities.type_id&quot;;
         try {
-<span class="fc" id="L148">            ps = connection.prepareStatement(sql);</span>
-<span class="fc" id="L149">            rs = ps.executeQuery();</span>
-<span class="fc bfc" id="L150" title="All 2 branches covered.">            while (rs.next()) {</span>
-<span class="fc" id="L151">                Doctor p = new Doctor();</span>
-<span class="fc" id="L152">                p.setDoctorID(rs.getInt(1));</span>
-<span class="fc" id="L153">                p.setName(rs.getString(2));</span>
-<span class="fc" id="L154">                p.setGender(rs.getInt(3));</span>
-<span class="fc" id="L155">                p.setDob(rs.getString(4));</span>
-<span class="fc" id="L156">                p.setPhone(rs.getString(5));</span>
-<span class="fc" id="L157">                p.setEmail(rs.getString(6));</span>
-<span class="fc" id="L158">                p.setRole(rs.getString(7));</span>
-<span class="fc" id="L159">                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));</span>
-<span class="fc" id="L160">                p.setSpec(spec);</span>
-<span class="fc" id="L161">                p.setDescription(rs.getString(10));</span>
-<span class="fc" id="L162">                p.setImage(rs.getString(12));</span>
-<span class="fc" id="L163">                p.setAccountID(rs.getInt(11));</span>
-<span class="fc" id="L164">                list.add(p);</span>
-<span class="fc" id="L165">            }</span>
-<span class="nc" id="L166">        } catch (SQLException e) {</span>
-<span class="nc" id="L167">            System.out.println(e);</span>
-<span class="fc" id="L168">        }</span>
-<span class="fc" id="L169">        return list;</span>
+<span class="fc" id="L178">            connection = dbc.getConnection();</span>
+<span class="fc" id="L179">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L180">            rs = ps.executeQuery();</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc" id="L182">                Doctor p = new Doctor();</span>
+<span class="fc" id="L183">                p.setDoctorID(rs.getInt(1));</span>
+<span class="fc" id="L184">                p.setName(rs.getString(2));</span>
+<span class="fc" id="L185">                p.setGender(rs.getInt(3));</span>
+<span class="fc" id="L186">                p.setDob(rs.getString(4));</span>
+<span class="fc" id="L187">                p.setPhone(rs.getString(5));</span>
+<span class="fc" id="L188">                p.setEmail(rs.getString(6));</span>
+<span class="fc" id="L189">                p.setRole(rs.getString(7));</span>
+<span class="fc" id="L190">                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));</span>
+<span class="fc" id="L191">                p.setSpec(spec);</span>
+<span class="fc" id="L192">                p.setDescription(rs.getString(10));</span>
+<span class="fc" id="L193">                p.setImage(rs.getString(12));</span>
+<span class="fc" id="L194">                p.setAccountID(rs.getInt(11));</span>
+<span class="fc" id="L195">                list.add(p);</span>
+<span class="fc" id="L196">            }</span>
+<span class="nc" id="L197">        } catch (SQLException e) {</span>
+<span class="nc" id="L198">            System.out.println(e);</span>
+        } finally {
+<span class="pc bpc" id="L200" title="5 of 6 branches missed.">            if (connection != null) {</span>
+<span class="pc" id="L201">                connection.close();</span>
+            }
+        }
+<span class="fc" id="L204">        return list;</span>
     }
 
     /**
@@ -177,11 +212,11 @@ import model.Specialities;
      * @return
      */
     public List&lt;Doctor&gt; getDoctorByPage(List&lt;Doctor&gt; list, int begin, int end) {
-<span class="fc" id="L180">        List&lt;Doctor&gt; listDoctorByPage = new ArrayList&lt;&gt;();</span>
-<span class="pc bpc" id="L181" title="1 of 2 branches missed.">        for (int i = begin; i &lt; end; i++) {</span>
-<span class="nc" id="L182">            listDoctorByPage.add(list.get(i));</span>
+<span class="fc" id="L215">        List&lt;Doctor&gt; listDoctorByPage = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L216" title="1 of 2 branches missed.">        for (int i = begin; i &lt; end; i++) {</span>
+<span class="nc" id="L217">            listDoctorByPage.add(list.get(i));</span>
         }
-<span class="fc" id="L184">        return listDoctorByPage;</span>
+<span class="fc" id="L219">        return listDoctorByPage;</span>
     }
 
     /**
@@ -193,60 +228,66 @@ import model.Specialities;
      * @param gender
      * @param listSpec
      * @return
+     * @throws java.sql.SQLException
      */
-    public List&lt;Doctor&gt; search(String doctorName, String dob, String phone, String email, Integer gender, List&lt;String&gt; listSpec) {
-<span class="fc" id="L198">        List&lt;Doctor&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L199">        String sql = &quot;select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id\n&quot;</span>
+    public List&lt;Doctor&gt; search(String doctorName, String dob, String phone, String email, Integer gender, List&lt;String&gt; listSpec) throws SQLException {
+<span class="fc" id="L234">        List&lt;Doctor&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L235">        String sql = &quot;select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id\n&quot;</span>
                 + &quot;from doctors join specialities on doctors.type_id = specialities.type_id\n&quot;
                 + &quot;where 1=1&quot;;
-<span class="pc bpc" id="L202" title="2 of 4 branches missed.">        if (doctorName != null &amp;&amp; !doctorName.isEmpty()) {</span>
-<span class="nc" id="L203">            sql += &quot; AND doctors.name like '%&quot; + doctorName + &quot;%'&quot;;</span>
+<span class="pc bpc" id="L238" title="2 of 4 branches missed.">        if (doctorName != null &amp;&amp; !doctorName.isEmpty()) {</span>
+<span class="fc" id="L239">            sql += &quot; AND doctors.name like '%&quot; + doctorName + &quot;%'&quot;;</span>
         }
-<span class="pc bpc" id="L205" title="2 of 4 branches missed.">        if (dob != null &amp;&amp; !dob.isEmpty()) {</span>
-<span class="nc" id="L206">            sql += &quot; AND dob like '%&quot; + dob + &quot;%'&quot;;</span>
+<span class="pc bpc" id="L241" title="2 of 4 branches missed.">        if (dob != null &amp;&amp; !dob.isEmpty()) {</span>
+<span class="nc" id="L242">            sql += &quot; AND dob like '%&quot; + dob + &quot;%'&quot;;</span>
         }
-<span class="pc bpc" id="L208" title="2 of 4 branches missed.">        if (phone != null &amp;&amp; !phone.isEmpty()) {</span>
-<span class="nc" id="L209">            sql += &quot; AND phone like '%&quot; + phone + &quot;%'&quot;;</span>
+<span class="pc bpc" id="L244" title="2 of 4 branches missed.">        if (phone != null &amp;&amp; !phone.isEmpty()) {</span>
+<span class="nc" id="L245">            sql += &quot; AND phone like '%&quot; + phone + &quot;%'&quot;;</span>
         }
-<span class="pc bpc" id="L211" title="2 of 4 branches missed.">        if (email != null &amp;&amp; !email.isEmpty()) {</span>
-<span class="nc" id="L212">            sql += &quot; AND email like '%&quot; + email + &quot;%'&quot;;</span>
+<span class="pc bpc" id="L247" title="2 of 4 branches missed.">        if (email != null &amp;&amp; !email.isEmpty()) {</span>
+<span class="nc" id="L248">            sql += &quot; AND email like '%&quot; + email + &quot;%'&quot;;</span>
         }
-<span class="pc bpc" id="L214" title="1 of 2 branches missed.">        if (gender != null) {</span>
-<span class="nc" id="L215">            sql += &quot; AND gender = &quot; + gender;</span>
+<span class="pc bpc" id="L250" title="1 of 2 branches missed.">        if (gender != null) {</span>
+<span class="nc" id="L251">            sql += &quot; AND gender = &quot; + gender;</span>
         }
-<span class="pc bpc" id="L217" title="3 of 4 branches missed.">        if (listSpec != null &amp;&amp; !listSpec.isEmpty()) {</span>
-<span class="nc" id="L218">            sql += &quot;and (&quot;;</span>
-<span class="nc bnc" id="L219" title="All 2 branches missed.">            for (int i = 0; i &lt; listSpec.size(); i++) {</span>
-<span class="nc" id="L220">                sql += &quot;specialities.name = '&quot; + listSpec.get(i) + &quot;' &quot;;</span>
-<span class="nc bnc" id="L221" title="All 2 branches missed.">                if (i &lt; listSpec.size() - 1) {</span>
-<span class="nc" id="L222">                    sql += &quot; or &quot;;</span>
+<span class="pc bpc" id="L253" title="3 of 4 branches missed.">        if (listSpec != null &amp;&amp; !listSpec.isEmpty()) {</span>
+<span class="nc" id="L254">            sql += &quot;and (&quot;;</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">            for (int i = 0; i &lt; listSpec.size(); i++) {</span>
+<span class="nc" id="L256">                sql += &quot;specialities.name = '&quot; + listSpec.get(i) + &quot;' &quot;;</span>
+<span class="nc bnc" id="L257" title="All 2 branches missed.">                if (i &lt; listSpec.size() - 1) {</span>
+<span class="nc" id="L258">                    sql += &quot; or &quot;;</span>
                 }
             }
-<span class="nc" id="L225">            sql += &quot;)&quot;;</span>
+<span class="nc" id="L261">            sql += &quot;)&quot;;</span>
         }
 
         try {
-<span class="fc" id="L229">            ps = connection.prepareStatement(sql);</span>
-<span class="fc" id="L230">            rs = ps.executeQuery();</span>
-<span class="fc bfc" id="L231" title="All 2 branches covered.">            while (rs.next()) {</span>
-<span class="fc" id="L232">                Doctor d = new Doctor();</span>
-<span class="fc" id="L233">                d.setDoctorID(rs.getInt(1));</span>
-<span class="fc" id="L234">                d.setName(rs.getString(2));</span>
-<span class="fc" id="L235">                d.setGender(rs.getInt(3));</span>
-<span class="fc" id="L236">                d.setPhone(rs.getString(4));</span>
-<span class="fc" id="L237">                d.setEmail(rs.getString(5));</span>
-<span class="fc" id="L238">                d.setRole(rs.getString(6));</span>
-<span class="fc" id="L239">                d.setImage(rs.getString(7));</span>
-<span class="fc" id="L240">                d.setDescription(rs.getString(8));</span>
-<span class="fc" id="L241">                Specialities spec = new Specialities(rs.getInt(9), rs.getString(10));</span>
-<span class="fc" id="L242">                d.setSpec(spec);</span>
-<span class="fc" id="L243">                d.setAccountID(rs.getInt(11));</span>
-<span class="fc" id="L244">                list.add(d);</span>
-<span class="fc" id="L245">            }</span>
-<span class="nc" id="L246">        } catch (SQLException e) {</span>
-<span class="nc" id="L247">            System.out.println(e);</span>
-<span class="fc" id="L248">        }</span>
-<span class="fc" id="L249">        return list;</span>
+<span class="fc" id="L265">            connection = dbc.getConnection();</span>
+<span class="fc" id="L266">            ps = connection.prepareStatement(sql);</span>
+<span class="fc" id="L267">            rs = ps.executeQuery();</span>
+<span class="fc bfc" id="L268" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc" id="L269">                Doctor d = new Doctor();</span>
+<span class="fc" id="L270">                d.setDoctorID(rs.getInt(1));</span>
+<span class="fc" id="L271">                d.setName(rs.getString(2));</span>
+<span class="fc" id="L272">                d.setGender(rs.getInt(3));</span>
+<span class="fc" id="L273">                d.setPhone(rs.getString(4));</span>
+<span class="fc" id="L274">                d.setEmail(rs.getString(5));</span>
+<span class="fc" id="L275">                d.setRole(rs.getString(6));</span>
+<span class="fc" id="L276">                d.setImage(rs.getString(7));</span>
+<span class="fc" id="L277">                d.setDescription(rs.getString(8));</span>
+<span class="fc" id="L278">                Specialities spec = new Specialities(rs.getInt(9), rs.getString(10));</span>
+<span class="fc" id="L279">                d.setSpec(spec);</span>
+<span class="fc" id="L280">                d.setAccountID(rs.getInt(11));</span>
+<span class="fc" id="L281">                list.add(d);</span>
+<span class="fc" id="L282">            }</span>
+<span class="nc" id="L283">        } catch (SQLException e) {</span>
+<span class="nc" id="L284">            System.out.println(e);</span>
+        } finally {
+<span class="pc bpc" id="L286" title="5 of 6 branches missed.">            if (connection != null) {</span>
+<span class="pc" id="L287">                connection.close();</span>
+            }
+        }
+<span class="fc" id="L290">        return list;</span>
     }
 
     /**
@@ -254,19 +295,23 @@ import model.Specialities;
      * @param args
      */
     public static void main(String[] args) {
-<span class="nc" id="L257">        DoctorDAO doctorDb = new DoctorDAO();</span>
-<span class="nc" id="L258">        Specialities spec = new Specialities(1, &quot;abc&quot;);</span>
+        try {
+<span class="nc" id="L299">            DoctorDAO doctorDb = new DoctorDAO();</span>
+<span class="nc" id="L300">            Specialities spec = new Specialities(1, &quot;abc&quot;);</span>
 //        Doctor d = new Doctor(20, &quot;Le Van Nam&quot;, 1, &quot;2000-01-01&quot;, &quot;0123456789&quot;, &quot;abc@gmail.com&quot;, &quot;Head of Department&quot;, spec, &quot;abc&quot;, &quot;abc&quot;, 21);
 //        List&lt;Doctor&gt; list = doctorDb.getAllDoctor();
 //        List&lt;Doctor&gt; d = doctorDb.getDoctorByPage(list, 1, 5);
-<span class="nc" id="L262">        Doctor d = doctorDb.getDoctorByAccountID(7);</span>
-<span class="nc" id="L263">        System.out.println(d);</span>
+<span class="nc" id="L304">            Doctor d = doctorDb.getDoctorByAccountID(7);</span>
+<span class="nc" id="L305">            System.out.println(d);</span>
 //        Doctor d = doctorDb.getDoctorByDoctorID(2);
 //        System.out.println(d);
 //        String[] listSpec 
 //        List&lt;Doctor&gt; list = doctorDb.search(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, null, listSpec);
 //        System.out.println(list);
+<span class="nc" id="L311">        } catch (SQLException ex) {</span>
+<span class="nc" id="L312">            Logger.getLogger(DoctorDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L313">        }</span>
 
-<span class="nc" id="L270">    }</span>
+<span class="nc" id="L315">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

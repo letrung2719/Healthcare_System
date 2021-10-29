@@ -9,6 +9,7 @@ import dal.DoctorDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,19 +21,19 @@ import model.Doctor;
  *
  * @author Admin
  */
-<span class="nc" id="L23">public class DoctorProfileSettting extends HttpServlet {</span>
+<span class="nc" id="L24">public class DoctorProfileSettting extends HttpServlet {</span>
     private static final long serialVersionUID = 9999L;
-<span class="nc" id="L25">    ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;resources/message&quot;);</span>
+<span class="nc" id="L26">    ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;resources/message&quot;);</span>
     
     private void writeObject(ObjectOutputStream stream)
             throws IOException {
-<span class="nc" id="L29">        stream.defaultWriteObject();</span>
-<span class="nc" id="L30">    }</span>
+<span class="nc" id="L30">        stream.defaultWriteObject();</span>
+<span class="nc" id="L31">    }</span>
 
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
-<span class="nc" id="L34">        stream.defaultReadObject();</span>
-<span class="nc" id="L35">    }</span>
+<span class="nc" id="L35">        stream.defaultReadObject();</span>
+<span class="nc" id="L36">    }</span>
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -44,28 +45,28 @@ import model.Doctor;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L47">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L48">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
         try {
-<span class="nc" id="L49">            int doctorID = Integer.parseInt(request.getParameter(&quot;id&quot;));</span>
-<span class="nc" id="L50">            int accountID = Integer.parseInt(request.getParameter(&quot;accountID&quot;));</span>
-<span class="nc" id="L51">            String name = request.getParameter(&quot;name&quot;);</span>
-<span class="nc" id="L52">            String gender_raw = request.getParameter(&quot;gender&quot;);</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">            int gender = gender_raw.equalsIgnoreCase(&quot;Male&quot;) ? 1 : 0;</span>
-<span class="nc" id="L54">            String dob = request.getParameter(&quot;dob&quot;);</span>
-<span class="nc" id="L55">            String phone = request.getParameter(&quot;phone&quot;);</span>
-<span class="nc" id="L56">            String email = request.getParameter(&quot;email&quot;);</span>
-<span class="nc" id="L57">            String description = request.getParameter(&quot;description&quot;);</span>
-<span class="nc" id="L58">            Doctor d = new Doctor(doctorID, name, gender, dob, phone, email, &quot;&quot;, null, description, &quot;&quot;, accountID);</span>
-<span class="nc" id="L59">            System.out.println(d);</span>
-<span class="nc" id="L60">            DoctorDAO doctorDb = new DoctorDAO();</span>
-<span class="nc" id="L61">            int res = doctorDb.editDoctor(d);</span>
-<span class="nc" id="L62">            System.out.println(res);</span>
-<span class="nc" id="L63">            request.setAttribute(&quot;thongbao&quot;, resourceBundle.getString(&quot;success&quot;));</span>
-<span class="nc" id="L64">            request.getRequestDispatcher(&quot;doctor_profile?id=&quot; + accountID).forward(request, response);</span>
-<span class="nc" id="L65">        } catch (NumberFormatException ex) {</span>
-<span class="nc" id="L66">            System.out.println(ex);</span>
-<span class="nc" id="L67">        }</span>
-<span class="nc" id="L68">    }</span>
+<span class="nc" id="L50">            int doctorID = Integer.parseInt(request.getParameter(&quot;id&quot;));</span>
+<span class="nc" id="L51">            int accountID = Integer.parseInt(request.getParameter(&quot;accountID&quot;));</span>
+<span class="nc" id="L52">            String name = request.getParameter(&quot;name&quot;);</span>
+<span class="nc" id="L53">            String gender_raw = request.getParameter(&quot;gender&quot;);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            int gender = gender_raw.equalsIgnoreCase(&quot;Male&quot;) ? 1 : 0;</span>
+<span class="nc" id="L55">            String dob = request.getParameter(&quot;dob&quot;);</span>
+<span class="nc" id="L56">            String phone = request.getParameter(&quot;phone&quot;);</span>
+<span class="nc" id="L57">            String email = request.getParameter(&quot;email&quot;);</span>
+<span class="nc" id="L58">            String description = request.getParameter(&quot;description&quot;);</span>
+<span class="nc" id="L59">            Doctor d = new Doctor(doctorID, name, gender, dob, phone, email, &quot;&quot;, null, description, &quot;&quot;, accountID);</span>
+<span class="nc" id="L60">            System.out.println(d);</span>
+<span class="nc" id="L61">            DoctorDAO doctorDb = new DoctorDAO();</span>
+<span class="nc" id="L62">            int res = doctorDb.editDoctor(d);</span>
+<span class="nc" id="L63">            System.out.println(res);</span>
+<span class="nc" id="L64">            request.setAttribute(&quot;thongbao&quot;, resourceBundle.getString(&quot;success&quot;));</span>
+<span class="nc" id="L65">            request.getRequestDispatcher(&quot;doctor_profile?id=&quot; + accountID).forward(request, response);</span>
+<span class="nc" id="L66">        } catch (NumberFormatException | SQLException ex) {</span>
+<span class="nc" id="L67">            System.out.println(ex);</span>
+<span class="nc" id="L68">        }</span>
+<span class="nc" id="L69">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -79,8 +80,8 @@ import model.Doctor;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L82">        processRequest(request, response);</span>
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L83">        processRequest(request, response);</span>
+<span class="nc" id="L84">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -93,8 +94,8 @@ import model.Doctor;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L96">        processRequest(request, response);</span>
-<span class="nc" id="L97">    }</span>
+<span class="nc" id="L97">        processRequest(request, response);</span>
+<span class="nc" id="L98">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -103,7 +104,7 @@ import model.Doctor;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L106">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L107">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

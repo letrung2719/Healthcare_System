@@ -6,6 +6,7 @@ import dal.PatientDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,19 +20,20 @@ import model.Patient;
  *
  * @author admin
  */
-<span class="nc" id="L22">public class SignUpControl extends HttpServlet {</span>
+<span class="nc" id="L23">public class SignUpControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
-<span class="nc" id="L24">    ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;resources/message&quot;);</span>
-    
+<span class="nc" id="L26">    ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;resources/message&quot;);</span>
+
     private void writeObject(ObjectOutputStream stream)
             throws IOException {
-<span class="nc" id="L28">        stream.defaultWriteObject();</span>
-<span class="nc" id="L29">    }</span>
+<span class="nc" id="L30">        stream.defaultWriteObject();</span>
+<span class="nc" id="L31">    }</span>
 
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
-<span class="nc" id="L33">        stream.defaultReadObject();</span>
-<span class="nc" id="L34">    }</span>
+<span class="nc" id="L35">        stream.defaultReadObject();</span>
+<span class="nc" id="L36">    }</span>
 
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
@@ -61,47 +63,51 @@ import model.Patient;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L64">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L65">        String name = request.getParameter(&quot;name&quot;);</span>
-<span class="nc" id="L66">        int gender = Integer.parseInt(request.getParameter(&quot;gender&quot;));</span>
-<span class="nc" id="L67">        String phone = request.getParameter(&quot;phone&quot;);</span>
-<span class="nc" id="L68">        String email = request.getParameter(&quot;email&quot;);</span>
-<span class="nc" id="L69">        String user = request.getParameter(&quot;user&quot;);</span>
-<span class="nc" id="L70">        String pass = request.getParameter(&quot;pass&quot;);</span>
-<span class="nc" id="L71">        String repass = request.getParameter(&quot;repass&quot;);</span>
+<span class="nc" id="L66">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L68">            String name = request.getParameter(&quot;name&quot;);</span>
+<span class="nc" id="L69">            int gender = Integer.parseInt(request.getParameter(&quot;gender&quot;));</span>
+<span class="nc" id="L70">            String phone = request.getParameter(&quot;phone&quot;);</span>
+<span class="nc" id="L71">            String email = request.getParameter(&quot;email&quot;);</span>
+<span class="nc" id="L72">            String user = request.getParameter(&quot;user&quot;);</span>
+<span class="nc" id="L73">            String pass = request.getParameter(&quot;pass&quot;);</span>
+<span class="nc" id="L74">            String repass = request.getParameter(&quot;repass&quot;);</span>
 
-<span class="nc" id="L73">        request.setAttribute(&quot;name&quot;, name);</span>
-<span class="nc" id="L74">        request.setAttribute(&quot;gender&quot;, gender);</span>
-<span class="nc" id="L75">        request.setAttribute(&quot;phone&quot;, phone);</span>
-<span class="nc" id="L76">        request.setAttribute(&quot;email&quot;, email);</span>
-<span class="nc" id="L77">        request.setAttribute(&quot;user&quot;, user);</span>
+<span class="nc" id="L76">            request.setAttribute(&quot;name&quot;, name);</span>
+<span class="nc" id="L77">            request.setAttribute(&quot;gender&quot;, gender);</span>
+<span class="nc" id="L78">            request.setAttribute(&quot;phone&quot;, phone);</span>
+<span class="nc" id="L79">            request.setAttribute(&quot;email&quot;, email);</span>
+<span class="nc" id="L80">            request.setAttribute(&quot;user&quot;, user);</span>
 
-<span class="nc" id="L79">        Validate validate = new Validate();</span>
-<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (validate.checkPhone(phone) == false) {</span>
-<span class="nc" id="L81">            request.setAttribute(&quot;mess&quot;, resourceBundle.getString(&quot;invalid_phone&quot;));</span>
-<span class="nc" id="L82">            request.getRequestDispatcher(&quot;signup.jsp&quot;).forward(request, response);</span>
-        }
-
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (!pass.equals(repass)) {</span>
-<span class="nc" id="L86">            request.setAttribute(&quot;mess&quot;, resourceBundle.getString(&quot;pass_not_matched&quot;));</span>
-
-<span class="nc" id="L88">            request.getRequestDispatcher(&quot;signup.jsp&quot;).forward(request, response);</span>
-        } else {
-<span class="nc" id="L90">            PatientDAO patientDb = new PatientDAO();</span>
-<span class="nc" id="L91">            AccountDAO accountDb = new AccountDAO();</span>
-<span class="nc" id="L92">            Account a = accountDb.checkAccountExist(user);</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">            if (a == null) { //Account a chua ton tai</span>
-<span class="nc" id="L94">                accountDb.insertNewAccountPatient(user, pass);</span>
-<span class="nc" id="L95">                Account account = accountDb.getNewestAccount();</span>
-<span class="nc" id="L96">                Patient u = new Patient(name, gender, &quot;&quot;, phone, email, account.getId(), &quot;&quot;);</span>
-<span class="nc" id="L97">                patientDb.insertNewPatient(u);</span>
-<span class="nc" id="L98">                response.sendRedirect(&quot;login.jsp&quot;);</span>
-<span class="nc" id="L99">            } else {</span>
-<span class="nc" id="L100">                request.setAttribute(&quot;mess&quot;, resourceBundle.getString(&quot;existed_account&quot;));</span>
-<span class="nc" id="L101">                request.getRequestDispatcher(&quot;signup.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L82">            Validate validate = new Validate();</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">            if (validate.checkPhone(phone) == false) {</span>
+<span class="nc" id="L84">                request.setAttribute(&quot;mess&quot;, resourceBundle.getString(&quot;invalid_phone&quot;));</span>
+<span class="nc" id="L85">                request.getRequestDispatcher(&quot;signup.jsp&quot;).forward(request, response);</span>
             }
-        }
-<span class="nc" id="L104">    }</span>
+
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (!pass.equals(repass)) {</span>
+<span class="nc" id="L89">                request.setAttribute(&quot;mess&quot;, resourceBundle.getString(&quot;pass_not_matched&quot;));</span>
+
+<span class="nc" id="L91">                request.getRequestDispatcher(&quot;signup.jsp&quot;).forward(request, response);</span>
+            } else {
+<span class="nc" id="L93">                PatientDAO patientDb = new PatientDAO();</span>
+<span class="nc" id="L94">                AccountDAO accountDb = new AccountDAO();</span>
+<span class="nc" id="L95">                Account a = accountDb.checkAccountExist(user);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">                if (a == null) { //Account a chua ton tai</span>
+<span class="nc" id="L97">                    accountDb.insertNewAccountPatient(user, pass);</span>
+<span class="nc" id="L98">                    Account account = accountDb.getNewestAccount();</span>
+<span class="nc" id="L99">                    Patient u = new Patient(name, gender, &quot;&quot;, phone, email, account.getId(), &quot;&quot;);</span>
+<span class="nc" id="L100">                    patientDb.insertNewPatient(u);</span>
+<span class="nc" id="L101">                    response.sendRedirect(&quot;login.jsp&quot;);</span>
+<span class="nc" id="L102">                } else {</span>
+<span class="nc" id="L103">                    request.setAttribute(&quot;mess&quot;, resourceBundle.getString(&quot;existed_account&quot;));</span>
+<span class="nc" id="L104">                    request.getRequestDispatcher(&quot;signup.jsp&quot;).forward(request, response);</span>
+                }
+            }
+<span class="nc" id="L107">        } catch (IOException | NumberFormatException | SQLException | ServletException e) {</span>
+<span class="nc" id="L108">            System.out.println(e);</span>
+<span class="nc" id="L109">        }</span>
+<span class="nc" id="L110">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -115,8 +121,8 @@ import model.Patient;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L118">        processRequest(request, response);</span>
-<span class="nc" id="L119">    }</span>
+<span class="nc" id="L124">        processRequest(request, response);</span>
+<span class="nc" id="L125">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -129,8 +135,8 @@ import model.Patient;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L132">        processRequest(request, response);</span>
-<span class="nc" id="L133">    }</span>
+<span class="nc" id="L138">        processRequest(request, response);</span>
+<span class="nc" id="L139">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -139,7 +145,7 @@ import model.Patient;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L142">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L148">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

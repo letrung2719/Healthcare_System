@@ -7,6 +7,7 @@ package controller.services;
 
 import dal.ServicesDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,8 +26,10 @@ import model.Specialities;
  * @author hp
  */
 @WebServlet(name = &quot;SortStarFeedbackControl&quot;, urlPatterns = {&quot;/sortStarComment&quot;})
-<span class="nc" id="L28">public class SortStarCommentControl extends HttpServlet {</span>
+<span class="nc" id="L29">public class SortStarCommentControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -38,62 +41,57 @@ import model.Specialities;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L41">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-        //////////
-        //
-<span class="nc" id="L44">        String star = request.getParameter(&quot;star&quot;);</span>
-<span class="nc" id="L45">        String id = request.getParameter(&quot;sid&quot;);</span>
-<span class="nc" id="L46">        ServicesDAO dal = new ServicesDAO();</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (star.equals(&quot;all&quot;)) {</span>
-<span class="nc" id="L48">            List&lt;ServiceFeedbacks&gt; listF = dal.getAllComment(id);</span>
-<span class="nc" id="L49">            request.setAttribute(&quot;listF&quot;, listF);</span>
-<span class="nc" id="L50">        } else {</span>
-<span class="nc" id="L51">            List&lt;ServiceFeedbacks&gt; listFs = dal.getAllCommentSortedByStar(id, star);</span>
-<span class="nc" id="L52">            request.setAttribute(&quot;listF&quot;, listFs);</span>
-        }
+<span class="nc" id="L44">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L46">            String star = request.getParameter(&quot;star&quot;);</span>
+<span class="nc" id="L47">            String id = request.getParameter(&quot;sid&quot;);</span>
+<span class="nc" id="L48">            ServicesDAO dal = new ServicesDAO();</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">            if (star.equals(&quot;all&quot;)) {</span>
+<span class="nc" id="L50">                List&lt;ServiceFeedbacks&gt; listF = dal.getAllComment(id);</span>
+<span class="nc" id="L51">                request.setAttribute(&quot;listF&quot;, listF);</span>
+<span class="nc" id="L52">            } else {</span>
+<span class="nc" id="L53">                List&lt;ServiceFeedbacks&gt; listFs = dal.getAllCommentSortedByStar(id, star);</span>
+<span class="nc" id="L54">                request.setAttribute(&quot;listF&quot;, listFs);</span>
+            }
 
-        //lấy list các feedback của service có id trên và hiện theo số sao quy định
-        //
-<span class="nc" id="L57">        Services s = dal.getServiceByID(id);</span>
-<span class="nc" id="L58">        String specID = s.getType_id();</span>
-<span class="nc" id="L59">        request.setAttribute(&quot;detail&quot;, s);</span>
-        //lấy dữ liệu Service và id Speciality của Service
-        //
-<span class="nc" id="L62">        int avrate = dal.averageRateServices(id);</span>
-<span class="nc" id="L63">        request.setAttribute(&quot;avrate&quot;, avrate);</span>
-        //lấy rate trung bình của service
-        //
-<span class="nc" id="L66">        Specialities spec = dal.getSpecByID(specID);</span>
-<span class="nc" id="L67">        request.setAttribute(&quot;spec&quot;, spec);</span>
-        //lấy ra specialitie của Service
-        //
-<span class="nc" id="L70">        String type_id = dal.getServiceByID(id).getType_id();</span>
-<span class="nc" id="L71">        List&lt;Services&gt; listS = dal.getTop4Last(type_id);</span>
-<span class="nc" id="L72">        request.setAttribute(&quot;listS&quot;, listS);</span>
-        //lấy ra 4 service liên quan theo specialitie
-        //
-<span class="nc" id="L75">        List&lt;ServiceFeedbacks&gt; listF = dal.getAllComment(id);</span>
-<span class="nc" id="L76">        int totalfeedback = listF.size();</span>
-<span class="nc" id="L77">        request.setAttribute(&quot;totalfeedback&quot;, totalfeedback);</span>
-        //số feedback của service
-        //
-<span class="nc" id="L80">        HttpSession session = request.getSession();</span>
-<span class="nc" id="L81">        Account a = (Account) session.getAttribute(&quot;acc&quot;);</span>
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (a != null) {</span>
-<span class="nc bnc" id="L83" title="All 2 branches missed.">            if (a.getAuthor_id() == 2) {</span>
-<span class="nc" id="L84">                Patient p = (Patient) session.getAttribute(&quot;user&quot;);</span>
-<span class="nc" id="L85">                List&lt;ServiceFeedbacks&gt; check = dal.checkPatientComment((int) p.getPatientID(), id);</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">                if (check.isEmpty()) {</span>
-<span class="nc" id="L87">                    request.setAttribute(&quot;check&quot;, 1);</span>
-                } else {
-<span class="nc" id="L89">                    request.setAttribute(&quot;check&quot;, 5);</span>
+            //lấy list các feedback của service có id trên và hiện theo số sao quy định
+<span class="nc" id="L58">            Services s = dal.getServiceByID(id);</span>
+<span class="nc" id="L59">            String specID = s.getType_id();</span>
+<span class="nc" id="L60">            request.setAttribute(&quot;detail&quot;, s);</span>
+            //lấy dữ liệu Service và id Speciality của Service
+<span class="nc" id="L62">            int avrate = dal.averageRateServices(id);</span>
+<span class="nc" id="L63">            request.setAttribute(&quot;avrate&quot;, avrate);</span>
+            //lấy rate trung bình của service
+<span class="nc" id="L65">            Specialities spec = dal.getSpecByID(specID);</span>
+<span class="nc" id="L66">            request.setAttribute(&quot;spec&quot;, spec);</span>
+            //lấy ra specialitie của Service
+<span class="nc" id="L68">            String type_id = dal.getServiceByID(id).getType_id();</span>
+<span class="nc" id="L69">            List&lt;Services&gt; listS = dal.getTop4Last(type_id);</span>
+<span class="nc" id="L70">            request.setAttribute(&quot;listS&quot;, listS);</span>
+            //lấy ra 4 service liên quan theo specialitie
+<span class="nc" id="L72">            List&lt;ServiceFeedbacks&gt; listF = dal.getAllComment(id);</span>
+<span class="nc" id="L73">            int totalfeedback = listF.size();</span>
+<span class="nc" id="L74">            request.setAttribute(&quot;totalfeedback&quot;, totalfeedback);</span>
+            //số feedback của service
+<span class="nc" id="L76">            HttpSession session = request.getSession();</span>
+<span class="nc" id="L77">            Account a = (Account) session.getAttribute(&quot;acc&quot;);</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">            if (a != null) {</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                if (a.getAuthor_id() == 2) {</span>
+<span class="nc" id="L80">                    Patient p = (Patient) session.getAttribute(&quot;user&quot;);</span>
+<span class="nc" id="L81">                    List&lt;ServiceFeedbacks&gt; check = dal.checkPatientComment((int) p.getPatientID(), id);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">                    if (check.isEmpty()) {</span>
+<span class="nc" id="L83">                        request.setAttribute(&quot;check&quot;, 1);</span>
+                    } else {
+<span class="nc" id="L85">                        request.setAttribute(&quot;check&quot;, 5);</span>
+                    }
                 }
             }
-        }
-        ////////
-<span class="nc" id="L94">        request.getRequestDispatcher(&quot;service-detail.jsp&quot;).forward(request, response);</span>
-        ////////
-<span class="nc" id="L96">    }</span>
+<span class="nc" id="L89">            request.getRequestDispatcher(&quot;service-detail.jsp&quot;).forward(request, response);</span>
+
+<span class="nc" id="L91">        } catch (IOException | SQLException | ServletException e) {</span>
+<span class="nc" id="L92">            System.out.println(e);</span>
+<span class="nc" id="L93">        }</span>
+<span class="nc" id="L94">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -107,8 +105,8 @@ import model.Specialities;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L110">        processRequest(request, response);</span>
-<span class="nc" id="L111">    }</span>
+<span class="nc" id="L108">        processRequest(request, response);</span>
+<span class="nc" id="L109">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -121,8 +119,8 @@ import model.Specialities;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L124">        processRequest(request, response);</span>
-<span class="nc" id="L125">    }</span>
+<span class="nc" id="L122">        processRequest(request, response);</span>
+<span class="nc" id="L123">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -131,7 +129,7 @@ import model.Specialities;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L134">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L132">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

@@ -12,6 +12,7 @@ import dal.TimetableDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,20 +29,20 @@ import model.Services;
  * @author Admin
  */
 @WebServlet(name = &quot;ReservationControl&quot;, urlPatterns = {&quot;/reservation&quot;})
-<span class="nc" id="L31">public class ReservationControl extends HttpServlet {</span>
+<span class="nc" id="L32">public class ReservationControl extends HttpServlet {</span>
 
     private static final long serialVersionUID = 9999L;
-<span class="nc" id="L34">    ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;resources/message&quot;);</span>
+<span class="nc" id="L35">    ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;resources/message&quot;);</span>
 
     private void writeObject(ObjectOutputStream stream)
             throws IOException {
-<span class="nc" id="L38">        stream.defaultWriteObject();</span>
-<span class="nc" id="L39">    }</span>
+<span class="nc" id="L39">        stream.defaultWriteObject();</span>
+<span class="nc" id="L40">    }</span>
 
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
-<span class="nc" id="L43">        stream.defaultReadObject();</span>
-<span class="nc" id="L44">    }</span>
+<span class="nc" id="L44">        stream.defaultReadObject();</span>
+<span class="nc" id="L45">    }</span>
 
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
@@ -54,9 +55,9 @@ import model.Services;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L57">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L58">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
 
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L60">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -70,19 +71,23 @@ import model.Services;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L73">        HttpSession session = request.getSession();</span>
-<span class="nc" id="L74">        Patient curUser = (Patient) session.getAttribute(&quot;user&quot;);</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (curUser == null) {</span>
-<span class="nc" id="L76">            request.setAttribute(&quot;mess&quot;, resourceBundle.getString(&quot;must_login&quot;));</span>
-<span class="nc" id="L77">            request.getRequestDispatcher(&quot;login.jsp&quot;).forward(request, response);</span>
-        } else {
-<span class="nc" id="L79">            String serviceId = request.getParameter(&quot;id&quot;);</span>
-<span class="nc" id="L80">            ServicesDAO serviceDb = new ServicesDAO();</span>
-<span class="nc" id="L81">            Services s = serviceDb.getServiceByID(serviceId);</span>
-<span class="nc" id="L82">            request.setAttribute(&quot;service&quot;, s);</span>
-<span class="nc" id="L83">            request.getRequestDispatcher(&quot;reservation.jsp&quot;).forward(request, response);</span>
-        }
-<span class="nc" id="L85">    }</span>
+        try {
+<span class="nc" id="L75">            HttpSession session = request.getSession();</span>
+<span class="nc" id="L76">            Patient curUser = (Patient) session.getAttribute(&quot;user&quot;);</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">            if (curUser == null) {</span>
+<span class="nc" id="L78">                request.setAttribute(&quot;mess&quot;, resourceBundle.getString(&quot;must_login&quot;));</span>
+<span class="nc" id="L79">                request.getRequestDispatcher(&quot;login.jsp&quot;).forward(request, response);</span>
+            } else {
+<span class="nc" id="L81">                String serviceId = request.getParameter(&quot;id&quot;);</span>
+<span class="nc" id="L82">                ServicesDAO serviceDb = new ServicesDAO();</span>
+<span class="nc" id="L83">                Services s = serviceDb.getServiceByID(serviceId);</span>
+<span class="nc" id="L84">                request.setAttribute(&quot;service&quot;, s);</span>
+<span class="nc" id="L85">                request.getRequestDispatcher(&quot;reservation.jsp&quot;).forward(request, response);</span>
+            }
+<span class="nc" id="L87">        } catch (IOException | SQLException | ServletException e) {</span>
+<span class="nc" id="L88">            System.out.println(e);</span>
+<span class="nc" id="L89">        }</span>
+<span class="nc" id="L90">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -96,41 +101,40 @@ import model.Services;
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-<span class="nc" id="L99">            String date = request.getParameter(&quot;date&quot;);</span>
-<span class="nc" id="L100">            String slotTime = request.getParameter(&quot;slotTime&quot;);</span>
-//            String description = (request.getParameter(&quot;description&quot;) == null) ? &quot;&quot; : request.getParameter(&quot;description&quot;);
-<span class="nc" id="L102">            String description = request.getParameter(&quot;description&quot;);</span>
-<span class="nc" id="L103">            int patientID = Integer.parseInt(request.getParameter(&quot;patientId&quot;));</span>
-<span class="nc" id="L104">            String serviceId = request.getParameter(&quot;serviceID&quot;);</span>
-<span class="nc" id="L105">            int serviceID = Integer.parseInt(serviceId);</span>
-<span class="nc" id="L106">            PatientDAO patientDb = new PatientDAO();</span>
-<span class="nc" id="L107">            ServicesDAO serviceDb = new ServicesDAO();</span>
-<span class="nc" id="L108">            TimetableDAO slotDb = new TimetableDAO();</span>
-<span class="nc" id="L109">            Reservation r = new Reservation(date,</span>
-<span class="nc" id="L110">                    patientDb.getPatientByPatientID(patientID),</span>
-<span class="nc" id="L111">                    serviceDb.getServiceByID(serviceId),</span>
-<span class="nc" id="L112">                    serviceDb.getServiceByID(serviceId).getPrice(),</span>
-<span class="nc" id="L113">                    slotDb.getSlotByTime(slotTime),</span>
+<span class="nc" id="L104">            String date = request.getParameter(&quot;date&quot;);</span>
+<span class="nc" id="L105">            String slotTime = request.getParameter(&quot;slotTime&quot;);</span>
+<span class="nc" id="L106">            String description = request.getParameter(&quot;description&quot;);</span>
+<span class="nc" id="L107">            int patientID = Integer.parseInt(request.getParameter(&quot;patientId&quot;));</span>
+<span class="nc" id="L108">            String serviceId = request.getParameter(&quot;serviceID&quot;);</span>
+<span class="nc" id="L109">            int serviceID = Integer.parseInt(serviceId);</span>
+<span class="nc" id="L110">            PatientDAO patientDb = new PatientDAO();</span>
+<span class="nc" id="L111">            ServicesDAO serviceDb = new ServicesDAO();</span>
+<span class="nc" id="L112">            TimetableDAO slotDb = new TimetableDAO();</span>
+<span class="nc" id="L113">            Reservation r = new Reservation(date,</span>
+<span class="nc" id="L114">                    patientDb.getPatientByPatientID(patientID),</span>
+<span class="nc" id="L115">                    serviceDb.getServiceByID(serviceId),</span>
+<span class="nc" id="L116">                    serviceDb.getServiceByID(serviceId).getPrice(),</span>
+<span class="nc" id="L117">                    slotDb.getSlotByTime(slotTime),</span>
                     description);
 
-<span class="nc" id="L116">            ReservationDAO resDb = new ReservationDAO();</span>
-<span class="nc" id="L117">            int count = resDb.countDuplicateReservationByPatientID(patientID, serviceID);</span>
-<span class="nc bnc" id="L118" title="All 2 branches missed.">            if (count &gt; 0) {</span>
-<span class="nc" id="L119">                Services s = serviceDb.getServiceByID(serviceId);</span>
-<span class="nc" id="L120">                request.setAttribute(&quot;mess&quot;, &quot;You had book this service&quot;);</span>
-<span class="nc" id="L121">                request.setAttribute(&quot;service&quot;, s);</span>
-<span class="nc" id="L122">                request.getRequestDispatcher(&quot;reservation.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L123">            } else {</span>
-<span class="nc" id="L124">                resDb.addNewReservation(r);</span>
+<span class="nc" id="L120">            ReservationDAO resDb = new ReservationDAO();</span>
+<span class="nc" id="L121">            int count = resDb.countDuplicateReservationByPatientID(patientID, serviceID);</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">            if (count &gt; 0) {</span>
+<span class="nc" id="L123">                Services s = serviceDb.getServiceByID(serviceId);</span>
+<span class="nc" id="L124">                request.setAttribute(&quot;mess&quot;, &quot;You had book this service&quot;);</span>
+<span class="nc" id="L125">                request.setAttribute(&quot;service&quot;, s);</span>
+<span class="nc" id="L126">                request.getRequestDispatcher(&quot;reservation.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L127">            } else {</span>
+<span class="nc" id="L128">                resDb.addNewReservation(r);</span>
 
-<span class="nc" id="L126">                request.setAttribute(&quot;reservation&quot;, r);</span>
-<span class="nc" id="L127">                request.getRequestDispatcher(&quot;reservation-success.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L130">                request.setAttribute(&quot;reservation&quot;, r);</span>
+<span class="nc" id="L131">                request.getRequestDispatcher(&quot;reservation-success.jsp&quot;).forward(request, response);</span>
             }
 
-<span class="nc" id="L130">        } catch (NumberFormatException e) {</span>
-<span class="nc" id="L131">            System.out.println(e);</span>
-<span class="nc" id="L132">        }</span>
-<span class="nc" id="L133">    }</span>
+<span class="nc" id="L134">        } catch (NumberFormatException | SQLException e) {</span>
+<span class="nc" id="L135">            System.out.println(e);</span>
+<span class="nc" id="L136">        }</span>
+<span class="nc" id="L137">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -139,7 +143,7 @@ import model.Services;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L142">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L146">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

@@ -10,6 +10,7 @@ import dal.DoctorFeedbacksDAO;
 import dal.PatientDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ import model.Patient;
  * @author admin
  */
 @WebServlet(name = &quot;DoctorFeedbacksControl&quot;, urlPatterns = {&quot;/doctor_feedbacks&quot;})
-<span class="nc" id="L29">public class DoctorFeedbacksControl extends HttpServlet {</span>
+<span class="nc" id="L30">public class DoctorFeedbacksControl extends HttpServlet {</span>
     private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
@@ -39,20 +40,20 @@ import model.Patient;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L42">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L43">        try (PrintWriter out = response.getWriter()) {</span>
+<span class="nc" id="L43">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L44">        try (PrintWriter out = response.getWriter()) {</span>
             /* TODO output your page here. You may use following sample code. */
-<span class="nc" id="L45">            out.println(&quot;&lt;!DOCTYPE html&gt;&quot;);</span>
-<span class="nc" id="L46">            out.println(&quot;&lt;html&gt;&quot;);</span>
-<span class="nc" id="L47">            out.println(&quot;&lt;head&gt;&quot;);</span>
-<span class="nc" id="L48">            out.println(&quot;&lt;title&gt;Servlet DoctorFeedbacksControl&lt;/title&gt;&quot;);</span>
-<span class="nc" id="L49">            out.println(&quot;&lt;/head&gt;&quot;);</span>
-<span class="nc" id="L50">            out.println(&quot;&lt;body&gt;&quot;);</span>
-<span class="nc" id="L51">            out.println(&quot;&lt;h1&gt;Servlet DoctorFeedbacksControl at &quot; + request.getContextPath() + &quot;&lt;/h1&gt;&quot;);</span>
-<span class="nc" id="L52">            out.println(&quot;&lt;/body&gt;&quot;);</span>
-<span class="nc" id="L53">            out.println(&quot;&lt;/html&gt;&quot;);</span>
-<span class="nc bnc" id="L54" title="All 8 branches missed.">        }</span>
-<span class="nc" id="L55">    }</span>
+<span class="nc" id="L46">            out.println(&quot;&lt;!DOCTYPE html&gt;&quot;);</span>
+<span class="nc" id="L47">            out.println(&quot;&lt;html&gt;&quot;);</span>
+<span class="nc" id="L48">            out.println(&quot;&lt;head&gt;&quot;);</span>
+<span class="nc" id="L49">            out.println(&quot;&lt;title&gt;Servlet DoctorFeedbacksControl&lt;/title&gt;&quot;);</span>
+<span class="nc" id="L50">            out.println(&quot;&lt;/head&gt;&quot;);</span>
+<span class="nc" id="L51">            out.println(&quot;&lt;body&gt;&quot;);</span>
+<span class="nc" id="L52">            out.println(&quot;&lt;h1&gt;Servlet DoctorFeedbacksControl at &quot; + request.getContextPath() + &quot;&lt;/h1&gt;&quot;);</span>
+<span class="nc" id="L53">            out.println(&quot;&lt;/body&gt;&quot;);</span>
+<span class="nc" id="L54">            out.println(&quot;&lt;/html&gt;&quot;);</span>
+<span class="nc bnc" id="L55" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L56">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -67,43 +68,43 @@ import model.Patient;
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-<span class="nc" id="L70">            String action = request.getParameter(&quot;action&quot;);</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (action.equals(&quot;delete&quot;)) {</span>
-<span class="nc" id="L72">                int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
-<span class="nc" id="L73">                int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
-<span class="nc" id="L74">                DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();</span>
-<span class="nc" id="L75">                db.deleteDoctorFeedback(patient_id, doctor_id);</span>
+<span class="nc" id="L71">            String action = request.getParameter(&quot;action&quot;);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (action.equals(&quot;delete&quot;)) {</span>
+<span class="nc" id="L73">                int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
+<span class="nc" id="L74">                int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
+<span class="nc" id="L75">                DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L76">                db.deleteDoctorFeedback(patient_id, doctor_id);</span>
 
-<span class="nc" id="L77">                DoctorDAO doctorDB = new DoctorDAO();</span>
-<span class="nc" id="L78">                Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);</span>
-<span class="nc" id="L79">                response.sendRedirect(request.getContextPath() + &quot;/doctor_profile_view?id=&quot; + doctor.getAccountID());</span>
+<span class="nc" id="L78">                DoctorDAO doctorDB = new DoctorDAO();</span>
+<span class="nc" id="L79">                Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);</span>
+<span class="nc" id="L80">                response.sendRedirect(request.getContextPath() + &quot;/doctor_profile_view?id=&quot; + doctor.getAccountID());</span>
             }
             
-<span class="nc bnc" id="L82" title="All 2 branches missed.">            if (action.equals(&quot;edit&quot;)) {</span>
-<span class="nc" id="L83">                String content = request.getParameter(&quot;content&quot;);</span>
-<span class="nc" id="L84">                int rating = Integer.parseInt(request.getParameter(&quot;rating&quot;));</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">            if (action.equals(&quot;edit&quot;)) {</span>
+<span class="nc" id="L84">                String content = request.getParameter(&quot;content&quot;);</span>
+<span class="nc" id="L85">                int rating = Integer.parseInt(request.getParameter(&quot;rating&quot;));</span>
                 
-<span class="nc" id="L86">                Date curDate = new Date();</span>
-<span class="nc" id="L87">                SimpleDateFormat formatter = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
-<span class="nc" id="L88">                String date = formatter.format(curDate);</span>
+<span class="nc" id="L87">                Date curDate = new Date();</span>
+<span class="nc" id="L88">                SimpleDateFormat formatter = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L89">                String date = formatter.format(curDate);</span>
 
-<span class="nc" id="L90">                int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
-<span class="nc" id="L91">                PatientDAO patientDB = new PatientDAO();</span>
-<span class="nc" id="L92">                Patient patient = patientDB.getPatientByPatientID(patient_id);</span>
+<span class="nc" id="L91">                int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
+<span class="nc" id="L92">                PatientDAO patientDB = new PatientDAO();</span>
+<span class="nc" id="L93">                Patient patient = patientDB.getPatientByPatientID(patient_id);</span>
 
-<span class="nc" id="L94">                int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
-<span class="nc" id="L95">                DoctorDAO doctorDB = new DoctorDAO();</span>
-<span class="nc" id="L96">                Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);</span>
+<span class="nc" id="L95">                int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
+<span class="nc" id="L96">                DoctorDAO doctorDB = new DoctorDAO();</span>
+<span class="nc" id="L97">                Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);</span>
 
-<span class="nc" id="L98">                DoctorFeedbacks feedback = new DoctorFeedbacks(date, content, rating, patient, doctor);</span>
-<span class="nc" id="L99">                DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();</span>
-<span class="nc" id="L100">                feedbackDB.updateDoctorFeedback(feedback);</span>
-<span class="nc" id="L101">                response.sendRedirect(request.getContextPath() + &quot;/doctor_profile_view?id=&quot; + doctor.getAccountID());</span>
+<span class="nc" id="L99">                DoctorFeedbacks feedback = new DoctorFeedbacks(date, content, rating, patient, doctor);</span>
+<span class="nc" id="L100">                DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L101">                feedbackDB.updateDoctorFeedback(feedback);</span>
+<span class="nc" id="L102">                response.sendRedirect(request.getContextPath() + &quot;/doctor_profile_view?id=&quot; + doctor.getAccountID());</span>
             }
-<span class="nc" id="L103">        } catch (IOException | NumberFormatException e) {</span>
-<span class="nc" id="L104">            System.out.println(e);</span>
-<span class="nc" id="L105">        }</span>
-<span class="nc" id="L106">    }</span>
+<span class="nc" id="L104">        } catch (IOException | NumberFormatException | SQLException e) {</span>
+<span class="nc" id="L105">            System.out.println(e);</span>
+<span class="nc" id="L106">        }</span>
+<span class="nc" id="L107">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -117,28 +118,28 @@ import model.Patient;
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-<span class="nc" id="L120">            String content = request.getParameter(&quot;content&quot;);</span>
-<span class="nc" id="L121">            int rating = Integer.parseInt(request.getParameter(&quot;rating&quot;));</span>
-<span class="nc" id="L122">            Date curDate = new Date();</span>
-<span class="nc" id="L123">            SimpleDateFormat formatter = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
-<span class="nc" id="L124">            String date = formatter.format(curDate);</span>
+<span class="nc" id="L121">            String content = request.getParameter(&quot;content&quot;);</span>
+<span class="nc" id="L122">            int rating = Integer.parseInt(request.getParameter(&quot;rating&quot;));</span>
+<span class="nc" id="L123">            Date curDate = new Date();</span>
+<span class="nc" id="L124">            SimpleDateFormat formatter = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L125">            String date = formatter.format(curDate);</span>
 
-<span class="nc" id="L126">            int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
-<span class="nc" id="L127">            PatientDAO patientDB = new PatientDAO();</span>
-<span class="nc" id="L128">            Patient patient = patientDB.getPatientByPatientID(patient_id);</span>
+<span class="nc" id="L127">            int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
+<span class="nc" id="L128">            PatientDAO patientDB = new PatientDAO();</span>
+<span class="nc" id="L129">            Patient patient = patientDB.getPatientByPatientID(patient_id);</span>
 
-<span class="nc" id="L130">            int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
-<span class="nc" id="L131">            DoctorDAO doctorDB = new DoctorDAO();</span>
-<span class="nc" id="L132">            Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);</span>
+<span class="nc" id="L131">            int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
+<span class="nc" id="L132">            DoctorDAO doctorDB = new DoctorDAO();</span>
+<span class="nc" id="L133">            Doctor doctor = doctorDB.getDoctorByDoctorID(doctor_id);</span>
 
-<span class="nc" id="L134">            DoctorFeedbacks feedback = new DoctorFeedbacks(date, content, rating, patient, doctor);</span>
-<span class="nc" id="L135">            DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();</span>
-<span class="nc" id="L136">            feedbackDB.addNewDoctorFeedback(feedback);</span>
-<span class="nc" id="L137">            response.sendRedirect(request.getContextPath() + &quot;/doctor_profile_view?id=&quot; + doctor.getAccountID());</span>
-<span class="nc" id="L138">        } catch (NumberFormatException e) {</span>
-<span class="nc" id="L139">            System.out.println(e);</span>
-<span class="nc" id="L140">        }</span>
-<span class="nc" id="L141">    }</span>
+<span class="nc" id="L135">            DoctorFeedbacks feedback = new DoctorFeedbacks(date, content, rating, patient, doctor);</span>
+<span class="nc" id="L136">            DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L137">            feedbackDB.addNewDoctorFeedback(feedback);</span>
+<span class="nc" id="L138">            response.sendRedirect(request.getContextPath() + &quot;/doctor_profile_view?id=&quot; + doctor.getAccountID());</span>
+<span class="nc" id="L139">        } catch (NumberFormatException | SQLException e) {</span>
+<span class="nc" id="L140">            System.out.println(e);</span>
+<span class="nc" id="L141">        }</span>
+<span class="nc" id="L142">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -147,7 +148,7 @@ import model.Patient;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L150">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L151">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

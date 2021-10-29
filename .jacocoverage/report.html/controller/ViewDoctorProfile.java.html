@@ -8,6 +8,7 @@ package controller;
 import dal.DoctorDAO;
 import dal.DoctorFeedbacksDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +23,10 @@ import model.Patient;
  *
  * @author Admin
  */
-<span class="nc" id="L25">public class ViewDoctorProfile extends HttpServlet {</span>
+<span class="nc" id="L26">public class ViewDoctorProfile extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -35,29 +38,33 @@ import model.Patient;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L38">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L39">        int accountID = Integer.parseInt(request.getParameter(&quot;id&quot;));</span>
-<span class="nc" id="L40">        DoctorDAO doctorDb = new DoctorDAO();</span>
-<span class="nc" id="L41">        Doctor doctor = doctorDb.getDoctorByAccountID(accountID);</span>
-<span class="nc" id="L42">        request.setAttribute(&quot;doctor&quot;, doctor);</span>
+<span class="nc" id="L41">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L43">            int accountID = Integer.parseInt(request.getParameter(&quot;id&quot;));</span>
+<span class="nc" id="L44">            DoctorDAO doctorDb = new DoctorDAO();</span>
+<span class="nc" id="L45">            Doctor doctor = doctorDb.getDoctorByAccountID(accountID);</span>
+<span class="nc" id="L46">            request.setAttribute(&quot;doctor&quot;, doctor);</span>
 
-<span class="nc" id="L44">        DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();</span>
-<span class="nc" id="L45">        List&lt;DoctorFeedbacks&gt; feedbacksList = feedbackDB.getAllDoctorFeedbacks(doctor.getDoctorID());</span>
-<span class="nc" id="L46">        request.setAttribute(&quot;feedbacksList&quot;, feedbacksList);</span>
-<span class="nc" id="L47">        int avgrate = feedbackDB.getAverageRating(doctor.getDoctorID());</span>
-<span class="nc" id="L48">        request.setAttribute(&quot;avgrate&quot;, avgrate);</span>
+<span class="nc" id="L48">            DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L49">            List&lt;DoctorFeedbacks&gt; feedbacksList = feedbackDB.getAllDoctorFeedbacks(doctor.getDoctorID());</span>
+<span class="nc" id="L50">            request.setAttribute(&quot;feedbacksList&quot;, feedbacksList);</span>
+<span class="nc" id="L51">            int avgrate = feedbackDB.getAverageRating(doctor.getDoctorID());</span>
+<span class="nc" id="L52">            request.setAttribute(&quot;avgrate&quot;, avgrate);</span>
 
-<span class="nc" id="L50">        HttpSession session = request.getSession();</span>
-<span class="nc" id="L51">        Patient curUser = (Patient) session.getAttribute(&quot;user&quot;);</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (curUser != null) {</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">            for (DoctorFeedbacks fb : feedbacksList) {</span>
-<span class="nc bnc" id="L54" title="All 4 branches missed.">                if (fb.getPatient().getPatientID() == curUser.getPatientID() &amp;&amp; fb.getDoctor().getDoctorID() == doctor.getDoctorID()) {</span>
-<span class="nc" id="L55">                    request.setAttribute(&quot;check&quot;, true);</span>
-                }
-<span class="nc" id="L57">            }</span>
-        }
-<span class="nc" id="L59">        request.getRequestDispatcher(&quot;view-doctor-profile.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L54">            HttpSession session = request.getSession();</span>
+<span class="nc" id="L55">            Patient curUser = (Patient) session.getAttribute(&quot;user&quot;);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            if (curUser != null) {</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                for (DoctorFeedbacks fb : feedbacksList) {</span>
+<span class="nc bnc" id="L58" title="All 4 branches missed.">                    if (fb.getPatient().getPatientID() == curUser.getPatientID() &amp;&amp; fb.getDoctor().getDoctorID() == doctor.getDoctorID()) {</span>
+<span class="nc" id="L59">                        request.setAttribute(&quot;check&quot;, true);</span>
+                    }
+<span class="nc" id="L61">                }</span>
+            }
+<span class="nc" id="L63">            request.getRequestDispatcher(&quot;view-doctor-profile.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L64">        } catch (IOException | NumberFormatException | SQLException | ServletException e) {</span>
+<span class="nc" id="L65">            System.out.println(e);</span>
+<span class="nc" id="L66">        }</span>
+<span class="nc" id="L67">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -71,8 +78,8 @@ import model.Patient;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L74">        processRequest(request, response);</span>
-<span class="nc" id="L75">    }</span>
+<span class="nc" id="L81">        processRequest(request, response);</span>
+<span class="nc" id="L82">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -85,8 +92,8 @@ import model.Patient;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L88">        processRequest(request, response);</span>
-<span class="nc" id="L89">    }</span>
+<span class="nc" id="L95">        processRequest(request, response);</span>
+<span class="nc" id="L96">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -95,7 +102,7 @@ import model.Patient;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L98">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L105">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

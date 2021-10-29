@@ -8,6 +8,7 @@ package controller.services;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +20,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author hp
  */
 @WebServlet(name = &quot;DeleteFeedbackControl&quot;, urlPatterns = {&quot;/deleteFeedback&quot;})
-<span class="nc" id="L22">public class DeleteFeedbackControl extends HttpServlet {</span>
+<span class="nc" id="L23">public class DeleteFeedbackControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -32,13 +35,17 @@ import javax.servlet.http.HttpServletResponse;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L35">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L36">        ServicesDAO dao = new ServicesDAO();</span>
-<span class="nc" id="L37">        String serid = request.getParameter(&quot;sid&quot;);</span>
-<span class="nc" id="L38">        int fid = Integer.parseInt(request.getParameter(&quot;fid&quot;));</span>
-<span class="nc" id="L39">        dao.deleteComment(fid);</span>
-<span class="nc" id="L40">        response.sendRedirect(&quot;sortStarComment?star=all&amp;&amp;sid=&quot;+serid);</span>
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L38">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L40">            ServicesDAO dao = new ServicesDAO();</span>
+<span class="nc" id="L41">            String serid = request.getParameter(&quot;sid&quot;);</span>
+<span class="nc" id="L42">            int fid = Integer.parseInt(request.getParameter(&quot;fid&quot;));</span>
+<span class="nc" id="L43">            dao.deleteComment(fid);</span>
+<span class="nc" id="L44">            response.sendRedirect(&quot;sortStarComment?star=all&amp;&amp;sid=&quot; + serid);</span>
+<span class="nc" id="L45">        } catch (IOException | NumberFormatException | SQLException e) {</span>
+<span class="nc" id="L46">            System.out.println(e);</span>
+<span class="nc" id="L47">        }</span>
+<span class="nc" id="L48">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -52,8 +59,8 @@ import javax.servlet.http.HttpServletResponse;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L55">        processRequest(request, response);</span>
-<span class="nc" id="L56">    }</span>
+<span class="nc" id="L62">        processRequest(request, response);</span>
+<span class="nc" id="L63">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -66,8 +73,8 @@ import javax.servlet.http.HttpServletResponse;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L69">        processRequest(request, response);</span>
-<span class="nc" id="L70">    }</span>
+<span class="nc" id="L76">        processRequest(request, response);</span>
+<span class="nc" id="L77">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -76,7 +83,7 @@ import javax.servlet.http.HttpServletResponse;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L79">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L86">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

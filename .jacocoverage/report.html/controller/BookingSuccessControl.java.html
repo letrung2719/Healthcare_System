@@ -11,6 +11,7 @@ import dal.PatientDAO;
 import dal.TimetableDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ import model.Appointment;
  *
  * @author admin
  */
-<span class="nc" id="L24">public class BookingSuccessControl extends HttpServlet {</span>
+<span class="nc" id="L25">public class BookingSuccessControl extends HttpServlet {</span>
     private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
@@ -34,20 +35,20 @@ import model.Appointment;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L37">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L38">        try (PrintWriter out = response.getWriter()) {</span>
+<span class="nc" id="L38">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L39">        try (PrintWriter out = response.getWriter()) {</span>
             /* TODO output your page here. You may use following sample code. */
-<span class="nc" id="L40">            out.println(&quot;&lt;!DOCTYPE html&gt;&quot;);</span>
-<span class="nc" id="L41">            out.println(&quot;&lt;html&gt;&quot;);</span>
-<span class="nc" id="L42">            out.println(&quot;&lt;head&gt;&quot;);</span>
-<span class="nc" id="L43">            out.println(&quot;&lt;title&gt;Servlet BookingSuccessControl&lt;/title&gt;&quot;);</span>
-<span class="nc" id="L44">            out.println(&quot;&lt;/head&gt;&quot;);</span>
-<span class="nc" id="L45">            out.println(&quot;&lt;body&gt;&quot;);</span>
-<span class="nc" id="L46">            out.println(&quot;&lt;h1&gt;Servlet BookingSuccessControl at &quot; + request.getContextPath() + &quot;&lt;/h1&gt;&quot;);</span>
-<span class="nc" id="L47">            out.println(&quot;&lt;/body&gt;&quot;);</span>
-<span class="nc" id="L48">            out.println(&quot;&lt;/html&gt;&quot;);</span>
-<span class="nc bnc" id="L49" title="All 8 branches missed.">        }</span>
-<span class="nc" id="L50">    }</span>
+<span class="nc" id="L41">            out.println(&quot;&lt;!DOCTYPE html&gt;&quot;);</span>
+<span class="nc" id="L42">            out.println(&quot;&lt;html&gt;&quot;);</span>
+<span class="nc" id="L43">            out.println(&quot;&lt;head&gt;&quot;);</span>
+<span class="nc" id="L44">            out.println(&quot;&lt;title&gt;Servlet BookingSuccessControl&lt;/title&gt;&quot;);</span>
+<span class="nc" id="L45">            out.println(&quot;&lt;/head&gt;&quot;);</span>
+<span class="nc" id="L46">            out.println(&quot;&lt;body&gt;&quot;);</span>
+<span class="nc" id="L47">            out.println(&quot;&lt;h1&gt;Servlet BookingSuccessControl at &quot; + request.getContextPath() + &quot;&lt;/h1&gt;&quot;);</span>
+<span class="nc" id="L48">            out.println(&quot;&lt;/body&gt;&quot;);</span>
+<span class="nc" id="L49">            out.println(&quot;&lt;/html&gt;&quot;);</span>
+<span class="nc bnc" id="L50" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L51">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -62,27 +63,27 @@ import model.Appointment;
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-<span class="nc" id="L65">            int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
-<span class="nc" id="L66">            int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
-<span class="nc" id="L67">            String date = request.getParameter(&quot;date&quot;);</span>
-<span class="nc" id="L68">            int slot_id = Integer.parseInt(request.getParameter(&quot;slot_id&quot;));</span>
-<span class="nc" id="L69">            String description = request.getParameter(&quot;description&quot;);</span>
+<span class="nc" id="L66">            int patient_id = Integer.parseInt(request.getParameter(&quot;patient_id&quot;));</span>
+<span class="nc" id="L67">            int doctor_id = Integer.parseInt(request.getParameter(&quot;doctor_id&quot;));</span>
+<span class="nc" id="L68">            String date = request.getParameter(&quot;date&quot;);</span>
+<span class="nc" id="L69">            int slot_id = Integer.parseInt(request.getParameter(&quot;slot_id&quot;));</span>
+<span class="nc" id="L70">            String description = request.getParameter(&quot;description&quot;);</span>
 
-<span class="nc" id="L71">            PatientDAO db1 = new PatientDAO();</span>
-<span class="nc" id="L72">            DoctorDAO db2 = new DoctorDAO();</span>
-<span class="nc" id="L73">            TimetableDAO db3 = new TimetableDAO();</span>
+<span class="nc" id="L72">            PatientDAO db1 = new PatientDAO();</span>
+<span class="nc" id="L73">            DoctorDAO db2 = new DoctorDAO();</span>
+<span class="nc" id="L74">            TimetableDAO db3 = new TimetableDAO();</span>
             
-<span class="nc" id="L75">            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, db3.getTimeBySlotID(slot_id), description, 1);</span>
+<span class="nc" id="L76">            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, db3.getTimeBySlotID(slot_id), description, 1);</span>
             
-<span class="nc" id="L77">            AppointmentDAO db4 = new AppointmentDAO();</span>
-<span class="nc" id="L78">            db4.addNewAppointment(a);</span>
+<span class="nc" id="L78">            AppointmentDAO db4 = new AppointmentDAO();</span>
+<span class="nc" id="L79">            db4.addNewAppointment(a);</span>
 
-<span class="nc" id="L80">            request.setAttribute(&quot;appointment&quot;, a);</span>
-<span class="nc" id="L81">            request.getRequestDispatcher(&quot;booking-success.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L82">        } catch (NumberFormatException e) {</span>
-<span class="nc" id="L83">            System.out.println(e);</span>
-<span class="nc" id="L84">        }</span>
-<span class="nc" id="L85">    }</span>
+<span class="nc" id="L81">            request.setAttribute(&quot;appointment&quot;, a);</span>
+<span class="nc" id="L82">            request.getRequestDispatcher(&quot;booking-success.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L83">        } catch (NumberFormatException | SQLException e) {</span>
+<span class="nc" id="L84">            System.out.println(e);</span>
+<span class="nc" id="L85">        }</span>
+<span class="nc" id="L86">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -95,8 +96,8 @@ import model.Appointment;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L98">        processRequest(request, response);</span>
-<span class="nc" id="L99">    }</span>
+<span class="nc" id="L99">        processRequest(request, response);</span>
+<span class="nc" id="L100">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -105,7 +106,7 @@ import model.Appointment;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L108">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L109">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

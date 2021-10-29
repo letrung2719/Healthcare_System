@@ -672,6 +672,7 @@ public class ServicesDAO {
      * @param comment
      * @param rate
      * @param feedbackID
+     * @throws java.sql.SQLException
      */
     public void editComment(String comment, String rate, String feedbackID) throws SQLException {
         String sql = "update Service_Feedbacks set content = ?, rate=?\n"

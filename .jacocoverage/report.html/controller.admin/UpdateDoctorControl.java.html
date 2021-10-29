@@ -8,6 +8,7 @@ package controller.admin;
 import dal.DoctorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,10 @@ import model.Specialities;
  *
  * @author Admin
  */
-<span class="nc" id="L22">public class UpdateDoctorControl extends HttpServlet {</span>
+<span class="nc" id="L23">public class UpdateDoctorControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -32,25 +35,25 @@ import model.Specialities;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L35">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L38">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
         try {
-            
-<span class="nc" id="L38">            int accountID = Integer.parseInt(request.getParameter(&quot;accountID&quot;));</span>
-<span class="nc" id="L39">            String name = request.getParameter(&quot;name&quot;);</span>
-<span class="nc" id="L40">            String gender_raw = request.getParameter(&quot;gender&quot;);</span>
-<span class="nc bnc" id="L41" title="All 2 branches missed.">            int gender = gender_raw.equalsIgnoreCase(&quot;1&quot;) ? 1 : 0;</span>
-<span class="nc" id="L42">            String dob = request.getParameter(&quot;dob&quot;);</span>
-<span class="nc" id="L43">            String phone = request.getParameter(&quot;phone&quot;);</span>
-<span class="nc" id="L44">            String email = request.getParameter(&quot;email&quot;);</span>
-<span class="nc" id="L45">            Specialities spec = new Specialities();</span>
-<span class="nc" id="L46">            Doctor d = new Doctor(accountID, name, gender, dob, phone, email, &quot;&quot;, spec, &quot;&quot;, &quot;&quot;, accountID);</span>
-<span class="nc" id="L47">            DoctorDAO doctorDb = new DoctorDAO();</span>
-<span class="nc" id="L48">            doctorDb.editDoctor(d);</span>
-<span class="nc" id="L49">            response.sendRedirect(&quot;doctor_list&quot;);</span>
-<span class="nc" id="L50">        } catch (NumberFormatException ex) {</span>
-<span class="nc" id="L51">            System.out.println(ex);</span>
-<span class="nc" id="L52">        }</span>
-<span class="nc" id="L53">    }</span>
+
+<span class="nc" id="L41">            int accountID = Integer.parseInt(request.getParameter(&quot;accountID&quot;));</span>
+<span class="nc" id="L42">            String name = request.getParameter(&quot;name&quot;);</span>
+<span class="nc" id="L43">            String gender_raw = request.getParameter(&quot;gender&quot;);</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            int gender = gender_raw.equalsIgnoreCase(&quot;1&quot;) ? 1 : 0;</span>
+<span class="nc" id="L45">            String dob = request.getParameter(&quot;dob&quot;);</span>
+<span class="nc" id="L46">            String phone = request.getParameter(&quot;phone&quot;);</span>
+<span class="nc" id="L47">            String email = request.getParameter(&quot;email&quot;);</span>
+<span class="nc" id="L48">            Specialities spec = new Specialities();</span>
+<span class="nc" id="L49">            Doctor d = new Doctor(accountID, name, gender, dob, phone, email, &quot;&quot;, spec, &quot;&quot;, &quot;&quot;, accountID);</span>
+<span class="nc" id="L50">            DoctorDAO doctorDb = new DoctorDAO();</span>
+<span class="nc" id="L51">            doctorDb.editDoctor(d);</span>
+<span class="nc" id="L52">            response.sendRedirect(&quot;doctor_list&quot;);</span>
+<span class="nc" id="L53">        } catch (NumberFormatException | SQLException ex) {</span>
+<span class="nc" id="L54">            System.out.println(ex);</span>
+<span class="nc" id="L55">        }</span>
+<span class="nc" id="L56">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -64,8 +67,8 @@ import model.Specialities;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L67">        processRequest(request, response);</span>
-<span class="nc" id="L68">    }</span>
+<span class="nc" id="L70">        processRequest(request, response);</span>
+<span class="nc" id="L71">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -78,8 +81,8 @@ import model.Specialities;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L81">        processRequest(request, response);</span>
-<span class="nc" id="L82">    }</span>
+<span class="nc" id="L84">        processRequest(request, response);</span>
+<span class="nc" id="L85">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -88,7 +91,7 @@ import model.Specialities;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L91">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L94">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

@@ -7,7 +7,7 @@ package controller.admin;
 
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +22,9 @@ import model.ServiceFeedbacksAd;
  */
 @WebServlet(name = &quot;SeviceFeedbackAdControl&quot;, urlPatterns = {&quot;/admin/serfeed&quot;})
 <span class="nc" id="L24">public class SeviceFeedbackAdControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -34,16 +36,20 @@ import model.ServiceFeedbacksAd;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L37">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L38">        String serID = request.getParameter(&quot;id&quot;);</span>
-<span class="nc" id="L39">        ServicesDAO dal = new ServicesDAO();</span>
-<span class="nc" id="L40">        List&lt;ServiceFeedbacksAd&gt; listS = dal.getAllCommentAd(serID);</span>
-<span class="nc bnc" id="L41" title="All 2 branches missed.">        for (ServiceFeedbacksAd i : listS) {</span>
-<span class="nc" id="L42">            System.out.println(i);</span>
-<span class="nc" id="L43">        }</span>
-<span class="nc" id="L44">        request.setAttribute(&quot;ListS&quot;, listS);</span>
-<span class="nc" id="L45">        request.getRequestDispatcher(&quot;/admin/service-feedback.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L46">    }</span>
+<span class="nc" id="L39">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L41">            String serID = request.getParameter(&quot;id&quot;);</span>
+<span class="nc" id="L42">            ServicesDAO dal = new ServicesDAO();</span>
+<span class="nc" id="L43">            List&lt;ServiceFeedbacksAd&gt; listS = dal.getAllCommentAd(serID);</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            for (ServiceFeedbacksAd i : listS) {</span>
+<span class="nc" id="L45">                System.out.println(i);</span>
+<span class="nc" id="L46">            }</span>
+<span class="nc" id="L47">            request.setAttribute(&quot;ListS&quot;, listS);</span>
+<span class="nc" id="L48">            request.getRequestDispatcher(&quot;/admin-role/service-feedback.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L49">        } catch (IOException | SQLException | ServletException e) {</span>
+<span class="nc" id="L50">            System.out.println(e);</span>
+<span class="nc" id="L51">        }</span>
+<span class="nc" id="L52">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -57,8 +63,8 @@ import model.ServiceFeedbacksAd;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L60">        processRequest(request, response);</span>
-<span class="nc" id="L61">    }</span>
+<span class="nc" id="L66">        processRequest(request, response);</span>
+<span class="nc" id="L67">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -71,8 +77,8 @@ import model.ServiceFeedbacksAd;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L74">        processRequest(request, response);</span>
-<span class="nc" id="L75">    }</span>
+<span class="nc" id="L80">        processRequest(request, response);</span>
+<span class="nc" id="L81">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -81,7 +87,7 @@ import model.ServiceFeedbacksAd;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L84">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L90">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

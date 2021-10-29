@@ -7,6 +7,7 @@ package controller;
 
 import dal.DoctorFeedbacksDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -21,8 +22,10 @@ import model.DoctorFeedbacks;
  * @author Admin
  */
 @WebServlet(name = &quot;DoctorFeedbackListControl&quot;, urlPatterns = {&quot;/doctorFeedbackList&quot;})
-<span class="nc" id="L24">public class DoctorFeedbackListControl extends HttpServlet {</span>
+<span class="nc" id="L25">public class DoctorFeedbackListControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -34,30 +37,34 @@ import model.DoctorFeedbacks;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L37">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L38">        int doctorID = Integer.parseInt(request.getParameter(&quot;doctorID&quot;));</span>
-        int indexPage;
-<span class="nc" id="L40">        String sortBy = request.getParameter(&quot;sort&quot;);</span>
-<span class="nc" id="L41">        String getInputPage = request.getParameter(&quot;page&quot;);</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (getInputPage == null) {</span>
-<span class="nc" id="L43">            indexPage = 1;</span>
-        } else {
-<span class="nc" id="L45">            indexPage = Integer.parseInt(getInputPage);</span>
-        }
-<span class="nc" id="L47">        DoctorFeedbacksDAO db1 = new DoctorFeedbacksDAO();</span>
-<span class="nc" id="L48">        int totalFeedback = db1.countAllDoctorFeedback(doctorID);</span>
-<span class="nc" id="L49">        int numberOfItem = 4;</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);</span>
-<span class="nc" id="L51">        List&lt;DoctorFeedbacks&gt; listdFb = new ArrayList&lt;&gt;();</span>
-        
-<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (sortBy == null) {</span>
-<span class="nc" id="L54">            listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, &quot;feedback_id&quot;);</span>
-        }
-<span class="nc" id="L56">        request.setAttribute(&quot;listdFb&quot;, listdFb);</span>
-<span class="nc" id="L57">        request.setAttribute(&quot;indexPage&quot;, indexPage);</span>
-<span class="nc" id="L58">        request.setAttribute(&quot;numberOfPage&quot;, numberOfPage);</span>
-<span class="nc" id="L59">        request.getRequestDispatcher(&quot;/doctor/doctor-feedback-list.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L40">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+        try {
+<span class="nc" id="L42">            int doctorID = Integer.parseInt(request.getParameter(&quot;doctorID&quot;));</span>
+            int indexPage;
+<span class="nc" id="L44">            String sortBy = request.getParameter(&quot;sort&quot;);</span>
+<span class="nc" id="L45">            String getInputPage = request.getParameter(&quot;page&quot;);</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">            if (getInputPage == null) {</span>
+<span class="nc" id="L47">                indexPage = 1;</span>
+            } else {
+<span class="nc" id="L49">                indexPage = Integer.parseInt(getInputPage);</span>
+            }
+<span class="nc" id="L51">            DoctorFeedbacksDAO db1 = new DoctorFeedbacksDAO();</span>
+<span class="nc" id="L52">            int totalFeedback = db1.countAllDoctorFeedback(doctorID);</span>
+<span class="nc" id="L53">            int numberOfItem = 4;</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);</span>
+<span class="nc" id="L55">            List&lt;DoctorFeedbacks&gt; listdFb = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            if (sortBy == null) {</span>
+<span class="nc" id="L58">                listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, &quot;feedback_id&quot;);</span>
+            }
+<span class="nc" id="L60">            request.setAttribute(&quot;listdFb&quot;, listdFb);</span>
+<span class="nc" id="L61">            request.setAttribute(&quot;indexPage&quot;, indexPage);</span>
+<span class="nc" id="L62">            request.setAttribute(&quot;numberOfPage&quot;, numberOfPage);</span>
+<span class="nc" id="L63">            request.getRequestDispatcher(&quot;/doctor-role/doctor-feedback-list.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L64">        } catch (IOException | NumberFormatException | SQLException | ServletException e) {</span>
+<span class="nc" id="L65">            System.out.println(e);</span>
+<span class="nc" id="L66">        }</span>
+<span class="nc" id="L67">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -71,8 +78,8 @@ import model.DoctorFeedbacks;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L74">        processRequest(request, response);</span>
-<span class="nc" id="L75">    }</span>
+<span class="nc" id="L81">        processRequest(request, response);</span>
+<span class="nc" id="L82">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -85,8 +92,8 @@ import model.DoctorFeedbacks;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L88">        processRequest(request, response);</span>
-<span class="nc" id="L89">    }</span>
+<span class="nc" id="L95">        processRequest(request, response);</span>
+<span class="nc" id="L96">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -95,7 +102,7 @@ import model.DoctorFeedbacks;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L98">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L105">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }

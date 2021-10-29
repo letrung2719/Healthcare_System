@@ -30,11 +30,8 @@ import javax.servlet.http.HttpSession;
 <span class="nc" id="L30">        HttpSession session = request.getSession();</span>
 <span class="nc" id="L31">        session.removeAttribute(&quot;acc&quot;);</span>
 <span class="nc" id="L32">        session.removeAttribute(&quot;user&quot;);</span>
-<span class="nc" id="L33">        System.out.println(&quot;========================================================================&quot;);</span>
-<span class="nc" id="L34">        System.out.println(request.getContextPath() + &quot;/index.jsp&quot;);</span>
-<span class="nc" id="L35">        System.out.println(&quot;========================================================================&quot;);</span>
-<span class="nc" id="L36">        request.getRequestDispatcher(&quot;index.jsp&quot;).forward(request, response);</span>
-<span class="nc" id="L37">    }</span>
+<span class="nc" id="L33">        request.getRequestDispatcher(&quot;index.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L34">    }</span>
 
     /**
      *
@@ -46,8 +43,8 @@ import javax.servlet.http.HttpSession;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L49">        processRequest(request, response);</span>
-<span class="nc" id="L50">    }</span>
+<span class="nc" id="L46">        processRequest(request, response);</span>
+<span class="nc" id="L47">    }</span>
 
     /**
      *
@@ -59,8 +56,8 @@ import javax.servlet.http.HttpSession;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L62">        processRequest(request, response);</span>
-<span class="nc" id="L63">    }</span>
+<span class="nc" id="L59">        processRequest(request, response);</span>
+<span class="nc" id="L60">    }</span>
 
     /**
      *
@@ -68,7 +65,7 @@ import javax.servlet.http.HttpSession;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L71">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L68">        return &quot;Short description&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

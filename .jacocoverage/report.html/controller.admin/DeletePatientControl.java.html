@@ -10,6 +10,7 @@ import dal.AccountDAO;
 import dal.PatientDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +22,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author Admin
  */
 @WebServlet(name = &quot;DeleteController&quot;, urlPatterns = {&quot;/admin/delete&quot;})
-<span class="nc" id="L24">public class DeletePatientControl extends HttpServlet {</span>
+<span class="nc" id="L25">public class DeletePatientControl extends HttpServlet {</span>
+
     private static final long serialVersionUID = 9999L;
+
     /**
      * Processes requests for both HTTP &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt;
      * methods.
@@ -34,17 +37,17 @@ import javax.servlet.http.HttpServletResponse;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L37">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
-<span class="nc" id="L38">        String id_raw=request.getParameter(&quot;id&quot;);</span>
-        try{
-<span class="nc" id="L40">            int id=Integer.parseInt(id_raw);</span>
-<span class="nc" id="L41">            PatientDAO patientDb = new PatientDAO();</span>
-<span class="nc" id="L42">            patientDb.delete(id);</span>
-<span class="nc" id="L43">            response.sendRedirect(&quot;patient_list&quot;);</span>
-<span class="nc" id="L44">        }catch(NumberFormatException e){</span>
-<span class="nc" id="L45">            System.out.println(e);</span>
-<span class="nc" id="L46">        }</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L40">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L41">        String id_raw = request.getParameter(&quot;id&quot;);</span>
+        try {
+<span class="nc" id="L43">            int id = Integer.parseInt(id_raw);</span>
+<span class="nc" id="L44">            PatientDAO patientDb = new PatientDAO();</span>
+<span class="nc" id="L45">            patientDb.delete(id);</span>
+<span class="nc" id="L46">            response.sendRedirect(&quot;patient_list&quot;);</span>
+<span class="nc" id="L47">        } catch (NumberFormatException | SQLException e) {</span>
+<span class="nc" id="L48">            System.out.println(e);</span>
+<span class="nc" id="L49">        }</span>
+<span class="nc" id="L50">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;HttpServlet methods. Click on the + sign on the left to edit the code.&quot;&gt;
     /**
@@ -58,8 +61,8 @@ import javax.servlet.http.HttpServletResponse;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L61">        processRequest(request, response);</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L64">        processRequest(request, response);</span>
+<span class="nc" id="L65">    }</span>
 
     /**
      * Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
@@ -72,8 +75,8 @@ import javax.servlet.http.HttpServletResponse;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<span class="nc" id="L75">        processRequest(request, response);</span>
-<span class="nc" id="L76">    }</span>
+<span class="nc" id="L78">        processRequest(request, response);</span>
+<span class="nc" id="L79">    }</span>
 
     /**
      * Returns a short description of the servlet.
@@ -82,7 +85,7 @@ import javax.servlet.http.HttpServletResponse;
      */
     @Override
     public String getServletInfo() {
-<span class="nc" id="L85">        return &quot;Short description&quot;;</span>
+<span class="nc" id="L88">        return &quot;Short description&quot;;</span>
     }// &lt;/editor-fold&gt;
 
 }
