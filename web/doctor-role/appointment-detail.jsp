@@ -3,6 +3,7 @@
     Created on : 14-Oct-2021, 20:02:44
     Author     : Admin
 --%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
@@ -88,7 +89,7 @@
                                                 </div>
                                             </h5>
                                             <div class="row">
-                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Appointment ID</h4>
+                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3 "> Appointment ID</h4>
                                                 <p class="col-sm-10">#APT${app.appointmentID}</p>
                                             </div>
                                             <div class="row">
@@ -103,8 +104,10 @@
                                                 <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Phone Number</h4>
                                                 <p class="col-sm-10">${app.patient.phone}</p>
                                             </div>
+                                  
                                             <div class="row">
                                                 <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date</h4>
+                           
                                                 <p class="col-sm-10">${app.date}</p>
 
                                             </div>

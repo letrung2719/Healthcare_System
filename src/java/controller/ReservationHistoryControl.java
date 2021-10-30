@@ -5,22 +5,23 @@
  */
 package controller;
 
-import dal.AppointmentDAO;
+import dal.ReservationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Appointment;
+import model.Reservation;
 
 /**
  *
  * @author Admin
  */
-public class AppointmentDetailControl extends HttpServlet {
-
+public class ReservationHistoryControl extends HttpServlet {
+    private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,28 +35,24 @@ public class AppointmentDetailControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-           
-            int appID = Integer.parseInt(request.getParameter("id"));
-            String inputStatus = request.getParameter("status");
-            AppointmentDAO appDb = new AppointmentDAO();
-            Appointment a = appDb.getAppointmentByID(appID);
-
-            if (inputStatus != null) {
-                if (inputStatus.equals("cancel")) {
-                    appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
-                }
-                if (inputStatus.equals("pending")) {
-                    appDb.changeAppointmentStatus(a.getAppointmentID(), 1);
-                }
-                if (inputStatus.equals("complete")) {
-                    appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
-                }
-                a = appDb.getAppointmentByID(appID);
-                request.setAttribute("app", a);
-                request.getRequestDispatcher("/doctor-role/appointment-detail.jsp").forward(request, response);
+            int patientId = Integer.parseInt(request.getParameter("id"));
+            ReservationDAO db = new ReservationDAO();
+            int indexPage;
+            String getInputPage = request.getParameter("page");
+            if (getInputPage == null) {
+                indexPage = 1;
+            } else {
+                indexPage = Integer.parseInt(getInputPage);
             }
-            request.setAttribute("app", a);
-            request.getRequestDispatcher("/doctor-role/appointment-detail.jsp").forward(request, response);
+            int totalAppointment = db.totalReservationByPatient(patientId);
+            int numberOfItem = 5;
+            int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
+            int start = (indexPage - 1) * numberOfItem;
+            List<Reservation> list = db.getReservationByPationIdAndPage(patientId, start, numberOfItem);
+            request.setAttribute("history", list);
+            request.setAttribute("indexPage", indexPage);
+            request.setAttribute("numberOfPage", numberOfPage);
+            request.getRequestDispatcher("reservation-history.jsp").forward(request, response);
         } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }

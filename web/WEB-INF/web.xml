@@ -5,10 +5,6 @@
         <servlet-class>controller.LoginControl</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Home</servlet-name>
-        <servlet-class>controller.Home</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Patient_Profile</servlet-name>
         <servlet-class>controller.PatientProfile</servlet-class>
     </servlet>
@@ -80,6 +76,14 @@
         <servlet-name>SearchListBlog</servlet-name>
         <servlet-class>controller.blog.SearchListBlog</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AppointmentDetailControl</servlet-name>
+        <servlet-class>controller.AppointmentDetailControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReservationHistoryControl</servlet-name>
+        <servlet-class>controller.ReservationHistoryControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControll</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -87,10 +91,6 @@
     <servlet-mapping>
         <servlet-name>SignUpControll</servlet-name>
         <url-pattern>/signup</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Home</servlet-name>
-        <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Patient_Profile</servlet-name>
@@ -163,6 +163,14 @@
     <servlet-mapping>
         <servlet-name>SearchListBlog</servlet-name>
         <url-pattern>/SearchListBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AppointmentDetailControl</servlet-name>
+        <url-pattern>/appointmentDetailControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationHistoryControl</servlet-name>
+        <url-pattern>/reservationHistory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

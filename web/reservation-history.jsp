@@ -32,10 +32,7 @@
         <!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css" />
         <!-- Datatable CSS -->
-        <link
-            rel="stylesheet"
-            href="assets/plugins/datatables/datatables.min.css"
-            />
+        
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="assets/js/html5shiv.min.js"></script>
@@ -187,83 +184,81 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>#Res abc</td>
-                                                                    <td>
-                                                                        <h2 class="table-avatar">
-                                                                            <a
-                                                                                href="doctor-profile.html"
-                                                                                class="avatar avatar-sm mr-2"
+                                                                <c:forEach items="${history}" var="res">
+                                                                    <tr>
+                                                                        <td>#RES${res.reservationID}</td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a
+                                                                                    href="doctor-profile.html"
+                                                                                    class="avatar avatar-sm mr-2"
+                                                                                    >
+                                                                                    <img
+                                                                                        class="avatar-img rounded-circle"
+                                                                                        src="${res.patient.image}"
+                                                                                        alt=""
+                                                                                        />
+                                                                                </a>
+                                                                                <a href="#"
+                                                                                   >${res.patient.name} <span>#PT${res.patient.patientID}</span></a
                                                                                 >
-                                                                                <img
-                                                                                    class="avatar-img rounded-circle"
-                                                                                    src="assets/img/doctors/doctor-thumb-01.jpg"
-                                                                                    alt="User Image"
-                                                                                    />
-                                                                            </a>
-                                                                            <a href="doctor-profile.html"
-                                                                               >Dr. Ruby Perrin <span>Dental</span></a
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>${res.services.title}</td>
+                                                                        <td>
+                                                                            ${res.date}
+                                                                            <span class="d-block text-info"
+                                                                                  >${res.slot.time}</span
                                                                             >
-                                                                        </h2>
-                                                                    </td>
-                                                                    <td>Service name</td>
-                                                                    <td>
-                                                                        14 Nov 2019
-                                                                        <span class="d-block text-info"
-                                                                              >10.00 AM</span
-                                                                        >
-                                                                    </td>
-                                                                    <td>$160</td>
+                                                                        </td>
+                                                                        <td>${res.price}</td>
 
-                                                                    <td>
-                                                                        <span
-                                                                            class="badge badge-pill bg-success-light"
-                                                                            >Confirm</span
-                                                                        >
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                                        <td>
+                                                                            <span
+                                                                                class="badge badge-pill bg-success-light"
+                                                                                >Confirm</span
+                                                                            >
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- /Appointment Tab -->
                                         </div>
-                                        <!-- /Appointment Tab -->
-                                    </div>
 
-                                    <!-- Tab Content -->
+                                        <!-- Tab Content -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- /Page Content -->
+
+                <!-- Footer -->
+                <jsp:include page="index-footer.jsp"/>
+                <!-- /Footer -->
             </div>
-            <!-- /Page Content -->
+            <!-- /Main Wrapper -->
 
-            <!-- Footer -->
-            <jsp:include page="index-footer.jsp"/>
-            <!-- /Footer -->
-        </div>
-        <!-- /Main Wrapper -->
+            <!-- jQuery -->
+            <script src="assets/js/jquery.min.js"></script>
 
-        <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+            <!-- Bootstrap Core JS -->
+            <script src="assets/js/popper.min.js"></script>
+            <script src="assets/js/bootstrap.min.js"></script>
 
-        <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+            <!-- Sticky Sidebar JS -->
+            <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+            <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
-        <!-- Sticky Sidebar JS -->
-        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+            
+            <!-- Custom JS -->
+            <script src="assets/js/script.js"></script>
+        </body>
 
-        <!-- Datatable JS -->
-        <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="assets/plugins/datatables/datatables.min.js"></script>
-
-        <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
-    </body>
-
-    <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
-</html>
+        <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
+    </html>

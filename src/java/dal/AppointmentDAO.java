@@ -298,8 +298,9 @@ public class AppointmentDAO {
     public static void main(String[] args) {
         try {
             AppointmentDAO db = new AppointmentDAO();
-            List<Appointment> list = db.paginateAppointmentByDoctorID(1, 0, 3);
-            System.out.println(list);
+//            List<Appointment> list = db.paginateAppointmentByDoctorID(1, 0, 3);
+//            System.out.println(list);
+            System.out.println(db.getAppointmentByID(1));
         } catch (SQLException ex) {
             Logger.getLogger(AppointmentDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

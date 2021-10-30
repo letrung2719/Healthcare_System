@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
+
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -102,7 +103,9 @@ public class ReservationControl extends HttpServlet {
             throws ServletException, IOException {
         try {
             String date = request.getParameter("date");
-            
+            String now = java.time.LocalDate.now().toString();
+            int compare = date.compareTo(now);
+
             String slotTime = request.getParameter("slotTime");
             System.out.println(slotTime);
             String description = request.getParameter("description");
@@ -112,6 +115,12 @@ public class ReservationControl extends HttpServlet {
             PatientDAO patientDb = new PatientDAO();
             ServicesDAO serviceDb = new ServicesDAO();
             TimetableDAO slotDb = new TimetableDAO();
+            if (compare < 0) {
+                Services s = serviceDb.getServiceByID(serviceId);
+                request.setAttribute("mess", "Invalid date");
+                request.setAttribute("service", s);
+                request.getRequestDispatcher("reservation.jsp").forward(request, response);
+            }
             Reservation r = new Reservation(date,
                     patientDb.getPatientByPatientID(patientID),
                     serviceDb.getServiceByID(serviceId),
@@ -124,7 +133,7 @@ public class ReservationControl extends HttpServlet {
             System.out.println(serviceID);
             System.out.println(date);
             System.out.println(slotDb.getSlotByTime(slotTime).getSlotID());
-            int count = resDb.countDuplicateReservationByPatientID(patientID, serviceID,date,slotDb.getSlotByTime(slotTime).getSlotID());
+            int count = resDb.countDuplicateReservationByPatientID(patientID, serviceID, date, slotDb.getSlotByTime(slotTime).getSlotID());
             if (count > 0) {
                 Services s = serviceDb.getServiceByID(serviceId);
                 request.setAttribute("mess", "You had book this service");
@@ -132,7 +141,6 @@ public class ReservationControl extends HttpServlet {
                 request.getRequestDispatcher("reservation.jsp").forward(request, response);
             } else {
                 resDb.addNewReservation(r);
-
                 request.setAttribute("reservation", r);
                 request.getRequestDispatcher("reservation-success.jsp").forward(request, response);
             }
