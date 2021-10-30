@@ -5,10 +5,6 @@
         <servlet-class>controller.LoginControl</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Home</servlet-name>
-        <servlet-class>controller.Home</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Patient_Profile</servlet-name>
         <servlet-class>controller.PatientProfile</servlet-class>
     </servlet>
@@ -88,10 +84,7 @@
         <servlet-name>SignUpControll</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Home</servlet-name>
-        <url-pattern>/home</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>Patient_Profile</servlet-name>
         <url-pattern>/patient_profile</url-pattern>
