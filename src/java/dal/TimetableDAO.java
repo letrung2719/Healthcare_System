@@ -76,7 +76,7 @@ public class TimetableDAO {
     public static void main(String[] args) {
         try {
             TimetableDAO db = new TimetableDAO();
-            Timetable t = db.getTimeBySlotID(2);
+            int t = db.getSlotByTime("10h - 11h").getSlotID();
             System.out.println(t);
         } catch (SQLException ex) {
             Logger.getLogger(TimetableDAO.class.getName()).log(Level.SEVERE, null, ex);

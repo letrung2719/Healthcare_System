@@ -49,7 +49,8 @@ public class DoctorAppointmentControl extends HttpServlet {
             int totalAppointment = appDb.getAllDoctorAppointment(doctorID);
             int numberOfItem = 5;
             int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
-            List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);
+            int start = (indexPage-1)*numberOfItem;
+            List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, start, numberOfItem);
             if (inputID != null) {
                 int appID = Integer.parseInt(inputID);
                 int temp = appDb.deleteAppointment(appID);

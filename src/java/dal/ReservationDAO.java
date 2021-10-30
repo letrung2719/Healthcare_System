@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Reservation;
@@ -54,16 +55,9 @@ public class ReservationDAO {
         return 0;
     }
 
-    public int countDuplicateReservationByPatientID(int patientID, int serviceID) throws SQLException {
+    public int countDuplicateReservationByPatientID(int patientID,int serviceID,String date,int slotID) throws SQLException {
 
-        String sql = "SELECT\n"
-                + "   COUNT(*)\n"
-                + "FROM\n"
-                + "    reservations r\n"
-                + "where \n"
-                + "	patient_id=" + patientID + " and service_id=" + serviceID + "\n"
-                + "GROUP BY\n"
-                + "    r.date, r.slot_id, r.patient_id";
+        String sql = "select count(*) from reservations where patient_id = "+patientID+" and service_id= "+serviceID+" and date = '"+date+"' and slot_id = "+slotID+" ;";
         try {
             connection = dbc.getConnection();
             st = connection.prepareStatement(sql);
@@ -80,6 +74,11 @@ public class ReservationDAO {
         }
         return 0;
     }
+    
+    public List<Reservation> getReservationByPationIdAndPage(){
+        
+        return null;
+    }
 
     /**
      *
@@ -88,11 +87,12 @@ public class ReservationDAO {
     public static void main(String[] args) {
         try {
             ReservationDAO db1 = new ReservationDAO();
-            PatientDAO db2 = new PatientDAO();
-            ServicesDAO db3 = new ServicesDAO();
-            TimetableDAO db4 = new TimetableDAO();
-            Reservation r = new Reservation("2021/10/15", db2.getPatientByPatientID(2), db3.getServiceByID("3"), db3.getServiceByID("3").getPrice(), db4.getTimeBySlotID(4), "");
-            System.out.println(db1.addNewReservation(r));
+//            PatientDAO db2 = new PatientDAO();
+//            ServicesDAO db3 = new ServicesDAO();
+//            TimetableDAO db4 = new TimetableDAO();
+//            Reservation r = new Reservation("2021/10/15", db2.getPatientByPatientID(2), db3.getServiceByID("3"), db3.getServiceByID("3").getPrice(), db4.getTimeBySlotID(4), "");
+//            System.out.println(db1.addNewReservation(r));
+            System.out.println(db1.countDuplicateReservationByPatientID(4, 2, "2021-10-27", 5));
         } catch (SQLException ex) {
             Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
