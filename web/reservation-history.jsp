@@ -32,7 +32,7 @@
         <!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css" />
         <!-- Datatable CSS -->
-        
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="assets/js/html5shiv.min.js"></script>
@@ -186,7 +186,7 @@
                                                             <tbody>
                                                                 <c:forEach items="${history}" var="res">
                                                                     <tr>
-                                                                        <td>#RES${res.reservationID}</td>
+                                                                        <td>#RESV${res.reservationID}</td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
                                                                                 <a
@@ -204,7 +204,7 @@
                                                                                 >
                                                                             </h2>
                                                                         </td>
-                                                                        <td>${res.services.title}</td>
+                                                                        <td>${res.service.title}</td>
                                                                         <td>
                                                                             ${res.date}
                                                                             <span class="d-block text-info"
@@ -212,53 +212,80 @@
                                                                             >
                                                                         </td>
                                                                         <td>${res.price}</td>
-
                                                                         <td>
-                                                                            <span
-                                                                                class="badge badge-pill bg-success-light"
-                                                                                >Confirm</span
-                                                                            >
+                                                                            <c:if test="${res.status == 1}">
+                                                                                <span class="badge badge-pill bg-warning-light">
+                                                                                    Pending
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${res.status == 2}">
+                                                                                <span class="badge badge-pill bg-success-light">
+                                                                                    Complete
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${res.status == 0}">
+                                                                                <span class="badge badge-pill bg-danger-light">
+                                                                                    Cancel
+                                                                                </span>
+                                                                            </c:if>
+
                                                                         </td>
                                                                     </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                                                </c:forEach>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /Appointment Tab -->
                                         </div>
+                                        <br>
+                                        <div class="load-more text-center">
+                                            <ul class="pagination align-content-center" >
+                                                <li class="page-item ">
+                                                    <a class="page-link" href="reservationHistory?id=${sessionScope.user.patientID}&page=${page-1}">Previous</a>
+                                                </li>
+                                                <c:set var="page" value="${indexPage}"/>
+                                                <c:forEach begin="1" end="${numberOfPage}" var="i">
+                                                    <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="reservationHistory?id=${sessionScope.user.patientID}&page=${i}">${i}</a></li>
+                                                    </c:forEach>
 
-                                        <!-- Tab Content -->
+                                                <li class="page-item">
+                                                    <a class="page-link" href="reservationHistory?id=${sessionScope.user.patientID}&page=${page+1}">Next</a>
+                                                </li>
+                                            </ul>	
+                                        </div>
+                                        <!-- /Appointment Tab -->
                                     </div>
+                                    <!-- Tab Content -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /Page Content -->
-
-                <!-- Footer -->
-                <jsp:include page="index-footer.jsp"/>
-                <!-- /Footer -->
             </div>
-            <!-- /Main Wrapper -->
+            <!-- /Page Content -->
 
-            <!-- jQuery -->
-            <script src="assets/js/jquery.min.js"></script>
+            <!-- Footer -->
+            <jsp:include page="index-footer.jsp"/>
+            <!-- /Footer -->
+        </div>
+        <!-- /Main Wrapper -->
 
-            <!-- Bootstrap Core JS -->
-            <script src="assets/js/popper.min.js"></script>
-            <script src="assets/js/bootstrap.min.js"></script>
+        <!-- jQuery -->
+        <script src="assets/js/jquery.min.js"></script>
 
-            <!-- Sticky Sidebar JS -->
-            <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-            <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <!-- Bootstrap Core JS -->
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
 
-            
-            <!-- Custom JS -->
-            <script src="assets/js/script.js"></script>
-        </body>
+        <!-- Sticky Sidebar JS -->
+        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
-        <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
-    </html>
+
+        <!-- Custom JS -->
+        <script src="assets/js/script.js"></script>
+    </body>
+
+    <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
+</html>

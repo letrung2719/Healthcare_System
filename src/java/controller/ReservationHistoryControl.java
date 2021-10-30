@@ -45,7 +45,7 @@ public class ReservationHistoryControl extends HttpServlet {
                 indexPage = Integer.parseInt(getInputPage);
             }
             int totalAppointment = db.totalReservationByPatient(patientId);
-            int numberOfItem = 5;
+            int numberOfItem = 3;
             int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
             int start = (indexPage - 1) * numberOfItem;
             List<Reservation> list = db.getReservationByPationIdAndPage(patientId, start, numberOfItem);
