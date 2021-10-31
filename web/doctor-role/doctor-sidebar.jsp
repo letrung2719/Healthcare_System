@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="my-patient?doctorID=${sessionScope.user.doctorID}">
                                 <i class="fas fa-user-injured"></i>
                                 <span>My Patients</span>
                             </a>

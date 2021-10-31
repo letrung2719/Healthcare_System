@@ -9,11 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Doctor;
 import model.Patient;
 
-@WebServlet(name = "MyPatientControl", urlPatterns = {"/my_patient"})
+@WebServlet(name = "MyPatientControl", urlPatterns = {"/my-patient"})
 public class MyPatientControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
@@ -31,11 +29,8 @@ public class MyPatientControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            HttpSession session = request.getSession();
-            Doctor d = (Doctor) session.getAttribute("user");
             DoctorDAO dao = new DoctorDAO();
-            
-            int doctor_id = Integer.parseInt(request.getParameter("doctor_id"));
+            int doctor_id = Integer.parseInt(request.getParameter("doctorID"));
             List<Patient> patientlist = dao.getAllMyPatient(doctor_id);
             request.setAttribute("patientlist", patientlist);
             request.getRequestDispatcher("/doctor-role/my-patient.jsp").forward(request, response);
