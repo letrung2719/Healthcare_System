@@ -92,6 +92,7 @@
         <servlet-name>SignUpControll</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>Patient_Profile</servlet-name>
         <url-pattern>/patient_profile</url-pattern>
