@@ -1,37 +1,28 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.blog;
+package controller;
 
-import dal.BlogsDAO;
-import dal.DoctorDAO;
+import dal.PatientDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Blogs;
-import model.Doctor;
+import model.Patient;
 
 /**
  *
- * @author Admin
+ * @author hp
  */
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author admin
- */
-public class BlogDetailControl extends HttpServlet {
+@WebServlet(name = "AddServiceFeedbackControl", urlPatterns = {"/sendfeedback"})
+public class AddServiceFeedbackControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -48,12 +39,32 @@ public class BlogDetailControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            BlogsDAO bl = new BlogsDAO();
-            Blogs blog = bl.getBlogByBlogID(id);
-            request.setAttribute("blog", blog);
-            request.getRequestDispatcher("blog-detail.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            String comment = request.getParameter("comment");
+            String rate = request.getParameter("rating");
+            if (rate == null) {
+                rate = "0";
+            }
+            String serviceID = request.getParameter("serviceid");
+
+            //
+            ArrayList<String> badWords = new ArrayList<>();
+            badWords.add("shit");
+            badWords.add("stupid");
+            badWords.add("idiot");
+            for (int i = 0; i < badWords.size(); i++) {
+                comment = comment.replaceAll("(?i)" + badWords.get(i), "****");
+            }
+            comment = comment.replaceAll("\\w*\\*{4}", "****");
+            //        
+
+            int patientID = Integer.parseInt(request.getParameter("patientID"));
+            PatientDAO patientDb = new PatientDAO();
+            Patient p = patientDb.getPatientByAccountID(patientID);
+
+            ServicesDAO dao = new ServicesDAO();
+            dao.addComment(comment, rate, p.getPatientID(), serviceID);
+            response.sendRedirect("serdetail?sid=" + serviceID);
+        } catch (IOException | NumberFormatException | SQLException e) {
             System.out.println(e);
         }
     }

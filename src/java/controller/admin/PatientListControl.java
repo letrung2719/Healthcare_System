@@ -7,7 +7,6 @@ package controller.admin;
 
 import dal.PatientDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -21,7 +20,7 @@ import model.Patient;
  *
  * @author Admin
  */
-@WebServlet(name = "PatientListControl", urlPatterns = {"/admin/patient_list"})
+@WebServlet(name = "PatientListControl", urlPatterns = {"/admin-role/patient_list"})
 public class PatientListControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

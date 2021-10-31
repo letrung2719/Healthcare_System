@@ -7,7 +7,6 @@ package controller.admin;
 
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -21,7 +20,7 @@ import model.Services;
  *
  * @author ASUS
  */
-@WebServlet(name = "SerFeedbackDashboardControl", urlPatterns = {"/admin/review"})
+@WebServlet(name = "SerFeedbackDashboardControl", urlPatterns = {"/admin-role/review"})
 public class SerFeedbackDashboardControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

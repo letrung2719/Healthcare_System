@@ -1,8 +1,12 @@
-package controller.services;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller.doctor;
 
-import dal.ServicesDAO;
+import dal.AppointmentDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -10,15 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Services;
-import model.Specialities;
+import model.Appointment;
 
 /**
  *
- * @author admin
+ * @author Admin
  */
-@WebServlet(name = "SortListServices", urlPatterns = {"/sortlistservices"})
-public class SortListServices extends HttpServlet {
+@WebServlet(name = "DoctorAppointmentControl", urlPatterns = {"/doctorAppointmentControl"})
+public class DoctorAppointmentControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -35,30 +38,31 @@ public class SortListServices extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String choice = request.getParameter("id");
-            ServicesDAO dal = new ServicesDAO();
-            if (choice.equals("0")) {
-                String search = request.getParameter("txt");
-                List<Services> listServices = dal.getAllServicesSearched(search);
-                request.setAttribute("listServices", listServices);
-                request.setAttribute("tim", search);
+            int doctorID = Integer.parseInt(request.getParameter("doctorID"));
+            String inputID = request.getParameter("deleteID");
+            AppointmentDAO appDb = new AppointmentDAO();
+            int indexPage;
+            String getInputPage = request.getParameter("page");
+            if (getInputPage == null) {
+                indexPage = 1;
+            } else {
+                indexPage = Integer.parseInt(getInputPage);
             }
-            if (choice.equals("1")) {
-                List<Services> listServices = dal.getAllServicesSortedUpPrice();
-                request.setAttribute("listServices", listServices);
+            int totalAppointment = appDb.getAllDoctorAppointment(doctorID);
+            int numberOfItem = 5;
+            int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
+            List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);
+            if (inputID != null) {
+                int appID = Integer.parseInt(inputID);
+                int temp = appDb.deleteAppointment(appID);
+                response.sendRedirect(request.getContextPath() + "/doctorAppointmentControl?doctorID=" + doctorID);
+            } else {
+                request.setAttribute("listApp", listApp);
+                request.setAttribute("indexPage", indexPage);
+                request.setAttribute("numberOfPage", numberOfPage);
+                request.getRequestDispatcher("/doctor-role/doctor-appointment.jsp").forward(request, response);
             }
-            if (choice.equals("2")) {
-                List<Services> listServices = dal.getAllServicesSortedDownPrice();
-                request.setAttribute("listServices", listServices);
-            }
-            if (choice.equals("3")) {
-                List<Services> listServices = dal.getAllServicesSortedSpecialities();
-                request.setAttribute("listServices", listServices);
-            }
-            List<Specialities> listSpecialities = dal.getAllSpecialities();
-            request.setAttribute("listSpecialities", listSpecialities);
-            request.getRequestDispatcher("services-list.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

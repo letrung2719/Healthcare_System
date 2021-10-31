@@ -20,7 +20,7 @@ import model.Appointment;
  *
  * @author ASUS
  */
-@WebServlet(name = "AppointmentAdControl", urlPatterns = {"/admin/appoint"})
+@WebServlet(name = "AppointmentAdControl", urlPatterns = {"/admin-role/appoint"})
 public class AppointmentAdControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
@@ -43,7 +43,7 @@ public class AppointmentAdControl extends HttpServlet {
 
             request.setAttribute("ListA", ListA);
             request.getRequestDispatcher("/admin-role/appointment.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+        } catch (IOException | SQLException e) {
             System.out.println(e);
         }
     }

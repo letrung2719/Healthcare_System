@@ -64,9 +64,8 @@
                             <div class="col-sm-12">
                                 <h3 class="page-title">Reviews</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="review">Reviews</a></li>
-                                    <li class="breadcrumb-item active">Service Feedbacks</li>
+                                    <li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="">Appointments</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -84,7 +83,7 @@
                                                     <th style="padding-right: 30px">Appointment ID</th>
                                                     <th style="margin-right: 30px; padding-right: 165px">Doctor Name</th>
                                                     <th style="margin-right: 30px; padding-right: 165px">Patient Name</th>
-                                                    <th >Apointment Time</th>
+                                                    <th >Appointment Time</th>
                                                     <th style="margin-right: 40px; padding-right: 165px">Description</th>
                                                     <th>Status</th>
                                                 </tr>
@@ -122,7 +121,7 @@
                                                         <td>
                                                             <div class="table-avatar">
                                                                 <c:if test="${o.status == '0'}">
-                                                                    <button type="button" class="btn btn-danger">Cancelled</button>
+                                                                    <button type="button" class="btn btn-danger">Canceled</button>
 
                                                                 </c:if>
                                                                 <c:if test="${o.status == '1'}">
@@ -146,6 +145,7 @@
 
                 </div>			
             </div>
+        </div>
             <!-- /Page Wrapper -->
 
             <!-- jQuery -->

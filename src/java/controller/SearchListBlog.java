@@ -5,22 +5,23 @@
  */
 package controller;
 
-import dal.AppointmentDAO;
+import dal.BlogsDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Appointment;
+import model.Blogs;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-@WebServlet(name = "AppointmentDetailControl", urlPatterns = {"/appointmentDetailControl"})
-public class AppointmentDetailControl extends HttpServlet {
+@WebServlet(name = "SearchListBlog", urlPatterns = {"/SearchListBlog"})
+public class SearchListBlog extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -35,30 +36,15 @@ public class AppointmentDetailControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         try {
-            response.setContentType("text/html;charset=UTF-8");
-            int appID = Integer.parseInt(request.getParameter("id"));
-            String inputStatus = request.getParameter("status");
-            AppointmentDAO appDb = new AppointmentDAO();
-            Appointment a = appDb.getAppointmentByID(appID);
-
-            if (inputStatus != null) {
-                if (inputStatus.equals("cancel")) {
-                    appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
-                }
-                if (inputStatus.equals("pending")) {
-                    appDb.changeAppointmentStatus(a.getAppointmentID(), 1);
-                }
-                if (inputStatus.equals("complete")) {
-                    appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
-                }
-                a = appDb.getAppointmentByID(appID);
-                request.setAttribute("app", a);
-                request.getRequestDispatcher("appointment-detail.jsp").forward(request, response);
-            }
-            request.setAttribute("app", a);
-            request.getRequestDispatcher("/doctor/appointment-detail.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            BlogsDAO dao = new BlogsDAO();
+            String search = request.getParameter("text");
+            List<Blogs> listBlog = dao.getAllBlogsSearched(search);
+            request.setAttribute("listBlog", listBlog);
+            request.setAttribute("tim", search);
+            request.getRequestDispatcher("blog-list.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

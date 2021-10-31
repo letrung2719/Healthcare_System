@@ -1,29 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package controller.services;
+package controller;
 
-import dal.PatientDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Patient;
+import model.Services;
+import model.Specialities;
 
 /**
  *
- * @author hp
+ * @author admin
  */
-@WebServlet(name = "EditFeedbackControl", urlPatterns = {"/editfeedback"})
-public class EditFeedbackControl extends HttpServlet {
+@WebServlet(name = "ServicesControl", urlPatterns = {"/services"})
+public class ServicesControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -31,7 +25,7 @@ public class EditFeedbackControl extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -40,29 +34,13 @@ public class EditFeedbackControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String serviceID = request.getParameter("serviceid");
-            String feedbackId = request.getParameter("fid");
-            String comment = request.getParameter("comment");
-            String rate = request.getParameter("rating");
-            if (rate == null) {
-                rate = "0";
-            }
-
-            //
-            ArrayList<String> badWords = new ArrayList<String>();
-            badWords.add("shit");
-            badWords.add("stupid");
-            badWords.add("idiot");
-            for (int i = 0; i < badWords.size(); i++) {
-                comment = comment.replaceAll("(?i)" + badWords.get(i), "****");
-            }
-            comment = comment.replaceAll("\\w*\\*{4}", "****");
-            //        
-
-            ServicesDAO dao = new ServicesDAO();
-            dao.editComment(comment, rate, feedbackId);
-            response.sendRedirect("serdetail?sid=" + serviceID);
-        } catch (IOException | SQLException e) {
+            ServicesDAO dal = new ServicesDAO();
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            List<Services> listServices = dal.getAllServices();
+            request.setAttribute("listSpecialities", listSpecialities);
+            request.setAttribute("listServices", listServices);
+            request.getRequestDispatcher("services-list.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

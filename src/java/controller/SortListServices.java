@@ -1,28 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
-import dal.DoctorFeedbacksDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.DoctorFeedbacks;
+import model.Services;
+import model.Specialities;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-@WebServlet(name = "DoctorFeedbackListControl", urlPatterns = {"/doctorFeedbackList"})
-public class DoctorFeedbackListControl extends HttpServlet {
+@WebServlet(name = "SortListServices", urlPatterns = {"/sortlistservices"})
+public class SortListServices extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -39,29 +35,30 @@ public class DoctorFeedbackListControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-            int indexPage;
-            String sortBy = request.getParameter("sort");
-            String getInputPage = request.getParameter("page");
-            if (getInputPage == null) {
-                indexPage = 1;
-            } else {
-                indexPage = Integer.parseInt(getInputPage);
+            String choice = request.getParameter("id");
+            ServicesDAO dal = new ServicesDAO();
+            if (choice.equals("0")) {
+                String search = request.getParameter("txt");
+                List<Services> listServices = dal.getAllServicesSearched(search);
+                request.setAttribute("listServices", listServices);
+                request.setAttribute("tim", search);
             }
-            DoctorFeedbacksDAO db1 = new DoctorFeedbacksDAO();
-            int totalFeedback = db1.countAllDoctorFeedback(doctorID);
-            int numberOfItem = 4;
-            int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);
-            List<DoctorFeedbacks> listdFb = new ArrayList<>();
-
-            if (sortBy == null) {
-                listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, "feedback_id");
+            if (choice.equals("1")) {
+                List<Services> listServices = dal.getAllServicesSortedUpPrice();
+                request.setAttribute("listServices", listServices);
             }
-            request.setAttribute("listdFb", listdFb);
-            request.setAttribute("indexPage", indexPage);
-            request.setAttribute("numberOfPage", numberOfPage);
-            request.getRequestDispatcher("/doctor-role/doctor-feedback-list.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            if (choice.equals("2")) {
+                List<Services> listServices = dal.getAllServicesSortedDownPrice();
+                request.setAttribute("listServices", listServices);
+            }
+            if (choice.equals("3")) {
+                List<Services> listServices = dal.getAllServicesSortedSpecialities();
+                request.setAttribute("listServices", listServices);
+            }
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            request.setAttribute("listSpecialities", listSpecialities);
+            request.getRequestDispatcher("services-list.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

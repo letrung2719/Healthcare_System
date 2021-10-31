@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ASUS
  */
-@WebServlet(name = "DeleteServiceFeedbackAdControl", urlPatterns = {"/admin/delete_ser"})
+@WebServlet(name = "DeleteServiceFeedbackAdControl", urlPatterns = {"/admin-role/delete_ser"})
 public class DeleteServiceFeedbackAdControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
@@ -42,7 +42,7 @@ public class DeleteServiceFeedbackAdControl extends HttpServlet {
             int id = Integer.parseInt(feedback_id);
             ServicesDAO feed = new ServicesDAO();
             feed.deleteComment(id);
-            request.getRequestDispatcher("/admin-role/serfeed?id=" + serID).forward(request, response);
+            request.getRequestDispatcher("serfeed?id=" + serID).forward(request, response);
         } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }

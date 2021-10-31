@@ -3,23 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.doctor;
 
-import dal.AppointmentDAO;
+import dal.DoctorFeedbacksDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Appointment;
+import model.DoctorFeedbacks;
 
 /**
  *
  * @author Admin
  */
-public class DoctorAppointmentControl extends HttpServlet {
+@WebServlet(name = "DoctorFeedbackListControl", urlPatterns = {"/doctorFeedbackList"})
+public class DoctorFeedbackListControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -37,29 +40,27 @@ public class DoctorAppointmentControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-            String inputID = request.getParameter("deleteID");
-            AppointmentDAO appDb = new AppointmentDAO();
             int indexPage;
+            String sortBy = request.getParameter("sort");
             String getInputPage = request.getParameter("page");
             if (getInputPage == null) {
                 indexPage = 1;
             } else {
                 indexPage = Integer.parseInt(getInputPage);
             }
-            int totalAppointment = appDb.getAllDoctorAppointment(doctorID);
-            int numberOfItem = 5;
-            int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
-            List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);
-            if (inputID != null) {
-                int appID = Integer.parseInt(inputID);
-                int temp = appDb.deleteAppointment(appID);
-                response.sendRedirect(request.getContextPath() + "/doctorAppointmentControl?doctorID=" + doctorID);
-            } else {
-                request.setAttribute("listApp", listApp);
-                request.setAttribute("indexPage", indexPage);
-                request.setAttribute("numberOfPage", numberOfPage);
-                request.getRequestDispatcher("/doctor-role/doctor-appointment.jsp").forward(request, response);
+            DoctorFeedbacksDAO db1 = new DoctorFeedbacksDAO();
+            int totalFeedback = db1.countAllDoctorFeedback(doctorID);
+            int numberOfItem = 4;
+            int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);
+            List<DoctorFeedbacks> listdFb = new ArrayList<>();
+
+            if (sortBy == null) {
+                listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, "feedback_id");
             }
+            request.setAttribute("listdFb", listdFb);
+            request.setAttribute("indexPage", indexPage);
+            request.setAttribute("numberOfPage", numberOfPage);
+            request.getRequestDispatcher("/doctor-role/doctor-feedback-list.jsp").forward(request, response);
         } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.admin;
+package controller;
 
 import dal.ServicesDAO;
 import java.io.IOException;
@@ -14,14 +14,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ServiceFeedbacksAd;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import model.Patient;
+import model.ServiceFeedbacks;
+import model.Services;
+import model.Specialities;
 
 /**
  *
- * @author ASUS
+ * @author hp
  */
-@WebServlet(name = "SeviceFeedbackAdControl", urlPatterns = {"/admin/serfeed"})
-public class SeviceFeedbackAdControl extends HttpServlet {
+@WebServlet(name = "SortStarFeedbackControl", urlPatterns = {"/sortStarComment"})
+public class SortStarCommentControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -38,14 +43,51 @@ public class SeviceFeedbackAdControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String serID = request.getParameter("id");
+            String star = request.getParameter("star");
+            String id = request.getParameter("sid");
             ServicesDAO dal = new ServicesDAO();
-            List<ServiceFeedbacksAd> listS = dal.getAllCommentAd(serID);
-            for (ServiceFeedbacksAd i : listS) {
-                System.out.println(i);
+            if (star.equals("all")) {
+                List<ServiceFeedbacks> listF = dal.getAllComment(id);
+                request.setAttribute("listF", listF);
+            } else {
+                List<ServiceFeedbacks> listFs = dal.getAllCommentSortedByStar(id, star);
+                request.setAttribute("listF", listFs);
             }
-            request.setAttribute("ListS", listS);
-            request.getRequestDispatcher("/admin-role/service-feedback.jsp").forward(request, response);
+
+            //lấy list các feedback của service có id trên và hiện theo số sao quy định
+            Services s = dal.getServiceByID(id);
+            String specID = s.getType_id();
+            request.setAttribute("detail", s);
+            //lấy dữ liệu Service và id Speciality của Service
+            int avrate = dal.averageRateServices(id);
+            request.setAttribute("avrate", avrate);
+            //lấy rate trung bình của service
+            Specialities spec = dal.getSpecByID(specID);
+            request.setAttribute("spec", spec);
+            //lấy ra specialitie của Service
+            String type_id = dal.getServiceByID(id).getType_id();
+            List<Services> listS = dal.getTop4Last(type_id);
+            request.setAttribute("listS", listS);
+            //lấy ra 4 service liên quan theo specialitie
+            List<ServiceFeedbacks> listF = dal.getAllComment(id);
+            int totalfeedback = listF.size();
+            request.setAttribute("totalfeedback", totalfeedback);
+            //số feedback của service
+            HttpSession session = request.getSession();
+            Account a = (Account) session.getAttribute("acc");
+            if (a != null) {
+                if (a.getAuthor_id() == 2) {
+                    Patient p = (Patient) session.getAttribute("user");
+                    List<ServiceFeedbacks> check = dal.checkPatientComment((int) p.getPatientID(), id);
+                    if (check.isEmpty()) {
+                        request.setAttribute("check", 1);
+                    } else {
+                        request.setAttribute("check", 5);
+                    }
+                }
+            }
+            request.getRequestDispatcher("service-detail.jsp").forward(request, response);
+
         } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }

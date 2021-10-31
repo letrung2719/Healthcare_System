@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ import model.Doctor;
  *
  * @author admin
  */
+@WebServlet(name = "AppointmentBookingControl", urlPatterns = {"/booking"})
 public class AppointmentBookingControl extends HttpServlet {
     private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
@@ -95,8 +97,8 @@ public class AppointmentBookingControl extends HttpServlet {
 
                 request.setAttribute("doctor", d);
                 request.getRequestDispatcher("booking.jsp").forward(request, response);
-            } catch (IOException | NumberFormatException | ServletException | SQLException e) {
-                System.out.println(e);
+            } catch (SQLException ex) {
+                System.out.println(ex);
             }
         }
     }
@@ -141,8 +143,8 @@ public class AppointmentBookingControl extends HttpServlet {
             }
             request.setAttribute("appointment", a);
             request.getRequestDispatcher("booking-confirm.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | ServletException | SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
     }
 

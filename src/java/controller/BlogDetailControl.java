@@ -1,15 +1,16 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.blog;
+package controller;
 
 import dal.BlogsDAO;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +18,20 @@ import model.Blogs;
 
 /**
  *
+ * @author Admin
+ */
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
  * @author admin
  */
-public class BlogListControl extends HttpServlet {
+@WebServlet(name = "BlogDetailControl", urlPatterns = {"/blog-detail"})
+public class BlogDetailControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -36,11 +48,12 @@ public class BlogListControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            int id = Integer.parseInt(request.getParameter("id"));
             BlogsDAO bl = new BlogsDAO();
-            List<Blogs> listBlog = bl.getAllBlogs();
-            request.setAttribute("listBlog", listBlog);
-            request.getRequestDispatcher("blog-list.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+            Blogs blog = bl.getBlogByBlogID(id);
+            request.setAttribute("blog", blog);
+            request.getRequestDispatcher("blog-detail.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

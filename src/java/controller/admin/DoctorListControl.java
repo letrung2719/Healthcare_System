@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import model.Specialities;
  *
  * @author Admin
  */
+@WebServlet(name = "DoctorListControl", urlPatterns = {"/admin-role/doctor_list"})
 public class DoctorListControl extends HttpServlet {
     private static final long serialVersionUID = 9999L;
     /**
@@ -42,7 +44,7 @@ public class DoctorListControl extends HttpServlet {
             List<Specialities> listSpec = dao.getAllSpecialities();
             request.setAttribute("listDoctors", list);
             request.setAttribute("listSpec", listSpec);
-            request.getRequestDispatcher("doctor-list.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin-role/doctor-list.jsp").forward(request, response);
         } catch (IOException | ServletException | SQLException e) {
             System.out.println(e);
         }

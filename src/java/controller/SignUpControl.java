@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import model.Patient;
  *
  * @author admin
  */
+@WebServlet(name = "SignUpControl", urlPatterns = {"/signup"})
 public class SignUpControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

@@ -3,30 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.services;
+package controller;
 
+import dal.PatientDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Account;
 import model.Patient;
-import model.ServiceFeedbacks;
-import model.Services;
-import model.Specialities;
 
 /**
  *
- * @author ASUS
+ * @author hp
  */
-@WebServlet(name = "ServiceDetailControl", urlPatterns = {"/serdetail"})
-public class ServiceDetailControl extends HttpServlet {
+@WebServlet(name = "EditFeedbackControl", urlPatterns = {"/editfeedback"})
+public class EditFeedbackControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -43,42 +40,29 @@ public class ServiceDetailControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String id = request.getParameter("sid");
-            ServicesDAO dao = new ServicesDAO();
-
-            Services s = dao.getServiceByID(id);
-            String specID = s.getType_id();
-
-            int avrate = dao.averageRateServices(id);
-            Specialities spec = dao.getSpecByID(specID);
-            String type_id = dao.getServiceByID(id).getType_id();
-            List<Services> listS = dao.getTop4Last(type_id);
-            List<ServiceFeedbacks> listF = dao.getAllComment(id);
-            int totalfeedback = listF.size();
-
-            HttpSession session = request.getSession();
-            Account a = (Account) session.getAttribute("acc");
-
-            if (a != null) {
-                if (a.getAuthor_id() == 2) {
-                    Patient p = (Patient) session.getAttribute("user");
-                    List<ServiceFeedbacks> check = dao.checkPatientComment((int) p.getPatientID(), id);
-                    if (check.isEmpty()) {
-                        request.setAttribute("check", 1);
-                    } else {
-                        request.setAttribute("check", 5);
-                    }
-                }
+            String serviceID = request.getParameter("serviceid");
+            String feedbackId = request.getParameter("fid");
+            String comment = request.getParameter("comment");
+            String rate = request.getParameter("rating");
+            if (rate == null) {
+                rate = "0";
             }
 
-            request.setAttribute("avrate", avrate);
-            request.setAttribute("totalfeedback", totalfeedback);
-            request.setAttribute("detail", s);
-            request.setAttribute("spec", spec);
-            request.setAttribute("listS", listS);
-            request.setAttribute("listF", listF);
-            request.getRequestDispatcher("service-detail.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+            //
+            ArrayList<String> badWords = new ArrayList<String>();
+            badWords.add("shit");
+            badWords.add("stupid");
+            badWords.add("idiot");
+            for (int i = 0; i < badWords.size(); i++) {
+                comment = comment.replaceAll("(?i)" + badWords.get(i), "****");
+            }
+            comment = comment.replaceAll("\\w*\\*{4}", "****");
+            //        
+
+            ServicesDAO dao = new ServicesDAO();
+            dao.editComment(comment, rate, feedbackId);
+            response.sendRedirect("serdetail?sid=" + serviceID);
+        } catch (IOException | SQLException e) {
             System.out.println(e);
         }
     }

@@ -3,29 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.services;
+package controller.doctor;
 
-import dal.ServicesDAO;
+import dal.AppointmentDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Services;
-import model.Specialities;
+import model.Appointment;
 
 /**
  *
- * @author hp
+ * @author Admin
  */
-@WebServlet(name = "SearchSpecialities", urlPatterns = {"/searchspecialities"})
-public class SearchSpecialities extends HttpServlet {
+@WebServlet(name = "AppointmentDetailControl", urlPatterns = {"/appointmentDetailControl"})
+public class AppointmentDetailControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -40,17 +35,30 @@ public class SearchSpecialities extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         try {
-            String[] arraySpec = request.getParameterValues("select_specialist");
-            List<String> listSpec = arraySpec == null ? new ArrayList<>() : Arrays.asList(arraySpec);
-            ServicesDAO dal = new ServicesDAO();
-            List<Specialities> listSpecialities = dal.getAllSpecialities();
-            List<Services> listServices = dal.searchSpecialities(listSpec);
-            request.setAttribute("listSpecialities", listSpecialities);
-            request.setAttribute("listServices", listServices);
-            request.getRequestDispatcher("services-list.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+            response.setContentType("text/html;charset=UTF-8");
+            int appID = Integer.parseInt(request.getParameter("id"));
+            String inputStatus = request.getParameter("status");
+            AppointmentDAO appDb = new AppointmentDAO();
+            Appointment a = appDb.getAppointmentByID(appID);
+
+            if (inputStatus != null) {
+                if (inputStatus.equals("cancel")) {
+                    appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
+                }
+                if (inputStatus.equals("pending")) {
+                    appDb.changeAppointmentStatus(a.getAppointmentID(), 1);
+                }
+                if (inputStatus.equals("complete")) {
+                    appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
+                }
+                a = appDb.getAppointmentByID(appID);
+                request.setAttribute("app", a);
+                request.getRequestDispatcher("/doctor-role/appointment-detail.jsp").forward(request, response);
+            }
+            request.setAttribute("app", a);
+            request.getRequestDispatcher("/doctor-role/appointment-detail.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

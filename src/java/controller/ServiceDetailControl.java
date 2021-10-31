@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.services;
+package controller;
 
 import dal.ServicesDAO;
 import java.io.IOException;
@@ -23,10 +23,10 @@ import model.Specialities;
 
 /**
  *
- * @author hp
+ * @author ASUS
  */
-@WebServlet(name = "SortStarFeedbackControl", urlPatterns = {"/sortStarComment"})
-public class SortStarCommentControl extends HttpServlet {
+@WebServlet(name = "ServiceDetailControl", urlPatterns = {"/serdetail"})
+public class ServiceDetailControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -43,42 +43,26 @@ public class SortStarCommentControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String star = request.getParameter("star");
             String id = request.getParameter("sid");
-            ServicesDAO dal = new ServicesDAO();
-            if (star.equals("all")) {
-                List<ServiceFeedbacks> listF = dal.getAllComment(id);
-                request.setAttribute("listF", listF);
-            } else {
-                List<ServiceFeedbacks> listFs = dal.getAllCommentSortedByStar(id, star);
-                request.setAttribute("listF", listFs);
-            }
+            ServicesDAO dao = new ServicesDAO();
 
-            //lấy list các feedback của service có id trên và hiện theo số sao quy định
-            Services s = dal.getServiceByID(id);
+            Services s = dao.getServiceByID(id);
             String specID = s.getType_id();
-            request.setAttribute("detail", s);
-            //lấy dữ liệu Service và id Speciality của Service
-            int avrate = dal.averageRateServices(id);
-            request.setAttribute("avrate", avrate);
-            //lấy rate trung bình của service
-            Specialities spec = dal.getSpecByID(specID);
-            request.setAttribute("spec", spec);
-            //lấy ra specialitie của Service
-            String type_id = dal.getServiceByID(id).getType_id();
-            List<Services> listS = dal.getTop4Last(type_id);
-            request.setAttribute("listS", listS);
-            //lấy ra 4 service liên quan theo specialitie
-            List<ServiceFeedbacks> listF = dal.getAllComment(id);
+
+            int avrate = dao.averageRateServices(id);
+            Specialities spec = dao.getSpecByID(specID);
+            String type_id = dao.getServiceByID(id).getType_id();
+            List<Services> listS = dao.getTop4Last(type_id);
+            List<ServiceFeedbacks> listF = dao.getAllComment(id);
             int totalfeedback = listF.size();
-            request.setAttribute("totalfeedback", totalfeedback);
-            //số feedback của service
+
             HttpSession session = request.getSession();
             Account a = (Account) session.getAttribute("acc");
+
             if (a != null) {
                 if (a.getAuthor_id() == 2) {
                     Patient p = (Patient) session.getAttribute("user");
-                    List<ServiceFeedbacks> check = dal.checkPatientComment((int) p.getPatientID(), id);
+                    List<ServiceFeedbacks> check = dao.checkPatientComment((int) p.getPatientID(), id);
                     if (check.isEmpty()) {
                         request.setAttribute("check", 1);
                     } else {
@@ -86,8 +70,14 @@ public class SortStarCommentControl extends HttpServlet {
                     }
                 }
             }
-            request.getRequestDispatcher("service-detail.jsp").forward(request, response);
 
+            request.setAttribute("avrate", avrate);
+            request.setAttribute("totalfeedback", totalfeedback);
+            request.setAttribute("detail", s);
+            request.setAttribute("spec", spec);
+            request.setAttribute("listS", listS);
+            request.setAttribute("listF", listF);
+            request.getRequestDispatcher("service-detail.jsp").forward(request, response);
         } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }
