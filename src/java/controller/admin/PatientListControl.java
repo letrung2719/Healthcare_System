@@ -21,7 +21,7 @@ import model.Patient;
  *
  * @author Admin
  */
-@WebServlet(name = "PatientListControl", urlPatterns = {"/admin/patient_list"})
+@WebServlet(name = "PatientListControl", urlPatterns = {"/admin-role/patient_list"})
 public class PatientListControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

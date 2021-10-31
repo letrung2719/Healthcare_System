@@ -93,14 +93,14 @@
                                                     <tr>
                                                         <td>
                                                             <h2 class="table-avatar">
-
-                                                                <a href="serfeed?id=${o.service_id}">${o.service_id}</a>
+                                                                
+                                                                <a href="serfeed?id=${o.service_id}&&star=all">${o.service_id}</a>
                                                             </h2>
                                                         </td>
                                                         <td>
                                                             <h2 class="table-avatar">
 
-                                                                <a href="serfeed?id=${o.service_id}">${o.title} </a>
+                                                                <a href="serfeed?id=${o.service_id}&&star=all">${o.title} </a>
                                                             </h2>
                                                         </td>
                                                         <td class="table-avatar">
