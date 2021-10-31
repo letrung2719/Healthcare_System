@@ -5,7 +5,7 @@
  */
 package controller.admin;
 
-import dal.AppointmentDAO;
+import dal.ReservationDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -14,14 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Appointment;
+import model.Reservation;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "AppointmentAdControl", urlPatterns = {"/admin-role/appoint"})
-public class AppointmentAdControl extends HttpServlet {
+@WebServlet(name = "ReservationAdControl", urlPatterns = {"/admin-role/reser"})
+public class ReservationAdControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -38,11 +38,11 @@ public class AppointmentAdControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            AppointmentDAO dao = new AppointmentDAO();
-            List<Appointment> ListA = dao.getAppointmentAdmin();
+            ReservationDAO dao = new ReservationDAO();
+            List<Reservation> listR = dao.getAllReservation();
 
-            request.setAttribute("ListA", ListA);
-            request.getRequestDispatcher("/admin-role/appointment.jsp").forward(request, response);
+            request.setAttribute("ListR", listR);
+            request.getRequestDispatcher("/admin-role/reservation.jsp").forward(request, response);
         } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }

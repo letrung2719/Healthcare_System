@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ASUS
  */
-@WebServlet(name = "DeleteServiceFeedbackAdControl", urlPatterns = {"/admin/delete_ser"})
+@WebServlet(name = "DeleteServiceFeedbackAdControl", urlPatterns = {"/admin-role/delete_ser"})
 public class DeleteServiceFeedbackAdControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

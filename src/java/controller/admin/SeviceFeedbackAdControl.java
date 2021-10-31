@@ -20,7 +20,7 @@ import model.ServiceFeedbacksAd;
  *
  * @author ASUS
  */
-@WebServlet(name = "SeviceFeedbackAdControl", urlPatterns = {"/admin/serfeed"})
+@WebServlet(name = "SeviceFeedbackAdControl", urlPatterns = {"/admin-role/serfeed"})
 public class SeviceFeedbackAdControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

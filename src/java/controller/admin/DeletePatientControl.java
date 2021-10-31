@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "DeleteController", urlPatterns = {"/admin/delete"})
+@WebServlet(name = "DeleteController", urlPatterns = {"/admin-role/delete"})
 public class DeletePatientControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

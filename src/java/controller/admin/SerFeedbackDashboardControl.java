@@ -21,7 +21,7 @@ import model.Services;
  *
  * @author ASUS
  */
-@WebServlet(name = "SerFeedbackDashboardControl", urlPatterns = {"/admin/review"})
+@WebServlet(name = "SerFeedbackDashboardControl", urlPatterns = {"/admin-role/review"})
 public class SerFeedbackDashboardControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

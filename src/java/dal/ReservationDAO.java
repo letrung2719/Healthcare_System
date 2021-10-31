@@ -33,6 +33,10 @@ public class ReservationDAO {
     DBContext dbc = new DBContext();
     Connection connection = null;
 
+    PatientDAO patientDb = new PatientDAO();
+    ServicesDAO serviceDb = new ServicesDAO();
+    TimetableDAO slotDb = new TimetableDAO();
+
     /**
      *
      * @param r
@@ -85,9 +89,7 @@ public class ReservationDAO {
         List<Reservation> list = new ArrayList<>();
         String sql = "select * from reservations where patient_id=" + patientID + " order by reservation_id Limit " + numberOfItem + " offset " + start + ";";
         try {
-            PatientDAO patientDb = new PatientDAO();
-            ServicesDAO serviceDb = new ServicesDAO();
-            TimetableDAO slotDb = new TimetableDAO();
+
             connection = dbc.getConnection();
             st = connection.prepareStatement(sql);
             rs = st.executeQuery();
@@ -107,7 +109,7 @@ public class ReservationDAO {
                 list.add(r);
 
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
             if (connection != null) {
@@ -136,6 +138,38 @@ public class ReservationDAO {
         return 0;
     }
 
+    public List<Reservation> getAllReservation() throws SQLException {
+        List<Reservation> list = new ArrayList<>();
+        String sql = "SELECT * FROM reservations";
+        try {
+            connection = dbc.getConnection();
+            st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Reservation r = new Reservation();
+                r.setReservationID(rs.getInt(1));
+                r.setDate(rs.getString(2));
+                Patient p = patientDb.getPatientByPatientID(rs.getInt(3));
+                r.setPatient(p);
+                Services se = serviceDb.getServiceByID(rs.getString(4));
+                r.setService(se);
+                r.setPrice(rs.getDouble(5));
+                r.setStatus(rs.getInt(6));
+                Timetable t = slotDb.getTimeBySlotID(rs.getInt(7));
+                r.setSlot(t);
+                r.setDescription(rs.getString(8));
+                list.add(r);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return list;
+    }
+
     /**
      *
      * @param args
@@ -148,9 +182,10 @@ public class ReservationDAO {
 //            TimetableDAO db4 = new TimetableDAO();
 //            Reservation r = new Reservation("2021/10/15", db2.getPatientByPatientID(2), db3.getServiceByID("3"), db3.getServiceByID("3").getPrice(), db4.getTimeBySlotID(4), "");
 //            System.out.println(db1.addNewReservation(r));
-            List<Reservation> list = db1.getReservationByPationIdAndPage(1, 0, 4);
-            System.out.println(list);
-            System.out.println(db1.totalReservationByPatient(1));
+//            List<Reservation> list = db1.getReservationByPationIdAndPage(1, 0, 4);
+            List<Reservation> lists = db1.getAllReservation();
+            System.out.println(lists);
+//            System.out.println(db1.totalReservationByPatient(1));
 
         } catch (SQLException ex) {
             Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
