@@ -14,7 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ServiceFeedbacksAd;
+import model.ServiceFeedbacks;
+import model.Services;
 
 /**
  *
@@ -38,13 +39,29 @@ public class SeviceFeedbackAdControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+
             String serID = request.getParameter("id");
+            String star = request.getParameter("star");
+
             ServicesDAO dal = new ServicesDAO();
-            List<ServiceFeedbacksAd> listS = dal.getAllCommentAd(serID);
-            for (ServiceFeedbacksAd i : listS) {
-                System.out.println(i);
+            Services s = dal.getServiceByID(serID);
+//        List<ServiceFeedbacksAd> listS = dal.getAllCommentAd(serID);
+//        for (ServiceFeedbacksAd i : listS) {
+//            System.out.println(i);
+//        }
+
+            if (star.equals("all")) {
+                List<ServiceFeedbacks> listS = dal.getAllComment(serID);
+                request.setAttribute("star", star);
+                request.setAttribute("detail", s);
+                request.setAttribute("ListS", listS);
+            } else {
+                List<ServiceFeedbacks> listFs = dal.getAllCommentSortedByStar(serID, star);
+                request.setAttribute("star", star);
+                request.setAttribute("detail", s);
+                request.setAttribute("ListS", listFs);
             }
-            request.setAttribute("ListS", listS);
+
             request.getRequestDispatcher("/admin-role/service-feedback.jsp").forward(request, response);
         } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);

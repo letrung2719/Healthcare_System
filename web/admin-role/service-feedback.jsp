@@ -76,6 +76,30 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
+                                    <div style="text-align: right" >
+                                        <c:set var="path" value="<%=request.getServletPath()%>"></c:set>
+                                        <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                            All<a href="serfeed?star=all&&id=${detail.service_id}" style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
+                                        </button>
+                                        <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                            0<a href="serfeed?star=0&&id=${detail.service_id}" style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
+                                        </button>
+                                        <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                            1<a href="serfeed?star=1&&id=${detail.service_id}"style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
+                                        </button>
+                                        <button class="btn btn-small btn-primary" data-toggle="portfilter">
+                                            2<a href="serfeed?star=2&&id=${detail.service_id}"style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
+                                        </button>
+                                        <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                            3<a href="serfeed?star=3&&id=${detail.service_id}"style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
+                                        </button>
+                                        <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                            4<a href="serfeed?star=4&&id=${detail.service_id}"style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
+                                        </button>
+                                        <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                            5<a href="serfeed?star=5&&id=${detail.service_id}"style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
+                                        </button>
+                                    </div>
                                     <div class="table-responsive" >
                                         <table class="datatable table table-hover table-center mb-0" >
                                             <thead>
@@ -99,8 +123,8 @@
                                                         </td>
                                                         <td>
                                                             <h2 class="table-avatar">
-                                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${o.image}" alt="User Image"></a>
-                                                                    ${o.patient}
+                                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${o.patient.image}" alt="User Image"></a>
+                                                                    ${o.patient.name}
                                                             </h2>
                                                         </td>
 
@@ -159,7 +183,7 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="actions">
-                                                                <a class="btn btn-sm bg-danger-light" style="color: red; padding: 10px;"  onclick="return confirm('Are you sure you want to delete this comment?');" href="delete_ser?fid=${o.feedback_id}&&serID=${o.service_id}">
+                                                                <a class="btn btn-sm bg-danger-light" style="color: red; padding: 10px;"  onclick="return confirm('Are you sure you want to delete this comment?');" href="delete_ser?fid=${o.feedback_id}&&serID=${o.service_id}&&star=${star}">
                                                                     <i class="fe fe-trash"> Delete</i>
                                                                 </a>
 

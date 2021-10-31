@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Patient;
 import model.ServiceFeedbacks;
-import model.ServiceFeedbacksAd;
 import model.Services;
 import model.Specialities;
 
@@ -22,6 +22,9 @@ public class ServicesDAO {
 
     PreparedStatement ps = null;
     ResultSet rs = null;
+    PatientDAO dalPatient = new PatientDAO();
+    DoctorDAO dalDoctor = new DoctorDAO();
+    TimetableDAO dalTimetable = new TimetableDAO();
 
     DBContext dbc = new DBContext();
     Connection connection = null;
@@ -449,24 +452,25 @@ public class ServicesDAO {
      * @param id
      * @return
      */
-    public List<ServiceFeedbacksAd> getAllCommentAd(String id) throws SQLException {
-        List<ServiceFeedbacksAd> list = new ArrayList<>();
-        String sql = "select feedback_id,content,rate,patients.image,Patients.name,service_id\n"
-                + "FROM Service_Feedbacks join Patients \n"
-                + "ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ?";
+    public List<ServiceFeedbacks> getAllComment(String id) throws SQLException {
+        List<ServiceFeedbacks> list = new ArrayList<>();
+        String sql = "SELECT feedback_id,content,rate, patient_id,service_id\n"
+                + "FROM Service_Feedbacks\n"
+                + "where service_id = ?";
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new ServiceFeedbacksAd(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getInt(6)));
+                ServiceFeedbacks s = new ServiceFeedbacks();
+                s.setFeedback_id(rs.getInt(1));
+                s.setContent(rs.getString(2));
+                s.setRate(rs.getInt(3));
+                Patient p = dalPatient.getPatientByPatientID(rs.getInt(4));
+                s.setPatient(p);
+                s.setService_id(rs.getInt(5));
+                list.add(s);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -532,37 +536,6 @@ public class ServicesDAO {
      * @param id
      * @return
      */
-    public List<ServiceFeedbacks> getAllComment(String id) throws SQLException {
-        List<ServiceFeedbacks> list = new ArrayList<>();
-        String sql = "SELECT feedback_id\n"
-                + "      ,content\n"
-                + "      ,rate\n"
-                + "      ,Patients.name\n"
-                + "      ,service_id\n"
-                + "  FROM Service_Feedbacks join Patients ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ?";
-        try {
-            connection = dbc.getConnection();
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new ServiceFeedbacks(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getInt(5)));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-        }
-        return list;
-    }
-
     /**
      *
      * @param patient_id
@@ -584,12 +557,14 @@ public class ServicesDAO {
             ps.setString(2, service_id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new ServiceFeedbacks(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getInt(5)));
+                ServiceFeedbacks s = new ServiceFeedbacks();
+                s.setFeedback_id(rs.getInt(1));
+                s.setContent(rs.getString(2));
+                s.setRate(rs.getInt(3));
+                Patient p = dalPatient.getPatientByPatientID(rs.getInt(4));
+                s.setPatient(p);
+                s.setService_id(rs.getInt(5));
+                list.add(s);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -637,12 +612,9 @@ public class ServicesDAO {
      */
     public List<ServiceFeedbacks> getAllCommentSortedByStar(String id, String star) throws SQLException {
         List<ServiceFeedbacks> list = new ArrayList<>();
-        String sql = "SELECT feedback_id\n"
-                + "      ,content\n"
-                + "      ,rate\n"
-                + "      ,Patients.name\n"
-                + "      ,service_id\n"
-                + "  FROM Service_Feedbacks join Patients ON Service_Feedbacks.patient_id = Patients.patient_id where service_id = ? and rate = ?";
+        String sql = "SELECT feedback_id,content,rate, patient_id ,service_id\n"
+                + "FROM Service_Feedbacks\n"
+                + "where service_id = ? and rate = ?";
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
@@ -650,12 +622,14 @@ public class ServicesDAO {
             ps.setString(2, star);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new ServiceFeedbacks(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getInt(5)));
+                ServiceFeedbacks s = new ServiceFeedbacks();
+                s.setFeedback_id(rs.getInt(1));
+                s.setContent(rs.getString(2));
+                s.setRate(rs.getInt(3));
+                Patient p = dalPatient.getPatientByPatientID(rs.getInt(4));
+                s.setPatient(p);
+                s.setService_id(rs.getInt(5));
+                list.add(s);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -702,8 +676,8 @@ public class ServicesDAO {
             ServicesDAO dao = new ServicesDAO();
 //        List<Specialities> list = dao.getAllSpecialities();
             List<Services> listS = dao.getAllServicesSortedDownPrice();
-            List<Specialities> ls = dao.getAllSpecialities();
-            System.out.println(ls);
+            List<ServiceFeedbacks> list = dao.getAllCommentSortedByStar("1", "5");
+            System.out.println(list);
         } catch (SQLException ex) {
             Logger.getLogger(ServicesDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -8,11 +8,14 @@ package controller.admin;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ServiceFeedbacks;
+import model.Services;
 
 /**
  *
@@ -37,12 +40,29 @@ public class DeleteServiceFeedbackAdControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             String feedback_id = request.getParameter("fid");
-            String serID = request.getParameter("serID");
 
+            String serID = request.getParameter("serID");
+            String star = request.getParameter("star");
+
+            System.out.println("====================" + star + "======================");
             int id = Integer.parseInt(feedback_id);
-            ServicesDAO feed = new ServicesDAO();
-            feed.deleteComment(id);
-            request.getRequestDispatcher("/admin-role/serfeed?id=" + serID).forward(request, response);
+
+            ServicesDAO dal = new ServicesDAO();
+            Services s = dal.getServiceByID(serID);
+
+            dal.deleteComment(id);
+
+            if (star.equals("all")) {
+                List<ServiceFeedbacks> listS = dal.getAllComment(serID);
+                request.setAttribute("detail", s);
+                request.setAttribute("ListS", listS);
+            } else {
+                List<ServiceFeedbacks> listFs = dal.getAllCommentSortedByStar(serID, star);
+                request.setAttribute("detail", s);
+                request.setAttribute("ListS", listFs);
+            }
+
+            request.getRequestDispatcher("/admin-role/serfeed?star=" + star + "&&id=" + serID).forward(request, response);
         } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
