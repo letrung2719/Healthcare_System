@@ -3,11 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FU/Git%20Repo/Project%20fix%20mysql/Healthcare_System/test/dal/AccountDAOTest.java</file>
-            <file>file:/D:/FU/Git%20Repo/Project%20fix%20mysql/Healthcare_System/src/java/dal/ServicesDAO.java</file>
-            <file>file:/D:/FU/Git%20Repo/Project%20fix%20mysql/Healthcare_System/test/dal/PatientDAOTest.java</file>
-            <file>file:/D:/FU/Git%20Repo/Project%20fix%20mysql/Healthcare_System/src/java/dal/DoctorFeedbacksDAO.java</file>
-            <file>file:/D:/FU/Git%20Repo/Project%20fix%20mysql/Healthcare_System/test/dal/AppointmentDAOTest.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/SearchBlogsControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/web/admin-role/blog-managerment.jsp</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/BlogListAdControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/ReservationAdControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/dal/BlogsDAO.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/dal/ServicesDAO.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/AddBlogControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/model/Blogs.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/model/Reservation.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/DoctorFilterControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/services/SortStarCommentControl.java</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/DoctorListControl.java</file>
         </group>
     </open-files>
 </project-private>

@@ -5,23 +5,28 @@
  */
 package controller.admin;
 
-import dal.ReservationDAO;
+import dal.BlogsDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Reservation;
+import model.Blogs;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "ReservationAdControl", urlPatterns = {"/admin-role/reservation"})
-public class ReservationAdControl extends HttpServlet {
+@WebServlet(name = "BlogListAdControl", urlPatterns = {"/admin-role/blog"})
+public class BlogListAdControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -36,14 +41,15 @@ public class ReservationAdControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         try {
-            ReservationDAO dao = new ReservationDAO();
-            List<Reservation> listR = dao.getAllReservation();
+            response.setContentType("text/html;charset=UTF-8");
+            BlogsDAO bl = new BlogsDAO();
+            List<Blogs> listBlog = bl.getAllBlogs();
 
-            request.setAttribute("ListR", listR);
-            request.getRequestDispatcher("/admin-role/reservation.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+            request.setAttribute("listBlog", listBlog);
+            request.getRequestDispatcher("/admin-role/blog-managerment.jsp").forward(request, response);
+        } catch (IOException | ServletException | SQLException e) {
             System.out.println(e);
         }
     }
@@ -60,7 +66,8 @@ public class ReservationAdControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                processRequest(request, response);
+
     }
 
     /**

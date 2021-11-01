@@ -5,25 +5,28 @@
  */
 package controller.admin;
 
-import dal.ReservationDAO;
+import dal.BlogsDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Reservation;
+import model.Blogs;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "ReservationAdControl", urlPatterns = {"/admin-role/reservation"})
-public class ReservationAdControl extends HttpServlet {
-
-    private static final long serialVersionUID = 9999L;
+@WebServlet(name = "UpdateBlogControl", urlPatterns = {"/admin-role/edit-blog"})
+public class UpdateBlogControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,15 +40,7 @@ public class ReservationAdControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            ReservationDAO dao = new ReservationDAO();
-            List<Reservation> listR = dao.getAllReservation();
-
-            request.setAttribute("ListR", listR);
-            request.getRequestDispatcher("/admin-role/reservation.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
-            System.out.println(e);
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,7 +69,28 @@ public class ReservationAdControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            
+            response.setContentType("text/html;charset=UTF-8");
+            request.setCharacterEncoding("UTF-8");
+            int blogID = Integer.parseInt(request.getParameter("blogId"));
+            String date = request.getParameter("date");
+            String title = request.getParameter("title");
+            String image = request.getParameter("image");
+            String des = request.getParameter("description");
+
+            
+            
+            Blogs bl1 = new Blogs(blogID, title, date, image, des);
+            
+            BlogsDAO bl = new BlogsDAO();
+            
+            bl.editBlog(bl1);
+            request.getRequestDispatcher("/admin-role/blog").forward(request, response);
+            
+        } catch (IOException | SQLException e) {
+            System.out.println(e);
+        }
     }
 
     /**

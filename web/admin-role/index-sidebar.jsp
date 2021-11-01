@@ -25,7 +25,7 @@
                     <a href="appoint"><i class="fe fe-layout"></i> <span>Appointments</span></a>
                 </li>
                 <li class="${path == "/admin-role/reservation.jsp" ? "active" : ""}">
-                    <a href="reser"><i class="fe fe-layout"></i> <span>Reservation</span></a>
+                    <a href="reservation"><i class="fe fe-layout"></i> <span>Reservation</span></a>
                 </li>
                 <li class="${path == "/admin-role/doctor-list.jsp" ? "active" : ""}">
                     <a href="doctor_list"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
@@ -35,6 +35,9 @@
                 </li>
                 <li class="${path == "/admin-role/review.jsp" ? "active" : ""} ${path == "/admin-role/service-feedback.jsp" ? "active" : ""}">
                     <a href="review"><i class="fe fe-star-o"></i> <span>Service Reviews</span></a>
+                </li>
+                <li class="${path == "/admin-role/blog-managerment.jsp" ? "active" : ""}">
+                    <a href="blog"><i class="fe fe-document"></i> <span>Blog</span></a>
                 </li>
                 <li class="submenu ${path == "/admin-role/invoice-report.jsp" ? "active" : ""}" >
                     <a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span class="menu-arrow"></span></a>

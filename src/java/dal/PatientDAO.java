@@ -220,7 +220,7 @@ public class PatientDAO {
 //        Patient p = new Patient("Nguyen Van Minh", 0, "2001-12-12", "0123456789", "abc@gmail.com", 31, "");
             List<Patient> p = patientDb.getAllPatient();
             System.out.println(p);
-//        patientDb.insertNewPatient(new Patient("abc", 0, "", "0123456789", "abc@gmail.com", 34, ""));
+        patientDb.insertNewPatient(new Patient("abc", 0, "", "0123456789", "abc@gmail.com", 34, ""));
         } catch (SQLException ex) {
             Logger.getLogger(PatientDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

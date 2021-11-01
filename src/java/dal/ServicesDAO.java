@@ -604,6 +604,28 @@ public class ServicesDAO {
         return average;
     }
 
+    public int getServiceFeedbackDetail(String serFeed_id) throws SQLException {
+        int average = 0;
+        String sql = "select * from service_feedbacks\n"
+                + "where feedback_id = ?";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, serFeed_id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                average = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return average;
+    }
+
     /**
      *
      * @param id
@@ -677,7 +699,11 @@ public class ServicesDAO {
 //        List<Specialities> list = dao.getAllSpecialities();
             List<Services> listS = dao.getAllServicesSortedDownPrice();
             List<ServiceFeedbacks> list = dao.getAllCommentSortedByStar("1", "5");
-            System.out.println(list);
+            int detail = dao.getServiceFeedbackDetail("3");
+            
+            System.out.println(detail);
+            
+//            System.out.println(list);
         } catch (SQLException ex) {
             Logger.getLogger(ServicesDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

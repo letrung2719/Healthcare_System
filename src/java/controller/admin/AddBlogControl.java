@@ -5,24 +5,28 @@
  */
 package controller.admin;
 
-import dal.ReservationDAO;
+import dal.BlogsDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Reservation;
+import model.Blogs;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "ReservationAdControl", urlPatterns = {"/admin-role/reservation"})
-public class ReservationAdControl extends HttpServlet {
-
+@WebServlet(name = "AddBlogControl", urlPatterns = {"/admin-role/addblog"})
+public class AddBlogControl extends HttpServlet {
     private static final long serialVersionUID = 9999L;
 
     /**
@@ -37,15 +41,7 @@ public class ReservationAdControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            ReservationDAO dao = new ReservationDAO();
-            List<Reservation> listR = dao.getAllReservation();
-
-            request.setAttribute("ListR", listR);
-            request.getRequestDispatcher("/admin-role/reservation.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
-            System.out.println(e);
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,7 +70,37 @@ public class ReservationAdControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            
+            response.setContentType("text/html;charset=UTF-8");
+            request.setCharacterEncoding("UTF-8");
+            String title = request.getParameter("title");
+            String image = request.getParameter("image");
+            String des = request.getParameter("description");
+
+            String pattern = "yyyy/MM/dd HH:mm:ss";
+
+        // Create an instance of SimpleDateFormat used for formatting 
+        // the string representation of date according to the chosen pattern
+            DateFormat df = new SimpleDateFormat(pattern);
+
+        // Get the today date using Calendar object.
+            Date today = Calendar.getInstance().getTime();
+        // Using DateFormat format method we can create a string 
+        // representation of a date with the defined format.
+            String todayAsString = df.format(today);
+            
+            
+            BlogsDAO bl = new BlogsDAO();
+            bl.addBlog(title, todayAsString, image, des);
+            List<Blogs> listBlog = bl.getAllBlogs();
+
+            request.setAttribute("listBlog", listBlog);
+            request.getRequestDispatcher("/admin-role/blog").forward(request, response);
+            
+        } catch (IOException | ServletException | SQLException e) {
+            System.out.println(e);
+        }
     }
 
     /**
