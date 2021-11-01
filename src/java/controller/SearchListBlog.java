@@ -1,8 +1,12 @@
-package controller.services;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
 
-import dal.ServicesDAO;
+import dal.BlogsDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -10,15 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Services;
-import model.Specialities;
+import model.Blogs;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "SortListServices", urlPatterns = {"/sortlistservices"})
-public class SortListServices extends HttpServlet {
+@WebServlet(name = "SearchListBlog", urlPatterns = {"/SearchListBlog"})
+public class SearchListBlog extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -35,29 +38,12 @@ public class SortListServices extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String choice = request.getParameter("id");
-            ServicesDAO dal = new ServicesDAO();
-            if (choice.equals("0")) {
-                String search = request.getParameter("txt");
-                List<Services> listServices = dal.getAllServicesSearched(search);
-                request.setAttribute("listServices", listServices);
-                request.setAttribute("tim", search);
-            }
-            if (choice.equals("1")) {
-                List<Services> listServices = dal.getAllServicesSortedUpPrice();
-                request.setAttribute("listServices", listServices);
-            }
-            if (choice.equals("2")) {
-                List<Services> listServices = dal.getAllServicesSortedDownPrice();
-                request.setAttribute("listServices", listServices);
-            }
-            if (choice.equals("3")) {
-                List<Services> listServices = dal.getAllServicesSortedSpecialities();
-                request.setAttribute("listServices", listServices);
-            }
-            List<Specialities> listSpecialities = dal.getAllSpecialities();
-            request.setAttribute("listSpecialities", listSpecialities);
-            request.getRequestDispatcher("services-list.jsp").forward(request, response);
+            BlogsDAO dao = new BlogsDAO();
+            String search = request.getParameter("text");
+            List<Blogs> listBlog = dao.getAllBlogsSearched(search);
+            request.setAttribute("listBlog", listBlog);
+            request.setAttribute("tim", search);
+            request.getRequestDispatcher("blog-list.jsp").forward(request, response);
         } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }

@@ -9,7 +9,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <title>Doccure - Doctor List Page</title>
-        
+
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
@@ -57,7 +57,7 @@
                             <div class="col-sm-7 col-auto">
                                 <h3 class="page-title">List of Doctors</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
                                     <li class="breadcrumb-item active">Doctors</li>
                                 </ul>
@@ -72,7 +72,7 @@
                                         <h5 class="modal-title">Search Filter</h5>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="doctor_filter" method="post">
+                                        <form action="admin-doctor_filter" method="post">
                                             <div class="row form-row">
                                                 <div class="row form-row">
                                                     <div class="col-6 col-sm-6">
@@ -225,7 +225,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form action="update_doctor" method="post">
+                                                                    <form action="admin-update_doctor" method="post">
                                                                         <div class="row form-row">
                                                                             <input name="id" type="hidden" value="${doctor.doctorID}">
                                                                             <input name="accountID" type="hidden" value="${doctor.accountID}">
@@ -290,7 +290,7 @@
                                                                     <div class="form-content p-2">
                                                                         <h4 class="modal-title">Delete</h4>
                                                                         <p class="mb-4">Are you sure want to delete?</p>
-                                                                        <a href="delete_doctor?id=${doctor.accountID}"><button type="button" class="btn btn-primary">Save</button></a>
+                                                                        <a href="admin-delete_doctor?id=${doctor.accountID}"><button type="button" class="btn btn-primary">Save</button></a>
                                                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                                     </div>
                                                                 </div>

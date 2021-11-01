@@ -7,6 +7,7 @@ package controller.admin;
 
 import dal.ServicesDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -37,9 +38,9 @@ public class SeviceFeedbackAdControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try {
 
+        try {
+            response.setContentType("text/html;charset=UTF-8");
             String serID = request.getParameter("id");
             String star = request.getParameter("star");
 
@@ -63,11 +64,23 @@ public class SeviceFeedbackAdControl extends HttpServlet {
             }
 
             request.getRequestDispatcher("/admin-role/service-feedback.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+        } catch (IOException | ServletException | SQLException e) {
             System.out.println(e);
         }
+
     }
 
+//        String serID = request.getParameter("id");
+//        ServicesDAO dal = new ServicesDAO();
+//        List<ServiceFeedbacksAd> listS = dal.getAllCommentAd(serID);
+//        for (ServiceFeedbacksAd i : listS) {
+//            System.out.println(i);
+//        }
+//
+//        request.setAttribute("listS", listS);
+//
+//        request.getRequestDispatcher("/admin/service-feedback.jsp").forward(request, response);
+//    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

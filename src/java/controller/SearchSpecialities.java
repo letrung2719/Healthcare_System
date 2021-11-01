@@ -5,24 +5,27 @@
  */
 package controller;
 
-import dal.DoctorFeedbacksDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.DoctorFeedbacks;
+import model.Services;
+import model.Specialities;
 
 /**
  *
- * @author Admin
+ * @author hp
  */
-@WebServlet(name = "DoctorFeedbackListControl", urlPatterns = {"/doctorFeedbackList"})
-public class DoctorFeedbackListControl extends HttpServlet {
+@WebServlet(name = "SearchSpecialities", urlPatterns = {"/searchspecialities"})
+public class SearchSpecialities extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -39,29 +42,15 @@ public class DoctorFeedbackListControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-            int indexPage;
-
-            String getInputPage = request.getParameter("page");
-            if (getInputPage == null) {
-                indexPage = 1;
-            } else {
-                indexPage = Integer.parseInt(getInputPage);
-            }
-            DoctorFeedbacksDAO db1 = new DoctorFeedbacksDAO();
-            int totalFeedback = db1.countAllDoctorFeedback(doctorID);
-            int numberOfItem = 4;
-            int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);
-            int start = (indexPage - 1) * numberOfItem;
-
-            List<DoctorFeedbacks> listdFb = new ArrayList<>();
-            listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, start, numberOfItem);
-
-            request.setAttribute("listdFb", listdFb);
-            request.setAttribute("indexPage", indexPage);
-            request.setAttribute("numberOfPage", numberOfPage);
-            request.getRequestDispatcher("/doctor-role/doctor-feedback-list.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            String[] arraySpec = request.getParameterValues("select_specialist");
+            List<String> listSpec = arraySpec == null ? new ArrayList<>() : Arrays.asList(arraySpec);
+            ServicesDAO dal = new ServicesDAO();
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            List<Services> listServices = dal.searchSpecialities(listSpec);
+            request.setAttribute("listSpecialities", listSpecialities);
+            request.setAttribute("listServices", listServices);
+            request.getRequestDispatcher("services-list.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

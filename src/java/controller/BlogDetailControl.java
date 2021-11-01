@@ -1,31 +1,37 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.services;
+package controller;
 
-import dal.ServicesDAO;
+import dal.BlogsDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Services;
-import model.Specialities;
+import model.Blogs;
 
 /**
  *
- * @author hp
+ * @author Admin
  */
-@WebServlet(name = "SearchSpecialities", urlPatterns = {"/searchspecialities"})
-public class SearchSpecialities extends HttpServlet {
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author admin
+ */
+@WebServlet(name = "BlogDetailControl", urlPatterns = {"/blog-detail"})
+public class BlogDetailControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -42,15 +48,12 @@ public class SearchSpecialities extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String[] arraySpec = request.getParameterValues("select_specialist");
-            List<String> listSpec = arraySpec == null ? new ArrayList<>() : Arrays.asList(arraySpec);
-            ServicesDAO dal = new ServicesDAO();
-            List<Specialities> listSpecialities = dal.getAllSpecialities();
-            List<Services> listServices = dal.searchSpecialities(listSpec);
-            request.setAttribute("listSpecialities", listSpecialities);
-            request.setAttribute("listServices", listServices);
-            request.getRequestDispatcher("services-list.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            BlogsDAO bl = new BlogsDAO();
+            Blogs blog = bl.getBlogByBlogID(id);
+            request.setAttribute("blog", blog);
+            request.getRequestDispatcher("blog-detail.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

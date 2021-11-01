@@ -14,6 +14,7 @@
                 <li class="menu-title">
                     <span>Main</span>
                 </li>
+                <c:set var="context" value="<%=request.getContextPath()%>"></c:set>
                 <c:set var="path" value="<%=request.getServletPath()%>"></c:set>
                 <li class="${path == "/admin-role/index.jsp" ? "active" : ""}">
                     <a href="index.jsp"><i class="fe fe-home"></i> <span>Dashboard</span></a>

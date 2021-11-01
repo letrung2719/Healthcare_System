@@ -1,8 +1,12 @@
-package controller.services;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
 
-import dal.ServicesDAO;
+import dal.BlogsDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -10,15 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Services;
-import model.Specialities;
+import model.Blogs;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "ServicesControl", urlPatterns = {"/services"})
-public class ServicesControl extends HttpServlet {
+@WebServlet(name = "BlogListControl", urlPatterns = {"/blog-list"})
+public class BlogListControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -26,7 +29,7 @@ public class ServicesControl extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -35,12 +38,10 @@ public class ServicesControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            ServicesDAO dal = new ServicesDAO();
-            List<Specialities> listSpecialities = dal.getAllSpecialities();
-            List<Services> listServices = dal.getAllServices();
-            request.setAttribute("listSpecialities", listSpecialities);
-            request.setAttribute("listServices", listServices);
-            request.getRequestDispatcher("services-list.jsp").forward(request, response);
+            BlogsDAO bl = new BlogsDAO();
+            List<Blogs> listBlog = bl.getAllBlogs();
+            request.setAttribute("listBlog", listBlog);
+            request.getRequestDispatcher("blog-list.jsp").forward(request, response);
         } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }

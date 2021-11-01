@@ -72,14 +72,14 @@
             <section class="section section-specialities">
                 <div class="container-fluid">
                     <div class="section-header text-center">
-                        <h2>Clinic and Specialities</h2>
-                        <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua.</p>
+                        <h2>Our best Services</h2>
+                        <p class="sub-title">Here are our 10 best services that have been greatly appreciated by our patients. For more information please select the service you want.</p>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <!-- Slider -->
                             <div class="specialities-slider slider">
+<<<<<<< HEAD
                                 <c:forEach items="${listDoctors}" var="doctor">
                                     <!-- Slider Item -->
                                     <div class="speicality-item text-center">
@@ -136,6 +136,20 @@
                                 </div>
                                 <!-- /Slider Item -->
 
+=======
+                                <c:forEach items="${listSer}" var="o">
+                                    <!-- Slider Item -->
+                                    <div class="speicality-item text-center">
+                                        <div class="speicality-img">
+                                            <img style="margin: 0 auto;border-radius: 50%;" src="${o.image}" class="img-fluid"
+                                                 alt="Speciality">
+                                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                        </div>
+                                            <a href="serdetail?sid=${o.service_id}"><p style="width: 150px;font-size: 14px">${o.title}</p></a>
+                                    </div>
+                                    <!-- /Slider Item -->
+                                </c:forEach>
+>>>>>>> 90834e8ac511d9a9984855dd396bdb12184c8570
                             </div>
                             <!-- /Slider -->
 
@@ -182,14 +196,22 @@
                                                 <i class="fas fa-check-circle verified"></i>
                                             </h3>
                                             <p class="speciality">${doctor.role}</p>
+<<<<<<< HEAD
                                             <div class="rating">
+=======
+<!--                                            <div class="rating">
+>>>>>>> 90834e8ac511d9a9984855dd396bdb12184c8570
                                                 <i class="fas fa-star filled"></i>
                                                 <i class="fas fa-star filled"></i>
                                                 <i class="fas fa-star filled"></i>
                                                 <i class="fas fa-star filled"></i>
                                                 <i class="fas fa-star filled"></i>
                                                 <span class="d-inline-block average-rating">(17)</span>
+<<<<<<< HEAD
                                             </div>
+=======
+                                            </div>-->
+>>>>>>> 90834e8ac511d9a9984855dd396bdb12184c8570
                                             <ul class="available-info">
                                                 <li>
                                                     <i class="fas fa-map-marker-alt"></i> Florida, USA
@@ -230,7 +252,7 @@
                         </div>
                         <div class="col-md-7">
                             <div class="section-header">
-                                <h2 class="mt-2">Availabe Features in Our Clinic</h2>
+                                <h2 class="mt-2">Availabe Specialities in Our Clinic</h2>
                                 <p>It is a long established fact that a reader will be distracted by the readable content of
                                     a page when looking at its layout. </p>
                             </div>

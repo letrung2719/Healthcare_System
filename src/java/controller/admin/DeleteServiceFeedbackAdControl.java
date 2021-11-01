@@ -63,6 +63,7 @@ public class DeleteServiceFeedbackAdControl extends HttpServlet {
             }
 
             request.getRequestDispatcher("/admin-role/serfeed?star=" + star + "&&id=" + serID).forward(request, response);
+
         } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }

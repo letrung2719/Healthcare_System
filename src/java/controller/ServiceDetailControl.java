@@ -5,8 +5,7 @@
  */
 package controller;
 
-import dal.DoctorDAO;
-import dal.DoctorFeedbacksDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,16 +15,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Doctor;
-import model.DoctorFeedbacks;
+import model.Account;
 import model.Patient;
+import model.ServiceFeedbacks;
+import model.Services;
+import model.Specialities;
 
 /**
  *
- * @author Admin
+ * @author ASUS
  */
-@WebServlet(name = "ViewDoctorProfile", urlPatterns = {"/doctor_profile_view"})
-public class ViewDoctorProfile extends HttpServlet {
+@WebServlet(name = "ServiceDetailControl", urlPatterns = {"/serdetail"})
+public class ServiceDetailControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -42,28 +43,42 @@ public class ViewDoctorProfile extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            int accountID = Integer.parseInt(request.getParameter("id"));
-            DoctorDAO doctorDb = new DoctorDAO();
-            Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
-            request.setAttribute("doctor", doctor);
+            String id = request.getParameter("sid");
+            ServicesDAO dao = new ServicesDAO();
 
-            DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();
-            List<DoctorFeedbacks> feedbacksList = feedbackDB.getAllDoctorFeedbacks(doctor.getDoctorID());
-            request.setAttribute("feedbacksList", feedbacksList);
-            int avgrate = feedbackDB.getAverageRating(doctor.getDoctorID());
-            request.setAttribute("avgrate", avgrate);
+            Services s = dao.getServiceByID(id);
+            String specID = s.getType_id();
+
+            int avrate = dao.averageRateServices(id);
+            Specialities spec = dao.getSpecByID(specID);
+            String type_id = dao.getServiceByID(id).getType_id();
+            List<Services> listS = dao.getTop4Last(type_id);
+            List<ServiceFeedbacks> listF = dao.getAllComment(id);
+            int totalfeedback = listF.size();
 
             HttpSession session = request.getSession();
-            Patient curUser = (Patient) session.getAttribute("user");
-            if (curUser != null) {
-                for (DoctorFeedbacks fb : feedbacksList) {
-                    if (fb.getPatient().getPatientID() == curUser.getPatientID() && fb.getDoctor().getDoctorID() == doctor.getDoctorID()) {
-                        request.setAttribute("check", true);
+            Account a = (Account) session.getAttribute("acc");
+
+            if (a != null) {
+                if (a.getAuthor_id() == 2) {
+                    Patient p = (Patient) session.getAttribute("user");
+                    List<ServiceFeedbacks> check = dao.checkPatientComment((int) p.getPatientID(), id);
+                    if (check.isEmpty()) {
+                        request.setAttribute("check", 1);
+                    } else {
+                        request.setAttribute("check", 5);
                     }
                 }
             }
-            request.getRequestDispatcher("view-doctor-profile.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+
+            request.setAttribute("avrate", avrate);
+            request.setAttribute("totalfeedback", totalfeedback);
+            request.setAttribute("detail", s);
+            request.setAttribute("spec", spec);
+            request.setAttribute("listS", listS);
+            request.setAttribute("listF", listF);
+            request.getRequestDispatcher("service-detail.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

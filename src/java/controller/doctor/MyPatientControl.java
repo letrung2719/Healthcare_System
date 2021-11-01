@@ -1,25 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package controller;
+package controller.doctor;
 
-import dal.AppointmentDAO;
+import dal.DoctorDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Appointment;
 
-/**
- *
- * @author Admin
- */
-public class AppointmentDetailControl extends HttpServlet {
+import model.Patient;
+
+@WebServlet(name = "MyPatientControl", urlPatterns = {"/my-patient"})
+public class MyPatientControl extends HttpServlet {
+
+    private static final long serialVersionUID = 9999L;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,29 +30,13 @@ public class AppointmentDetailControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-           
-            int appID = Integer.parseInt(request.getParameter("id"));
-            String inputStatus = request.getParameter("status");
-            AppointmentDAO appDb = new AppointmentDAO();
-            Appointment a = appDb.getAppointmentByID(appID);
 
-            if (inputStatus != null) {
-                if (inputStatus.equals("cancel")) {
-                    appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
-                }
-                if (inputStatus.equals("pending")) {
-                    appDb.changeAppointmentStatus(a.getAppointmentID(), 1);
-                }
-                if (inputStatus.equals("complete")) {
-                    appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
-                }
-                a = appDb.getAppointmentByID(appID);
-                request.setAttribute("app", a);
-                request.getRequestDispatcher("/doctor-role/appointment-detail.jsp").forward(request, response);
-            }
-            request.setAttribute("app", a);
-            request.getRequestDispatcher("/doctor-role/appointment-detail.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            DoctorDAO dao = new DoctorDAO();
+            int doctor_id = Integer.parseInt(request.getParameter("doctorID"));
+            List<Patient> patientlist = dao.getAllMyPatient(doctor_id);
+            request.setAttribute("patientlist", patientlist);
+            request.getRequestDispatcher("/doctor-role/my-patient.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

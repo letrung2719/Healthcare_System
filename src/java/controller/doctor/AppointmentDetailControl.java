@@ -3,29 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.services;
+package controller.doctor;
 
-import dal.PatientDAO;
-import dal.ServicesDAO;
+import dal.AppointmentDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Patient;
+import model.Appointment;
 
 /**
  *
- * @author hp
+ * @author Admin
  */
-@WebServlet(name = "AddServiceFeedbackControl", urlPatterns = {"/sendfeedback"})
-public class AddServiceFeedbackControl extends HttpServlet {
-
-    private static final long serialVersionUID = 9999L;
+public class AppointmentDetailControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,32 +34,29 @@ public class AddServiceFeedbackControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String comment = request.getParameter("comment");
-            String rate = request.getParameter("rating");
-            if (rate == null) {
-                rate = "0";
+           
+            int appID = Integer.parseInt(request.getParameter("id"));
+            String inputStatus = request.getParameter("status");
+            AppointmentDAO appDb = new AppointmentDAO();
+            Appointment a = appDb.getAppointmentByID(appID);
+
+            if (inputStatus != null) {
+                if (inputStatus.equals("cancel")) {
+                    appDb.changeAppointmentStatus(a.getAppointmentID(), 0);
+                }
+                if (inputStatus.equals("pending")) {
+                    appDb.changeAppointmentStatus(a.getAppointmentID(), 1);
+                }
+                if (inputStatus.equals("complete")) {
+                    appDb.changeAppointmentStatus(a.getAppointmentID(), 2);
+                }
+                a = appDb.getAppointmentByID(appID);
+                request.setAttribute("app", a);
+                request.getRequestDispatcher("/doctor-role/appointment-detail.jsp").forward(request, response);
             }
-            String serviceID = request.getParameter("serviceid");
-
-            //
-            ArrayList<String> badWords = new ArrayList<String>();
-            badWords.add("shit");
-            badWords.add("stupid");
-            badWords.add("idiot");
-            for (int i = 0; i < badWords.size(); i++) {
-                comment = comment.replaceAll("(?i)" + badWords.get(i), "****");
-            }
-            comment = comment.replaceAll("\\w*\\*{4}", "****");
-            //        
-
-            int patientID = Integer.parseInt(request.getParameter("patientID"));
-            PatientDAO patientDb = new PatientDAO();
-            Patient p = patientDb.getPatientByAccountID(patientID);
-
-            ServicesDAO dao = new ServicesDAO();
-            dao.addComment(comment, rate, p.getPatientID(), serviceID);
-            response.sendRedirect("serdetail?sid=" + serviceID);
-        } catch (IOException | NumberFormatException | SQLException e) {
+            request.setAttribute("app", a);
+            request.getRequestDispatcher("/doctor-role/appointment-detail.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

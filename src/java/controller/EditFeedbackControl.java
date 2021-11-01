@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.services;
+package controller;
 
 import dal.PatientDAO;
 import dal.ServicesDAO;

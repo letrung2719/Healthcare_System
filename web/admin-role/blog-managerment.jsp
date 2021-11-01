@@ -72,9 +72,9 @@
                         </div>
                     </div>
                     <div class="col-sm-12" style="display: flex;padding: 0">
-                        <div class="col-sm-2" style=" margin: 10px; padding: 0;height: 325px">
-                            <div class="modal-dialog modal-dialog-centered" style="margin: 0 !important" role="document">
-                                <div class="modal-content">
+                        <div class="col-sm-2" style=" margin-right:10px; padding: 0;/*height: 325px*/">
+                            <div class="modal-dialog modal-dialog-centered"  role="document">
+                                <div class="modal-content" >
                                     <div class="modal-header">
                                         <h5 class="modal-title">Search Filter</h5>
                                     </div>

@@ -411,6 +411,7 @@ public class ServicesDAO {
     /**
      *
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Services> getAllServiceDashboard() throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -541,6 +542,7 @@ public class ServicesDAO {
      * @param patient_id
      * @param service_id
      * @return
+     * @throws java.sql.SQLException
      */
     public List<ServiceFeedbacks> checkPatientComment(int patient_id, String service_id) throws SQLException {
         List<ServiceFeedbacks> list = new ArrayList<>();
@@ -580,6 +582,7 @@ public class ServicesDAO {
      *
      * @param service_id
      * @return
+     * @throws java.sql.SQLException
      */
     public int averageRateServices(String service_id) throws SQLException {
         int average = 0;
@@ -631,6 +634,7 @@ public class ServicesDAO {
      * @param id
      * @param star
      * @return
+     * @throws java.sql.SQLException
      */
     public List<ServiceFeedbacks> getAllCommentSortedByStar(String id, String star) throws SQLException {
         List<ServiceFeedbacks> list = new ArrayList<>();
@@ -687,6 +691,42 @@ public class ServicesDAO {
                 connection.close();
             }
         }
+    }
+    
+    public List<Services> getTop10BestService() throws SQLException {
+        List<Services> list = new ArrayList<>();
+        String sql = "select services.service_id\n"
+                + "                      ,title\n"
+                + "                      ,type_id\n"
+                + "                      ,image\n"
+                + "                      ,(select AVG(rate)\n"
+                + "                        from service_feedbacks\n"
+                + "                        where service_id =services.service_id) as rate\n"
+                + "                      ,price\n"
+                + "                from services join service_feedbacks on services.service_id = service_feedbacks.service_id\n"
+                + "                group by services.service_id,title,type_id,image,price\n"
+                + "                order by rate desc limit 10";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Services(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return list;
     }
 
     /**

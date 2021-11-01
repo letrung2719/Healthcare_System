@@ -3,23 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.blog;
+package controller;
 
-import dal.BlogsDAO;
+import dal.PatientDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Blogs;
+import model.Patient;
 
 /**
  *
- * @author admin
+ * @author hp
  */
-public class BlogListControl extends HttpServlet {
+@WebServlet(name = "AddServiceFeedbackControl", urlPatterns = {"/sendfeedback"})
+public class AddServiceFeedbackControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -36,11 +39,32 @@ public class BlogListControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            BlogsDAO bl = new BlogsDAO();
-            List<Blogs> listBlog = bl.getAllBlogs();
-            request.setAttribute("listBlog", listBlog);
-            request.getRequestDispatcher("blog-list.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+            String comment = request.getParameter("comment");
+            String rate = request.getParameter("rating");
+            if (rate == null) {
+                rate = "0";
+            }
+            String serviceID = request.getParameter("serviceid");
+
+            //
+            ArrayList<String> badWords = new ArrayList<>();
+            badWords.add("shit");
+            badWords.add("stupid");
+            badWords.add("idiot");
+            for (int i = 0; i < badWords.size(); i++) {
+                comment = comment.replaceAll("(?i)" + badWords.get(i), "****");
+            }
+            comment = comment.replaceAll("\\w*\\*{4}", "****");
+            //        
+
+            int patientID = Integer.parseInt(request.getParameter("patientID"));
+            PatientDAO patientDb = new PatientDAO();
+            Patient p = patientDb.getPatientByAccountID(patientID);
+
+            ServicesDAO dao = new ServicesDAO();
+            dao.addComment(comment, rate, p.getPatientID(), serviceID);
+            response.sendRedirect("serdetail?sid=" + serviceID);
+        } catch (IOException | NumberFormatException | SQLException e) {
             System.out.println(e);
         }
     }

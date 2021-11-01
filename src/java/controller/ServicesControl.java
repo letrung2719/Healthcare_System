@@ -1,25 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
-import dal.AppointmentDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Appointment;
+import model.Services;
+import model.Specialities;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-public class DoctorAppointmentControl extends HttpServlet {
+@WebServlet(name = "ServicesControl", urlPatterns = {"/services"})
+public class ServicesControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -27,7 +25,7 @@ public class DoctorAppointmentControl extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -36,28 +34,13 @@ public class DoctorAppointmentControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-
-            AppointmentDAO appDb = new AppointmentDAO();
-            int indexPage;
-            String getInputPage = request.getParameter("page");
-            if (getInputPage == null) {
-                indexPage = 1;
-            } else {
-                indexPage = Integer.parseInt(getInputPage);
-            }
-            int totalAppointment = appDb.getAllDoctorAppointment(doctorID);
-            int numberOfItem = 5;
-            int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
-            int start = (indexPage - 1) * numberOfItem;
-            List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, start, numberOfItem);
-
-            request.setAttribute("listApp", listApp);
-            request.setAttribute("indexPage", indexPage);
-            request.setAttribute("numberOfPage", numberOfPage);
-            request.getRequestDispatcher("/doctor-role/doctor-appointment.jsp").forward(request, response);
-
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            ServicesDAO dal = new ServicesDAO();
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            List<Services> listServices = dal.getAllServices();
+            request.setAttribute("listSpecialities", listSpecialities);
+            request.setAttribute("listServices", listServices);
+            request.getRequestDispatcher("services-list.jsp").forward(request, response);
+        } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }
