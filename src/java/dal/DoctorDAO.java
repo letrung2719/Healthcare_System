@@ -172,7 +172,7 @@ public class DoctorDAO {
      */
     public List<Doctor> getAllDoctor() throws SQLException {
         ArrayList<Doctor> list = new ArrayList<>();
-        String sql = "select doctor_id,doctors.name,gender,dob, phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n"
+        String sql = "select doctor_id,doctors.name,gender,DATE_FORMAT(dob, \"%e %M %Y\"), phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n"
                 + "from doctors join specialities on doctors.type_id = specialities.type_id";
         try {
             connection = dbc.getConnection();
@@ -232,7 +232,7 @@ public class DoctorDAO {
      */
     public List<Doctor> search(String doctorName, String dob, String phone, String email, Integer gender, List<String> listSpec) throws SQLException {
         List<Doctor> list = new ArrayList<>();
-        String sql = "select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id\n"
+        String sql = "select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id,DATE_FORMAT(dob, \"%e %M %Y\")\n"
                 + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
                 + "where 1=1 ";
         if (doctorName != null && !doctorName.isEmpty()) {
@@ -264,7 +264,7 @@ public class DoctorDAO {
             }
 
         }
-      
+        System.out.println(sql);
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
@@ -282,6 +282,7 @@ public class DoctorDAO {
                 Specialities spec = new Specialities(rs.getInt(9), rs.getString(10));
                 d.setSpec(spec);
                 d.setAccountID(rs.getInt(11));
+                d.setDob(rs.getString(12));
                 list.add(d);
             }
         } catch (SQLException e) {
@@ -301,17 +302,17 @@ public class DoctorDAO {
     public static void main(String[] args) {
         try {
             DoctorDAO doctorDb = new DoctorDAO();
-            Specialities spec = new Specialities(1, "abc");
-//        Doctor d = new Doctor(20, "Le Van Nam", 1, "2000-01-01", "0123456789", "abc@gmail.com", "Head of Department", spec, "abc", "abc", 21);
-//        List<Doctor> list = doctorDb.getAllDoctor();
-//        List<Doctor> d = doctorDb.getDoctorByPage(list, 1, 5);
-            Doctor d = doctorDb.getDoctorByAccountID(7);
-            System.out.println(d);
+//            Specialities spec = new Specialities(1, "abc");
+////        Doctor d = new Doctor(20, "Le Van Nam", 1, "2000-01-01", "0123456789", "abc@gmail.com", "Head of Department", spec, "abc", "abc", 21);
+////        List<Doctor> list = doctorDb.getAllDoctor();
+////        List<Doctor> d = doctorDb.getDoctorByPage(list, 1, 5);
+//            Doctor d = doctorDb.getDoctorByAccountID(7);
+//            System.out.println(d);
 //        Doctor d = doctorDb.getDoctorByDoctorID(2);
 //        System.out.println(d);
-//        String[] listSpec 
-//        List<Doctor> list = doctorDb.search("", "", "", "", null, listSpec);
-//        System.out.println(list);
+        List<String> listSpec = new ArrayList<String>();
+        List<Doctor> list = doctorDb.search("", "", "", "", null, listSpec);
+        System.out.println(list);
         } catch (SQLException ex) {
             Logger.getLogger(DoctorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

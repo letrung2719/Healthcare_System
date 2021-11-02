@@ -102,7 +102,7 @@
                                                         <input
                                                             type="text"
                                                             class="form-control"
-                                                            value=""
+                                                            value="${doctorName}"
                                                             name="name"
                                                             />
                                                     </div>
@@ -129,7 +129,7 @@
                                                         <input
                                                             type="text "
                                                             class="form-control"
-                                                            value=""
+                                                            value="${doctorDob}"
                                                             name="dob"
                                                             />
                                                     </div>
@@ -140,7 +140,7 @@
                                                         <input
                                                             type="text "
                                                             class="form-control"
-                                                            value=""
+                                                            value="${doctorPhone}"
                                                             name="phone"
                                                             />
                                                     </div>
@@ -151,7 +151,7 @@
                                                         <input
                                                             type="text "
                                                             class="form-control"
-                                                            value=""
+                                                            value="${doctorEmail}"
                                                             name="email"
                                                             />
                                                     </div>
@@ -169,13 +169,13 @@
                                                             <c:forEach items="${listSpec}" var="spec">
                                                                 <option value="${spec.name}">${spec.name}</option>
                                                             </c:forEach>
-
                                                         </select>
                                                         
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <br>
                                         <button type="submit" class="btn btn-primary btn-block">
                                             Search
                                         </button>
@@ -228,13 +228,11 @@
                                                             <!-- >Phone -->
                                                             <td> ${doctor.phone}</td>
                                                             <td class="text-right">
-                                                                <div class="actions">
+                                                                <div class="actions ">
                                                                     <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#edit_specialities_details${doctor.doctorID}">
                                                                         <i class="fe fe-pencil"></i> Edit
                                                                     </a>
-                                                                    <a data-toggle="modal" href="#delete_modal${doctor.doctorID}" class="btn btn-sm bg-danger-light">
-                                                                        <i class="fe fe-trash"></i> Delete
-                                                                    </a>
+                                                                    
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -272,28 +270,24 @@
                                                                                     </c:if>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-12 col-sm-12 ">
-                                                                                <div class="form-group ">
-                                                                                    <label>Specialities</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.spec.name} " name="specName   " required="">
-                                                                                </div>
-                                                                            </div>
+                                                                            
+                                                                             <input type="hidden"  value="${doctor.spec.name}" name="specName">   
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>DOB</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.dob} " name="dob" required="">
+                                                                                    <input type="text " class="form-control " value="${doctor.dob} " name="dob" required="" placeholder="yyyy-MM-dd">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>Phone</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.phone} " name="phone" required="">
+                                                                                    <input type="text " class="form-control " value="${doctor.phone} " name="phone" required="" >
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>Email</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.email}" name="email" required="">
+                                                                                    <input type="text " class="form-control " value="${doctor.email}" name="email" readonly="">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -305,23 +299,7 @@
                                                     </div>
                                                     <!-- /Edit Details Modal -->
 
-                                                    <!-- Delete Modal -->
-                                                    <div class="modal fade" id="delete_modal${doctor.doctorID}" aria-hidden="true" role="dialog">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-
-                                                                <div class="modal-body" style="text-align: center">
-                                                                    <div class="form-content p-2">
-                                                                        <h4 class="modal-title">Delete</h4>
-                                                                        <p class="mb-4">Are you sure want to delete?</p>
-                                                                        <a href="delete_doctor?id=${doctor.accountID}"><button type="button" class="btn btn-primary">Save</button></a>
-                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /Delete Modal -->
+                                                    
                                                 </c:forEach>
                                                 </tbody>
                                             </table>
