@@ -182,7 +182,7 @@
                                                 <!-- Comment List -->
                                                 <li>
                                                     <div class="comment" style="width: 100%">
-                                                        <img class="avatar avatar-sm rounded-circle" alt="user-image" src="assets/img/patients/patient.jpg">
+                                                        <img class="avatar avatar-sm rounded-circle" alt="user-image" src="${feedback.patient.image}">
                                                         <div class="comment-body" style="width: 100%">
                                                             <div id="show${feedback.patient}">
                                                                 <div class="meta-data">

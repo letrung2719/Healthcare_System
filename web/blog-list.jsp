@@ -39,6 +39,7 @@
             <!-- Header -->
             <jsp:include page="index-header.jsp"/>
             <!-- /Header -->
+            
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
                     <div class="row align-items-center">
@@ -46,7 +47,7 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
+                                        <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item " >
                                         <a href="services">Blogs</a>
@@ -58,6 +59,7 @@
                     </div>
                 </div>
             </div>
+            
             <!-- Home Banner -->
             <section class="section section-search">
                 <div class="container-fluid">

@@ -158,7 +158,6 @@
                                                         <span class="d-inline-block average-rating">(${feedbackList.size()})</span>
                                                     </div>
                                                     <div class="clinic-details">
-                                                        <p style="margin: 0"><i class="far fa-money-bill-alt"></i>  ${o.price} VND</p>
                                                         <b>Description:</b><p style="margin: 0;width: 90%;height: 60px;overflow: hidden;-webkit-mask-image: linear-gradient(180deg, #000 75%, transparent);">${o.description}</p>
                                                         <b><a style="color: aqua" href="serdetail?sid=${o.service_id}">See more...</a></b>
                                                     </div>
@@ -170,6 +169,7 @@
                                                     <ul>
                                                         <li><i class="far fa-thumbs-up"></i> ${avgrate/5*100}%</li>
                                                         <li><i class="far fa-comment"></i> ${feedbackList.size()} Feedbacks</li>
+                                                        <li><i class="far fa-money-bill-alt"></i> ${o.price} VND</li>
                                                     </ul>
                                                 </div>
                                                 <div class="clinic-booking">
