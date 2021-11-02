@@ -56,20 +56,19 @@
                                     </div>
                                     <div class="col-md-12 col-lg-6 login-right">
                                         <div class="login-header">
-                                            <h3>
-                                                Register a new account
-                                            </h3>
+                                            <h3>Register <span>Doccure</span></h3>
                                         </div>
 
                                         <!-- Register Form -->
                                         <form action="signup" method="post">
                                             <p class="text-danger">${mess}</p>
+                                            <p class="text-success">${success}</p>
                                             <div class="form-group form-focus">
                                                 <input name="name" type="text" class="form-control floating" value="${name}" required=""/>
                                                 <label class="focus-label">Your Name</label>
                                             </div>
                                             <div class="form-group ">
-                                                <input type="radio" name="gender" value="1" ${gender == 1 ? "checked" : ""}> Male
+                                                <input type="radio" name="gender" value="1" ${gender == 1 ? "checked" : ""} checked=""> Male
                                                 <input type="radio" name="gender" value="0" ${gender == 0 ? "checked" : ""} style="margin-left: 50px"> Female
                                             </div>
                                             <div class="form-group form-focus">
@@ -85,15 +84,15 @@
                                                 <label class="focus-label">Username</label>
                                             </div>
                                             <div class="form-group form-focus">
-                                                <input name="pass" type="password" class="form-control floating" required=""/>
+                                                <input name="pass" type="password" class="form-control floating" value="${pass}" required=""/>
                                                 <label class="focus-label">Create Password</label>
                                             </div>
                                             <div class="form-group form-focus">
-                                                <input name="repass" type="password" class="form-control floating" required=""/>
+                                                <input name="repass" type="password" class="form-control floating" value="${repass}" required=""/>
                                                 <label class="focus-label">Confirm Password</label>
                                             </div>
                                             <div class="text-right">
-                                                <a class="forgot-link" href="login" >Already have an account?</a>
+                                                <a class="forgot-link" href="login.jsp" >Already have an account?</a>
                                             </div>
                                             <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">
                                                 Signup

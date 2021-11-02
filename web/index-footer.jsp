@@ -13,8 +13,7 @@
                             <img src="assets/img/footer-logo.png" alt="logo">
                         </div>
                         <div class="footer-about-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. </p>
+                            <p>With our not-for-profit organization, Doccure is always a pioneer in the application of the world’s latest treatments and perfect service quality to become an international standard healthcare address in Vietnam.</p>
                             <div class="social-icon">
                                 <ul>
                                     <li>
@@ -30,7 +29,7 @@
                                         <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
                                     </li>
                                     <li>
-                                        <a href="#" target="_blank"><i class="fab fa-dribbble"></i> </a>
+                                        <a href="https://www.youtube.com/c/TheBattleCatsVietNam" target="_blank"><i class="fab fa-youtube"></i> </a>
                                     </li>
                                 </ul>
                             </div>
@@ -44,12 +43,14 @@
 
                     <!-- Footer Widget -->
                     <div class="footer-widget footer-menu">
-                        <h2 class="footer-title">For Patients</h2>
+                        <h2 class="footer-title">Discovery</h2>
                         <ul>									
-                            <li><a href="booking.html"><i class="fas fa-angle-double-right"></i> Booking</a>
+                            <li>
+                                <a href="doctor-list"><i class="fas fa-angle-double-right"></i>Our Doctors</a>
                             </li>
-                            <li><a href="patient-dashboard.html"><i class="fas fa-angle-double-right"></i>
-                                    Patient Dashboard</a></li>
+                            <li>
+                                <a href="services"><i class="fas fa-angle-double-right"></i>Our Services</a>
+                            </li>
                         </ul>
                     </div>
                     <!-- /Footer Widget -->
@@ -60,12 +61,11 @@
 
                     <!-- Footer Widget -->
                     <div class="footer-widget footer-menu">
-                        <h2 class="footer-title">For Doctors</h2>
+                        <h2 class="footer-title">About us</h2>
                         <ul>
-                            <li><a href="appointments.html"><i class="fas fa-angle-double-right"></i>
-                                    Appointments</a></li>
-                            <li><a href="doctor-dashboard.html"><i class="fas fa-angle-double-right"></i> Doctor
-                                    Dashboard</a></li>
+                            <li><a href="blog-list"><i class="fas fa-angle-double-right"></i>Our Blogs</a>
+                            </li>
+
                         </ul>
                     </div>
                     <!-- /Footer Widget -->
@@ -80,15 +80,15 @@
                         <div class="footer-contact-info">
                             <div class="footer-address">
                                 <span><i class="fas fa-map-marker-alt"></i></span>
-                                <p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
+                                <p> Hoa Lac Hi-tech Park – Km29, DCT08, Thach Hoa, Thach That, Ha Noi 10000 </p>
                             </div>
                             <p>
                                 <i class="fas fa-phone-alt"></i>
-                                +1 315 369 5943
+                                (+84) 123 456 789
                             </p>
                             <p class="mb-0">
                                 <i class="fas fa-envelope"></i>
-                                doccure@example.com
+                                doccure1206@gmail.com
                             </p>
                         </div>
                     </div>

@@ -64,6 +64,7 @@ public class ServicesDAO {
      *
      * @param id
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Services> getTop4Last(String id) throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -98,6 +99,7 @@ public class ServicesDAO {
      *
      * @param id
      * @return
+     * @throws java.sql.SQLException
      */
     public Specialities getSpecByID(String id) throws SQLException {
         String sql = "select * from specialities\n"
@@ -124,6 +126,7 @@ public class ServicesDAO {
     /**
      *
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Specialities> getAllSpecialities() throws SQLException {
         List<Specialities> list = new ArrayList<>();
@@ -148,6 +151,7 @@ public class ServicesDAO {
     /**
      *
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Services> getAllServices() throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -180,11 +184,20 @@ public class ServicesDAO {
         }
         return list;
     }
+    
+    public List<Services> getServicesByPage(List<Services> list, int begin, int end) {
+        List<Services> listServicesByPage = new ArrayList<>();
+        for (int i = begin; i < end; i++) {
+            listServicesByPage.add(list.get(i));
+        }
+        return listServicesByPage;
+    }
 
     /**
      *
      * @param name
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Services> getAllServicesSearched(String name) throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -223,6 +236,7 @@ public class ServicesDAO {
     /**
      *
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Services> getAllServicesSortedSpecialities() throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -259,6 +273,7 @@ public class ServicesDAO {
     /**
      *
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Services> getAllServicesSortedUpPrice() throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -295,6 +310,7 @@ public class ServicesDAO {
     /**
      *
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Services> getAllServicesSortedDownPrice() throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -332,6 +348,7 @@ public class ServicesDAO {
      *
      * @param id
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Services> getAllServicesByTypeID(String id) throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -364,6 +381,7 @@ public class ServicesDAO {
      *
      * @param listSpec
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Services> searchSpecialities(List<String> listSpec) throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -515,6 +533,7 @@ public class ServicesDAO {
     /**
      *
      * @param fid
+     * @throws java.sql.SQLException
      */
     public void deleteComment(int fid) throws SQLException {
         String sql = "delete from Service_Feedbacks where feedback_id = ?";
@@ -536,6 +555,7 @@ public class ServicesDAO {
      *
      * @param id
      * @return
+     * @throws java.sql.SQLException
      */
     /**
      *
