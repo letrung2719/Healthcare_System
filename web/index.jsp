@@ -136,7 +136,6 @@
                                                     <span class="d-inline-block average-rating">(${feedbackList.size()})</span>
                                                 </div>
                                             </div>
-                                            >>>>>>> 6339d5ab2a4e24c0bf27ca33af7c3fa51e7aebeb
                                             <ul class="available-info">
                                                 <li>
                                                     <i class="fas fa-map-marker-alt"></i> Hanoi, Vietnam

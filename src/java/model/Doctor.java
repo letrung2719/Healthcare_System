@@ -31,6 +31,10 @@ public class Doctor implements Serializable{
     public Doctor() {
     }
 
+    public Doctor(int doctorID) {
+        this.doctorID = doctorID;
+    }
+
     /**
      *
      * @return

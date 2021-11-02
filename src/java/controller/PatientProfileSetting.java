@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.patient;
+package controller;
 
 import dal.PatientDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;

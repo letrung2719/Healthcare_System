@@ -44,6 +44,7 @@
           <script src="assets/js/respond.min.js"></script>
         <![endif]-->
     </head>
+
     <body>
         <!-- Main Wrapper -->
         <div class="main-wrapper">
@@ -82,19 +83,16 @@
                             <div class="profile-sidebar">
                                 <div class="widget-profile pro-widget-content">
                                     <div class="profile-info-widget">
-                                        <a href="#" class="booking-doc-img">
+                                        <a href="patient_profile?id=${sessionScope.user.accountID}" class="booking-doc-img">
                                             <img
-                                                src="${Users.image}"
+                                                src="${sessionScope.user.image}"
                                                 alt="User Image"
                                                 />
                                         </a>
                                         <div class="profile-det-info">
-                                            <h3>${Users.name}</h3>
+                                            <h3>${sessionScope.user.name}</h3>
                                             <div class="patient-details">
-                                                <h5>
-                                                    <i class="fas fa-birthday-cake"></i> ${Users.dob}
-                                                </h5>
-                                                
+                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -102,20 +100,30 @@
                                 <div class="dashboard-widget">
                                     <nav class="dashboard-menu">
                                         <ul>
-                                            <li>
-                                                <a href="patient_dashboard?id=${sessionScope.user.patientID}">
+                                            <li class="active">
+                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
                                                     <i class="fas fa-columns"></i>
                                                     <span>Dashboard</span>
                                                 </a>
                                             </li>
-                                            
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fas fa-bookmark"></i>
+                                                    <span>Favourites</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
-                                            
+                                            <li>
+                                                <a href="reservationHistory?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-user-cog"></i>
+                                                    <span>Services Booking History</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="change-password.jsp">
                                                     <i class="fas fa-lock"></i>
@@ -133,6 +141,8 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- /Profile Sidebar -->
+
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="appointments">
                                 <div class="card card-table mb-0">
@@ -144,7 +154,6 @@
                                                         <th>Apt.ID</th>
                                                         <th>Doctor</th>
                                                         <th>Appt Date</th>
-                                                        <th>Paid</th>
                                                         <th>Status</th>
                                                         <th></th>
                                                     </tr>
@@ -158,7 +167,7 @@
                                                                     <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
                                                                         <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
                                                                     </a>
-                                                                    <a href="">${app.patient.name}<span>#PT ${app.patient.patientID}</span></a>
+                                                                    <a href="">${app.patient.name}<span>#APT ${app.patient.patientID}</span></a>
                                                                 </h2>
                                                             </td>
 
@@ -180,27 +189,60 @@
                                                                         Cancel
                                                                     </span>
                                                                 </c:if>
-
-                                                            </td>
-<!--                                                                                        <td class="text-right">
-                                                                <div class="table-action">
-                                                                    <a href="appointmentDetailControl?id=${app.appointmentID}" class="btn btn-sm bg-primary-light">
-                                                                        <i class="fas fa-eye"></i> View
-                                                                    </a>
-                                                                </div>
-                                                            </td>-->
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
                                             </table>
+
+                                            <div class="load-more text-center">
+                                                <ul class="pagination">
+                                                    <li class="page-item ">
+                                                        <a class="page-link" href="patient_profile_dashboard?id=${sessionScope.user.patientID}&page=${page-1}">Previous</a>
+                                                    </li>
+                                                    <c:set var="page" value="${requestScope.indexPage}"/>
+                                                    <c:forEach begin="1" end="${numberOfPage}" var="i">
+                                                        <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="patient_profile_dashboard?id=${sessionScope.user.patientID}&page=${i}">${i}</a></li>
+                                                        </c:forEach>
+
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="patient_profile_dashboard?id=${sessionScope.user.patientID}&page=${page+1}">Next</a>
+                                                    </li>
+                                                </ul>	
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>                           
-                        <!-- /Profile Sidebar -->
-                        
-                            </div>
+                            </div>                           
+                            <!-- /Profile Sidebar -->
+
                         </div>
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <%@include file="index-footer.jsp" %>
+                <!--Footer-->
+            </div>
+
+            <!-- jQuery -->
+            <script src="assets/js/jquery.min.js"></script>
+
+            <!-- Bootstrap Core JS -->
+            <script src="assets/js/popper.min.js"></script>
+            <script src="assets/js/bootstrap.min.js"></script>
+
+            <!-- Select2 JS -->
+            <script src="assets/plugins/select2/js/select2.min.js"></script>
+
+            <!-- Datetimepicker JS -->
+            <script src="assets/js/moment.min.js"></script>
+            <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+            <!-- Sticky Sidebar JS -->
+            <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+            <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+            <!-- Custom JS -->
+            <script src="assets/js/script.js"></script>
     </body>
 </html>

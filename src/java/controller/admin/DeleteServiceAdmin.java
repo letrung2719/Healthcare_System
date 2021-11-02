@@ -7,7 +7,6 @@ package controller.admin;
 
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name = "DeleteServiceAdmin", urlPatterns = {"/admin/delete-service-admin"})
+@WebServlet(name = "DeleteServiceAdmin", urlPatterns = {"/admin-role/delete-service-admin"})
 public class DeleteServiceAdmin extends HttpServlet {
 
     /**
@@ -33,13 +32,12 @@ public class DeleteServiceAdmin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id_raw = request.getParameter("id");
-        try{
-            int id = Integer.parseInt(id_raw);
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
             ServicesDAO services = new ServicesDAO();
             services.delete(id);
-            response.sendRedirect("service-list");
-        }catch(NumberFormatException e){
+            response.sendRedirect("service_list");
+        } catch (NumberFormatException e) {
             System.out.println(e);
         }
     }

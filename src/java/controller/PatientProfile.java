@@ -1,15 +1,11 @@
-package controller.patient;
-
-import dal.PatientDAO;
+package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Patient;
 
 /**
  *
@@ -31,12 +27,8 @@ public class PatientProfile extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            int patientID = Integer.parseInt(request.getParameter("id"));
-            PatientDAO patientDb = new PatientDAO();
-            Patient p = patientDb.getPatientByAccountID(patientID);
-            request.setAttribute("Users", p);
             request.getRequestDispatcher("patient-profile.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+        } catch (IOException | NumberFormatException | ServletException e) {
             System.out.println(e);
         }
     }

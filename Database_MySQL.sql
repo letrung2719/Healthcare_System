@@ -350,7 +350,7 @@ CREATE TABLE `timetable` (
 
 LOCK TABLES `timetable` WRITE;
 /*!40000 ALTER TABLE `timetable` DISABLE KEYS */;
-INSERT INTO `timetable` VALUES (1,'7h - 8h'),(2,'8h - 9h'),(3,'9h - 10h'),(4,'10h -11h'),(5,'11h - 12h'),(6,'14h - 15h'),(7,'15h - 16h'),(8,'16h -17h');
+INSERT INTO `timetable` VALUES (1,'7h - 8h'),(2,'8h - 9h'),(3,'9h - 10h'),(4,'10h - 11h'),(5,'11h - 12h'),(6,'14h - 15h'),(7,'15h - 16h'),(8,'16h - 17h');
 /*!40000 ALTER TABLE `timetable` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

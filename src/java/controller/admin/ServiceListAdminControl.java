@@ -7,7 +7,6 @@ package controller.admin;
 
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -22,7 +21,7 @@ import model.Specialities;
  *
  * @author admin
  */
-@WebServlet(name = "ServiceListAdminControl", urlPatterns = {"/admin-role/service-list"})
+@WebServlet(name = "ServiceListAdminControl", urlPatterns = {"/admin-role/service_list"})
 public class ServiceListAdminControl extends HttpServlet {
 
     /**
@@ -37,36 +36,37 @@ public class ServiceListAdminControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       try{
+        try {
             ServicesDAO dal = new ServicesDAO();
-            List<Specialities> listSpecialities = dal.getAllSpecialities(); 
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
             List<Services> listServices = dal.getAllServices();
             int itemPerPage = 10;
-            int page ;
+            int page;
             int pageNumber;
             String mpage = request.getParameter("page");
-            if(mpage == null){
+            if (mpage == null) {
                 page = 1;
-            }else{
+            } else {
                 page = Integer.parseInt(mpage);
             }
-            pageNumber = listServices.size()/itemPerPage + (listServices.size()%itemPerPage==0?0:1);
-            int start , end;
-            start = (page-1)*itemPerPage;
-            if(page*itemPerPage > listServices.size()){
-                end = listServices.size();    
-            }else {
-                end = page*itemPerPage; 
+            pageNumber = listServices.size() / itemPerPage + (listServices.size() % itemPerPage == 0 ? 0 : 1);
+            int start, end;
+            start = (page - 1) * itemPerPage;
+            if (page * itemPerPage > listServices.size()) {
+                end = listServices.size();
+            } else {
+                end = page * itemPerPage;
             }
             List<Services> arr = dal.getServicesByPage(listServices, start, end);
             int length = arr.size();
+
             request.setAttribute("length", length);
             request.setAttribute("pageNumber", pageNumber);
             request.setAttribute("page", page);
-            request.setAttribute("listSpec", listSpecialities); 
-            request.setAttribute("listServices", arr); 
-            request.getRequestDispatcher("service-list.jsp").forward(request, response);
-        }catch(IOException | NumberFormatException | SQLException | ServletException e) {
+            request.setAttribute("listSpec", listSpecialities);
+            request.setAttribute("listServices", arr);
+            request.getRequestDispatcher("/admin-role/service-list.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }

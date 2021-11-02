@@ -61,14 +61,17 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 
-                            <!-- Profile Sidebar -->
+                        <!-- Profile Sidebar -->
+                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
                             <div class="profile-sidebar">
                                 <div class="widget-profile pro-widget-content">
                                     <div class="profile-info-widget">
                                         <a href="patient_profile?id=${sessionScope.user.accountID}" class="booking-doc-img">
-                                            <img src="${sessionScope.user.image}" alt="User Image">
+                                            <img
+                                                src="${sessionScope.user.image}"
+                                                alt="User Image"
+                                                />
                                         </a>
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
@@ -82,7 +85,7 @@
                                     <nav class="dashboard-menu">
                                         <ul>
                                             <li>
-                                                <a href="#">
+                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
                                                     <i class="fas fa-columns"></i>
                                                     <span>Dashboard</span>
                                                 </a>
@@ -97,6 +100,12 @@
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="reservationHistory?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-user-cog"></i>
+                                                    <span>Services Booking History</span>
                                                 </a>
                                             </li>
                                             <li class="active">
@@ -114,11 +123,9 @@
                                         </ul>
                                     </nav>
                                 </div>
-
                             </div>
-                            <!-- /Profile Sidebar -->
-
                         </div>
+                        <!-- /Profile Sidebar -->
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
@@ -154,14 +161,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>		
             <!-- /Page Content -->
 
             <!-- Footer -->
             <jsp:include page="index-footer.jsp"/>
             <!-- /Footer -->
-
         </div>
         <!-- /Main Wrapper -->
 
