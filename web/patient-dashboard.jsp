@@ -148,7 +148,7 @@
                                 <div class="card card-table mb-0">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-hover table-center mb-0">
+                                            <table class="datatable table table-hover table-center mb-0 "> 
                                                 <thead>
                                                     <tr>
                                                         <th>Apt.ID</th>
@@ -167,7 +167,7 @@
                                                                     <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
                                                                         <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
                                                                     </a>
-                                                                    <a href="">${app.patient.name}<span>#APT ${app.patient.patientID}</span></a>
+                                                                    <a href="">${app.doctor.name}<span>#APT ${app.doctor.doctorID}</span></a>
                                                                 </h2>
                                                             </td>
 

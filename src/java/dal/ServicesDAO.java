@@ -722,7 +722,17 @@ public class ServicesDAO {
             }
         }
     }
-
+//    public void editService(int service_id){
+//        String sql = "update Services set title =? , description =? , price = ?\n"
+//                + "where service_id=?";
+//        try{
+//            connection = dbc.getConnection();
+//            ps = connection.prepareStatement(sql);
+//            ps.setString(1, title);
+//            ps.setString(2, description);
+//            ps.setInt(3, price);
+//        }
+//    }
     public List<Services> getTop10BestService() throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select services.service_id\n"

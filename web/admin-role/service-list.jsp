@@ -147,7 +147,7 @@
                                                                 </h2>
                                                             </td>
                                                             <!-- >Speciality-->
-                                                            <td>${o.type_id}</td>                                                              
+                                                            <td>${o.type_id}</td>                                                           
                                                             <!-- >Phone -->
                                                             <td> ${o.price}</td>
                                                             <td class="text-right">
