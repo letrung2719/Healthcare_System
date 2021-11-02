@@ -57,16 +57,17 @@
                                         </div>
                                         <form action="login" method="post">
                                             <p class="text-danger">${mess}</p>
+                                            <p class="text-success">${success}</p>
                                             <div class="form-group form-focus">
-                                                <input name="username" type="text" class="form-control floating" value="${username}">
+                                                <input name="username" type="text" class="form-control floating" value="${username}" required="">
                                                 <label  class="focus-label">Username</label>
                                             </div>
                                             <div class="form-group form-focus">
-                                                <input name="password" type="password" class="form-control floating">
+                                                <input name="password" type="password" class="form-control floating" value="${password}" required="">
                                                 <label class="focus-label">Password</label>
                                             </div>
                                             <div class="text-right">
-                                                <a class="forgot-link" href="forgot-password.html">Forgot Password ?</a>
+                                                <a class="forgot-link" href="forgot-password.jsp">Forgot Password ?</a>
                                             </div>
                                             <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Login</button>
                                             <div class="login-or">

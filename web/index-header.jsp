@@ -11,13 +11,13 @@
                     <span></span>
                 </span>
             </a>
-            <a href="index.jsp" class="navbar-brand logo">
+            <a href="home" class="navbar-brand logo">
                 <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
             </a>
         </div>
         <div class="main-menu-wrapper">
             <div class="menu-header">
-                <a href="index.jsp" class="menu-logo">
+                <a href="home" class="menu-logo">
                     <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
                 </a>
                 <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -27,7 +27,7 @@
 
             <c:set var="path" value="<%=request.getServletPath()%>"/>
             <ul class="main-nav">
-                <li class="${path == "/index.jsp" ? "active" : ""}"><a href="index.jsp">Home</a></li>              
+                <li class="${path == "/index.jsp" ? "active" : ""}"><a href="home">Home</a></li>              
                 <li class="${path == "/doctors-list.jsp" ? "active" : ""}"><a href="doctor-list?page=1">Doctors List</a></li>
                 <li class="${path == "/services-list.jsp" ? "active" : ""}"><a href="services">Services List</a></li>
                 <li class="${path == "/blog-list.jsp" ? "active" : ""}"><a href="blog-list">Blogs List</a></li>
