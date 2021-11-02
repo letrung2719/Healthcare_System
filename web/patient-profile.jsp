@@ -106,13 +106,18 @@
                                                     <span>Favourites</span>
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li class="active">
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
-                                            
+                                            <li>
+                                                <a href="reservationHistory?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-user-cog"></i>
+                                                    <span>Services Booking History</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="change-password.jsp">
                                                     <i class="fas fa-lock"></i>

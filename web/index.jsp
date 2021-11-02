@@ -70,64 +70,6 @@
                         <div class="col-md-8">
                             <!-- Slider -->
                             <div class="specialities-slider slider">
-<<<<<<< HEAD
-                                <c:forEach items="${listDoctors}" var="doctor">
-                                    <!-- Slider Item -->
-                                    <div class="speicality-item text-center">
-                                        <div class="speicality-img">
-                                            <img src="assets/img/specialities/specialities-01.png" class="img-fluid"
-                                                 alt="Speciality">
-                                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                        </div>
-                                        <p>Urology</p>
-                                    </div>
-                                    <!-- /Slider Item -->
-                                </c:forEach>
-                                    
-                                <!-- Slider Item -->
-                                <div class="speicality-item text-center">
-                                    <div class="speicality-img">
-                                        <img src="assets/img/specialities/specialities-02.png" class="img-fluid" alt="Speciality">
-                                        <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    </div>
-                                    <p>Neurology</p>
-                                </div>
-                                <!-- /Slider Item -->
-
-                                <!-- Slider Item -->
-                                <div class="speicality-item text-center">
-                                    <div class="speicality-img">
-                                        <img src="assets/img/specialities/specialities-03.png" class="img-fluid"
-                                             alt="Speciality">
-                                        <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    </div>
-                                    <p>Orthopedic</p>
-                                </div>
-                                <!-- /Slider Item -->
-
-                                <!-- Slider Item -->
-                                <div class="speicality-item text-center">
-                                    <div class="speicality-img">
-                                        <img src="assets/img/specialities/specialities-04.png" class="img-fluid"
-                                             alt="Speciality">
-                                        <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    </div>
-                                    <p>Cardiologist</p>
-                                </div>
-                                <!-- /Slider Item -->
-
-                                <!-- Slider Item -->
-                                <div class="speicality-item text-center">
-                                    <div class="speicality-img">
-                                        <img src="assets/img/specialities/specialities-05.png" class="img-fluid"
-                                             alt="Speciality">
-                                        <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    </div>
-                                    <p>Dentist</p>
-                                </div>
-                                <!-- /Slider Item -->
-
-=======
                                 <c:forEach items="${listSer}" var="o">
                                     <!-- Slider Item -->
                                     <div class="speicality-item text-center">
@@ -140,7 +82,6 @@
                                     </div>
                                     <!-- /Slider Item -->
                                 </c:forEach>
->>>>>>> 90834e8ac511d9a9984855dd396bdb12184c8570
                             </div>
                             <!-- /Slider -->
 
@@ -173,7 +114,7 @@
                                         <div class="profile-widget">
                                             <div class="doc-img">
                                                 <a href="doctor_profile_view?id=${doctor.accountID}"">
-                                                    <img class="img-fluid" style="height: 250px" alt="User Image" src="${doctor.image}">
+                                                <img class="img-fluid" style="height: 250px" alt="User Image" src="${doctor.image}">
                                             </a>
                                             <a href="javascript:void(0)" class="fav-btn">
                                                 <i class="far fa-bookmark"></i>
@@ -185,24 +126,6 @@
                                                 <i class="fas fa-check-circle verified"></i>
                                             </h3>
                                             <p class="speciality">${doctor.role}</p>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                            <div class="rating">
-=======
-<!--                                            <div class="rating">
->>>>>>> 90834e8ac511d9a9984855dd396bdb12184c8570
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating">(17)</span>
-<<<<<<< HEAD
-                                            </div>
-=======
-                                            </div>-->
->>>>>>> 90834e8ac511d9a9984855dd396bdb12184c8570
-=======
                                             <div class="doc-info-cont">
                                                 <div class="rating">
                                                     <i class="fas fa-star ${avgrate > 0 ? "filled" : ""}"></i>
@@ -213,7 +136,7 @@
                                                     <span class="d-inline-block average-rating">(${feedbackList.size()})</span>
                                                 </div>
                                             </div>
->>>>>>> 6339d5ab2a4e24c0bf27ca33af7c3fa51e7aebeb
+                                            >>>>>>> 6339d5ab2a4e24c0bf27ca33af7c3fa51e7aebeb
                                             <ul class="available-info">
                                                 <li>
                                                     <i class="fas fa-map-marker-alt"></i> Hanoi, Vietnam
@@ -272,11 +195,11 @@
                 </div>
             </section>
             <!-- Availabe Features -->
-            
+
             <!--Google Map-->
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.485409531647!2d105.52487561533206!3d21.013254993682363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345b465a4e65fb%3A0xaae6040cfabe8fe!2sFPT%20University!5e0!3m2!1sen!2s!4v1635783917552!5m2!1sen!2s" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             <!--Google Map-->
-            
+
             <!-- Footer -->
             <jsp:include page="index-footer.jsp"/>
             <!-- /Footer -->
