@@ -4,19 +4,6 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/web/admin-role/blog-managerment.jsp</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/ReservationAdControl.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/dal/BlogsDAO.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/web/doctors-list.jsp</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/model/Reservation.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/DoctorListControl.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/SearchBlogsControl.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/BlogListAdControl.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/dal/ServicesDAO.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/dal/DoctorDAO.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/AddBlogControl.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/model/Blogs.java</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/web/booking.jsp</file>
-            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/BookingSuccessControl.java</file>
         </group>
     </open-files>
 </project-private>

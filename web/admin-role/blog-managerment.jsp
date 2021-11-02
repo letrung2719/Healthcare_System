@@ -32,10 +32,14 @@
         <!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
 
+        
+        <script type="text/javascript" src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>
         <!--[if lt IE 9]>
                             <script src="assets/js/html5shiv.min.js"></script>
                             <script src="assets/js/respond.min.js"></script>
                     <![endif]-->
+
+
     </head>
 
     <body>
@@ -71,9 +75,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12" style="display: flex;padding: 0">
-                        <div class="col-sm-2" style=" margin-right:10px; padding: 0;/*height: 325px*/">
-                            <div class="modal-dialog modal-dialog-centered"  role="document">
+                    <div class="col-sm-12" style="display: flex;padding: 0;">
+                        <div class="col-sm-2" style=" margin-right:10px; padding: 0; /*height: 325px*/">
+                            <div class="modal-dialog modal-dialog-centered" style="" role="document">
                                 <div class="modal-content" >
                                     <div class="modal-header">
                                         <h5 class="modal-title">Search Filter</h5>
@@ -220,7 +224,7 @@
                                                                                     <div class="col-12 col-sm-12 ">
                                                                                         <div class="form-group ">
                                                                                             <label>Description</label>
-                                                                                            <textarea class="form-control" name="description" required="">${blog.description}</textarea>
+                                                                                            <textarea class="form-control"  id="description2" name="description" required="">${blog.description}</textarea>
 
                                                                                         </div>
                                                                                     </div>
@@ -298,7 +302,7 @@
                                                 <div class="form-group ">
                                                     <label>Description</label>
                                                     <!--<input type="text" class="form-control " value=" " name="email">-->
-                                                    <textarea class="form-control" name="description"></textarea>
+                                                    <textarea class="form-control" id="description1" name="description"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -314,8 +318,17 @@
             </div>
             <!-- /Page Wrapper -->
 
+            <script>
+                
+
+                CKEDITOR.replace('description1');
+                CKEDITOR.replace('description2');
+
+            </script>
         </div>
         <!-- /Main Wrapper -->
+
+
 
         <!-- jQuery -->
         <script src="assets/js/jquery-3.2.1.min.js"></script>
@@ -333,6 +346,8 @@
 
         <!-- Custom JS -->
         <script src="assets/js/script.js"></script>
+
+        <script type="text/javascript" src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>
 
     </body>
 
