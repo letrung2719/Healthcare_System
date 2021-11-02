@@ -26,7 +26,7 @@ public class DoctorDAO {
     PreparedStatement ps = null;
     PreparedStatement ps2 = null;
     ResultSet rs = null;
-    
+
     DBContext dbc = new DBContext();
     Connection connection = null;
 
@@ -234,7 +234,7 @@ public class DoctorDAO {
         List<Doctor> list = new ArrayList<>();
         String sql = "select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id\n"
                 + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
-                + "where 1=1";
+                + "where 1=1 ";
         if (doctorName != null && !doctorName.isEmpty()) {
             sql += " AND doctors.name like '%" + doctorName + "%'";
         }
@@ -251,16 +251,20 @@ public class DoctorDAO {
             sql += " AND gender = " + gender;
         }
         if (listSpec != null && !listSpec.isEmpty()) {
-            sql += "and (";
-            for (int i = 0; i < listSpec.size(); i++) {
-                sql += "specialities.name = '" + listSpec.get(i) + "' ";
-                if (i < listSpec.size() - 1) {
-                    sql += " or ";
-                }
-            }
-            sql += ")";
-        }
+            if (!listSpec.get(0).equals("")) {
+                sql += "and (";
+                for (int i = 0; i < listSpec.size(); i++) {
 
+                    sql += "specialities.name = '" + listSpec.get(i) + "' ";
+                    if (i < listSpec.size() - 1) {
+                        sql += " or ";
+                    }
+                }
+                sql += ")";
+            }
+
+        }
+      
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);

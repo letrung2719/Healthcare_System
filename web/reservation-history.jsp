@@ -112,13 +112,7 @@
                                                     <span>Favourites</span>
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="chat.html">
-                                                    <i class="fas fa-comments"></i>
-                                                    <span>Message</span>
-                                                    <small class="unread-msg">23</small>
-                                                </a>
-                                            </li>
+                                            
                                             <li>
                                                 <a href="profile-settings.html">
                                                     <i class="fas fa-user-cog"></i>

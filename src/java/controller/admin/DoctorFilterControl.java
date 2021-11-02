@@ -51,7 +51,9 @@ public class DoctorFilterControl extends HttpServlet {
             }
             String dob = request.getParameter("dob");
             String email = request.getParameter("email");
+          
             String[] arraySpec1 = request.getParameterValues("select_specialist");
+      
             List<String> listSpec1 = arraySpec1 == null ? new ArrayList<>() : Arrays.asList(arraySpec1);
             ServicesDAO dao = new ServicesDAO();
             List<Specialities> listSpec = dao.getAllSpecialities();

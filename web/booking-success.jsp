@@ -49,7 +49,7 @@
                                         <i class="fas fa-check"></i>
                                         <h3>Appointment booked successfully!</h3>
                                         <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.slot.time} (${appointment.date})</strong></p>
-                                        <a href="doctor?page=1" class="btn btn-primary view-inv-btn">Continue Booking</a>
+                                        <a href="doctor-list?page=1" class="btn btn-primary view-inv-btn">Continue Booking</a>
                                     </div>
                                 </div>
                             </div>

@@ -69,7 +69,7 @@ public class LoginControl extends HttpServlet {
                     case 1:
                         Doctor d = doctorDb.getDoctorByAccountID(a.getId());
                         session.setAttribute("user", d);
-                        request.getRequestDispatcher("doctor-role/doctor-appointment.jsp").forward(request, response);
+                        response.sendRedirect("doctorAppointmentControl?doctorID="+d.getDoctorID());
                         break;
                     case 2:
                         Patient p = patientDb.getPatientByAccountID(a.getId());
