@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.patient;
 
 import dal.PatientDAO;
 import java.io.IOException;

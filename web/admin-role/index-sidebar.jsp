@@ -31,6 +31,9 @@
                 <li class="${path == "/admin-role/patient-list.jsp" ? "active" : ""}">
                     <a href="patient_list"><i class="fe fe-user"></i> <span>Patients</span></a>
                 </li>
+                <li class="${path == "/admin-role/service-list.jsp" ? "active" : ""}">
+                    <a href="service_list"><i class="fe fe-user"></i> <span>Services</span></a>
+                </li>
                 <li class="${path == "/admin-role/review.jsp" ? "active" : ""} ${path == "/admin-role/service-feedback.jsp" ? "active" : ""}">
                     <a href="review"><i class="fe fe-star-o"></i> <span>Service Reviews</span></a>
                 </li>

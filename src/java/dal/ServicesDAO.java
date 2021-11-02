@@ -121,6 +121,16 @@ public class ServicesDAO {
      *
      * @return
      */
+    public void delete(int id){
+        String sql =" delete from services where service_id=?";
+        try{
+           ps =connection.prepareStatement(sql);
+           ps.setInt(1,id);
+           ps.executeUpdate();
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+    }
     public List<Specialities> getAllSpecialities() throws SQLException {
         List<Specialities> list = new ArrayList<>();
         String sql = "select * from specialities";
@@ -220,6 +230,13 @@ public class ServicesDAO {
      *
      * @return
      */
+     public List<Services> getServicesByPage(List<Services> list, int begin, int end){
+        List<Services> listServicesByPage = new ArrayList<>();
+        for(int i = begin; i < end; i++){
+            listServicesByPage.add(list.get(i));
+        }
+        return listServicesByPage;
+    }
     public List<Services> getAllServicesSortedSpecialities() throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select service_id\n"

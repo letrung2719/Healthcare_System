@@ -1,42 +1,45 @@
-package controller;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller.admin;
 
-import dal.PatientDAO;
-
+import dal.ServicesDAO;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Patient;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "PatientProfile", urlPatterns = {"/patient_profile"})
-public class PatientProfile extends HttpServlet {
-
-    private static final long serialVersionUID = 9999L;
+@WebServlet(name = "DeleteServiceAdmin", urlPatterns = {"/admin/delete-service-admin"})
+public class DeleteServiceAdmin extends HttpServlet {
 
     /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            int patientID = Integer.parseInt(request.getParameter("id"));
-            PatientDAO patientDb = new PatientDAO();
-            Patient p = patientDb.getPatientByAccountID(patientID);
-            request.setAttribute("Users", p);
-            request.getRequestDispatcher("patient-profile.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+        String id_raw = request.getParameter("id");
+        try{
+            int id = Integer.parseInt(id_raw);
+            ServicesDAO services = new ServicesDAO();
+            services.delete(id);
+            response.sendRedirect("service-list");
+        }catch(NumberFormatException e){
             System.out.println(e);
         }
     }

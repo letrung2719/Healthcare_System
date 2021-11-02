@@ -128,7 +128,25 @@ public class AppointmentDAO {
         }
         return 0;
     }
+     public int getAllPatientAppointment(int patientID) throws SQLException {
+        String sql = "select count(*) from Appointments where patient_id = " + patientID;
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
 
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return 0;
+    }
     /**
      *
      * @return
@@ -215,7 +233,48 @@ public class AppointmentDAO {
         }
         return list;
     }
+    public List<Appointment> paginateAppointmentByPatientID(int patientID, int pageNumber, int numberOfItem) throws SQLException {
+        List<Appointment> list = new ArrayList<>();
+        String sql = "DECLARE @PageNumber AS INT\n"
+                + "DECLARE @RowsOfPage AS INT\n"
+                + "SET @PageNumber=?\n"
+                + "SET @RowsOfPage=?\n"
+                + "SELECT * FROM Appointments where patient_id =?\n"
+                + "ORDER BY appointment_id \n"
+                + "OFFSET (@PageNumber-1)*@RowsOfPage ROWS\n"
+                + "FETCH NEXT @RowsOfPage ROWS ONLY";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, pageNumber);
+            ps.setInt(2, numberOfItem);
+            ps.setInt(3, patientID);
+            rs = ps.executeQuery();
 
+            while (rs.next()) {
+                Appointment a = new Appointment();
+                a.setAppointmentID(rs.getInt(1));
+                Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));
+                a.setPatient(p);
+                Doctor d = dalDoctor.getDoctorByDoctorID(rs.getInt(3));
+                a.setDoctor(d);
+                a.setDate(rs.getString(4));
+
+                Timetable slot = dalTimetable.getTimeBySlotID(rs.getInt(5));
+                a.setSlot(slot);
+                a.setDescription(rs.getString(6));
+                a.setStatus(rs.getInt(7));
+                list.add(a);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return list;
+    }
     /**
      *
      * @param appID

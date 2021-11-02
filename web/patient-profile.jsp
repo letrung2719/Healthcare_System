@@ -98,15 +98,9 @@
                                     <nav class="dashboard-menu">
                                         <ul>
                                             <li>
-                                                <a href="#">
+                                                <a href="patient_dashboard?id=${sessionScope.user.patientID}">
                                                     <i class="fas fa-columns"></i>
                                                     <span>Dashboard</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="favourites.html">
-                                                    <i class="fas fa-bookmark"></i>
-                                                    <span>Favourites</span>
                                                 </a>
                                             </li>
                                             <li>
