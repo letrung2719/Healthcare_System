@@ -28,7 +28,7 @@ public class DoctorFeedbacksDAO {
     ResultSet rs = null;
     PatientDAO patientDB = new PatientDAO();
     DoctorDAO doctorDB = new DoctorDAO();
-    
+
     DBContext dbc = new DBContext();
     Connection connection = null;
 
@@ -193,16 +193,10 @@ public class DoctorFeedbacksDAO {
      * @return
      * @throws java.sql.SQLException
      */
-    public List<DoctorFeedbacks> paginateDoctorFeedbackByDoctorID(int doctorID, int pageNumber, int numberOfItem, String sort) throws SQLException {
+    public List<DoctorFeedbacks> paginateDoctorFeedbackByDoctorID(int doctorID, int start, int numberOfItem) throws SQLException {
         List<DoctorFeedbacks> list = new ArrayList<>();
-        String sql = "DECLARE @PageNumber AS INT\n"
-                + "DECLARE @RowsOfPage AS INT\n"
-                + "SET @PageNumber=" + pageNumber + "\n"
-                + "SET @RowsOfPage=" + numberOfItem + "\n"
-                + "SELECT * FROM Doctor_Feedbacks where doctor_id=" + doctorID + "\n"
-                + "ORDER BY " + sort + "\n"
-                + "OFFSET (@PageNumber-1)*@RowsOfPage ROWS\n"
-                + "FETCH NEXT @RowsOfPage ROWS ONLY";
+        String sql = "SELECT * FROM doctor_feedbacks where doctor_id=" + doctorID + " order by feedback_id Limit " + numberOfItem + " offset " + start + ";";
+
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
@@ -236,6 +230,8 @@ public class DoctorFeedbacksDAO {
     public static void main(String[] args) {
         try {
             DoctorFeedbacksDAO db = new DoctorFeedbacksDAO();
+            List<DoctorFeedbacks> list = db.paginateDoctorFeedbackByDoctorID(1, 0, 3);
+            System.out.println(list);
 //        Patient patient = new Patient(1, "abc", 0, "", "", "", 2, "");
 //        Doctor doctor = new Doctor(5, "", 0, "", "", "", "", null, "", "", 1);
 //        DoctorFeedbacks feedback = new DoctorFeedbacks("2021-11-21", "abcacfa", 4, patient, doctor);
@@ -244,10 +240,10 @@ public class DoctorFeedbacksDAO {
 //        System.out.println(db.getAverageRating(2));
 //        List<DoctorFeedbacks> list = db.paginateDoctorFeedbackByDoctorID(1, 1, 5, "feedback_id");
 //        System.out.println(list);
-            Patient patient = new Patient(1, "abc", 0, "", "", "", 2, "");
-            Doctor doctor = new Doctor(1, "", 0, "", "", "", "", null, "", "", 1);
-            DoctorFeedbacks fb = new DoctorFeedbacks("2021-11-11", "test", 5, patient, doctor);
-            db.updateDoctorFeedback(fb);
+//            Patient patient = new Patient(1, "abc", 0, "", "", "", 2, "");
+//            Doctor doctor = new Doctor(1, "", 0, "", "", "", "", null, "", "", 1);
+//            DoctorFeedbacks fb = new DoctorFeedbacks("2021-11-11", "test", 5, patient, doctor);
+//            db.updateDoctorFeedback(fb);
         } catch (SQLException ex) {
             Logger.getLogger(DoctorFeedbacksDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

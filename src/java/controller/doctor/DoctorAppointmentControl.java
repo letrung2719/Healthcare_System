@@ -39,7 +39,7 @@ public class DoctorAppointmentControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-            String inputID = request.getParameter("deleteID");
+
             AppointmentDAO appDb = new AppointmentDAO();
             int indexPage;
             String getInputPage = request.getParameter("page");
@@ -51,17 +51,14 @@ public class DoctorAppointmentControl extends HttpServlet {
             int totalAppointment = appDb.getAllDoctorAppointment(doctorID);
             int numberOfItem = 5;
             int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
-            List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, indexPage, numberOfItem);
-            if (inputID != null) {
-                int appID = Integer.parseInt(inputID);
-                int temp = appDb.deleteAppointment(appID);
-                response.sendRedirect(request.getContextPath() + "/doctorAppointmentControl?doctorID=" + doctorID);
-            } else {
-                request.setAttribute("listApp", listApp);
-                request.setAttribute("indexPage", indexPage);
-                request.setAttribute("numberOfPage", numberOfPage);
-                request.getRequestDispatcher("/doctor-role/doctor-appointment.jsp").forward(request, response);
-            }
+            int start = (indexPage - 1) * numberOfItem;
+            List<Appointment> listApp = appDb.paginateAppointmentByDoctorID(doctorID, start, numberOfItem);
+
+            request.setAttribute("listApp", listApp);
+            request.setAttribute("indexPage", indexPage);
+            request.setAttribute("numberOfPage", numberOfPage);
+            request.getRequestDispatcher("/doctor-role/doctor-appointment.jsp").forward(request, response);
+
         } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }

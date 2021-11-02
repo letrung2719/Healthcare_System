@@ -191,22 +191,12 @@ public class AppointmentDAO {
      * @throws java.sql.SQLException
      */
     //CHECK AGAIN
-    public List<Appointment> paginateAppointmentByDoctorID(int doctorID, int pageNumber, int numberOfItem) throws SQLException {
+    public List<Appointment> paginateAppointmentByDoctorID(int doctorID, int start, int numberOfItem) throws SQLException {
         List<Appointment> list = new ArrayList<>();
-        String sql = "DECLARE @PageNumber AS INT\n"
-                + "DECLARE @RowsOfPage AS INT\n"
-                + "SET @PageNumber=?\n"
-                + "SET @RowsOfPage=?\n"
-                + "SELECT * FROM Appointments where doctor_id =?\n"
-                + "ORDER BY appointment_id \n"
-                + "OFFSET (@PageNumber-1)*@RowsOfPage ROWS\n"
-                + "FETCH NEXT @RowsOfPage ROWS ONLY";
+        String sql = "select * from appointments where doctor_id="+doctorID+" order by appointment_id Limit "+numberOfItem+" offset "+start+";";
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, pageNumber);
-            ps.setInt(2, numberOfItem);
-            ps.setInt(3, doctorID);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -367,11 +357,9 @@ public class AppointmentDAO {
     public static void main(String[] args) {
         try {
             AppointmentDAO db = new AppointmentDAO();
-            Patient p = new Patient(3, "name", 0, "", "0123456789", "abc@gamil.com", 22, "");
-            Doctor d = new Doctor(1, "name", 0, "", "0123456789", "abc@gamil.com", null, null, "", "", 1);
-            
-            List<Appointment> ls = db.getAllAppointmentByDoctorID(d);
-            System.out.println(ls);
+//            List<Appointment> list = db.paginateAppointmentByDoctorID(1, 0, 3);
+//            System.out.println(list);
+            System.out.println(db.getAppointmentByID(1));
         } catch (SQLException ex) {
             Logger.getLogger(AppointmentDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

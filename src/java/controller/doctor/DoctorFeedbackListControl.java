@@ -41,7 +41,7 @@ public class DoctorFeedbackListControl extends HttpServlet {
         try {
             int doctorID = Integer.parseInt(request.getParameter("doctorID"));
             int indexPage;
-            String sortBy = request.getParameter("sort");
+
             String getInputPage = request.getParameter("page");
             if (getInputPage == null) {
                 indexPage = 1;
@@ -52,11 +52,11 @@ public class DoctorFeedbackListControl extends HttpServlet {
             int totalFeedback = db1.countAllDoctorFeedback(doctorID);
             int numberOfItem = 4;
             int numberOfPage = totalFeedback / numberOfItem + (totalFeedback % numberOfItem == 0 ? 0 : 1);
-            List<DoctorFeedbacks> listdFb = new ArrayList<>();
+            int start = (indexPage - 1) * numberOfItem;
 
-            if (sortBy == null) {
-                listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, indexPage, numberOfItem, "feedback_id");
-            }
+            List<DoctorFeedbacks> listdFb = new ArrayList<>();
+            listdFb = db1.paginateDoctorFeedbackByDoctorID(doctorID, start, numberOfItem);
+
             request.setAttribute("listdFb", listdFb);
             request.setAttribute("indexPage", indexPage);
             request.setAttribute("numberOfPage", numberOfPage);

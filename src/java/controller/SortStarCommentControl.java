@@ -55,24 +55,30 @@ public class SortStarCommentControl extends HttpServlet {
             }
 
             //lấy list các feedback của service có id trên và hiện theo số sao quy định
+            
             Services s = dal.getServiceByID(id);
             String specID = s.getType_id();
             request.setAttribute("detail", s);
             //lấy dữ liệu Service và id Speciality của Service
+            
             int avrate = dal.averageRateServices(id);
             request.setAttribute("avrate", avrate);
             //lấy rate trung bình của service
+            
             Specialities spec = dal.getSpecByID(specID);
             request.setAttribute("spec", spec);
             //lấy ra specialitie của Service
+            
             String type_id = dal.getServiceByID(id).getType_id();
             List<Services> listS = dal.getTop4Last(type_id);
             request.setAttribute("listS", listS);
             //lấy ra 4 service liên quan theo specialitie
+            
             List<ServiceFeedbacks> listF = dal.getAllComment(id);
             int totalfeedback = listF.size();
             request.setAttribute("totalfeedback", totalfeedback);
             //số feedback của service
+            
             HttpSession session = request.getSession();
             Account a = (Account) session.getAttribute("acc");
             if (a != null) {

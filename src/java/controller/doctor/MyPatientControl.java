@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import model.Patient;
 
 @WebServlet(name = "MyPatientControl", urlPatterns = {"/my-patient"})
@@ -29,6 +30,7 @@ public class MyPatientControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+
             DoctorDAO dao = new DoctorDAO();
             int doctor_id = Integer.parseInt(request.getParameter("doctorID"));
             List<Patient> patientlist = dao.getAllMyPatient(doctor_id);
