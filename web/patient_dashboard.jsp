@@ -103,7 +103,7 @@
                                     <nav class="dashboard-menu">
                                         <ul>
                                             <li>
-                                                <a href="patient_dashboard?id=${sessionScope.user.accountID}">
+                                                <a href="patient_dashboard?id=${sessionScope.user.patientID}">
                                                     <i class="fas fa-columns"></i>
                                                     <span>Dashboard</span>
                                                 </a>
