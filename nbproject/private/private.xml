@@ -2,12 +2,21 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< Updated upstream
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/controller/patient/PatientProfileDashboard.java</file>
             <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/controller/patient/PatientProfileSetting.java</file>
             <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/web/patient-profile.jsp</file>
             <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/web/patient_dashboard.jsp</file>
             <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/controller/patient/PatientProfile.java</file>
+=======
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/web/admin-role/blog-managerment.jsp</file>
+            <file>file:/D:/ky%205/SWP391/projectV17/Healthcare_System/src/java/controller/admin/AddBlogControl.java</file>
+>>>>>>> 58f6dd9097625599f33c8eafe1937caafc363867
         </group>
+=======
+        <group/>
+>>>>>>> Stashed changes
     </open-files>
 </project-private>

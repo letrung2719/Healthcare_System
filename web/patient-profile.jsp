@@ -54,7 +54,7 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
+                                        <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Profile Settings
@@ -77,7 +77,7 @@
                             <div class="profile-sidebar">
                                 <div class="widget-profile pro-widget-content">
                                     <div class="profile-info-widget">
-                                        <a href="#" class="booking-doc-img">
+                                        <a href="patient_profile?id=${sessionScope.user.accountID}" class="booking-doc-img">
                                             <img
                                                 src="${Users.image}"
                                                 alt="User Image"
@@ -86,10 +86,7 @@
                                         <div class="profile-det-info">
                                             <h3>${Users.name}</h3>
                                             <div class="patient-details">
-                                                <h5>
-                                                    <i class="fas fa-birthday-cake"></i> ${Users.dob}
-                                                </h5>
-                                                
+                                                <h5><i class="fas fa-birthday-cake"></i> ${Users.dob}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -104,12 +101,18 @@
                                                 </a>
                                             </li>
                                             <li>
+
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
-                                            
+                                            <li>
+                                                <a href="reservationHistory?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-user-cog"></i>
+                                                    <span>Services Booking History</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="change-password.jsp">
                                                     <i class="fas fa-lock"></i>

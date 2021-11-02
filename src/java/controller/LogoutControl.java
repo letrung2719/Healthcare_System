@@ -30,7 +30,7 @@ public class LogoutControl extends HttpServlet {
         HttpSession session = request.getSession();
         session.removeAttribute("acc");
         session.removeAttribute("user");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        response.sendRedirect("home");
     }
 
     /**

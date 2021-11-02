@@ -76,7 +76,7 @@ public class LoginControl extends HttpServlet {
                     case 2:
                         Patient p = patientDb.getPatientByAccountID(a.getId());
                         session.setAttribute("user", p);
-                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                        request.getRequestDispatcher("home").forward(request, response);
                         break;
                     case 0:
                         response.sendRedirect("admin-role/index.jsp");
