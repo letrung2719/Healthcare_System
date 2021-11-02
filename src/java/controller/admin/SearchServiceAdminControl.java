@@ -24,7 +24,7 @@ import model.Specialities;
  *
  * @author admin
  */
-@WebServlet(name = "SearchServiceAdminControl", urlPatterns = {"/admin/search-service"})
+@WebServlet(name = "SearchServiceAdminControl", urlPatterns = {"/admin-role/search-service"})
 public class SearchServiceAdminControl extends HttpServlet {
 
     /**
