@@ -20,7 +20,7 @@ import model.Reservation;
  *
  * @author ASUS
  */
-@WebServlet(name = "ReservationAdControl", urlPatterns = {"/admin-role/reser"})
+@WebServlet(name = "ReservationAdControl", urlPatterns = {"/admin-role/reservation"})
 public class ReservationAdControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

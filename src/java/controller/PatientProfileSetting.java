@@ -9,7 +9,6 @@ import dal.PatientDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;

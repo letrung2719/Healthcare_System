@@ -186,7 +186,6 @@ public class ReservationDAO {
             List<Reservation> lists = db1.getAllReservation();
             System.out.println(lists);
 //            System.out.println(db1.totalReservationByPatient(1));
-
         } catch (SQLException ex) {
             Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

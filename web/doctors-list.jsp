@@ -2,13 +2,11 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page import="dal.DoctorFeedbacksDAO"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
 
-    <!-- doccure/search.html  30 Nov 2019 04:12:16 GMT -->
     <head>
         <meta charset="utf-8">
         <title>Doccure</title>
@@ -58,12 +56,29 @@
                         <div class="col-md-8 col-12">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
-
-                                    <li class="breadcrumb-item active" aria-current="page">Doctor</li>
+                                    <li class="breadcrumb-item">
+                                        <a href="home">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="doctor-list">Doctors</a> 
+                                    </li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Doctor List</h2>
+                            <h2 class="breadcrumb-title">Available Doctors in Our System</h2>
+                        </div>
+                        <div class="col-md-4 col-12 d-md-block d-none">
+                            <div class="sort-by">
+                                <span class="sort-title">Sort by</span>
+                                <span class="sortby-fliter">
+                                    <select class="select">
+                                        <option>Select</option>
+                                        <option class="sorting">Rating</option>
+                                        <option class="sorting">Popular</option>
+                                        <option class="sorting">Latest</option>
+                                        <option class="sorting">Free</option>
+                                    </select>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

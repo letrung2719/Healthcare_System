@@ -33,14 +33,14 @@
                                 <span>Profile Settings</span>
                             </a>
                         </li>
-                        <li class="${path == "/doctor-role/doctor-appointment.jsp" ? "active" : ""} ${path == "/doctor/appointment-detail.jsp" ? "active" : ""}">
+                        <li class="${path == "/doctor-role/doctor-appointment.jsp" ? "active" : ""} ${path == "/doctor-role/appointment-detail.jsp" ? "active" : ""}">
                             <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">
                                 <i class="fas fa-calendar-check"></i>
                                 <span>Appointments</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="my-patient?doctorID=${sessionScope.user.doctorID}">
                                 <i class="fas fa-user-injured"></i>
                                 <span>My Patients</span>
                             </a>

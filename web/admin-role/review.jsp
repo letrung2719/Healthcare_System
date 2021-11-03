@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="dal.ServicesDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -93,7 +94,7 @@
                                                     <tr>
                                                         <td>
                                                             <h2 class="table-avatar">
-                                                                
+
                                                                 <a href="serfeed?id=${o.service_id}&&star=all">${o.service_id}</a>
                                                             </h2>
                                                         </td>
@@ -105,50 +106,18 @@
                                                         </td>
                                                         <td class="table-avatar">
                                                             <div class="table-avatar">
-                                                                <c:if test="${o.description == 0}">
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-                                                                <c:if test="${o.description == '1'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-
-
-                                                                <c:if test="${o.description == '2'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-                                                                <c:if test="${o.description == '3'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-                                                                <c:if test="${o.description == '4'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-                                                                <c:if test="${o.description == '5'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                </c:if>
+                                                                <c:set var="feedbackDB" value="<%=new ServicesDAO()%>"></c:set>
+                                                                <c:set var="avgrate" value="${feedbackDB.averageRateServices(o.service_id)}"></c:set>
+                                                                <c:set var="feedbackList" value="${feedbackDB.getAllComment(o.service_id)}"></c:set>
+                                                                <div class="rating">
+                                                                    <i class="fe fe-star ${avgrate > 0 ? " text-warning" : "-o text-secondary"}"></i>
+                                                                    <i class="fe fe-star ${avgrate > 1 ? " text-warning" : "-o text-secondary"}"></i>
+                                                                    <i class="fe fe-star ${avgrate > 2 ? " text-warning" : "-o text-secondary"}"></i>
+                                                                    <i class="fe fe-star ${avgrate > 3 ? " text-warning" : "-o text-secondary"}"></i>
+                                                                    <i class="fe fe-star ${avgrate > 4 ? " text-warning" : "-o text-secondary"}"></i>
+                                                                  
+                                                                    <span class="d-inline-block average-rating">(${feedbackList.size()})</span>
+                                                                </div>
                                                             </div>
 
                                                         </td>

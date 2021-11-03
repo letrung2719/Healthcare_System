@@ -101,6 +101,7 @@ public class PatientDAO {
     /**
      *
      * @param id
+     * @throws java.sql.SQLException
      */
     public void delete(int id) throws SQLException {
         String sql = " delete from Patients where account_id=?";
@@ -125,6 +126,7 @@ public class PatientDAO {
     /**
      *
      * @param u
+     * @throws java.sql.SQLException
      */
     public int insertNewPatient(Patient u) throws SQLException {
         String sql = "insert into Patients(name,gender,dob,phone,email,image,account_id) values (?,?,?,?,?,?,?)";
@@ -188,6 +190,7 @@ public class PatientDAO {
      *
      * @param p
      * @return
+     * @throws java.sql.SQLException
      */
     public int editPatient(Patient p) throws SQLException {
         String sql = "update patients set Name = ?, gender = ? , dob = ?, phone = ?, email = ?\n"
@@ -220,9 +223,10 @@ public class PatientDAO {
         try {
             PatientDAO patientDb = new PatientDAO();
 //        Patient p = new Patient("Nguyen Van Minh", 0, "2001-12-12", "0123456789", "abc@gmail.com", 31, "");
-            List<Patient> p = patientDb.getAllPatient();
-            System.out.println(p);
-//        patientDb.insertNewPatient(new Patient("abc", 0, "", "0123456789", "abc@gmail.com", 34, ""));
+//            List<Patient> p = patientDb.getAllPatient();
+//            System.out.println(p);
+        AccountDAO accDb = new AccountDAO();
+        patientDb.insertNewPatient(new Patient("abc", 0, null, "0123456789", "abc@gmail.com", accDb.getNewestAccount().getId(), ""));
         } catch (SQLException ex) {
             Logger.getLogger(PatientDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

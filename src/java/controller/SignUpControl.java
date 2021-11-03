@@ -2,24 +2,25 @@ package controller;
 
 import dal.AccountDAO;
 
-import dal.PatientDAO;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utility.Validate;
-import model.Account;
-import model.Patient;
 
 /**
  *
  * @author admin
  */
+@WebServlet(name = "SignUpControl", urlPatterns = {"/signup"})
 public class SignUpControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
@@ -42,27 +43,16 @@ public class SignUpControl extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public static final char SPACE = ' ';
-
-    /**
-     *
-     */
-    public static final char TAB = '\t';
-
-    /**
-     *
-     */
-    public static final char BREAK_LINE = '\n';
-
     /**
      *
      * @param request
      * @param response
      * @throws ServletException
      * @throws IOException
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try {
             String name = request.getParameter("name");
@@ -78,38 +68,32 @@ public class SignUpControl extends HttpServlet {
             request.setAttribute("phone", phone);
             request.setAttribute("email", email);
             request.setAttribute("user", user);
+            request.setAttribute("pass", pass);
+            request.setAttribute("repass", repass);
 
+            AccountDAO accountDb = new AccountDAO();
             Validate validate = new Validate();
             if (validate.checkPhone(phone) == false) {
+                // check validate phone number
                 request.setAttribute("mess", resourceBundle.getString("invalid_phone"));
                 request.getRequestDispatcher("signup.jsp").forward(request, response);
-            }
-
-            if (!pass.equals(repass)) {
+            } else if (accountDb.checkAccountExist(user) != null) {
+                // check account existed
+                request.setAttribute("mess", resourceBundle.getString("existed_account"));
+                request.getRequestDispatcher("signup.jsp").forward(request, response);
+            } else if (!pass.equals(repass)) {
+                // check pass and repass matched
                 request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
-
                 request.getRequestDispatcher("signup.jsp").forward(request, response);
             } else {
-                PatientDAO patientDb = new PatientDAO();
-                AccountDAO accountDb = new AccountDAO();
-                Account a = accountDb.checkAccountExist(user);
-                if (a == null) { //Account a chua ton tai
-                    accountDb.insertNewAccountPatient(user, pass);
-                    Account account = accountDb.getNewestAccount();
-                    Patient u = new Patient(name, gender, "", phone, email, account.getId(), "");
-                    patientDb.insertNewPatient(u);
-                    response.sendRedirect("login.jsp");
-                } else {
-                    request.setAttribute("mess", resourceBundle.getString("existed_account"));
-                    request.getRequestDispatcher("signup.jsp").forward(request, response);
-                }
+                request.getRequestDispatcher("account_verification").forward(request, response);
             }
         } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -121,7 +105,11 @@ public class SignUpControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SignUpControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -135,7 +123,11 @@ public class SignUpControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SignUpControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

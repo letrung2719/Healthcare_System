@@ -57,7 +57,7 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url = request.getServletPath();
 
-        if (url.startsWith("/admin")) {
+        if (url.startsWith("/admin-role")) {
             HttpSession session = request.getSession();
             Account acc = (Account) session.getAttribute("acc");
             //Check user login or not
@@ -70,7 +70,7 @@ public class AuthorizationFilter implements Filter {
             } else {
                 response.sendRedirect(request.getContextPath() + "/404-error.jsp");
             }
-        } else if (url.startsWith("/doctor-page")) {
+        } else if (url.startsWith("/doctor-role")) {
             HttpSession session = request.getSession();
             Account acc = (Account) session.getAttribute("acc");
             //Check user login or not

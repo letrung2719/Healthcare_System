@@ -211,10 +211,4 @@ public class Reservation {
     public String toString() {
         return "Reservation{" + "reservationID=" + reservationID + ", date=" + date + ", patient=" + patient + ", service=" + service + ", price=" + price + ", status=" + status + ", slot=" + slot + "}\n";
     }
-    
-    public static void main(String[] args) {
-        Reservation r = new Reservation("", null, null, 15, null, "UT");
-        System.out.println(r);
-    }
-    
 }

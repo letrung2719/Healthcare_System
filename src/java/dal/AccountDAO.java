@@ -210,10 +210,8 @@ public class AccountDAO {
      */
     public static void main(String[] args) {
         AccountDAO accountDb = new AccountDAO();
-        Account a;
         try {
-            a = accountDb.login("patient1", "12345");
-            System.out.println(a);
+            System.out.println(accountDb.getNewestAccount().toString());
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

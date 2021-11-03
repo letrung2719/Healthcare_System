@@ -10,7 +10,7 @@
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, user-scalable=0"
-        />
+            />
 
         <!-- Favicons -->
         <link href="assets/img/favicon.png" rel="icon" />
@@ -105,9 +105,10 @@
                                     <div class="doc-info-cont">
                                         <h4 class="doc-name">${detail.title} <c:if test="${avrate >= 4}"><i style="color: aqua" class="far fa-thumbs-up"></i></c:if></h4>
 
-                                            <p class="doc-department">${spec.name}</p>
+                                            <h5 class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${spec.name}</h5>
+
                                         <div class="rating">
-                                            
+
                                             <div class="review-count rating">
                                                 <i class="fas fa-star ${avrate > 0 ? "filled" : ""}"></i>
                                                 <i class="fas fa-star ${avrate > 1 ? "filled" : ""}"></i>
@@ -256,11 +257,11 @@
                                                 <!-- Comment List -->
                                                 <li>
                                                     <div class="comment" style="width: 100%">
-                                                        <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient.jpg">
+                                                        <img class="avatar avatar-sm rounded-circle" alt="User Image" src="${o.patient.image}">
                                                         <div class="comment-body" style="width: 100%">
                                                             <div id="hienlen${o.patient}">
                                                                 <div class="meta-data">
-                                                                    <span class="comment-author">${o.patient}</span>
+                                                                    <span class="comment-author">${o.patient.name}</span>
                                                                     <div class="review-count rating">
                                                                         <i class="fas fa-star ${o.rate > 0 ? "filled" : ""}"></i>
                                                                         <i class="fas fa-star ${o.rate > 1 ? "filled" : ""}"></i>

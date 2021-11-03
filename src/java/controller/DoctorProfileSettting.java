@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import model.Doctor;
  *
  * @author Admin
  */
+@WebServlet(name = "DoctorProfileSettting", urlPatterns = {"/doctor_profile_setting"})
 public class DoctorProfileSettting extends HttpServlet {
     private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");

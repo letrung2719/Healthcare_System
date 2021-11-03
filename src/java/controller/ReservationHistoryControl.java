@@ -7,10 +7,10 @@ package controller;
 
 import dal.ReservationDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +20,7 @@ import model.Reservation;
  *
  * @author Admin
  */
+@WebServlet(name = "ReservationHistoryControl", urlPatterns = {"/reservationHistory"})
 public class ReservationHistoryControl extends HttpServlet {
     private static final long serialVersionUID = 9999L;
     /**
@@ -39,16 +40,19 @@ public class ReservationHistoryControl extends HttpServlet {
             ReservationDAO db = new ReservationDAO();
             int indexPage;
             String getInputPage = request.getParameter("page");
+            
             if (getInputPage == null) {
                 indexPage = 1;
             } else {
                 indexPage = Integer.parseInt(getInputPage);
             }
+            
             int totalAppointment = db.totalReservationByPatient(patientId);
             int numberOfItem = 3;
             int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
             int start = (indexPage - 1) * numberOfItem;
             List<Reservation> list = db.getReservationByPationIdAndPage(patientId, start, numberOfItem);
+            
             request.setAttribute("history", list);
             request.setAttribute("indexPage", indexPage);
             request.setAttribute("numberOfPage", numberOfPage);

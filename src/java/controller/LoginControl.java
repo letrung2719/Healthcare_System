@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import model.Patient;
  *
  * @author admin
  */
+@WebServlet(name = "LoginControl", urlPatterns = {"/login"})
 public class LoginControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
@@ -74,7 +76,7 @@ public class LoginControl extends HttpServlet {
                     case 2:
                         Patient p = patientDb.getPatientByAccountID(a.getId());
                         session.setAttribute("user", p);
-                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                        request.getRequestDispatcher("home").forward(request, response);
                         break;
                     case 0:
                         response.sendRedirect("admin-role/index.jsp");

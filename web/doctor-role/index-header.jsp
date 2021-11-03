@@ -28,7 +28,7 @@
             <c:set var="path" value="<%=request.getServletPath()%>"/>
             <ul class="main-nav">
                 <li class="${path == "/doctor-role/doctor-appointment.jsp" ? "active" : ""}"><a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">My Appointments</a></li>
-                <li class="${path == "#" ? "active" : ""}"><a href="#">My Patients</a></li>
+                <li class="${path == "/doctor-role/my-patient.jsp" ? "active" : ""}"><a href="my-patient?doctorID=${sessionScope.user.doctorID}">My Patients</a></li>
                 <li class="${path == "/doctor-role/doctor-feedback-list.jsp" ? "active" : ""}"><a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=1">My Feedbacks</a></li>
             </ul>
         </div>
@@ -64,44 +64,22 @@
                     <div class="dropdown-menu dropdown-menu-right">
 
                         <div class="user-header">
-                            <c:if test="${sessionScope.acc.author_id == 1}">
-                                <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">
-                                    <div class="avatar avatar-sm">
-                                        <img
-                                            src="${sessionScope.user.image}"
-                                            alt=""
-                                            class="avatar-img rounded-circle"
-                                            />
-                                    </div>
-                                    <div class="user-text">
-                                        <h6>${sessionScope.user.name}</h6>
-                                        <p class="text-muted mb-0">Doctor</p>
-                                    </div>
-                                </a>
-                            </c:if>
-                            <c:if test="${sessionScope.acc.author_id == 2}">
-                                <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">
-                                    <div class="avatar avatar-sm">
-                                        <img
-                                            src="${sessionScope.user.image}"
-                                            alt=""
-                                            class="avatar-img rounded-circle"
-                                            />
-                                    </div>
-                                    <div class="user-text">
-                                        <h6>${sessionScope.user.name}</h6>
-                                        <p class="text-muted mb-0">Patient</p>
-                                    </div>
-                                </a>
-                            </c:if>
+                            <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">
+                                <div class="avatar avatar-sm">
+                                    <img
+                                        src="${sessionScope.user.image}"
+                                        alt=""
+                                        class="avatar-img rounded-circle"
+                                        />
+                                </div>
+                                <div class="user-text">
+                                    <h6>${sessionScope.user.name}</h6>
+                                    <p class="text-muted mb-0">Doctor</p>
+                                </div>
+                            </a>
                         </div>
 
-                        <c:if test="${sessionScope.acc.author_id == 1}">
-                            <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">Profile Settings</a>
-                        </c:if>
-                        <c:if test="${sessionScope.acc.author_id == 2}">
-                            <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">Profile Settings</a>
-                        </c:if>
+                        <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">Profile Settings</a>
 
                         <a class="dropdown-item" href="logout">Logout</a>
                     </div>

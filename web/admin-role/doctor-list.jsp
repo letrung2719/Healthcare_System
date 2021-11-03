@@ -57,7 +57,7 @@
                             <div class="col-sm-7 col-auto">
                                 <h3 class="page-title">List of Doctors</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
                                     <li class="breadcrumb-item active">Doctors</li>
                                 </ul>
@@ -247,7 +247,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form action="update_doctor" method="post">
+                                                                    <form action="admin-update_doctor" method="post">
                                                                         <div class="row form-row">
                                                                             <input name="id" type="hidden" value="${doctor.doctorID}">
                                                                             <input name="accountID" type="hidden" value="${doctor.accountID}">

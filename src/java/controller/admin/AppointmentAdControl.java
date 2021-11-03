@@ -43,7 +43,7 @@ public class AppointmentAdControl extends HttpServlet {
 
             request.setAttribute("ListA", ListA);
             request.getRequestDispatcher("/admin-role/appointment.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+        } catch (IOException | SQLException e) {
             System.out.println(e);
         }
     }

@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="dal.ServicesDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -133,6 +134,11 @@
                                                         </td>
                                                         <td>
                                                             <div class="table-avatar">
+                                                                
+                                                                <c:set var="feedbackDB" value="<%=new ServicesDAO()%>"></c:set>
+                                                                <c:set var="avgrate" value="${feedbackDB.averageRateServices(o.service_id)}"></c:set>
+                                                                
+                                                                
                                                                 <c:if test="${o.rate == 0}">
                                                                     <i class="fe fe-star-o text-secondary"></i>
                                                                     <i class="fe fe-star-o text-secondary"></i>

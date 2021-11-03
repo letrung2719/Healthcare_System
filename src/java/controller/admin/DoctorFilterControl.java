@@ -8,13 +8,12 @@ package controller.admin;
 import dal.DoctorDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletException;
-
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +24,7 @@ import model.Specialities;
  *
  * @author Admin
  */
+@WebServlet(name = "DoctorFilterControl", urlPatterns = {"/admin-role/doctor_filter_view"})
 public class DoctorFilterControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
@@ -66,7 +66,7 @@ public class DoctorFilterControl extends HttpServlet {
             request.setAttribute("gender", gender);
             request.setAttribute("listDoctors", listDoctors);
             request.setAttribute("listSpec", listSpec);
-            request.getRequestDispatcher("doctor-list.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin-role/doctor-list.jsp").forward(request, response);
         } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }

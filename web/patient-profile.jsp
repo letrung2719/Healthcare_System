@@ -39,6 +39,7 @@
           <script src="assets/js/respond.min.js"></script>
         <![endif]-->
     </head>
+    
     <body>
         <!-- Main Wrapper -->
         <div class="main-wrapper">
@@ -54,7 +55,7 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
+                                        <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Profile Settings
@@ -77,19 +78,16 @@
                             <div class="profile-sidebar">
                                 <div class="widget-profile pro-widget-content">
                                     <div class="profile-info-widget">
-                                        <a href="#" class="booking-doc-img">
+                                        <a href="patient_profile?id=${sessionScope.user.accountID}" class="booking-doc-img">
                                             <img
-                                                src="${Users.image}"
+                                                src="${sessionScope.user.image}"
                                                 alt="User Image"
                                                 />
                                         </a>
                                         <div class="profile-det-info">
-                                            <h3>${Users.name}</h3>
+                                            <h3>${sessionScope.user.name}</h3>
                                             <div class="patient-details">
-                                                <h5>
-                                                    <i class="fas fa-birthday-cake"></i> ${Users.dob}
-                                                </h5>
-                                                
+                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -98,24 +96,29 @@
                                     <nav class="dashboard-menu">
                                         <ul>
                                             <li>
-                                                <a href="#">
+                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
                                                     <i class="fas fa-columns"></i>
                                                     <span>Dashboard</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="favourites.html">
+                                                <a href="#">
                                                     <i class="fas fa-bookmark"></i>
                                                     <span>Favourites</span>
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li class="active">
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
-                                            
+                                            <li>
+                                                <a href="reservationHistory?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-user-cog"></i>
+                                                    <span>Services Booking History</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="change-password.jsp">
                                                     <i class="fas fa-lock"></i>
@@ -229,38 +232,35 @@
                     </div>
                 </div>
             </div>
+            <!-- /Main Wrapper -->
+
+            <!-- Footer -->
+            <jsp:include page="index-footer.jsp"/>
+            <!-- /Footer -->
         </div>
-    </div>
-</div>
-<!-- /Page Content -->
+        <!-- /Page Content -->
 
-<!-- Footer -->
-<jsp:include page="index-footer.jsp"/>
-<!-- /Footer -->
-</div>
-<!-- /Main Wrapper -->
+        <!-- jQuery -->
+        <script src="assets/js/jquery.min.js"></script>
 
-<!-- jQuery -->
-<script src="assets/js/jquery.min.js"></script>
+        <!-- Bootstrap Core JS -->
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
 
-<!-- Bootstrap Core JS -->
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+        <!-- Select2 JS -->
+        <script src="assets/plugins/select2/js/select2.min.js"></script>
 
-<!-- Select2 JS -->
-<script src="assets/plugins/select2/js/select2.min.js"></script>
+        <!-- Datetimepicker JS -->
+        <script src="assets/js/moment.min.js"></script>
+        <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 
-<!-- Datetimepicker JS -->
-<script src="assets/js/moment.min.js"></script>
-<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+        <!-- Sticky Sidebar JS -->
+        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
-<!-- Sticky Sidebar JS -->
-<script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-<script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <!-- Custom JS -->
+        <script src="assets/js/script.js"></script>
+    </body>
 
-<!-- Custom JS -->
-<script src="assets/js/script.js"></script>
-</body>
-
-<!-- doccure/profile-settings.html  30 Nov 2019 04:12:18 GMT -->
+    <!-- doccure/profile-settings.html  30 Nov 2019 04:12:18 GMT -->
 </html>

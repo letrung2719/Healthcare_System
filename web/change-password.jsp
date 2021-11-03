@@ -46,7 +46,7 @@
                         <div class="col-md-12 col-12">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="home">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Change Password</li>
                                 </ol>
                             </nav>
@@ -61,19 +61,22 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 
-                            <!-- Profile Sidebar -->
+                        <!-- Profile Sidebar -->
+                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
                             <div class="profile-sidebar">
                                 <div class="widget-profile pro-widget-content">
                                     <div class="profile-info-widget">
-                                        <a href="#" class="booking-doc-img">
-                                            <img src="assets/img/patients/patient.jpg" alt="User Image">
+                                        <a href="patient_profile?id=${sessionScope.user.accountID}" class="booking-doc-img">
+                                            <img
+                                                src="${sessionScope.user.image}"
+                                                alt="User Image"
+                                                />
                                         </a>
                                         <div class="profile-det-info">
-                                            <h3>${sessionScope.patient.name}</h3>
+                                            <h3>${sessionScope.user.name}</h3>
                                             <div class="patient-details">
-                                                <h5><i class="fas fa-birthday-cake"></i>${sessionScope.patient.dob}</h5>
+                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -82,21 +85,27 @@
                                     <nav class="dashboard-menu">
                                         <ul>
                                             <li>
-                                                <a href="patient-dashboard.html">
+                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
                                                     <i class="fas fa-columns"></i>
                                                     <span>Dashboard</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="favourites.html">
+                                                <a href="#">
                                                     <i class="fas fa-bookmark"></i>
                                                     <span>Favourites</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="patient_profile?id=${sessionScope.patient.accountID}">
+                                                <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="reservationHistory?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-user-cog"></i>
+                                                    <span>Services Booking History</span>
                                                 </a>
                                             </li>
                                             <li class="active">
@@ -114,11 +123,9 @@
                                         </ul>
                                     </nav>
                                 </div>
-
                             </div>
-                            <!-- /Profile Sidebar -->
-
                         </div>
+                        <!-- /Profile Sidebar -->
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
@@ -126,6 +133,7 @@
                                     <div class="row">
                                         <div class="col-md-12 col-lg-6">
                                             <p class="text-danger">${mess}</p>
+                                            <p class="text-success">${success}</p>
                                             <!-- Change Password Form -->
                                             <form action="change_password" method="post">
                                                 <div class="form-group">
@@ -153,14 +161,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>		
             <!-- /Page Content -->
 
             <!-- Footer -->
             <jsp:include page="index-footer.jsp"/>
             <!-- /Footer -->
-
         </div>
         <!-- /Main Wrapper -->
 

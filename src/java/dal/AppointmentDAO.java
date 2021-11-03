@@ -31,7 +31,7 @@ public class AppointmentDAO {
     PatientDAO dalPatient = new PatientDAO();
     DoctorDAO dalDoctor = new DoctorDAO();
     TimetableDAO dalTimetable = new TimetableDAO();
-    
+
     DBContext dbc = new DBContext();
     Connection connection = null;
 
@@ -129,9 +129,29 @@ public class AppointmentDAO {
         return 0;
     }
 
+    public int getAllPatientAppointment(int patientID) throws SQLException {
+        String sql = "select count(*) from Appointments where patient_id = " + patientID;
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return 0;
+    }
+
     /**
      *
-     * @return
+     * @return @throws java.sql.SQLException
      */
     public List<Appointment> getAppointmentAdmin() throws SQLException {
         List<Appointment> list = new ArrayList<>();
@@ -167,15 +187,55 @@ public class AppointmentDAO {
     /**
      *
      * @param doctorID
-     * @param pageNumber
+     * @param start
      * @param numberOfItem
      * @return
      * @throws java.sql.SQLException
      */
-    //CHECK AGAIN
     public List<Appointment> paginateAppointmentByDoctorID(int doctorID, int start, int numberOfItem) throws SQLException {
         List<Appointment> list = new ArrayList<>();
-        String sql = "select * from appointments where doctor_id="+doctorID+" order by appointment_id Limit "+numberOfItem+" offset "+start+";";
+        String sql = "select * from appointments where doctor_id=" + doctorID + " order by appointment_id Limit " + numberOfItem + " offset " + start + ";";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Appointment a = new Appointment();
+                a.setAppointmentID(rs.getInt(1));
+                Patient p = dalPatient.getPatientByPatientID(rs.getInt(2));
+                a.setPatient(p);
+                Doctor d = dalDoctor.getDoctorByDoctorID(rs.getInt(3));
+                a.setDoctor(d);
+                a.setDate(rs.getString(4));
+
+                Timetable slot = dalTimetable.getTimeBySlotID(rs.getInt(5));
+                a.setSlot(slot);
+                a.setDescription(rs.getString(6));
+                a.setStatus(rs.getInt(7));
+                list.add(a);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return list;
+    }
+
+    /**
+     *
+     * @param patientID
+     * @param start
+     * @param numberOfItem
+     * @return
+     * @throws SQLException
+     */
+    public List<Appointment> paginateAppointmentByPatientID(int patientID, int start, int numberOfItem) throws SQLException {
+        List<Appointment> list = new ArrayList<>();
+        String sql = "select * from appointments where patient_id=" + patientID + " order by appointment_id Limit " + numberOfItem + " offset " + start + ";";
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
