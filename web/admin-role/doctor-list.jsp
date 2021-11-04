@@ -127,7 +127,7 @@
                                                     <div class="form-group">
                                                         <label>DOB</label>
                                                         <input
-                                                            type="text "
+                                                            type="date"
                                                             class="form-control"
                                                             value="${doctorDob}"
                                                             name="dob"
@@ -188,7 +188,7 @@
                    
                         <!-- /Page Header -->
                         
-                            <div class="col-sm-12">
+                            
                                 <div class="card">
                                     <div class="card-body modal-content"> 
                                         <div class="table-responsive ">
@@ -244,10 +244,10 @@
                                                                     <h5 class="modal-title">Edit Doctors</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
-                                                                    </button>
+                                                              </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form action="admin-update_doctor" method="post">
+                                                                    <form action="update_doctor" method="post">
                                                                         <div class="row form-row">
                                                                             <input name="id" type="hidden" value="${doctor.doctorID}">
                                                                             <input name="accountID" type="hidden" value="${doctor.accountID}">
@@ -275,13 +275,13 @@
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>DOB</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.dob} " name="dob" required="" placeholder="yyyy-MM-dd">
+                                                                                    <input type="date" class="form-control " value="${doctor.dob}" name="dob" required="" placeholder="yyyy-MM-dd">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>Phone</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.phone} " name="phone" required="" >
+                                                                                    <input type="text " class="form-control " value="${doctor.phone}" name="phone" required="" >
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12 col-sm-12 ">
@@ -306,7 +306,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                    
                         
                     </div>
 

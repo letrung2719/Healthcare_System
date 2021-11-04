@@ -24,7 +24,7 @@ import model.Specialities;
  *
  * @author Admin
  */
-@WebServlet(name = "DoctorFilterControl", urlPatterns = {"/admin-role/doctor_filter_view"})
+@WebServlet(name = "DoctorFilterControl", urlPatterns = {"/admin-role/doctor_filter"})
 public class DoctorFilterControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

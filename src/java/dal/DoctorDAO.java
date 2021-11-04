@@ -173,7 +173,7 @@ public class DoctorDAO {
      */
     public List<Doctor> getAllDoctor() throws SQLException {
         ArrayList<Doctor> list = new ArrayList<>();
-        String sql = "select doctor_id,doctors.name,gender,DATE_FORMAT(dob, \"%e %M %Y\"), phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n"
+        String sql = "select doctor_id,doctors.name,gender,dob, phone,email,role,doctors.type_id,specialities.name,description,account_id,image\n"
                 + "from doctors join specialities on doctors.type_id = specialities.type_id";
         try {
             connection = dbc.getConnection();
@@ -233,7 +233,7 @@ public class DoctorDAO {
      */
     public List<Doctor> search(String doctorName, String dob, String phone, String email, Integer gender, List<String> listSpec) throws SQLException {
         List<Doctor> list = new ArrayList<>();
-        String sql = "select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id,DATE_FORMAT(dob, \"%e %M %Y\")\n"
+        String sql = "select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id,dob\n"
                 + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
                 + "where 1=1 ";
         if (doctorName != null && !doctorName.isEmpty()) {

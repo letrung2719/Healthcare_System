@@ -109,8 +109,9 @@
                                                                     <a href="">${app.patient.name}<span>#PT ${app.patient.patientID}</span></a>
                                                                 </h2>
                                                             </td>
-
-                                                            <td>${app.date}<span class="d-block text-info">${app.slot.time}</span></td>
+                                                            <fmt:parseDate var="p_date" value="${app.date}" pattern="yyyy-MM-dd"/>
+                                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                                            <td>${date}<span class="d-block text-info">${app.slot.time}</span></td>
 
                                                             <td>
                                                                 <c:if test="${app.status == 1}">

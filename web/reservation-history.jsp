@@ -3,6 +3,7 @@
     Created on : 30-Oct-2021, 18:05:12
     Author     : Admin
 --%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -106,7 +107,7 @@
                                                     <span>Favourites</span>
                                                 </a>
                                             </li>
-                                            
+
                                             <li>
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
@@ -169,8 +170,7 @@
                                                         <table class="table table-hover table-center mb-0">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Reservation ID</th>
-                                                                    <th>Patient</th>
+                                                                    <th>Reservation ID</th>                                                                
                                                                     <th>Service</th>
                                                                     <th>Date</th>
                                                                     <th>Price</th>
@@ -181,51 +181,37 @@
                                                                 <c:forEach items="${history}" var="res">
                                                                     <tr>
                                                                         <td>#RESV${res.reservationID}</td>
-                                                                        <td>
-                                                                            <h2 class="table-avatar">
-                                                                                <a
-                                                                                    href="doctor-profile.html"
-                                                                                    class="avatar avatar-sm mr-2"
-                                                                                    >
-                                                                                    <img
-                                                                                        class="avatar-img rounded-circle"
-                                                                                        src="${res.patient.image}"
-                                                                                        alt=""
-                                                                                        />
-                                                                                </a>
-                                                                                <a href="#"
-                                                                                   >${res.patient.name} <span>#PT${res.patient.patientID}</span></a
-                                                                                >
-                                                                            </h2>
-                                                                        </td>
-                                                                        <td>${res.service.title}</td>
-                                                                        <td>
-                                                                            ${res.date}
-                                                                            <span class="d-block text-info"
-                                                                                  >${res.slot.time}</span
-                                                                            >
-                                                                        </td>
-                                                                        <td>${res.price}</td>
-                                                                        <td>
-                                                                            <c:if test="${res.status == 1}">
-                                                                                <span class="badge badge-pill bg-warning-light">
-                                                                                    Pending
-                                                                                </span>
-                                                                            </c:if>
-                                                                            <c:if test="${res.status == 2}">
-                                                                                <span class="badge badge-pill bg-success-light">
-                                                                                    Complete
-                                                                                </span>
-                                                                            </c:if>
-                                                                            <c:if test="${res.status == 0}">
-                                                                                <span class="badge badge-pill bg-danger-light">
-                                                                                    Cancel
-                                                                                </span>
-                                                                            </c:if>
 
-                                                                        </td>
-                                                                    </tr>
-                                                                </c:forEach>
+                                                                        <td>${res.service.title}</td>
+                                                                <fmt:parseDate var="p_date" value="${res.date}" pattern="yyyy-MM-dd"/>
+                                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                                                <td>
+                                                                    ${date}
+                                                                    <span class="d-block text-info"
+                                                                          >${res.slot.time}</span
+                                                                    >
+                                                                </td>
+                                                                <td>${res.price}</td>
+                                                                <td>
+                                                                    <c:if test="${res.status == 1}">
+                                                                        <span class="badge badge-pill bg-warning-light">
+                                                                            Pending
+                                                                        </span>
+                                                                    </c:if>
+                                                                    <c:if test="${res.status == 2}">
+                                                                        <span class="badge badge-pill bg-success-light">
+                                                                            Complete
+                                                                        </span>
+                                                                    </c:if>
+                                                                    <c:if test="${res.status == 0}">
+                                                                        <span class="badge badge-pill bg-danger-light">
+                                                                            Cancel
+                                                                        </span>
+                                                                    </c:if>
+
+                                                                </td>
+                                                                </tr>
+                                                            </c:forEach>
                                                             </tbody>
                                                         </table>
                                                     </div>

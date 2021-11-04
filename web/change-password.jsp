@@ -142,7 +142,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>New Password</label>
-                                                    <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="">
+                                                    <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}">
+                                                    <span class="form-text text-muted">Password must contain at least 6 character, 1 Upper-case letter, 1 or more digits</span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Confirm Password</label>
