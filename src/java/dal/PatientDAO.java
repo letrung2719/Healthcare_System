@@ -25,7 +25,7 @@ public class PatientDAO {
     PreparedStatement ps = null;
     PreparedStatement ps2 = null;
     ResultSet rs = null;
-    
+
     DBContext dbc = new DBContext();
     Connection connection = null;
 
@@ -75,6 +75,35 @@ public class PatientDAO {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, patientID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Patient p = new Patient();
+                p.setPatientID(rs.getInt(1));
+                p.setName(rs.getString(2));
+                p.setGender(rs.getInt(3));
+                p.setDob(rs.getString(4));
+                p.setAccountID(rs.getInt(8));
+                p.setPhone(rs.getString(5));
+                p.setEmail(rs.getString(6));
+                p.setImage(rs.getString(7));
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return null;
+    }
+
+    public Patient getPatientByEmail(String email) throws SQLException {
+        String sql = "select * from patients where email = ?";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Patient p = new Patient();
@@ -152,8 +181,7 @@ public class PatientDAO {
 
     /**
      *
-     * @return
-     * @throws java.sql.SQLException
+     * @return @throws java.sql.SQLException
      */
     public List<Patient> getAllPatient() throws SQLException {
         ArrayList<Patient> list = new ArrayList<>();
@@ -214,6 +242,17 @@ public class PatientDAO {
         return 0;
     }
 
+    public String checkEmailExisted(String email) throws SQLException {
+        PatientDAO patientDb = new PatientDAO();
+        List<Patient> p = patientDb.getAllPatient();
+        for (Patient patient : p) {
+            if (email.equals(patient.getEmail())) {
+                return email;
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * @param args
@@ -224,8 +263,9 @@ public class PatientDAO {
 //        Patient p = new Patient("Nguyen Van Minh", 0, "2001-12-12", "0123456789", "abc@gmail.com", 31, "");
 //            List<Patient> p = patientDb.getAllPatient();
 //            System.out.println(p);
-        AccountDAO accDb = new AccountDAO();
-        patientDb.insertNewPatient(new Patient("abc", 0, null, "0123456789", "abc@gmail.com", accDb.getNewestAccount().getId(), ""));
+            AccountDAO accDb = new AccountDAO();
+//            patientDb.insertNewPatient(new Patient("abc", 0, null, "0123456789", "abc@gmail.com", accDb.getNewestAccount().getId(), ""));
+            System.out.println(patientDb.getPatientByEmail("hoangtvhe151161@fpt.edu.vn").toString());
         } catch (SQLException ex) {
             Logger.getLogger(PatientDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

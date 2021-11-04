@@ -5,13 +5,23 @@
  */
 package controller;
 
+import dal.AccountDAO;
+import dal.DoctorDAO;
+import dal.PatientDAO;
+import utility.ForgotPassword;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ForgotPasswordControl", urlPatterns = {"/forgot_password"})
 public class ForgotPasswordControl extends HttpServlet {
+
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +49,7 @@ public class ForgotPasswordControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ForgotPasswordControl</title>");            
+            out.println("<title>Servlet ForgotPasswordControl</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ForgotPasswordControl at " + request.getContextPath() + "</h1>");
@@ -58,7 +70,32 @@ public class ForgotPasswordControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            String email = request.getParameter("email");
+            PatientDAO patientDb = new PatientDAO();
+            DoctorDAO doctorDb = new DoctorDAO();
+
+            if (patientDb.checkEmailExisted(email) != null || doctorDb.checkEmailExisted(email) != null) {
+                ForgotPassword forgot = new ForgotPassword();
+                String new_password = forgot.getNewPassword();
+                forgot.sendMail(email, new_password);
+                
+                AccountDAO accountDb = new AccountDAO();
+                if (patientDb.getPatientByEmail(email) != null) {
+                    accountDb.changePassword(new_password, patientDb.getPatientByEmail(email).getAccountID());
+                } else {
+                    accountDb.changePassword(new_password, doctorDb.getDoctorByEmail(email).getAccountID());
+                }
+                
+                request.setAttribute("success", resourceBundle.getString("reset_password_success"));
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                request.setAttribute("mess", resourceBundle.getString("not_existed_email"));
+                request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
+            }
+        } catch (MessagingException | SQLException ex) {
+            Logger.getLogger(ForgotPasswordControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

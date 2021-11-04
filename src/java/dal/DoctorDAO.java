@@ -112,6 +112,41 @@ public class DoctorDAO {
         }
         return null;
     }
+    
+    public Doctor getDoctorByEmail(String email) throws SQLException {
+        String sql = "select doctor_id,doctors.name,gender,dob,phone,email,role,Doctors.type_id,specialities.name,description,account_id,image\n"
+                + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
+                + "where email =?";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Doctor p = new Doctor();
+                p.setDoctorID(rs.getInt(1));
+                p.setName(rs.getString(2));
+                p.setGender(rs.getInt(3));
+                p.setDob(rs.getString(4));
+                p.setPhone(rs.getString(5));
+                p.setEmail(rs.getString(6));
+                p.setRole(rs.getString(7));
+                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));
+                p.setSpec(spec);
+                p.setDescription(rs.getString(10));
+                p.setImage(rs.getString(12));
+                p.setAccountID(rs.getInt(11));
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return null;
+    }
 
     /**
      *
@@ -324,6 +359,17 @@ public class DoctorDAO {
         }
         return list;
     }
+    
+    public String checkEmailExisted(String email) throws SQLException {
+        DoctorDAO doctorDb = new DoctorDAO();
+        List<Doctor> d = doctorDb.getAllDoctor();
+        for (Doctor doctor : d) {
+            if(email.equals(doctor.getEmail())){
+                return email;
+            }
+        }
+        return null;
+    }
 
     /**
      *
@@ -339,7 +385,7 @@ public class DoctorDAO {
 //            Doctor d = doctorDb.getDoctorByAccountID(7);
 //            System.out.println(d);
             List<Patient> p = doctorDb.getAllMyPatient(1);
-            System.out.println(p);
+            System.out.println(doctorDb.getDoctorByEmail("tttdung1@gmail.com").toString());
 //        Doctor d = doctorDb.getDoctorByDoctorID(2);
 //        System.out.println(d);
 //        String[] listSpec 
