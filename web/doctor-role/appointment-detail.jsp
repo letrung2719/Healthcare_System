@@ -68,9 +68,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div style="display: flex">
-                                    <!-- Profile Sidebar -->
-                                    <%@include file="doctor-sidebar.jsp" %>
-                                    <!-- /Profile Sidebar -->
+                                <!-- Profile Sidebar -->
+                                <%@include file="doctor-sidebar.jsp" %>
+                                <!-- /Profile Sidebar -->
 
                                 <div class="col-md-7 col-lg-8 col-xl-9">
                                     <div class="card">
@@ -104,11 +104,12 @@
                                                 <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Phone Number</h4>
                                                 <p class="col-sm-10">${app.patient.phone}</p>
                                             </div>
-                                  
+                                            <fmt:parseDate var="p_date" value="${app.date}" pattern="yyyy-MM-dd"/>
+                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
                                             <div class="row">
                                                 <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date</h4>
-                           
-                                                <p class="col-sm-10">${app.date}</p>
+
+                                                <p class="col-sm-10">${date}</p>
 
                                             </div>
                                             <div class="row">

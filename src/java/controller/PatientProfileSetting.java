@@ -94,9 +94,10 @@ public class PatientProfileSetting extends HttpServlet {
             request.setAttribute("thongbao", resourceBundle.getString("success"));
             
             HttpSession session = request.getSession();
-            session.setAttribute("user", e);
+            Patient p = patientDb.getPatientByAccountID(accountID);
+            session.setAttribute("user", p);
             
-            request.getRequestDispatcher("patient_profile?id=" + accountID).forward(request, response);
+            request.getRequestDispatcher("patient_profile?id=" + p.getAccountID()).forward(request, response);
         } catch (NumberFormatException | SQLException ex) {
             System.out.println(ex);
         }

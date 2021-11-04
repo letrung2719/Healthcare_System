@@ -157,7 +157,7 @@ public class PatientDAO {
      * @param u
      * @throws java.sql.SQLException
      */
-    public void insertNewPatient(Patient u) throws SQLException {
+    public int insertNewPatient(Patient u) throws SQLException {
         String sql = "insert into Patients(name,gender,dob,phone,email,image,account_id) values (?,?,?,?,?,?,?)";
         try {
             connection = dbc.getConnection();
@@ -169,7 +169,7 @@ public class PatientDAO {
             ps.setString(5, u.getEmail());
             ps.setString(6, u.getImage());
             ps.setInt(7, u.getAccountID());
-            ps.executeUpdate();
+            return ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         } finally {
@@ -177,6 +177,7 @@ public class PatientDAO {
                 connection.close();
             }
         }
+        return 0;
     }
 
     /**

@@ -98,17 +98,8 @@ public class Reservation {
      *
      * @param date
      */
-    public void setDate(String date) {
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = formatter1.parse(date);
-            String strDate = formatter.format(date1);
-            this.date = strDate;
-        } catch (ParseException ex) {
-            System.out.println(ex);
-        }
-        
+    public void setDate(String date) {    
+        this.date = date;
     }
 
     /**

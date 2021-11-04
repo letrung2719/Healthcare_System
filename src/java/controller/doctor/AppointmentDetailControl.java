@@ -7,9 +7,10 @@ package controller.doctor;
 
 import dal.AppointmentDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import model.Appointment;
  *
  * @author Admin
  */
+@WebServlet(name = "AppointmentDetailControl", urlPatterns = {"/appointmentDetailControl"})
 public class AppointmentDetailControl extends HttpServlet {
 
     /**

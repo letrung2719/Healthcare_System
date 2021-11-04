@@ -62,109 +62,133 @@
                                     <li class="breadcrumb-item active">Doctors</li>
                                 </ul>
                             </div>
+                            <div class="col-sm-5 col">
+                                <a
+                                    href="#Add_Specialities_details"
+                                    data-toggle="modal"
+                                    class="btn btn-primary float-right mt-2"
+                                    >Filter
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    <div style="display: flex">
-                        <div class= "table-responsive"style="width: 20%">
-                            <div class="modal-dialog modal-dialog-centered" style="margin: 0 !important" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Search Filter</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="admin-doctor_filter" method="post">
+                    <!-- Add Modal -->
+                    <div
+                        class="modal fade"
+                        id="Add_Specialities_details"
+                        aria-hidden="true"
+                        role="dialog"
+                        >
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Search Filter</h5>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                        >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="doctor_filter" method="post">
+                                        <div class="row form-row">
                                             <div class="row form-row">
-                                                <div class="row form-row">
-                                                    <div class="col-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="text-primary">Name</label>
-                                                            <input
-                                                                type="text"
-                                                                class="form-control"
-                                                                value=""
-                                                                name="name"
-                                                                />
-                                                        </div>
+                                                <div class="col-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Name</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            value="${doctorName}"
+                                                            name="name"
+                                                            />
                                                     </div>
-                                                    <div class="col-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="text-primary">Gender</label><br />
-                                                            <input
-                                                                type="radio"
-                                                                name="gender"
-                                                                value="Male"
-                                                                />Male
-                                                            <input
-                                                                type="radio"
-                                                                name="gender"
-                                                                value="Female"
-                                                                style="margin-left: 20px"
-                                                                />Female
-                                                        </div>
+                                                </div>
+                                                <div class="col-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Gender</label><br />
+                                                        <input
+                                                            type="radio"
+                                                            name="gender"
+                                                            value="Male"
+                                                            />Male
+                                                        <input
+                                                            type="radio"
+                                                            name="gender"
+                                                            value="Female"
+                                                            style="margin-left: 20px"
+                                                            />Female
                                                     </div>
-                                                    <div class="col-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="text-primary">DOB</label>
-                                                            <input
-                                                                type="text "
-                                                                class="form-control"
-                                                                value=""
-                                                                name="dob"
-                                                                />
-                                                        </div>
+                                                </div>
+                                                <div class="col-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>DOB</label>
+                                                        <input
+                                                            type="date"
+                                                            class="form-control"
+                                                            value="${doctorDob}"
+                                                            name="dob"
+                                                            />
                                                     </div>
-                                                    <div class="col-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="text-primary">Phone</label>
-                                                            <input
-                                                                type="text "
-                                                                class="form-control"
-                                                                value=""
-                                                                name="phone"
-                                                                />
-                                                        </div>
+                                                </div>
+                                                <div class="col-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Phone</label>
+                                                        <input
+                                                            type="text "
+                                                            class="form-control"
+                                                            value="${doctorPhone}"
+                                                            name="phone"
+                                                            />
                                                     </div>
-                                                    <div class="col-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="text-primary">Email</label>
-                                                            <input
-                                                                type="text "
-                                                                class="form-control"
-                                                                value=""
-                                                                name="email"
-                                                                />
-                                                        </div>
+                                                </div>
+                                                <div class="col-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input
+                                                            type="text "
+                                                            class="form-control"
+                                                            value="${doctorEmail}"
+                                                            name="email"
+                                                            />
                                                     </div>
-                                                    <div class="col-12 col-sm-12">
-
-                                                        <label class="text-primary">Select Specialist</label>
-                                                        <c:forEach items="${listSpec}" var="spec">
-                                                            <div>
-                                                                <label class="custom_check">
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        name="select_specialist"
-                                                                        value="${spec.name}"
-                                                                        />
-                                                                    <span class="checkmark"></span> ${spec.name}
-                                                                </label>
-                                                            </div>
-                                                        </c:forEach>
-
+                                                </div>
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="filter-widget">
+                                                        <label>Select Specialist</label>
+                                                        <br>
+                                                        <select
+                                                            class="form-select"
+                                                            aria-label="Default select example"
+                                                            name="select_specialist"
+                                                            >
+                                                            <option value="">Open this select menu</option>
+                                                            <c:forEach items="${listSpec}" var="spec">
+                                                                <option value="${spec.name}">${spec.name}</option>
+                                                            </c:forEach>
+                                                        </select>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary btn-block">
-                                                Search
-                                            </button>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Search
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- /ADD Modal -->
+                   
                         <!-- /Page Header -->
-                        <div class="row" style="width: 80%">
-                            <div class="col-sm-12">
+                        
+                            
                                 <div class="card">
                                     <div class="card-body modal-content"> 
                                         <div class="table-responsive ">
@@ -204,13 +228,11 @@
                                                             <!-- >Phone -->
                                                             <td> ${doctor.phone}</td>
                                                             <td class="text-right">
-                                                                <div class="actions">
+                                                                <div class="actions ">
                                                                     <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#edit_specialities_details${doctor.doctorID}">
                                                                         <i class="fe fe-pencil"></i> Edit
                                                                     </a>
-                                                                    <a data-toggle="modal" href="#delete_modal${doctor.doctorID}" class="btn btn-sm bg-danger-light">
-                                                                        <i class="fe fe-trash"></i> Delete
-                                                                    </a>
+                                                                    
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -222,10 +244,10 @@
                                                                     <h5 class="modal-title">Edit Doctors</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
-                                                                    </button>
+                                                              </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form action="admin-update_doctor" method="post">
+                                                                    <form action="update_doctor" method="post">
                                                                         <div class="row form-row">
                                                                             <input name="id" type="hidden" value="${doctor.doctorID}">
                                                                             <input name="accountID" type="hidden" value="${doctor.accountID}">
@@ -248,28 +270,24 @@
                                                                                     </c:if>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-12 col-sm-12 ">
-                                                                                <div class="form-group ">
-                                                                                    <label>Specialities</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.spec.name} " name="specName   " required="">
-                                                                                </div>
-                                                                            </div>
+                                                                            
+                                                                             <input type="hidden"  value="${doctor.spec.name}" name="specName">   
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>DOB</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.dob} " name="dob" required="">
+                                                                                    <input type="date" class="form-control " value="${doctor.dob}" name="dob" required="" placeholder="yyyy-MM-dd">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>Phone</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.phone} " name="phone" required="">
+                                                                                    <input type="text " class="form-control " value="${doctor.phone}" name="phone" required="" >
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>Email</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.email}" name="email" required="">
+                                                                                    <input type="text " class="form-control " value="${doctor.email}" name="email" readonly="">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -281,31 +299,15 @@
                                                     </div>
                                                     <!-- /Edit Details Modal -->
 
-                                                    <!-- Delete Modal -->
-                                                    <div class="modal fade" id="delete_modal${doctor.doctorID}" aria-hidden="true" role="dialog">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-
-                                                                <div class="modal-body" style="text-align: center">
-                                                                    <div class="form-content p-2">
-                                                                        <h4 class="modal-title">Delete</h4>
-                                                                        <p class="mb-4">Are you sure want to delete?</p>
-                                                                        <a href="admin-delete_doctor?id=${doctor.accountID}"><button type="button" class="btn btn-primary">Save</button></a>
-                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /Delete Modal -->
+                                                    
                                                 </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div> 
+                    
+                        
                     </div>
 
                 </div>

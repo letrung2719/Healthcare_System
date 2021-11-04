@@ -268,9 +268,9 @@ public class DoctorDAO {
      */
     public List<Doctor> search(String doctorName, String dob, String phone, String email, Integer gender, List<String> listSpec) throws SQLException {
         List<Doctor> list = new ArrayList<>();
-        String sql = "select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id\n"
+        String sql = "select doctor_id,doctors.name,gender,phone,email,role,image,description,doctors.type_id,specialities.name,account_id,dob\n"
                 + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
-                + "where 1=1";
+                + "where 1=1 ";
         if (doctorName != null && !doctorName.isEmpty()) {
             sql += " AND doctors.name like '%" + doctorName + "%'";
         }
@@ -287,16 +287,20 @@ public class DoctorDAO {
             sql += " AND gender = " + gender;
         }
         if (listSpec != null && !listSpec.isEmpty()) {
-            sql += "and (";
-            for (int i = 0; i < listSpec.size(); i++) {
-                sql += "specialities.name = '" + listSpec.get(i) + "' ";
-                if (i < listSpec.size() - 1) {
-                    sql += " or ";
-                }
-            }
-            sql += ")";
-        }
+            if (!listSpec.get(0).equals("")) {
+                sql += "and (";
+                for (int i = 0; i < listSpec.size(); i++) {
 
+                    sql += "specialities.name = '" + listSpec.get(i) + "' ";
+                    if (i < listSpec.size() - 1) {
+                        sql += " or ";
+                    }
+                }
+                sql += ")";
+            }
+
+        }
+        System.out.println(sql);
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
@@ -314,6 +318,7 @@ public class DoctorDAO {
                 Specialities spec = new Specialities(rs.getInt(9), rs.getString(10));
                 d.setSpec(spec);
                 d.setAccountID(rs.getInt(11));
+                d.setDob(rs.getString(12));
                 list.add(d);
             }
         } catch (SQLException e) {
@@ -388,9 +393,9 @@ public class DoctorDAO {
             System.out.println(doctorDb.getDoctorByEmail("tttdung1@gmail.com").toString());
 //        Doctor d = doctorDb.getDoctorByDoctorID(2);
 //        System.out.println(d);
-//        String[] listSpec 
-//        List<Doctor> list = doctorDb.search("", "", "", "", null, listSpec);
-//        System.out.println(list);
+        List<String> listSpec = new ArrayList<String>();
+        List<Doctor> list = doctorDb.search("", "", "", "", null, listSpec);
+        System.out.println(list);
         } catch (SQLException ex) {
             Logger.getLogger(DoctorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

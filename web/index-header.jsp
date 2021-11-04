@@ -82,6 +82,9 @@
                                 </div>
                             </a>
                         </div>
+                        <c:if test="${sessionScope.acc.author_id == 2}">
+                            <a class="dropdown-item" href="reservationHistory?id=${sessionScope.user.patientID}">Reservation History</a>
+                        </c:if>
 
                         <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">Profile Settings</a>
 

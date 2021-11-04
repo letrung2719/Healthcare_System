@@ -1,3 +1,5 @@
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,7 +41,7 @@
           <script src="assets/js/respond.min.js"></script>
         <![endif]-->
     </head>
-    
+
     <body>
         <!-- Main Wrapper -->
         <div class="main-wrapper">
@@ -86,8 +88,10 @@
                                         </a>
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
+                                            <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
+                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
                                             <div class="patient-details">
-                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
+                                                <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -155,6 +159,7 @@
                                                         class="form-control"
                                                         value="${Users.name}"
                                                         name="name"
+
                                                         />
                                                 </div>
                                             </div>
@@ -204,6 +209,7 @@
                                                         type="email"
                                                         class="form-control"
                                                         value="${Users.email}"
+                                                        readonly=""
                                                         />
                                                 </div>
                                             </div>
@@ -215,7 +221,10 @@
                                                         type="text"
                                                         value="${Users.phone}"
                                                         class="form-control"
+                                                        pattern="\d{8,10}$"
                                                         />
+                                                    <span class="form-text text-muted">Phone number must from 8 to 10 digits</span>
+
                                                 </div>
                                             </div>
                                         </div>                                        

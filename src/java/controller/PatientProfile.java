@@ -1,11 +1,18 @@
 package controller;
 
+import dal.PatientDAO;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import model.Patient;
 
 /**
  *
@@ -24,9 +31,13 @@ public class PatientProfile extends HttpServlet {
      * @throws IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+             HttpSession session = request.getSession();
+             Patient p = (Patient) session.getAttribute("user");
+             request.setAttribute("Users", p);
+           
             request.getRequestDispatcher("patient-profile.jsp").forward(request, response);
         } catch (IOException | NumberFormatException | ServletException e) {
             System.out.println(e);
@@ -45,7 +56,11 @@ public class PatientProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -59,7 +74,11 @@ public class PatientProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

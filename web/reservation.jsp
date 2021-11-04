@@ -243,6 +243,7 @@
                                             </ul>
                                             <script>
                                                 function changeDate(value) {
+                                                   
                                                     document.getElementById("resDate").innerHTML = value;
                                                 }
                                             </script>
