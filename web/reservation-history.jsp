@@ -87,7 +87,9 @@
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
                                             <div class="patient-details">
-                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
+                                                <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
+                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                                <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -183,35 +185,35 @@
                                                                         <td>#RESV${res.reservationID}</td>
 
                                                                         <td>${res.service.title}</td>
-                                                                <fmt:parseDate var="p_date" value="${res.date}" pattern="yyyy-MM-dd"/>
-                                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
-                                                                <td>
-                                                                    ${date}
-                                                                    <span class="d-block text-info"
-                                                                          >${res.slot.time}</span
-                                                                    >
-                                                                </td>
-                                                                <td>${res.price}</td>
-                                                                <td>
-                                                                    <c:if test="${res.status == 1}">
-                                                                        <span class="badge badge-pill bg-warning-light">
-                                                                            Pending
-                                                                        </span>
-                                                                    </c:if>
-                                                                    <c:if test="${res.status == 2}">
-                                                                        <span class="badge badge-pill bg-success-light">
-                                                                            Complete
-                                                                        </span>
-                                                                    </c:if>
-                                                                    <c:if test="${res.status == 0}">
-                                                                        <span class="badge badge-pill bg-danger-light">
-                                                                            Cancel
-                                                                        </span>
-                                                                    </c:if>
+                                                                        <fmt:parseDate var="p_date" value="${res.date}" pattern="yyyy-MM-dd"/>
+                                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                                                        <td>
+                                                                            ${date}
+                                                                            <span class="d-block text-info"
+                                                                                  >${res.slot.time}</span
+                                                                            >
+                                                                        </td>
+                                                                        <td>${res.price}</td>
+                                                                        <td>
+                                                                            <c:if test="${res.status == 1}">
+                                                                                <span class="badge badge-pill bg-warning-light">
+                                                                                    Pending
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${res.status == 2}">
+                                                                                <span class="badge badge-pill bg-success-light">
+                                                                                    Complete
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${res.status == 0}">
+                                                                                <span class="badge badge-pill bg-danger-light">
+                                                                                    Cancel
+                                                                                </span>
+                                                                            </c:if>
 
-                                                                </td>
-                                                                </tr>
-                                                            </c:forEach>
+                                                                        </td>
+                                                                    </tr>
+                                                                </c:forEach>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -221,16 +223,29 @@
                                         <br>
                                         <div class="load-more text-center">
                                             <ul class="pagination align-content-center" >
-                                                <li class="page-item ">
-                                                    <a class="page-link" href="reservationHistory?id=${sessionScope.user.patientID}&page=${page-1}">Previous</a>
-                                                </li>
                                                 <c:set var="page" value="${indexPage}"/>
+                                                <li class="page-item ">
+                                                    <c:if test="${page==1}">
+                                                        <c:set var="url" value="reservationHistory?id=${sessionScope.user.patientID}&page=1"/>
+                                                    </c:if>
+                                                    <c:if test="${page>1}">
+                                                        <c:set var="url" value="reservationHistory?id=${sessionScope.user.patientID}&page=${page-1}"/>
+                                                    </c:if>
+                                                    <a class="page-link" href="${url}">Previous</a>
+
+                                                </li>
                                                 <c:forEach begin="1" end="${numberOfPage}" var="i">
                                                     <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="reservationHistory?id=${sessionScope.user.patientID}&page=${i}">${i}</a></li>
                                                     </c:forEach>
 
                                                 <li class="page-item">
-                                                    <a class="page-link" href="reservationHistory?id=${sessionScope.user.patientID}&page=${page+1}">Next</a>
+                                                    <c:if test="${page==numberOfPage}">
+                                                        <a class="page-link" href="reservationHistory?id=${sessionScope.user.patientID}&page=${numberOfPage}">Next</a>
+                                                    </c:if>
+                                                    <c:if test="${page<numberOfPage}">
+                                                        <a class="page-link" href="reservationHistory?id=${sessionScope.user.patientID}&page=${page+1}">Next</a>
+
+                                                    </c:if>
                                                 </li>
                                             </ul>	
                                         </div>
