@@ -10,10 +10,10 @@
 
     <!-- Logo -->
     <div class="header-left">
-        <a href="index.jsp" class="logo">
+        <a href="admin-home" class="logo">
             <img src="assets/img/logo.png" alt="Logo">
         </a>
-        <a href="index.jsp" class="logo logo-small">
+        <a href="admin-home" class="logo logo-small">
             <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
         </a>
     </div>

@@ -254,6 +254,38 @@ public class PatientDAO {
         return null;
     }
 
+    public Patient getPatientByPatientIdForAdmin(int patientID) throws SQLException {
+        String sql = "select patients.patient_id, name, gender, dob, phone, email, image, sum(price)\n"
+                + "from patients \n"
+                + "join reservations on reservations.patient_id = patients.patient_id\n"
+                + "where patients.patient_id = ?";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, patientID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Patient p = new Patient();
+                p.setPatientID(rs.getInt(1));
+                p.setName(rs.getString(2));
+                p.setGender(rs.getInt(3));
+                p.setDob(rs.getString(4));
+                p.setAccountID(rs.getInt(8));
+                p.setPhone(rs.getString(5));
+                p.setEmail(rs.getString(6));
+                p.setImage(rs.getString(7));
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * @param args

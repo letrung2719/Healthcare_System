@@ -81,10 +81,10 @@
                                             <thead>
                                                 <tr>
                                                     <th style="padding-right: 30px">Appointment ID</th>
-                                                    <th style="margin-right: 30px; padding-right: 165px">Doctor Name</th>
-                                                    <th style="margin-right: 30px; padding-right: 165px">Patient Name</th>
+                                                    <th style="margin-right: 30px; padding-right: 130px">Patient Name</th>
+                                                    <th style="margin-right: 30px; padding-right: 140px">Doctor Name</th>
                                                     <th >Appointment Time</th>
-                                                    <th style="margin-right: 40px; padding-right: 165px">Description</th>
+                                                    <th style="margin-right: 40px; padding-right: 140px">Description</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>

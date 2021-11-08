@@ -79,7 +79,7 @@ public class LoginControl extends HttpServlet {
                         request.getRequestDispatcher("home").forward(request, response);
                         break;
                     case 0:
-                        response.sendRedirect("admin-role/index.jsp");
+                        response.sendRedirect("admin-role/admin-home");
                         break;
                 }
             }

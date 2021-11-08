@@ -170,6 +170,26 @@ public class ReservationDAO {
         return list;
     }
 
+    public int sumMoney() throws SQLException {
+
+        String sql = "SELECT sum(price) FROM healthcare_system.reservations;";
+        try {
+            connection = dbc.getConnection();
+            st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return 0;
+    }
+
     /**
      *
      * @param args

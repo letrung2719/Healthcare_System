@@ -17,7 +17,7 @@
                 <c:set var="context" value="<%=request.getContextPath()%>"></c:set>
                 <c:set var="path" value="<%=request.getServletPath()%>"></c:set>
                 <li class="${path == "/admin-role/index.jsp" ? "active" : ""}">
-                    <a href="index.jsp"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                    <a href="admin-home"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                 </li>
                 <li class="${path == "/admin-role/patient-list.jsp" ? "active" : ""}">
                     <a href="patient_list"><i class="fe fe-user"></i> <span>Patients</span></a>
