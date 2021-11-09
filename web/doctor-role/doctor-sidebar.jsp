@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="change-password-doctor.jsp">
                                 <i class="fas fa-lock"></i>
                                 <span>Change Password</span>
                             </a>
