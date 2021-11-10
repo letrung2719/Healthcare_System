@@ -101,7 +101,7 @@
                             </div>
                             <div class="about-content">
                                 <p>Doccure gathers a team of experts, doctors, pharmacists and nurses who are highly trained and receive in depth training in Vietnam and many countries with developed Medicine such as the US, UK, France … Vinmec always considers patients as the core, and commits to providing comprehensive and high quality healthcare services to our customers.</p>
-                                <a href="javascript:;">Read More..</a>
+                                <a href="doctor-list?page=1">View All Doctor</a>
                             </div>
                         </div>
                         <div class="col-lg-8">

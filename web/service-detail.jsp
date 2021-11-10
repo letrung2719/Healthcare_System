@@ -274,12 +274,12 @@
                                                                     ${o.content}
                                                                 </p>
                                                             </div>
-                                                            <c:if test="${o.patient == sessionScope.user.name}">
-                                                                <button style="float: right; color: red; margin-left: 10px">
-                                                                    <a style="color: red" onclick="return confirm('Are you sure you want to delete this comment?');" href="deleteFeedback?fid=${o.feedback_id}&&sid=${detail.service_id}"><i class="fas fa-trash-alt"></i></a>
+                                                            <c:if test="${o.patient.name == sessionScope.user.name}">
+                                                                <button style="float: right; color: red; margin-left: 10px;border: 2px solid gray;padding: 2px;background-color: #159;">
+                                                                    <a style="color: red;margin: 14px;font-size: 18px;" onclick="return confirm('Are you sure you want to delete this comment?');" href="deleteFeedback?fid=${o.feedback_id}&&sid=${detail.service_id}"><i class="fas fa-trash-alt"></i></a>
                                                                 </button>
-                                                                <button style="float: right; color: red; margin-left: 10px" onclick="myFunctionEditfeedback()">
-                                                                    <a style="color: aqua"><i class="fas fa-pencil-alt"></i></a>
+                                                                <button style="float: right; color: red; margin-left: 10px;border: 2px solid gray;padding: 2px;background-color: #159;" onclick="myFunctionEditfeedback()">
+                                                                    <a style="color: lawngreen;margin: 14px;font-size: 18px;"><i class="fas fa-pencil-alt"></i></a>
                                                                 </button>
                                                                 <script>
                                                                     function myFunctionEditfeedback() {
@@ -299,7 +299,7 @@
                                                                         <input name="patientID" value="${sessionScope.user.accountID}" style="display: none">
                                                                         <div class="form-group" style="margin-bottom: 5px">
                                                                             <div class="meta-data" style="width: 50%">
-                                                                                <span class="comment-author">${o.patient}</span>
+                                                                                <span class="comment-author">${o.patient.name}</span>
                                                                             </div>
                                                                             <div class="star-rating">
                                                                                 <input id="star-5" type="radio" name="rating" value="5" ${o.rate == 5 ? "checked" : ""}>
