@@ -82,10 +82,10 @@
                                             <thead>
                                                 <tr>
                                                     <th style="padding-right: 30px">Reserve ID</th>
-                                                    <th style="margin-right: 30px; padding-right: 165px">Service Name</th>
-                                                    <th style="margin-right: 30px; padding-right: 165px">Patient Name</th>
+                                                    <th style="margin-right: 30px; padding-right: 130px">Patient Name</th>
+                                                    <th style="margin-right: 30px; padding-right: 150px">Service Name</th>
                                                     <th >Apointment Time</th>
-                                                    <th style="margin-right: 40px; padding-right: 165px">Description</th>
+                                                    <th style="margin-right: 40px; padding-right: 140px">Description</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
