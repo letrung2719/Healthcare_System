@@ -61,7 +61,6 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-
                         <!-- Profile Sidebar -->
                         <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
                             <div class="profile-sidebar">
@@ -85,27 +84,21 @@
                                     <nav class="dashboard-menu">
                                         <ul>
                                             <li>
-                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-columns"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fas fa-bookmark"></i>
-                                                    <span>Favourites</span>
-                                                </a>
-                                            </li>
-                                            <li>
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
                                             <li>
+                                                <a href="appointment-history?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-calendar-check"></i>
+                                                    <span>Appointment History</span>
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a href="reservationHistory?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Services Booking History</span>
+                                                    <i class="fas fa-columns"></i>
+                                                    <span>Reservation History</span>
                                                 </a>
                                             </li>
                                             <li class="active">
@@ -129,32 +122,44 @@
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12 col-lg-6">
-                                            <p class="text-danger">${mess}</p>
-                                            <p class="text-success">${success}</p>
-                                            <!-- Change Password Form -->
-                                            <form action="change_password" method="post">
-                                                <div class="form-group">
-                                                    <label>Old Password</label>
-                                                    <input type="password" class="form-control" name="oldPassword" value="${oldPassword}" required="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>New Password</label>
-                                                    <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}">
-                                                    <span class="form-text text-muted">Password must contain at least 6 character, 1 Upper-case letter, 1 or more digits</span>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Confirm Password</label>
-                                                    <input type="password" class="form-control" name="confirmPassword"  value="${confirmPassword}" required="">
-                                                </div>
-                                                <div class="submit-section">
-                                                    <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-                                                </div>
-                                            </form>
-                                            <!-- /Change Password Form -->
+                                <div class="card-body pt-0">
+                                    <!-- Tab Menu -->
+                                    <nav class="user-tabs mb-4">
+                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab">Change Password</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <!-- /Tab Menu -->
 
+                                    <div class="tab-content pt-0">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-6">
+                                                <p class="text-danger">${mess}</p>
+                                                <p class="text-success">${success}</p>
+                                                <!-- Change Password Form -->
+                                                <form action="change_password" method="post">
+                                                    <div class="form-group">
+                                                        <label>Old Password</label>
+                                                        <input type="password" class="form-control" name="oldPassword" value="${oldPassword}" required="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>New Password</label>
+                                                        <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}">
+                                                        <span class="form-text text-muted">Password must contain at least 6 character, 1 upper-case letter, 1 or more digits</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Confirm Password</label>
+                                                        <input type="password" class="form-control" name="confirmPassword"  value="${confirmPassword}" required="">
+                                                    </div>
+                                                    <div class="submit-section">
+                                                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                                    </div>
+                                                </form>
+                                                <!-- /Change Password Form -->
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

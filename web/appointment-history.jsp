@@ -60,14 +60,14 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
+                                        <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Profile Settings
+                                        Appointments History
                                     </li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Profile Settings</h2>
+                            <h2 class="breadcrumb-title">Appointment History</h2>
                         </div>
                     </div>
                 </div>
@@ -100,28 +100,22 @@
                                 <div class="dashboard-widget">
                                     <nav class="dashboard-menu">
                                         <ul>
-                                            <li class="active">
-                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-columns"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fas fa-bookmark"></i>
-                                                    <span>Favourites</span>
-                                                </a>
-                                            </li>
                                             <li>
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
+                                            <li class="active">
+                                                <a href="appointment-history?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-calendar-check"></i>
+                                                    <span>Appointment History</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="reservationHistory?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Services Booking History</span>
+                                                    <i class="fas fa-columns"></i>
+                                                    <span>Reservation History</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -144,57 +138,78 @@
                         <!-- /Profile Sidebar -->
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
-                            <div class="appointments">
-                                <div class="card card-table mb-0">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="datatable table table-hover table-center mb-0 "> 
-                                                <thead>
-                                                    <tr>
-                                                        <th>Apt.ID</th>
-                                                        <th>Doctor</th>
-                                                        <th>Appt Date</th>
-                                                        <th>Status</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:forEach items="${listApp}" var="app">
-                                                        <tr>
-                                                            <td>#APT${app.appointmentID}</td>
-                                                            <td>
-                                                                <h2 class="table-avatar">
-                                                                    <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
-                                                                        <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
-                                                                    </a>
-                                                                    <a href="">${app.doctor.name}<span>#APT ${app.doctor.doctorID}</span></a>
-                                                                </h2>
-                                                            </td>
+                            <div class="card">
+                                <div class="card-body pt-0">
+                                    <!-- Tab Menu -->
+                                    <nav class="user-tabs mb-4">
+                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab">Appointment History</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <!-- /Tab Menu -->
 
-                                                            <td>${app.date}<span class="d-block text-info">${app.slot.time}</span></td>
+                                    <!-- Tab Content -->
+                                    <div class="tab-content pt-0">
+                                        <!-- Appointment Tab -->
+                                        <div
+                                            id="pat_appointments"
+                                            class="tab-pane fade show active"
+                                            >
+                                            <div class="card card-table mb-0">
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-center mb-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Appointment ID</th>
+                                                                    <th>Doctor</th>
+                                                                    <th>Appointment Date</th>
+                                                                    <th>Status</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <c:forEach items="${listApp}" var="app">
+                                                                    <tr>
+                                                                        <td>#APT${app.appointmentID}</td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
+                                                                                    <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
+                                                                                </a>
+                                                                                <a href="">${app.doctor.name}<span>#APT ${app.doctor.doctorID}</span></a>
+                                                                            </h2>
+                                                                        </td>
 
-                                                            <td>
-                                                                <c:if test="${app.status == 1}">
-                                                                    <span class="badge badge-pill bg-warning-light">
-                                                                        Pending
-                                                                    </span>
-                                                                </c:if>
-                                                                <c:if test="${app.status == 2}">
-                                                                    <span class="badge badge-pill bg-success-light">
-                                                                        Complete
-                                                                    </span>
-                                                                </c:if>
-                                                                <c:if test="${app.status == 0}">
-                                                                    <span class="badge badge-pill bg-danger-light">
-                                                                        Cancel
-                                                                    </span>
-                                                                </c:if>
-                                                        </tr>
-                                                    </c:forEach>
-                                                </tbody>
-                                            </table>
+                                                                        <td>${app.date}<span class="d-block text-info">${app.slot.time}</span></td>
 
-                                            <div class="load-more text-center">
+                                                                        <td>
+                                                                            <c:if test="${app.status == 1}">
+                                                                                <span class="badge badge-pill bg-warning-light">
+                                                                                    Pending
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${app.status == 2}">
+                                                                                <span class="badge badge-pill bg-success-light">
+                                                                                    Complete
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${app.status == 0}">
+                                                                                <span class="badge badge-pill bg-danger-light">
+                                                                                    Cancel
+                                                                                </span>
+                                                                            </c:if>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="load-more text-center">
                                                 <ul class="pagination">
                                                     <li class="page-item ">
                                                         <a class="page-link" href="patient_profile_dashboard?id=${sessionScope.user.patientID}&page=${page-1}">Previous</a>
@@ -209,13 +224,13 @@
                                                     </li>
                                                 </ul>	
                                             </div>
-                                        </div>
+                                        <!-- /Appointment Tab -->
                                     </div>
+                                    <!-- Tab Content -->
                                 </div>
-                            </div>                           
-                            <!-- /Profile Sidebar -->
-
+                            </div>
                         </div>
+                                                    
                     </div>
                 </div>
 

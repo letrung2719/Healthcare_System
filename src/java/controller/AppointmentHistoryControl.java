@@ -22,8 +22,8 @@ import model.Appointment;
  *
  * @author admin
  */
-@WebServlet(name = "PatientProfileDashboard", urlPatterns = {"/patient_profile_dashboard"})
-public class PatientProfileDashboard extends HttpServlet {
+@WebServlet(name = "AppointmentHistoryControl", urlPatterns = {"/appointment-history"})
+public class AppointmentHistoryControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,7 +56,7 @@ public class PatientProfileDashboard extends HttpServlet {
             request.setAttribute("listApp", listApp);
             request.setAttribute("indexPage", indexPage);
             request.setAttribute("numberOfPage", numberOfPage);
-            request.getRequestDispatcher("patient-dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("appointment-history.jsp").forward(request, response);
         } catch (IOException | NumberFormatException | ServletException e) {
             System.out.println(e);
         }
@@ -77,7 +77,7 @@ public class PatientProfileDashboard extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(PatientProfileDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AppointmentHistoryControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -95,7 +95,7 @@ public class PatientProfileDashboard extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(PatientProfileDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AppointmentHistoryControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

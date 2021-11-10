@@ -62,7 +62,7 @@ public class ViewDoctorProfile extends HttpServlet {
                     }
                 }
             }
-            request.getRequestDispatcher("view-doctor-profile.jsp").forward(request, response);
+            request.getRequestDispatcher("doctor-details.jsp").forward(request, response);
         } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
