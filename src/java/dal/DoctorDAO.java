@@ -333,10 +333,10 @@ public class DoctorDAO {
 
     public List<Patient> getAllMyPatient(int doctorID) throws SQLException {
         ArrayList<Patient> list = new ArrayList<>();
-        String sql = "SELECT patients.patient_id,patients.name,patients.gender,patients.dob,patients.phone,patients.email,patients.account_id,patients.image\n"
-                + "FROM healthcare_system.patients join appointments on appointments.patient_id = patients.patient_id\n"
-                + "where doctor_id = ?\n"
-                + "group by patients.patient_id";
+        String sql = "SELECT patients.patient_id,patients.name,gender,patients.dob,patients.phone,patients.email,date,patients.image\n" +
+"                FROM healthcare_system.patients join appointments on appointments.patient_id = patients.patient_id\n" +
+"                where doctor_id = ?\n" +
+"                group by patients.patient_id;";
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
@@ -348,9 +348,9 @@ public class DoctorDAO {
                 p.setName(rs.getString(2));
                 p.setGender(rs.getInt(3));
                 p.setDob(rs.getString(4));
-                p.setPhone(rs.getString(5));
+                p.setPhone(rs.getString(7));
                 p.setEmail(rs.getString(6));
-                p.setAccountID(rs.getInt(7));
+                p.setAccountID(rs.getInt(5));
                 p.setImage(rs.getString(8));
                 list.add(p);
             }

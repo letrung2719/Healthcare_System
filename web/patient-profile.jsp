@@ -158,19 +158,13 @@
                                                 <input name="accountID" type="hidden" value="${Users.accountID}"/>
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-group">
-                                                        <label>Name</label>
-                                                        <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            value="${Users.name}"
-                                                            name="name"
-
-                                                            />
+                                                        <label>Name <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" value="${Users.name}" name="name" />
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-group">
-                                                        <label>Gender</label><br>
+                                                        <label>Gender <span class="text-danger">*</span></label><br>
                                                         <style>
                                                             .genderedit, option{
                                                                 width: 100%;
@@ -194,7 +188,7 @@
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-group">
-                                                        <label>Date of Birth</label>
+                                                        <label>Date of Birth <span class="text-danger">*</span></label>
                                                         <div class="cal-icon">
                                                             <input name="dob" type="date" class="form-control" value="${Users.dob}"/>
                                                         </div>
@@ -203,13 +197,13 @@
 
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-group">
-                                                        <label>Email</label>
+                                                        <label>Email <span class="text-danger">*</span></label>
                                                         <input name="email" type="email" class="form-control" value="${Users.email}" readonly=""/>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-group">
-                                                        <label>Mobile Phone</label>
+                                                        <label>Mobile Phone <span class="text-danger">*</span></label>
                                                         <input name="phone" type="text" value="${Users.phone}" class="form-control" pattern="\d{8,10}$"/>
                                                         <span class="form-text text-muted">Phone number must from 8 to 10 digits</span>
                                                     </div>

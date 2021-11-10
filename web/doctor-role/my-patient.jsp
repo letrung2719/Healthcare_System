@@ -75,67 +75,55 @@
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="appointments">
-                                <c:forEach items="${patientlist}" var="p">
-                                    <!-- Appointment List -->
-                                    <div class="appointment-list">
-                                        <div class="profile-info-widget">
+                                <div class="appointment-list">
+                                    <c:forEach items="${patientlist}" var="p">
+                                        <!-- Appointment List -->
+                                        <div class="profile-info-widget" style="width: 50%; margin-bottom: 20px">
                                             <a href="patient-profile.html" class="booking-doc-img">
                                                 <img src="${p.image}" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html"> ${p.name}</a></h3>
                                                 <div class="patient-details">
-                                                    <h5><i class="far fa-clock"></i> ${p.gender == 0 ? 'Female' : 'Male'}</h5>
+                                                    <h5><i class="far fa-clock"></i> ${p.phone}</h5>
                                                     <h5><i class="fas fa-map-marker-alt"></i> ${p.dob}</h5>
                                                     <h5><i class="fas fa-envelope"></i> ${p.email}</h5>
-                                                    <h5 class="mb-0"><i class="fas fa-phone"></i> ${p.phone}</h5>
+                                                    <h5 class="mb-0"><i class="fas fa-phone"></i> ${p.accountID}</h5>
                                                 </div>
                                             </div>
                                         </div>
-<!--                                        <div class="appointment-action">
-                                            <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
-                                                <i class="far fa-eye"></i> View
-                                            </a>
-                                            <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                <i class="fas fa-check"></i> Accept
-                                            </a>
-                                            <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                <i class="fas fa-times"></i> Cancel
-                                            </a>
-                                        </div>-->
-                                    </div>
-                                    <!-- /Appointment List -->
-                                </c:forEach>
+                                        <!-- /Appointment List -->
+                                    </c:forEach>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- /Page Content -->
+
+                <!-- Footer -->
+                <jsp:include page="index-footer.jsp"/>
+                <!-- /Footer -->
             </div>
-            <!-- /Page Content -->
+            <!-- /Main Wrapper -->
 
-            <!-- Footer -->
-            <jsp:include page="index-footer.jsp"/>
-            <!-- /Footer -->
-        </div>
-        <!-- /Main Wrapper -->
+            <!-- jQuery -->
+            <script src="assets/js/jquery.min.js"></script>
 
-        <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
-
-        <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+            <!-- Bootstrap Core JS -->
+            <script src="assets/js/popper.min.js"></script>
+            <script src="assets/js/bootstrap.min.js"></script>
 
 
-        <!-- Select2 JS -->
-        <script src="assets/plugins/select2/js/select2.min.js"></script>
+            <!-- Select2 JS -->
+            <script src="assets/plugins/select2/js/select2.min.js"></script>
 
-        <!-- Sticky Sidebar JS -->
-        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+            <!-- Sticky Sidebar JS -->
+            <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+            <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
-        <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+            <!-- Custom JS -->
+            <script src="assets/js/script.js"></script>
     </body>
 
     <!-- doccure/reviews.html  30 Nov 2019 04:12:15 GMT -->
