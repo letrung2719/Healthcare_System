@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,7 +63,7 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h3 class="page-title">Reviews</h3>
+                                <h3 class="page-title">Reservation</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                                     
@@ -115,7 +116,9 @@
                                                                 </div>
                                                             </h2>
                                                         </td>
-                                                        <td>${o.date} <span class="text-primary d-block">${o.slot.time}</span></td>
+                                                        <fmt:parseDate var="p_date" value="${o.date}" pattern="yyyy-MM-dd"/>
+                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                        <td>${date} <span class="text-primary d-block">${o.slot.time}</span></td>
                                                         <td>
                                                             <p>${o.description}</p>
                                                         </td>

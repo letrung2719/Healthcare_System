@@ -51,7 +51,7 @@
                                         <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item " >
-                                        <a href="services">Blogs</a>
+                                        <a href="blog-list">Blogs</a>
                                     </li>
                                 </ol>
                             </nav>
@@ -119,7 +119,7 @@
                                                                     <div class="doc-info-cont">
                                                                         <h4 class="blog-name"><a href="blog-detail?id=${blog.blogID}">${blog.title}</a></h4>
                                                                         <fmt:parseDate var="p_date" value="${blog.date}" pattern="yyyy/MM/dd"/>
-                                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MMM-yyyy"/>
+                                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                                         <h6>${date}</h6>                                                                       
                                                                         <b>Description:</b><p style="margin: 0;width: 90%;height: 60px;overflow: hidden;-webkit-mask-image: linear-gradient(180deg, #000 75%, transparent);">${blog.description}</p>
                                                                         <b><a style="color: aqua" href="blog-detail?id=${blog.blogID}">See more...</a></b>

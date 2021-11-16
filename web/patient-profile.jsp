@@ -89,7 +89,7 @@
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
                                             <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
-                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd MM yyyy"/>
                                             <div class="patient-details">
                                                 <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
@@ -165,26 +165,17 @@
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label>Gender</label><br>
-                                                    <style>
-                                                        .genderedit, option{
-                                                            width: 100%;
-                                                            border-radius: 3px;
-                                                            height: 46px;
-                                                            padding: 2px 10px;
-                                                            border: 1px solid lightgray;
-                                                            color: #333;
-                                                            outline: none;
-                                                            -moz-appearance: none;
-                                                            -webkit-appearance: none;
-                                                            appearance: none;
-                                                            &::-ms-expand { display: none };
-                                                        }
-                                                    </style>
-                                                    <select name="gender" class="genderedit">
-                                                        <option value="${Users.gender == 0 ? 'Female' : 'Male'}">${Users.gender == 0 ? 'Female' : 'Male'}</option>
-                                                        <option value="${Users.gender == 0 ? 'Male' : 'Female'}">${Users.gender == 0 ? 'Male' : 'Female'}</option>                                                        
-                                                    </select>                                                    
+                                                    <label>Gender <span class="text-danger">*</span></label><br />
+                                                    <div style="display: flex;margin-top: 15px;font-size: 16px">
+                                                        <div style="width: 50%">
+                                                            <input type="radio" id="male" name="gender" value="male" ${Users.gender == 1 ? 'checked' : ''}>
+                                                              <label for="male">Male</label> 
+                                                        </div>
+                                                        <div style="width: 50%"> 
+                                                            <input type="radio" id="female" name="gender" value="female" ${Users.gender == 0 ? 'checked' : ''}>
+                                                              <label for="female">Female</label>
+                                                        </div>                                                        
+                                                    </div>                                                  
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">

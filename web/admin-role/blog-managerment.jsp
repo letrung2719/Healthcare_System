@@ -63,7 +63,7 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-7 col-auto">
-                                <h3 class="page-title">List of Doctors</h3>
+                                <h3 class="page-title">Blogs</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
 

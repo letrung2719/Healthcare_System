@@ -62,7 +62,7 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h3 class="page-title">Reviews</h3>
+                                <h3 class="page-title">Service Feedbacks</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="review">Reviews</a></li>

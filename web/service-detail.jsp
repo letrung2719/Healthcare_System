@@ -55,7 +55,7 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
+                                        <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item " >
                                         <a href="services">Services</a>
@@ -82,9 +82,8 @@
                             <div class="doctor-widget">
                                 <div class="doc-info-left">
                                     <div class="doctor-img">
-                                        <img src="${detail.image}" class="img-fluid" alt="User Image">
+                                        <img src="${detail.image}"  class="img-fluid" alt="User Image">
                                     </div>
-
                                     <style>
                                         .doc-info-left {
                                             width: 70%;
@@ -92,12 +91,7 @@
                                         .doc-info-right {
                                             width: 30%;
                                         }
-
                                         .doc-info-cont {
-                                            width: 50%;
-                                        }
-
-                                        .doc-img{
                                             width: 50%;
                                         }
                                     </style>
@@ -146,20 +140,7 @@
                                             <li><i class="far fa-money-bill-alt"></i> ${detail.price} VND </li>
                                         </ul>
                                     </div>
-                                    <div class="doctor-action">
-                                        <a href="#" class="btn btn-white fav-btn">
-                                            <i class="far fa-bookmark"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-white msg-btn">
-                                            <i class="far fa-comment-alt"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-white call-btn">
-                                            <i class="fas fa-phone"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-white call-btn">
-                                            <i class="fas fa-video"></i>
-                                        </a>
-                                    </div>
+                                        <br><br>
                                     <div class="clinic-booking">
                                         <a class="apt-btn" href="reservation?id=${detail.service_id}">Book Service</a>
                                     </div>

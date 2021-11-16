@@ -60,7 +60,7 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
+                                        <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Profile Settings
@@ -92,7 +92,9 @@
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
                                             <div class="patient-details">
-                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
+                                                <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
+                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MM yyyy"/>
+                                                <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -170,8 +172,9 @@
                                                                     <a href="">${app.doctor.name}<span>#APT ${app.doctor.doctorID}</span></a>
                                                                 </h2>
                                                             </td>
-
-                                                            <td>${app.date}<span class="d-block text-info">${app.slot.time}</span></td>
+                                                            <fmt:parseDate var="p_datee" value="${app.date}" pattern="yyyy-MM-dd"/>
+                                                            <fmt:formatDate var="datee" value="${p_datee}" pattern="dd-MM-yyyy"/>
+                                                            <td>${datee}<span class="d-block text-info">${app.slot.time}</span></td>
 
                                                             <td>
                                                                 <c:if test="${app.status == 1}">

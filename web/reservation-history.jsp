@@ -86,8 +86,10 @@
                                         </a>
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
+                                            <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
+                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd MM yyyy"/>
                                             <div class="patient-details">
-                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
+                                                <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +186,7 @@
 
                                                                         <td>${res.service.title}</td>
                                                                 <fmt:parseDate var="p_date" value="${res.date}" pattern="yyyy-MM-dd"/>
-                                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                                 <td>
                                                                     ${date}
                                                                     <span class="d-block text-info"
