@@ -150,13 +150,11 @@
                                             <div class="col-md-6">
                                                 <div class="form-group mb-0">
                                                     <label>Date of Birth <span class="text-danger">*</span></label>
-                                                    <fmt:parseDate var="p_date" value="${doctor.dob}" pattern="yyyy-MM-dd"/>
-                                                    <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                     <input
                                                         name="dob"
-                                                        type="text"
+                                                        type="date"
                                                         class="form-control"
-                                                        value="${date}" />
+                                                        value="${doctor.dob}" />
                                                 </div>
                                             </div>
                                         </div>

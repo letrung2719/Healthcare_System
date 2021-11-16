@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Doctor;
 
 /**
@@ -23,7 +24,7 @@ import model.Doctor;
  * @author Admin
  */
 @WebServlet(name = "DoctorProfileSettting", urlPatterns = {"/doctor_profile_setting"})
-public class DoctorProfileSettting extends HttpServlet {
+public class DoctorProfileSetting extends HttpServlet {
     private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
     
@@ -63,6 +64,9 @@ public class DoctorProfileSettting extends HttpServlet {
             DoctorDAO doctorDb = new DoctorDAO();
             int res = doctorDb.editDoctor(d);
             System.out.println(res);
+            HttpSession session = request.getSession();
+            Doctor editedDoctor = doctorDb.getDoctorByDoctorID(doctorID);
+            session.setAttribute("user", editedDoctor);
             request.setAttribute("thongbao", resourceBundle.getString("success"));
             request.getRequestDispatcher("doctor_profile?id=" + accountID).forward(request, response);
         } catch (NumberFormatException | SQLException ex) {
