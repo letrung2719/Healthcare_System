@@ -266,17 +266,12 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
         <!-- /Page Wrapper -->
 
         <script>
-
-
             CKEDITOR.replace('description1');
             CKEDITOR.replace('description2');
-
         </script>
     </div>
     <!-- /Main Wrapper -->
