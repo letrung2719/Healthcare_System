@@ -437,6 +437,52 @@ public class ServicesDAO {
         return list;
     }
 
+    public List<Services> searchSpecialitiesReview(List<String> listSpec) throws SQLException {
+        List<Services> list = new ArrayList<>();
+        String query = "select services.service_id,services.title,specialities.name,image,\n"
+                + "	(select AVG(rate)\n"
+                + "   from service_feedbacks\n"
+                + "   where service_id =services.service_id) as rate\n"
+                + "   ,price\n"
+                + "   from services join service_feedbacks on services.service_id = service_feedbacks.service_id\n"
+                + "   join specialities on services.type_id = specialities.type_id\n"
+                + "	where 1=1 ";
+        if (listSpec != null && !listSpec.isEmpty()) {
+            query += "and (";
+            for (int i = 0; i < listSpec.size(); i++) {
+                query += "specialities.name = '" + listSpec.get(i) + "' ";
+                if (i < listSpec.size() - 1) {
+                    query += " or ";
+                }
+            }
+            query += "  )group by services.service_id,services.title,specialities.name,image,price";
+        }
+
+        
+        System.out.println(query);
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Services(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return list;
+    }
+
     /**
      *
      * @return @throws java.sql.SQLException
@@ -444,18 +490,55 @@ public class ServicesDAO {
     public List<Services> getAllServiceDashboard() throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select services.service_id\n"
-                + "      ,title\n"
-                + "      ,type_id\n"
-                + "      ,image\n"
-                + "      ,(select AVG(rate)\n"
-                + "        from service_feedbacks\n"
-                + "        where service_id =services.service_id) as rate\n"
-                + "      ,price\n"
-                + "from services join service_feedbacks on services.service_id = service_feedbacks.service_id\n"
-                + "group by services.service_id,title,type_id,image,price";
+                + " ,title\n"
+                + ",specialities.name\n"
+                + "   ,image,(select AVG(rate)\n"
+                + "   from service_feedbacks\n"
+                + "   where service_id =services.service_id) as rate\n"
+                + "   ,price\n"
+                + "   from services join service_feedbacks on services.service_id = service_feedbacks.service_id\n"
+                + "   join specialities on services.type_id = specialities.type_id\n"
+                + "   group by services.service_id,title,specialities.name,image,price";
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Services(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return list;
+    }
+
+    public List<Services> getAllServiceReviewBySearch(String name) throws SQLException {
+        List<Services> list = new ArrayList<>();
+        String sql = "select services.service_id,services.title,specialities.name,image,\n"
+                + "	(select AVG(rate)\n"
+                + "   from service_feedbacks\n"
+                + "   where service_id =services.service_id) as rate\n"
+                + "   ,price\n"
+                + "   from services join service_feedbacks on services.service_id = service_feedbacks.service_id\n"
+                + "   join specialities on services.type_id = specialities.type_id\n"
+                + "	where services.title like ? or specialities.name like ?\n"
+                + "   group by services.service_id,services.title,specialities.name,image,price";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            ps.setString(2, "%" + name + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Services(
@@ -733,6 +816,7 @@ public class ServicesDAO {
 //            ps.setInt(3, price);
 //        }
 //    }
+
     public List<Services> getTop10BestService() throws SQLException {
         List<Services> list = new ArrayList<>();
         String sql = "select services.service_id\n"
@@ -776,7 +860,8 @@ public class ServicesDAO {
     public static void main(String[] args) {
         try {
             ServicesDAO dao = new ServicesDAO();
-            dao.delete(40);
+            List<Services> review = dao.getAllServiceReviewBySearch("mater");
+            System.out.println(review);
         } catch (SQLException ex) {
             Logger.getLogger(ServicesDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

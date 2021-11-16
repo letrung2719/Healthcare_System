@@ -122,7 +122,7 @@
                                                         <td>
                                                             <div class="table-avatar">
                                                                 <c:if test="${o.status == '0'}">
-                                                                    <button type="button" class="btn btn-danger">Cancelled</button>
+                                                                    <button type="button" class="btn btn-danger">Rejected</button>
 
                                                                 </c:if>
                                                                 <c:if test="${o.status == '1'}">
