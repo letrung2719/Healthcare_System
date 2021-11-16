@@ -61,83 +61,130 @@
                 <div class="content container-fluid">
 
                     <!-- Page Header -->
-                    <div class="page-header">
-                        <div class="row">
-                            <div class="col-sm-12">
+                    <div class="page-header" >
+                        <div class="row" style="display: flex;">
+                            <div class="col-sm-9">
                                 <h3 class="page-title">Reviews</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                                     <li class="breadcrumb-item active">Reviews</li>
                                 </ul>
                             </div>
+                            
+                            
+                            <div class="card-body col-mb-3">
+                                <form action="search-review?id=0" method="post">
+                                    <div class="input-group">
+                                        <input value="${tim}" name="txt" type="text" class="form-control" placeholder="Search By Title">
+                                        <button style="width: 50px;border: 0px;background-color: white" type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
+
+                        
+                            
+                        
                     </div>
+
+
                     <!-- /Page Header -->
+                    <div style="display: flex">
+                        <!-- Search Filter -->
+                        <div class="card search-filter" style="width: 20%">
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="datatable table table-hover table-center mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th style="margin-right: 20px !important; padding-right: 15px">ID</th>
-                                                    <th style="margin-right: 40px; padding-right: 165px">Service Name</th>
-                                                    <th style="margin-right: 40px;">Ratings</th>
-                                                    <th>image</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
 
-                                                <c:forEach items="${serD}" var="o">
+                            <div class="card-body"> 
+                                
+                                <form action="search-review?id=1" method="post">
+                                    <div class="filter-widget">
+                                        <h4>Select Specialist</h4>
+                                        <c:forEach items="${listSpecialities}" var="o">
+                                            <div>
+                                                <label class="custom_check">
+                                                    <input type="checkbox" value="${o.name}" name="select_specialist">
+                                                    <span class="checkmark"></span> ${o.name}
+                                                </label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+
+                                    <div class="btn-search">
+                                        <button type="submit" class="btn btn-block">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /Search Filter -->
+                        <div class="row" style="width: 80%">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="datatable table table-hover table-center mb-0">
+                                                <thead>
                                                     <tr>
-                                                        <td>
-                                                            <h2 class="table-avatar">
-
-                                                                <a href="serfeed?id=${o.service_id}&&star=all">${o.service_id}</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>
-                                                            <h2 class="table-avatar">
-
-                                                                <a href="serfeed?id=${o.service_id}&&star=all">${o.title} </a>
-                                                            </h2>
-                                                        </td>
-                                                        <td class="table-avatar">
-                                                            <div class="table-avatar">
-                                                                <c:set var="feedbackDB" value="<%=new ServicesDAO()%>"></c:set>
-                                                                <c:set var="avgrate" value="${feedbackDB.averageRateServices(o.service_id)}"></c:set>
-                                                                <c:set var="feedbackList" value="${feedbackDB.getAllComment(o.service_id)}"></c:set>
-                                                                <div class="rating">
-                                                                    <i class="fe fe-star ${avgrate > 0 ? " text-warning" : "-o text-secondary"}"></i>
-                                                                    <i class="fe fe-star ${avgrate > 1 ? " text-warning" : "-o text-secondary"}"></i>
-                                                                    <i class="fe fe-star ${avgrate > 2 ? " text-warning" : "-o text-secondary"}"></i>
-                                                                    <i class="fe fe-star ${avgrate > 3 ? " text-warning" : "-o text-secondary"}"></i>
-                                                                    <i class="fe fe-star ${avgrate > 4 ? " text-warning" : "-o text-secondary"}"></i>
-                                                                  
-                                                                    <span class="d-inline-block average-rating">(${feedbackList.size()})</span>
-                                                                </div>
-                                                            </div>
-
-                                                        </td>
-
-
-                                                        <td>
-                                                            <img src="${o.image}" style="width: 150px; height: 150px;" class="serdashboard-image" alt="image service">
-
-
-                                                        </td>
+                                                        <th style="margin-right: 20px !important; padding-right: 15px">ID</th>
+                                                        <th style="margin-right: 20px; padding-right: 165px">Service Name</th>
+                                                        <th style="margin-right: 20px; padding-right: 165px">Speciality</th>
+                                                        <th style="margin-right: 40px;">Ratings</th>
+                                                        <th>image</th>
                                                     </tr>
-                                                </c:forEach>
+                                                </thead>
+                                                <tbody>
 
-                                            </tbody>
-                                        </table>
+                                                    <c:forEach items="${serD}" var="o">
+                                                        <tr>
+                                                            <td>
+                                                                <h2 class="table-avatar">
+
+                                                                    <a href="serfeed?id=${o.service_id}&&star=all">${o.service_id}</a>
+                                                                </h2>
+                                                            </td>
+                                                            <td>
+                                                                <h2 class="table-avatar">
+
+                                                                    <a href="serfeed?id=${o.service_id}&&star=all">${o.title} </a>
+                                                                </h2>
+                                                            </td>
+                                                            <td>${o.type_id}</td>  
+                                                            <td class="table-avatar">
+                                                                <div class="table-avatar">
+                                                                    <c:set var="feedbackDB" value="<%=new ServicesDAO()%>"></c:set>
+                                                                    <c:set var="avgrate" value="${feedbackDB.averageRateServices(o.service_id)}"></c:set>
+                                                                    <c:set var="feedbackList" value="${feedbackDB.getAllComment(o.service_id)}"></c:set>
+                                                                        <div class="rating">
+                                                                            <i class="fe fe-star ${avgrate > 0 ? " text-warning" : "-o text-secondary"}"></i>
+                                                                        <i class="fe fe-star ${avgrate > 1 ? " text-warning" : "-o text-secondary"}"></i>
+                                                                        <i class="fe fe-star ${avgrate > 2 ? " text-warning" : "-o text-secondary"}"></i>
+                                                                        <i class="fe fe-star ${avgrate > 3 ? " text-warning" : "-o text-secondary"}"></i>
+                                                                        <i class="fe fe-star ${avgrate > 4 ? " text-warning" : "-o text-secondary"}"></i>
+
+                                                                        <span class="d-inline-block average-rating">(${feedbackList.size()})</span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </td>
+
+
+                                                            <td>
+                                                                <img src="${o.image}" style="width: 150px; height: 150px;" class="serdashboard-image" alt="image service">
+
+
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>			
+                            </div>			
+                        </div>
                     </div>
+
+
 
                 </div>			
             </div>

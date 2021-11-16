@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,7 +63,7 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h3 class="page-title">Reviews</h3>
+                                <h3 class="page-title">Appointments</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="">Appointments</a></li>
@@ -81,10 +82,10 @@
                                             <thead>
                                                 <tr>
                                                     <th style="padding-right: 30px">Appointment ID</th>
-                                                    <th style="margin-right: 30px; padding-right: 165px">Doctor Name</th>
-                                                    <th style="margin-right: 30px; padding-right: 165px">Patient Name</th>
+                                                    <th style="margin-right: 30px; padding-right: 130px">Patient Name</th>
+                                                    <th style="margin-right: 30px; padding-right: 140px">Doctor Name</th>
                                                     <th >Appointment Time</th>
-                                                    <th style="margin-right: 40px; padding-right: 165px">Description</th>
+                                                    <th style="margin-right: 40px; padding-right: 140px">Description</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
@@ -114,27 +115,29 @@
                                                                 </div>
                                                             </h2>
                                                         </td>
-                                                        <td>${o.date} <span class="text-primary d-block">${o.slot.time}</span></td>
-                                                        <td>
-                                                            <p>${o.description}</p>
-                                                        </td>
-                                                        <td>
-                                                            <div class="table-avatar">
-                                                                <c:if test="${o.status == '0'}">
-                                                                    <button type="button" class="btn btn-danger">Canceled</button>
+                                                <fmt:parseDate var="p_date" value="${o.date}" pattern="yyyy-MM-dd"/>
+                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                <td>${date} <span class="text-primary d-block">${o.slot.time}</span></td>
+                                                <td>
+                                                    <p>${o.description}</p>
+                                                </td>
+                                                <td>
+                                                    <div class="table-avatar">
+                                                        <c:if test="${o.status == '0'}">
+                                                            <button type="button" class="btn btn-danger">Canceled</button>
 
-                                                                </c:if>
-                                                                <c:if test="${o.status == '1'}">
-                                                                    <button type="button" class="btn btn-warning">Processing</button>
+                                                        </c:if>
+                                                        <c:if test="${o.status == '1'}">
+                                                            <button type="button" class="btn btn-warning">Processing</button>
 
-                                                                </c:if>
-                                                                <c:if test="${o.status == '2'}">
-                                                                    <button type="button" class="btn btn-success">Success</button>
-                                                                </c:if>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
+                                                        </c:if>
+                                                        <c:if test="${o.status == '2'}">
+                                                            <button type="button" class="btn btn-success">Success</button>
+                                                        </c:if>
+                                                    </div>
+                                                </td>
+                                                </tr>
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>
@@ -146,24 +149,24 @@
                 </div>			
             </div>
         </div>
-            <!-- /Page Wrapper -->
+        <!-- /Page Wrapper -->
 
-            <!-- jQuery -->
-            <script src="assets/js/jquery-3.2.1.min.js "></script>
+        <!-- jQuery -->
+        <script src="assets/js/jquery-3.2.1.min.js "></script>
 
-            <!-- Bootstrap Core JS -->
-            <script src="assets/js/popper.min.js "></script>
-            <script src="assets/js/bootstrap.min.js "></script>
+        <!-- Bootstrap Core JS -->
+        <script src="assets/js/popper.min.js "></script>
+        <script src="assets/js/bootstrap.min.js "></script>
 
-            <!-- Slimscroll JS -->
-            <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js "></script>
+        <!-- Slimscroll JS -->
+        <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js "></script>
 
-            <!-- Datatables JS -->
-            <script src="assets/plugins/datatables/jquery.dataTables.min.js "></script>
-            <script src="assets/plugins/datatables/datatables.min.js "></script>
+        <!-- Datatables JS -->
+        <script src="assets/plugins/datatables/jquery.dataTables.min.js "></script>
+        <script src="assets/plugins/datatables/datatables.min.js "></script>
 
-            <!-- Custom JS -->
-            <script src="assets/js/script.js "></script>
+        <!-- Custom JS -->
+        <script src="assets/js/script.js "></script>
 
     </body>
 

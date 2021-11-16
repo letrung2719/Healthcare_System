@@ -36,10 +36,10 @@
                         <li class="${path == "/doctor-role/doctor-appointment.jsp" ? "active" : ""} ${path == "/doctor-role/appointment-detail.jsp" ? "active" : ""}">
                             <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">
                                 <i class="fas fa-calendar-check"></i>
-                                <span>Appointments</span>
+                                <span>My Appointments</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${path == "/doctor-role/my-patient.jsp" ? "active" : ""}">
                             <a href="my-patient?doctorID=${sessionScope.user.doctorID}">
                                 <i class="fas fa-user-injured"></i>
                                 <span>My Patients</span>
@@ -48,7 +48,7 @@
                         <li class="${path == "/doctor-role/doctor-feedback-list.jsp" ? "active" : ""}">
                             <a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}">
                                 <i class="fas fa-star"></i>
-                                <span>Feedbacks</span>
+                                <span>My Feedbacks</span>
                             </a>
                         </li>
                         <li>

@@ -90,10 +90,8 @@
             <!-- Page Content -->
             <div class="content">
                 <div class="container-fluid">
-
                     <div class="row">
                         <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
-
                             <!-- Search Filter -->
                             <div class="card search-filter">
                                 <div class="card-header">
@@ -127,7 +125,6 @@
                                 </div>
                             </div>
                             <!-- /Search Filter -->
-
                         </div>
 
                         <div class="col-md-12 col-lg-8 col-xl-9">
@@ -142,7 +139,7 @@
                                                 <div class="doc-info-left">
                                                     <div class="doctor-img">
                                                         <a href="serdetail?sid=${o.service_id}">
-                                                        <img src="${o.image}" class="img-fluid" alt="User Image">
+                                                        <img src="${o.image}" style="height: 150px;width: 150px" class="img-fluid" alt="User Image">
                                                     </a>
                                                 </div>
                                                 <div class="doc-info-cont">

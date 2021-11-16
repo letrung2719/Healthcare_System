@@ -74,7 +74,7 @@
                                     <!-- Slider Item -->
                                     <div class="speicality-item text-center">
                                         <div class="speicality-img">
-                                            <img style="margin: 0 auto;border-radius: 50%;" src="${o.image}" class="img-fluid"
+                                            <img style="margin: 0 auto;border-radius: 50%;height: 150px;" src="${o.image}" class="img-fluid"
                                                  alt="Speciality">
                                             <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                                         </div>
@@ -97,11 +97,11 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="section-header ">
-                                <h2>Book Our Doctor</h2>
+                                <h2>Our Top 10 Doctor</h2>
                             </div>
                             <div class="about-content">
                                 <p>Doccure gathers a team of experts, doctors, pharmacists and nurses who are highly trained and receive in depth training in Vietnam and many countries with developed Medicine such as the US, UK, France … Vinmec always considers patients as the core, and commits to providing comprehensive and high quality healthcare services to our customers.</p>
-                                <a href="javascript:;">Read More..</a>
+                                <a href="doctor-list?page=1">View All Doctor</a>
                             </div>
                         </div>
                         <div class="col-lg-8">
@@ -184,7 +184,7 @@
                                     <!-- Slider Item -->
                                     <div class="feature-item text-center">
                                         <img style="margin: 0 auto" src="assets/img/features/feature-01.jpg" class="img-fluid" alt="Feature">
-                                        <p style="width: 138px">${listSpec.name}</p>
+                                        <p style="width:138px !important;margin-top: 20px !important">${listSpec.name}</p>
                                     </div>
                                     <!-- /Slider Item -->
                                 </c:forEach>
@@ -194,10 +194,14 @@
                 </div>
             </section>
             <!-- Availabe Features -->
+            <div style="width: 90%; text-align: center; margin: 20px auto; padding: 30px auto">
+                <h2 class="mt-2" style="margin: 30px auto;font-size: 36px">We are waiting to help you!</h2>
+                <!--Google Map-->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.485409531647!2d105.52487561533206!3d21.013254993682363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345b465a4e65fb%3A0xaae6040cfabe8fe!2sFPT%20University!5e0!3m2!1sen!2s!4v1635783917552!5m2!1sen!2s" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <!--Google Map-->
+                <hr>
+            </div>
 
-            <!--Google Map-->
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.485409531647!2d105.52487561533206!3d21.013254993682363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345b465a4e65fb%3A0xaae6040cfabe8fe!2sFPT%20University!5e0!3m2!1sen!2s!4v1635783917552!5m2!1sen!2s" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            <!--Google Map-->
 
             <!-- Footer -->
             <jsp:include page="index-footer.jsp"/>

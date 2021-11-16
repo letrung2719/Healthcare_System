@@ -60,7 +60,7 @@
                         <div class="col-md-8 col-12">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="doctor_profile?id=${sessionScope.user.accountID}">Home</a></li>
 
                                     <li class="breadcrumb-item active" aria-current="page">Doctor</li>
                                 </ol>
@@ -106,11 +106,11 @@
                                                                     <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
                                                                         <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
                                                                     </a>
-                                                                    <a href="">${app.patient.name}<span>#PT ${app.patient.patientID}</span></a>
+                                                                    <a href="">${app.patient.name}<span>#APT ${app.patient.patientID}</span></a>
                                                                 </h2>
                                                             </td>
                                                             <fmt:parseDate var="p_date" value="${app.date}" pattern="yyyy-MM-dd"/>
-                                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                             <td>${date}<span class="d-block text-info">${app.slot.time}</span></td>
 
                                                             <td>

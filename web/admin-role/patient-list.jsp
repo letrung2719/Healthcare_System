@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,9 +63,6 @@
                                     <li class="breadcrumb-item active">Patients</li>
                                 </ul>
                             </div>
-                            <div class="col-sm-5 col">
-                                <a href="#Add_Specialities_details" data-toggle="modal" class="btn btn-primary float-right mt-2">Add</a>
-                            </div>
                         </div>
                     </div>
                     <!-- /Page Header -->
@@ -99,10 +97,13 @@
                                                                 </h2>
                                                             </td>
 
-                                                            <td><c:if test="${user.gender == 1}">Male</c:if>
+                                                            <td>
+                                                                <c:if test="${user.gender == 1}">Male</c:if>
                                                                 <c:if test="${user.gender == 0}">Female</c:if>
-                                                                </td>
-                                                                <td>${user.dob}</td>
+                                                            </td>
+                                                            <fmt:parseDate var="p_date" value="${user.dob}" pattern="yyyy-MM-dd"/>
+                                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                            <td>${date}</td>
                                                             <td>${user.phone}</td>
                                                             <td>${user.email}</td>
                                                             <td>
@@ -154,7 +155,7 @@
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>DOB</label>
-                                                                                    <input type="text " class="form-control " value="${user.dob} " name="dob" required="">
+                                                                                    <input type="text " class="form-control " value="${date} " name="dob" required="">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12 col-sm-12 ">
@@ -205,61 +206,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Add Modal -->
-                <div class="modal fade" id="Add_Specialities_details" aria-hidden="true" role="dialog">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Add Patients</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="add" method="post">
-                                    <div class="row form-row">
-                                        <div class="row form-row">
-                                            <div class="col-12 col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Name</label>
-                                                    <input type="text" class="form-control" value="" name="name">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Gender</label><br>
-                                                    <input type="radio" name="gender" value="Male">Male
-                                                    <input type="radio" name="gender" value="Female" style=" margin-left: 20px">Female
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-12 ">
-                                                <div class="form-group ">
-                                                    <label>DOB</label>
-                                                    <input type="text" class="form-control " value="" name="dob">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-12 ">
-                                                <div class="form-group ">
-                                                    <label>Phone</label>
-                                                    <input type="text" class="form-control " value="" name="phone">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-12 ">
-                                                <div class="form-group ">
-                                                    <label>Email</label>
-                                                    <input type="text" class="form-control " value=" " name="email">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /ADD Modal -->
             </div>
             <!-- /Page Wrapper -->
 

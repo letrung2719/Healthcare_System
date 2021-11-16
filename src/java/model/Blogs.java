@@ -94,18 +94,7 @@ public class Blogs {
      * @param date
      */
     public void setDate(String date) {
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy/MM/dd");
-            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = formatter1.parse(date);
-            String strDate = formatter.format(date1);
-            String strDate2 = formatter2.format(date1);
-            this.date = strDate;
-            this.date = strDate2;
-        } catch (ParseException ex) {
-            System.out.println(ex);
-        }
+        this.date = date;
     }
 
     /**

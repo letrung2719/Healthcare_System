@@ -43,7 +43,7 @@ public class ForgotPassword {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(emailAccount));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setSubject("Doccure Account Verification");
+            message.setSubject("Doccure Reset Your Password");
 
             String htmlCode = "<body style=\"background-color: #e1e1e1; margin: 0 !important; padding: 0 !important;\">\n"
                     + "        <div style=\"display: none; font-size: 1px; color: #0de0fe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;\"> We're thrilled to have you here! Get ready to dive into your new account. </div>\n"
@@ -62,7 +62,7 @@ public class ForgotPassword {
                     + "                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">\n"
                     + "                        <tr>\n"
                     + "                            <td bgcolor=\"#ffffff\" align=\"center\" valign=\"top\" style=\"padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #0de0fe; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;\">\n"
-                    + "                                <h1 style=\"font-size: 48px; font-weight: 400; margin: 2;\">Welcome to Doccure!</h1> <img src=\"https://img.icons8.com/clouds/100/000000/handshake.png\" width=\"125\" height=\"120\" style=\"display: block; border: 0px;\" />\n"
+                    + "                                <h1 style=\"font-size: 48px; font-weight: 400; margin: 2;\">Reset Your Password!</h1> <img src=\"https://img.icons8.com/clouds/100/000000/handshake.png\" width=\"125\" height=\"120\" style=\"display: block; border: 0px;\" />\n"
                     + "                            </td>\n"
                     + "                        </tr>\n"
                     + "                    </table>\n"
@@ -73,9 +73,9 @@ public class ForgotPassword {
                     + "                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">\n"
                     + "                        <tr>\n"
                     + "                            <td bgcolor=\"#ffffff\" align=\"left\" style=\"padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;\">\n"
-                    + "                                <p style=\"margin: 0;\">You are registering a Doccure Healthcare System account.</p><br>\n"
-                    + "                                <p style=\"margin: 0;\">Your verification code is: <span style=\"font-weight: bold\">" + code + "</span>.</p><br>\n"
-                    + "                                <p style=\"margin: 0;\">Please complete the account verification process.</p><br>\n"
+                    + "                                <p style=\"margin: 0;\">You recently requested to reset your password for your Doccure Account.</p><br>\n"
+                    + "                                <p style=\"margin: 0;\">This is your new password: <span style=\"font-weight: bold\">" + code + "</span>.</p><br>\n"
+                    + "                                <p style=\"margin: 0;\">You must use this password to continue login process.</p><br>\n"
                     + "                                <hr>\n"
                     + "                                <p style=\"margin: 0; font-style: italic\">This is an automated email. Please do not reply to this email!</p>\n"
                     + "                            </td>\n"
@@ -118,8 +118,8 @@ public class ForgotPassword {
         System.out.println("Send successfully!");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MessagingException {
         ForgotPassword main = new ForgotPassword();
-        System.out.println(main.getNewPassword());
+        main.sendMail("trunglthe151129@fpt.edu.vn", main.getNewPassword());
     }
 }

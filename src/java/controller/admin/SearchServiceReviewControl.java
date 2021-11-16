@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.admin;
 
-import dal.AppointmentDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,14 +19,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Appointment;
+import model.Services;
+import model.Specialities;
 
 /**
  *
- * @author admin
+ * @author ASUS
  */
-@WebServlet(name = "PatientProfileDashboard", urlPatterns = {"/patient_profile_dashboard"})
-public class PatientProfileDashboard extends HttpServlet {
+@WebServlet(name = "SearchServiceReviewControl", urlPatterns = {"/admin-role/search-review"})
+public class SearchServiceReviewControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,31 +37,30 @@ public class PatientProfileDashboard extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
         try{
-            int patientID = Integer.parseInt(request.getParameter("id"));
-            AppointmentDAO appDb = new AppointmentDAO();
-            int indexPage;
-            String getInputPage = request.getParameter("page");
-            if (getInputPage == null) {
-                indexPage = 1;
-            } else {
-                indexPage = Integer.parseInt(getInputPage);
+            String choice = request.getParameter("id");        
+            ServicesDAO dal = new ServicesDAO();
+            if(choice.equals("0")){
+                String search = request.getParameter("txt");
+                List<Services> listServices = dal.getAllServiceReviewBySearch(search);
+                request.setAttribute("serD", listServices);
+                request.setAttribute("tim", search);
             }
-            int totalAppointment = appDb.getAllPatientAppointment(patientID);
-            int numberOfItem = 5;
-            int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
-            int start = (indexPage - 1) * numberOfItem;
-            List<Appointment> listApp = appDb.paginateAppointmentByPatientID(patientID, start, numberOfItem);
+            if(choice.equals("1")){
+                String[] arraySpec = request.getParameterValues("select_specialist");
+            List<String> listSpec = arraySpec == null ? new ArrayList<>() : Arrays.asList(arraySpec);
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            List<Services> listServices = dal.searchSpecialitiesReview(listSpec);
+            request.setAttribute("listSpecialities", listSpecialities);
+            request.setAttribute("serD", listServices);
+            }
             
-            request.setAttribute("listApp", listApp);
-            request.setAttribute("indexPage", indexPage);
-            request.setAttribute("numberOfPage", numberOfPage);
-            request.getRequestDispatcher("patient-dashboard.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | ServletException e) {
+            request.getRequestDispatcher("/admin-role/review.jsp").forward(request, response);
+        }catch(IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);
         }
     }
@@ -77,7 +80,7 @@ public class PatientProfileDashboard extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(PatientProfileDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchServiceReviewControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -95,7 +98,7 @@ public class PatientProfileDashboard extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(PatientProfileDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchServiceReviewControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

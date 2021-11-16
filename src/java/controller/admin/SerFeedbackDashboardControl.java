@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Services;
+import model.Specialities;
 
 /**
  *
@@ -40,7 +41,9 @@ public class SerFeedbackDashboardControl extends HttpServlet {
         try {
             ServicesDAO dal = new ServicesDAO();
             List<Services> serDash = dal.getAllServiceDashboard();
-
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            
+            request.setAttribute("listSpec", listSpecialities);
             request.setAttribute("serD", serDash);
             request.getRequestDispatcher("/admin-role/review.jsp").forward(request, response);
         } catch (IOException | SQLException | ServletException e) {

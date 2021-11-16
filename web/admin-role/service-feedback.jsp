@@ -62,7 +62,7 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h3 class="page-title">Reviews</h3>
+                                <h3 class="page-title">Service Feedbacks</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="review">Reviews</a></li>
@@ -108,8 +108,9 @@
                                                     <th style="margin-right: 20px !important; padding-right: 30px">ID</th>
 
                                                     <th style="margin-right: 40px; padding-right: 60px">Patient</th>
+                                                    
                                                     <th style="margin-right: 40px; padding-right: 165px">Description</th>
-                                                    <th style="margin-right: 40px;">Ratings</th>
+                                                    <th style="margin-right: 30px;">Ratings</th>
 
                                                     <th class="text-right">Actions</th>
 

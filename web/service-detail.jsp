@@ -55,7 +55,7 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
+                                        <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item " >
                                         <a href="services">Services</a>
@@ -82,9 +82,8 @@
                             <div class="doctor-widget">
                                 <div class="doc-info-left">
                                     <div class="doctor-img">
-                                        <img src="${detail.image}" class="img-fluid" alt="User Image">
+                                        <img src="${detail.image}"  class="img-fluid" alt="User Image">
                                     </div>
-
                                     <style>
                                         .doc-info-left {
                                             width: 70%;
@@ -92,12 +91,7 @@
                                         .doc-info-right {
                                             width: 30%;
                                         }
-
                                         .doc-info-cont {
-                                            width: 50%;
-                                        }
-
-                                        .doc-img{
                                             width: 50%;
                                         }
                                     </style>
@@ -146,20 +140,7 @@
                                             <li><i class="far fa-money-bill-alt"></i> ${detail.price} VND </li>
                                         </ul>
                                     </div>
-                                    <div class="doctor-action">
-                                        <a href="#" class="btn btn-white fav-btn">
-                                            <i class="far fa-bookmark"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-white msg-btn">
-                                            <i class="far fa-comment-alt"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-white call-btn">
-                                            <i class="fas fa-phone"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-white call-btn">
-                                            <i class="fas fa-video"></i>
-                                        </a>
-                                    </div>
+                                        <br><br>
                                     <div class="clinic-booking">
                                         <a class="apt-btn" href="reservation?id=${detail.service_id}">Book Service</a>
                                     </div>
@@ -274,12 +255,12 @@
                                                                     ${o.content}
                                                                 </p>
                                                             </div>
-                                                            <c:if test="${o.patient == sessionScope.user.name}">
-                                                                <button style="float: right; color: red; margin-left: 10px">
-                                                                    <a style="color: red" onclick="return confirm('Are you sure you want to delete this comment?');" href="deleteFeedback?fid=${o.feedback_id}&&sid=${detail.service_id}"><i class="fas fa-trash-alt"></i></a>
+                                                            <c:if test="${o.patient.name == sessionScope.user.name}">
+                                                                <button style="float: right; color: red; margin-left: 10px;border: 2px solid gray;padding: 2px;background-color: #159;">
+                                                                    <a style="color: red;margin: 14px;font-size: 18px;" onclick="return confirm('Are you sure you want to delete this comment?');" href="deleteFeedback?fid=${o.feedback_id}&&sid=${detail.service_id}"><i class="fas fa-trash-alt"></i></a>
                                                                 </button>
-                                                                <button style="float: right; color: red; margin-left: 10px" onclick="myFunctionEditfeedback()">
-                                                                    <a style="color: aqua"><i class="fas fa-pencil-alt"></i></a>
+                                                                <button style="float: right; color: red; margin-left: 10px;border: 2px solid gray;padding: 2px;background-color: #159;" onclick="myFunctionEditfeedback()">
+                                                                    <a style="color: lawngreen;margin: 14px;font-size: 18px;"><i class="fas fa-pencil-alt"></i></a>
                                                                 </button>
                                                                 <script>
                                                                     function myFunctionEditfeedback() {
@@ -299,7 +280,7 @@
                                                                         <input name="patientID" value="${sessionScope.user.accountID}" style="display: none">
                                                                         <div class="form-group" style="margin-bottom: 5px">
                                                                             <div class="meta-data" style="width: 50%">
-                                                                                <span class="comment-author">${o.patient}</span>
+                                                                                <span class="comment-author">${o.patient.name}</span>
                                                                             </div>
                                                                             <div class="star-rating">
                                                                                 <input id="star-5" type="radio" name="rating" value="5" ${o.rate == 5 ? "checked" : ""}>

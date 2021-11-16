@@ -113,6 +113,41 @@ public class DoctorDAO {
         return null;
     }
 
+    public Doctor getDoctorByEmail(String email) throws SQLException {
+        String sql = "select doctor_id,doctors.name,gender,dob,phone,email,role,Doctors.type_id,specialities.name,description,account_id,image\n"
+                + "from doctors join specialities on doctors.type_id = specialities.type_id\n"
+                + "where email =?";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Doctor p = new Doctor();
+                p.setDoctorID(rs.getInt(1));
+                p.setName(rs.getString(2));
+                p.setGender(rs.getInt(3));
+                p.setDob(rs.getString(4));
+                p.setPhone(rs.getString(5));
+                p.setEmail(rs.getString(6));
+                p.setRole(rs.getString(7));
+                Specialities spec = new Specialities(rs.getInt(8), rs.getString(9));
+                p.setSpec(spec);
+                p.setDescription(rs.getString(10));
+                p.setImage(rs.getString(12));
+                p.setAccountID(rs.getInt(11));
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * @param p
@@ -192,6 +227,54 @@ public class DoctorDAO {
                 p.setSpec(spec);
                 p.setDescription(rs.getString(10));
                 p.setImage(rs.getString(12));
+                p.setAccountID(rs.getInt(11));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return list;
+    }
+
+    public List<Doctor> getTop10BestDoctor() throws SQLException {
+        ArrayList<Doctor> list = new ArrayList<>();
+        String sql = "select doctors.doctor_id\n"
+                + "                                      ,name\n"
+                + "                                      ,gender\n"
+                + "                                      ,dob\n"
+                + "                                      ,phone\n"
+                + "                                      ,email\n"
+                + "                                      ,role\n"
+                + "                                      ,type_id\n"
+                + "                                      ,image\n"
+                + "                                      ,description\n"
+                + "                                      ,(select AVG(rate)\n"
+                + "                                        from doctor_feedbacks\n"
+                + "                                        where doctor_id = doctors.doctor_id) as rate\n"
+                + "                                from doctors join doctor_feedbacks on doctors.doctor_id = doctor_feedbacks.doctor_id\n"
+                + "                                group by doctor_id\n"
+                + "                                order by rate desc limit 10";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Doctor p = new Doctor();
+                p.setDoctorID(rs.getInt(1));
+                p.setName(rs.getString(2));
+                p.setGender(rs.getInt(3));
+                p.setDob(rs.getString(4));
+                p.setPhone(rs.getString(5));
+                p.setEmail(rs.getString(6));
+                p.setRole(rs.getString(7));
+                ServicesDAO dao = new ServicesDAO();
+                p.setSpec(dao.getSpecByID(rs.getString(8)));
+                p.setDescription(rs.getString(10));
+                p.setImage(rs.getString(9));
                 p.setAccountID(rs.getInt(11));
                 list.add(p);
             }
@@ -298,10 +381,10 @@ public class DoctorDAO {
 
     public List<Patient> getAllMyPatient(int doctorID) throws SQLException {
         ArrayList<Patient> list = new ArrayList<>();
-        String sql = "SELECT patients.patient_id,patients.name,patients.gender,patients.dob,patients.phone,patients.email,patients.account_id,patients.image\n"
-                + "FROM healthcare_system.patients join appointments on appointments.patient_id = patients.patient_id\n"
-                + "where doctor_id = ?\n"
-                + "group by patients.patient_id";
+        String sql = "SELECT patients.patient_id,patients.name,gender,patients.dob,patients.phone,patients.email,date,patients.image\n"
+                + "                FROM healthcare_system.patients join appointments on appointments.patient_id = patients.patient_id\n"
+                + "                where doctor_id = ?\n"
+                + "                group by patients.patient_id;";
         try {
             connection = dbc.getConnection();
             ps = connection.prepareStatement(sql);
@@ -313,9 +396,9 @@ public class DoctorDAO {
                 p.setName(rs.getString(2));
                 p.setGender(rs.getInt(3));
                 p.setDob(rs.getString(4));
-                p.setPhone(rs.getString(5));
+                p.setPhone(rs.getString(7));
                 p.setEmail(rs.getString(6));
-                p.setAccountID(rs.getInt(7));
+                p.setAccountID(rs.getInt(5));
                 p.setImage(rs.getString(8));
                 list.add(p);
             }
@@ -328,6 +411,17 @@ public class DoctorDAO {
             }
         }
         return list;
+    }
+
+    public String checkEmailExisted(String email) throws SQLException {
+        DoctorDAO doctorDb = new DoctorDAO();
+        List<Doctor> d = doctorDb.getAllDoctor();
+        for (Doctor doctor : d) {
+            if (email.equals(doctor.getEmail())) {
+                return email;
+            }
+        }
+        return null;
     }
 
     /**
@@ -344,12 +438,12 @@ public class DoctorDAO {
 //            Doctor d = doctorDb.getDoctorByAccountID(7);
 //            System.out.println(d);
             List<Patient> p = doctorDb.getAllMyPatient(1);
-            System.out.println(p);
+            System.out.println(doctorDb.getDoctorByEmail("tttdung1@gmail.com").toString());
 //        Doctor d = doctorDb.getDoctorByDoctorID(2);
 //        System.out.println(d);
-        List<String> listSpec = new ArrayList<String>();
-        List<Doctor> list = doctorDb.search("", "", "", "", null, listSpec);
-        System.out.println(list);
+            List<String> listSpec = new ArrayList<String>();
+            List<Doctor> list = doctorDb.search("", "", "", "", null, listSpec);
+            System.out.println(list);
         } catch (SQLException ex) {
             Logger.getLogger(DoctorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -53,14 +53,15 @@
                                     </div>
                                     <div class="col-md-12 col-lg-6 login-right">
                                         <div class="login-header">
+                                            <p class="text-danger">${mess}</p>
                                             <h3>Forgot Password?</h3>
                                             <p class="small text-muted">Enter your email to get a password reset link</p>
                                         </div>
 
                                         <!-- Forgot Password Form -->
-                                        <form action="https://dreamguys.co.in/demo/doccure/login.html">
+                                        <form action="forgot_password" method="get">
                                             <div class="form-group form-focus">
-                                                <input type="email" class="form-control floating">
+                                                <input type="email" class="form-control floating" name="email">
                                                 <label class="focus-label">Email</label>
                                             </div>
                                             <div class="text-right">

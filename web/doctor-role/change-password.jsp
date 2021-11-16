@@ -1,5 +1,4 @@
 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
@@ -75,10 +74,8 @@
                                         </a>
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
-                                            <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
-                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd MM yyyy"/>
                                             <div class="patient-details">
-                                                <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
+                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
                                             </div>
                                         </div>
                                     </div>

@@ -60,14 +60,14 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
+                                        <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Profile Settings
+                                        Appointments History
                                     </li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Profile Settings</h2>
+                            <h2 class="breadcrumb-title">Appointment History</h2>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,9 @@
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
                                             <div class="patient-details">
-                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
+                                                <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
+                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MM yyyy"/>
+                                                <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -100,28 +102,22 @@
                                 <div class="dashboard-widget">
                                     <nav class="dashboard-menu">
                                         <ul>
-                                            <li class="active">
-                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-columns"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fas fa-bookmark"></i>
-                                                    <span>Favourites</span>
-                                                </a>
-                                            </li>
                                             <li>
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
+                                            <li class="active">
+                                                <a href="appointment-history?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-calendar-check"></i>
+                                                    <span>Appointment History</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="reservationHistory?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Services Booking History</span>
+                                                    <i class="fas fa-columns"></i>
+                                                    <span>Reservation History</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -170,8 +166,9 @@
                                                                     <a href="">${app.doctor.name}<span>#APT ${app.doctor.doctorID}</span></a>
                                                                 </h2>
                                                             </td>
-
-                                                            <td>${app.date}<span class="d-block text-info">${app.slot.time}</span></td>
+                                                            <fmt:parseDate var="p_datee" value="${app.date}" pattern="yyyy-MM-dd"/>
+                                                            <fmt:formatDate var="datee" value="${p_datee}" pattern="dd-MM-yyyy"/>
+                                                            <td>${datee}<span class="d-block text-info">${app.slot.time}</span></td>
 
                                                             <td>
                                                                 <c:if test="${app.status == 1}">
@@ -209,13 +206,13 @@
                                                     </li>
                                                 </ul>	
                                             </div>
-                                        </div>
+                                        <!-- /Appointment Tab -->
                                     </div>
+                                    <!-- Tab Content -->
                                 </div>
-                            </div>                           
-                            <!-- /Profile Sidebar -->
-
+                            </div>
                         </div>
+                                                    
                     </div>
                 </div>
 

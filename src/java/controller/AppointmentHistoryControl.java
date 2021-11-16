@@ -5,29 +5,25 @@
  */
 package controller;
 
-import dal.DoctorDAO;
-import dal.DoctorFeedbacksDAO;
+import dal.AppointmentDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Doctor;
-import model.DoctorFeedbacks;
-import model.Patient;
+import model.Appointment;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-@WebServlet(name = "ViewDoctorProfile", urlPatterns = {"/doctor_profile_view"})
-public class ViewDoctorProfile extends HttpServlet {
-
-    private static final long serialVersionUID = 9999L;
+@WebServlet(name = "AppointmentHistoryControl", urlPatterns = {"/appointment-history"})
+public class AppointmentHistoryControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,33 +33,31 @@ public class ViewDoctorProfile extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try {
-            int accountID = Integer.parseInt(request.getParameter("id"));
-            DoctorDAO doctorDb = new DoctorDAO();
-            Doctor doctor = doctorDb.getDoctorByAccountID(accountID);
-            request.setAttribute("doctor", doctor);
-
-            DoctorFeedbacksDAO feedbackDB = new DoctorFeedbacksDAO();
-            List<DoctorFeedbacks> feedbacksList = feedbackDB.getAllDoctorFeedbacks(doctor.getDoctorID());
-            request.setAttribute("feedbacksList", feedbacksList);
-            int avgrate = feedbackDB.getAverageRating(doctor.getDoctorID());
-            request.setAttribute("avgrate", avgrate);
-
-            HttpSession session = request.getSession();
-            Patient curUser = (Patient) session.getAttribute("user");
-            if (curUser != null) {
-                for (DoctorFeedbacks fb : feedbacksList) {
-                    if (fb.getPatient().getPatientID() == curUser.getPatientID() && fb.getDoctor().getDoctorID() == doctor.getDoctorID()) {
-                        request.setAttribute("check", true);
-                    }
-                }
+            throws ServletException, IOException, SQLException {
+        try{
+            int patientID = Integer.parseInt(request.getParameter("id"));
+            AppointmentDAO appDb = new AppointmentDAO();
+            int indexPage;
+            String getInputPage = request.getParameter("page");
+            if (getInputPage == null) {
+                indexPage = 1;
+            } else {
+                indexPage = Integer.parseInt(getInputPage);
             }
-            request.getRequestDispatcher("doctor-details.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            int totalAppointment = appDb.getAllPatientAppointment(patientID);
+            int numberOfItem = 5;
+            int numberOfPage = totalAppointment / numberOfItem + (totalAppointment % numberOfItem == 0 ? 0 : 1);
+            int start = (indexPage - 1) * numberOfItem;
+            List<Appointment> listApp = appDb.paginateAppointmentByPatientID(patientID, start, numberOfItem);
+            
+            request.setAttribute("listApp", listApp);
+            request.setAttribute("indexPage", indexPage);
+            request.setAttribute("numberOfPage", numberOfPage);
+            request.getRequestDispatcher("appointment-history.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | ServletException e) {
             System.out.println(e);
         }
     }
@@ -80,7 +74,11 @@ public class ViewDoctorProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AppointmentHistoryControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -94,7 +92,11 @@ public class ViewDoctorProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AppointmentHistoryControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

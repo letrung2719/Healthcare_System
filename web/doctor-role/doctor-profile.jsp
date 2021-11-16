@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -58,7 +59,7 @@
                         <div class="col-md-12 col-12">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="doctor_profile?id=${sessionScope.user.accountID}">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Profile Settings
                                     </li>
@@ -96,29 +97,16 @@
                                                         </div>
                                                         <div class="upload-img">
                                                             <div class="change-photo-btn">
-                                                                <span
-                                                                    ><i class="fa fa-upload"></i> Upload
-                                                                    Photo</span
-                                                                >
+                                                                <span><i class="fa fa-upload"></i> Upload Photo</span>
                                                                 <input type="file" class="upload" />
                                                             </div>
-                                                            <small class="form-text text-muted"
-                                                                   >Allowed JPG, GIF or PNG. Max size of 2MB</small
-                                                            >
+                                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input
-                                                name="id"
-                                                type="hidden"
-                                                value="${doctor.doctorID}"
-                                                />
-                                            <input
-                                                name="accountID"
-                                                type="hidden"
-                                                value="${doctor.accountID}"
-                                                />
+                                            <input name="id" type="hidden" value="${doctor.doctorID}" />
+                                            <input name="accountID" type="hidden" value="${doctor.accountID}" />
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Username <span class="text-danger">*</span></label>
@@ -140,53 +128,35 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Phone Number <span class="text-danger">*</span></label>
+                                                    <label>Mobile Phone <span class="text-danger">*</span></label>
                                                     <input name="phone" type="text" class="form-control" value="${doctor.phone}"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
+                                                <div class="form-group mb-0">
                                                     <label>Gender <span class="text-danger">*</span></label><br />
-                                                    <style>
-                                                        .genderedit,
-                                                        option {
-                                                            width: 100%;
-                                                            border-radius: 3px;
-                                                            height: 46px;
-                                                            padding: 2px 10px;
-                                                            border: 1px solid lightgray;
-                                                            color: #333;
-                                                            outline: none;
-                                                            -moz-appearance: none;
-                                                            -webkit-appearance: none;
-                                                            appearance: none;
-                                                            &::-ms-expand {
-                                                                display: none;
-                                                            }
-                                                        }
-                                                    </style>
-                                                    <select name="gender" class="genderedit">
-                                                        <option
-                                                            value="${doctor.gender == 0 ? 'Female' : 'Male'}"
-                                                            >
-                                                            ${doctor.gender == 0 ? 'Female' : 'Male'}
-                                                        </option>
-                                                        <option
-                                                            value="${doctor.gender == 0 ? 'Male' : 'Female'}"
-                                                            >
-                                                            ${doctor.gender == 0 ? 'Male' : 'Female'}
-                                                        </option>
-                                                    </select>
+                                                    <div style="display: flex;margin-top: 15px;font-size: 16px">
+                                                        <div style="width: 50%">
+                                                            <input type="radio" id="male" name="gender" value="male" ${doctor.gender == 1 ? 'checked' : ''}>
+                                                              <label for="male">Male</label> 
+                                                        </div>
+                                                        <div style="width: 50%"> 
+                                                            <input type="radio" id="female" name="gender" value="female" ${doctor.gender == 0 ? 'checked' : ''}>
+                                                              <label for="female">Female</label>
+                                                        </div>                                                        
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group mb-0">
                                                     <label>Date of Birth <span class="text-danger">*</span></label>
+                                                    <fmt:parseDate var="p_date" value="${doctor.dob}" pattern="yyyy-MM-dd"/>
+                                                    <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                     <input
                                                         name="dob"
                                                         type="text"
                                                         class="form-control"
-                                                        value="${doctor.dob}" />
+                                                        value="${date}" />
                                                 </div>
                                             </div>
                                         </div>
