@@ -8,6 +8,8 @@ package controller.doctor;
 import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,9 +22,9 @@ import model.Account;
  *
  * @author Admin
  */
-@WebServlet(name = "ChangePasswordDoctor", urlPatterns = {"/changePasswordDoctor"})
+@WebServlet(name = "ChangePasswordDoctor", urlPatterns = {"/doctor-role/changePasswordDoctor"})
 public class ChangePasswordDoctor extends HttpServlet {
-
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -89,27 +91,26 @@ public class ChangePasswordDoctor extends HttpServlet {
                 request.setAttribute("oldPassword", oldPassword);
                 request.setAttribute("confirmPassword", confirmPassword);
                 request.setAttribute("newPassword", newPassword);
-                request.setAttribute("mess", "Invalid password");
+                request.setAttribute("mess", resourceBundle.getString("invalid_pass"));
                 request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
             } else if (!newPassword.matches(pattern)) {
                 request.setAttribute("oldPassword", oldPassword);
                 request.setAttribute("newPassword", newPassword);
                 request.setAttribute("confirmPassword", confirmPassword);
-                request.setAttribute("mess", "Password requires at least 6 characters, including at least 1 digit, 1 uppercase letter, 1 lowercase letter and no spaces.");
+                request.setAttribute("mess", resourceBundle.getString("password_requirement"));
                 request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
             } else if (!newPassword.equals(confirmPassword)) {
                 request.setAttribute("oldPassword", oldPassword);
                 request.setAttribute("newPassword", newPassword);
                 request.setAttribute("confirmPassword", confirmPassword);
-                request.setAttribute("mess", "Confirm password not match");
+                request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
                 request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
             } else {
                 accountDb.changePassword(newPassword, id);
-                response.sendRedirect("logout");
+                response.sendRedirect("/Healthcare_System/logout");
             }
-
-        } catch (Exception ex) {
-
+        } catch (IOException | SQLException | ServletException ex) {
+            System.out.println(ex);
         }
     }
 

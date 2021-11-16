@@ -41,7 +41,7 @@
         <div class="main-wrapper">
 
             <!-- Header -->
-           <jsp:include page="index-header.jsp"/>
+            <jsp:include page="index-header.jsp"/>
             <!-- /Header -->
 
             <!-- Breadcrumb -->
@@ -66,7 +66,9 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <%@include file="doctor-role/doctor-sidebar.jsp" %>
+
+                        <%@include file="doctor-sidebar.jsp" %>
+
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
                                 <div class="card-body">
@@ -92,7 +94,15 @@
                                                 </div>
                                             </form>
                                             <!-- /Change Password Form -->
-
+                                        </div>
+                                        <div class="col-md-12 col-lg-6" style="margin-top: 20px">
+                                            <p class="mb-2">Password requirements</p>
+                                            <p class="small text-muted mb-2">To create a new password, you have to meet all of the following requirements:</p>
+                                            <ul class="small text-muted pl-4 mb-0">
+                                                <li>At least 6 characters</li>
+                                                <li>At least upper-case letter</li>
+                                                <li>At least one number</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

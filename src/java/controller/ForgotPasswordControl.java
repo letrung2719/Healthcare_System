@@ -21,7 +21,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -86,7 +85,6 @@ public class ForgotPasswordControl extends HttpServlet {
                 } else {
                     accountDb.changePassword(new_password, doctorDb.getDoctorByEmail(email).getAccountID());
                 }
-                
                 request.setAttribute("success", resourceBundle.getString("reset_password_success"));
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {

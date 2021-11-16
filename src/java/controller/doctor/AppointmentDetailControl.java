@@ -20,7 +20,7 @@ import model.Appointment;
  *
  * @author Admin
  */
-@WebServlet(name = "AppointmentDetailControl", urlPatterns = {"/appointmentDetailControl"})
+@WebServlet(name = "AppointmentDetailControl", urlPatterns = {"/doctor-role/appointmentDetailControl"})
 public class AppointmentDetailControl extends HttpServlet {
 
     /**

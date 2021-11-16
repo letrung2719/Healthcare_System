@@ -86,15 +86,9 @@ public class ChangePasswordControl extends HttpServlet {
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String confirmPassword = request.getParameter("confirmPassword");
-            System.out.println("oldPassword : " + oldPassword);
-            System.out.println("password : " + acc.getPass());
-            System.out.println(acc.getPass().equals(oldPassword));
-            System.out.println(newPassword);
-            System.out.println(confirmPassword);
 
             AccountDAO accountDb = new AccountDAO();
             int id = acc.getId();
-            System.out.println(id);
 
             if (!acc.getPass().equals(oldPassword)) {
                 request.setAttribute("oldPassword", oldPassword);

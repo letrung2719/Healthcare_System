@@ -20,7 +20,7 @@ import model.Appointment;
  *
  * @author Admin
  */
-@WebServlet(name = "DoctorAppointmentControl", urlPatterns = {"/doctorAppointmentControl"})
+@WebServlet(name = "DoctorAppointmentControl", urlPatterns = {"/doctor-role/doctorAppointmentControl"})
 public class DoctorAppointmentControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
