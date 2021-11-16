@@ -27,6 +27,7 @@ import model.Blogs;
  */
 @WebServlet(name = "AddBlogControl", urlPatterns = {"/admin-role/addblog"})
 public class AddBlogControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
 
     /**
@@ -41,7 +42,7 @@ public class AddBlogControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,33 +72,38 @@ public class AddBlogControl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            
+
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
             String title = request.getParameter("title");
             String image = request.getParameter("image");
             String des = request.getParameter("description");
 
-            String pattern = "yyyy/MM/dd HH:mm:ss";
+            if (title.equals("") || image.equals("") || des.equals("")) {
+                String mess = "please input all data!!!";
+                request.setAttribute("mess", mess);
+                request.getRequestDispatcher("/admin-role/add-blog.jsp").forward(request, response);
+            } else {
+                String pattern = "yyyy/MM/dd HH:mm:ss";
 
-        // Create an instance of SimpleDateFormat used for formatting 
-        // the string representation of date according to the chosen pattern
-            DateFormat df = new SimpleDateFormat(pattern);
+                // Create an instance of SimpleDateFormat used for formatting 
+                // the string representation of date according to the chosen pattern
+                DateFormat df = new SimpleDateFormat(pattern);
 
-        // Get the today date using Calendar object.
-            Date today = Calendar.getInstance().getTime();
-        // Using DateFormat format method we can create a string 
-        // representation of a date with the defined format.
-            String todayAsString = df.format(today);
-            
-            
-            BlogsDAO bl = new BlogsDAO();
-            bl.addBlog(title, todayAsString, image, des);
-            List<Blogs> listBlog = bl.getAllBlogs();
+                // Get the today date using Calendar object.
+                Date today = Calendar.getInstance().getTime();
+                // Using DateFormat format method we can create a string 
+                // representation of a date with the defined format.
+                String todayAsString = df.format(today);
 
-            request.setAttribute("listBlog", listBlog);
-            request.getRequestDispatcher("/admin-role/blog").forward(request, response);
-            
+                BlogsDAO bl = new BlogsDAO();
+                bl.addBlog(title, todayAsString, image, des);
+                List<Blogs> listBlog = bl.getAllBlogs();
+
+                request.setAttribute("listBlog", listBlog);
+                request.getRequestDispatcher("/admin-role/blog").forward(request, response);
+            }
+
         } catch (IOException | ServletException | SQLException e) {
             System.out.println(e);
         }

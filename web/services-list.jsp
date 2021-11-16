@@ -90,10 +90,8 @@
             <!-- Page Content -->
             <div class="content">
                 <div class="container-fluid">
-
                     <div class="row">
                         <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
-
                             <!-- Search Filter -->
                             <div class="card search-filter">
                                 <div class="card-header">
@@ -127,7 +125,6 @@
                                 </div>
                             </div>
                             <!-- /Search Filter -->
-
                         </div>
 
                         <div class="col-md-12 col-lg-8 col-xl-9">

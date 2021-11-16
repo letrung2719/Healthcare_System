@@ -99,18 +99,6 @@
                                 <div class="dashboard-widget">
                                     <nav class="dashboard-menu">
                                         <ul>
-                                            <li>
-                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-columns"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fas fa-bookmark"></i>
-                                                    <span>Favourites</span>
-                                                </a>
-                                            </li>
                                             <li class="active">
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
@@ -118,9 +106,15 @@
                                                 </a>
                                             </li>
                                             <li>
+                                                <a href="appointment-history?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-calendar-check"></i>
+                                                    <span>Appointment History</span>
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a href="reservationHistory?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Services Booking History</span>
+                                                    <i class="fas fa-columns"></i>
+                                                    <span>Reservation History</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -144,23 +138,29 @@
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
-                                <div class="card-body">
-                                    <!-- Profile Settings Form -->
-                                    <p class="text-success">${thongbao}</p>
-                                    <form action="patient_profile_setting" method="post">
-                                        <div class="row form-row">
-                                            <input name="id" type="hidden" value="${Users.patientID}"/>
-                                            <input name="accountID" type="hidden" value="${Users.accountID}"/>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Name</label>
-                                                    <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        value="${Users.name}"
-                                                        name="name"
+                                <div class="card-body pt-0">
+                                    <!-- Tab Menu -->
+                                    <nav class="user-tabs mb-4">
+                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab">Profile Settings</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <!-- /Tab Menu -->
 
-                                                        />
+                                    <!-- Profile Settings Form -->
+                                    <div class="tab-content pt-0">
+                                        <p class="text-success">${thongbao}</p>
+                                        <form action="patient_profile_setting" method="post">
+                                            <div class="row form-row">
+                                                <input name="id" type="hidden" value="${Users.patientID}"/>
+                                                <input name="accountID" type="hidden" value="${Users.accountID}"/>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Name <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" value="${Users.name}" name="name" />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
@@ -177,54 +177,36 @@
                                                         </div>                                                        
                                                     </div>                                                  
                                                 </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Date of Birth</label>
-                                                    <div class="cal-icon">
-                                                        <input
-                                                            name="dob"
-                                                            type="date"
-                                                            class="form-control"
-                                                            value="${Users.dob}"
-                                                            />
+                                                <div class="col-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Date of Birth <span class="text-danger">*</span></label>
+                                                        <div class="cal-icon">
+                                                            <input name="dob" type="date" class="form-control" value="${Users.dob}"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Email ID</label>
-                                                    <input
-                                                        name="email"
-                                                        type="email"
-                                                        class="form-control"
-                                                        value="${Users.email}"
-                                                        readonly=""
-                                                        />
+                                                <div class="col-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Email <span class="text-danger">*</span></label>
+                                                        <input name="email" type="email" class="form-control" value="${Users.email}" readonly=""/>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Mobile</label>
-                                                    <input
-                                                        name="phone"
-                                                        type="text"
-                                                        value="${Users.phone}"
-                                                        class="form-control"
-                                                        pattern="\d{8,10}$"
-                                                        />
-                                                    <span class="form-text text-muted">Phone number must from 8 to 10 digits</span>
-
+                                                <div class="col-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Mobile Phone <span class="text-danger">*</span></label>
+                                                        <input name="phone" type="text" value="${Users.phone}" class="form-control" pattern="\d{8,10}$"/>
+                                                        <span class="form-text text-muted">Phone number must from 8 to 10 digits</span>
+                                                    </div>
                                                 </div>
+                                            </div>                                        
+                                            <div class="submit-section">
+                                                <button type="submit" class="btn btn-primary submit-btn">
+                                                    Save changes
+                                                </button>                                            
                                             </div>
-                                        </div>                                        
-                                        <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">
-                                                Save changes
-                                            </button>                                            
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                                 <!-- /Profile Settings Form -->
                             </div>

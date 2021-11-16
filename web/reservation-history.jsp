@@ -58,11 +58,11 @@
                                         <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Services Booking History
+                                        Reservation History
                                     </li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Services Booking History</h2>
+                            <h2 class="breadcrumb-title">Reservation History</h2>
                         </div>
                     </div>
                 </div>
@@ -98,28 +98,21 @@
                                     <nav class="dashboard-menu">
                                         <ul>
                                             <li>
-                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-columns"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fas fa-bookmark"></i>
-                                                    <span>Favourites</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href="appointment-history?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-calendar-check"></i>
+                                                    <span>Appointment History</span>
+                                                </a>
+                                            </li>
                                             <li class="active">
                                                 <a href="reservationHistory?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Services Booking History</span>
+                                                    <i class="fas fa-columns"></i>
+                                                    <span>Reservation History</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -148,12 +141,7 @@
                                     <nav class="user-tabs mb-4">
                                         <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                                             <li class="nav-item">
-                                                <a
-                                                    class="nav-link active"
-                                                    href="#pat_appointments"
-                                                    data-toggle="tab"
-                                                    >Reservation history</a
-                                                >
+                                                <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Reservation History</a>
                                             </li>
                                         </ul>
                                     </nav>

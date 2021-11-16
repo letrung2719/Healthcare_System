@@ -77,7 +77,7 @@
                                 <div class="card-body">
                                     <div class="booking-doc-info">
                                         <a href="doctor-profile.html" class="booking-doc-img">
-                                            <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                            <img src="${doctor.image}" alt="User Image">
                                         </a>
                                         <div class="booking-info">
                                             <h4 class="doc-name">Dr. ${doctor.name}</h4>

@@ -63,11 +63,11 @@
                                         <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Profile Settings
+                                        Appointments History
                                     </li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Profile Settings</h2>
+                            <h2 class="breadcrumb-title">Appointment History</h2>
                         </div>
                     </div>
                 </div>
@@ -102,28 +102,22 @@
                                 <div class="dashboard-widget">
                                     <nav class="dashboard-menu">
                                         <ul>
-                                            <li class="active">
-                                                <a href="patient_profile_dashboard?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-columns"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fas fa-bookmark"></i>
-                                                    <span>Favourites</span>
-                                                </a>
-                                            </li>
                                             <li>
                                                 <a href="patient_profile?id=${sessionScope.user.accountID}">
                                                     <i class="fas fa-user-cog"></i>
                                                     <span>Profile Settings</span>
                                                 </a>
                                             </li>
+                                            <li class="active">
+                                                <a href="appointment-history?id=${sessionScope.user.patientID}">
+                                                    <i class="fas fa-calendar-check"></i>
+                                                    <span>Appointment History</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="reservationHistory?id=${sessionScope.user.patientID}">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Services Booking History</span>
+                                                    <i class="fas fa-columns"></i>
+                                                    <span>Reservation History</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -212,13 +206,13 @@
                                                     </li>
                                                 </ul>	
                                             </div>
-                                        </div>
+                                        <!-- /Appointment Tab -->
                                     </div>
+                                    <!-- Tab Content -->
                                 </div>
-                            </div>                           
-                            <!-- /Profile Sidebar -->
-
+                            </div>
                         </div>
+                                                    
                     </div>
                 </div>
 

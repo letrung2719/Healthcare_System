@@ -97,29 +97,16 @@
                                                         </div>
                                                         <div class="upload-img">
                                                             <div class="change-photo-btn">
-                                                                <span
-                                                                    ><i class="fa fa-upload"></i> Upload
-                                                                    Photo</span
-                                                                >
+                                                                <span><i class="fa fa-upload"></i> Upload Photo</span>
                                                                 <input type="file" class="upload" />
                                                             </div>
-                                                            <small class="form-text text-muted"
-                                                                   >Allowed JPG, GIF or PNG. Max size of 2MB</small
-                                                            >
+                                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input
-                                                name="id"
-                                                type="hidden"
-                                                value="${doctor.doctorID}"
-                                                />
-                                            <input
-                                                name="accountID"
-                                                type="hidden"
-                                                value="${doctor.accountID}"
-                                                />
+                                            <input name="id" type="hidden" value="${doctor.doctorID}" />
+                                            <input name="accountID" type="hidden" value="${doctor.accountID}" />
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Username <span class="text-danger">*</span></label>
@@ -141,7 +128,7 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Phone Number <span class="text-danger">*</span></label>
+                                                    <label>Mobile Phone <span class="text-danger">*</span></label>
                                                     <input name="phone" type="text" class="form-control" value="${doctor.phone}"/>
                                                 </div>
                                             </div>
@@ -158,7 +145,6 @@
                                                               <label for="female">Female</label>
                                                         </div>                                                        
                                                     </div>
-
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
