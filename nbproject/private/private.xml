@@ -2,24 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-            <file>file:/C:/Users/hp/Documents/WebPage/project/Healthcare_System/web/doctor-role/my-patient.jsp</file>
-            <file>file:/C:/Users/hp/Documents/WebPage/project/Healthcare_System/web/admin-role/assets/js/chart.morris.js</file>
-            <file>file:/C:/Users/hp/Documents/WebPage/project/Healthcare_System/web/admin-role/index.jsp</file>
+            <file>file:/C:/Users/hp/Documents/WebPage/project/Healthcare_System/web/doctor-role/doctor-profile.jsp</file>
+            <file>file:/C:/Users/hp/Documents/WebPage/project/Healthcare_System/web/patient-profile.jsp</file>
+            <file>file:/C:/Users/hp/Documents/WebPage/project/Healthcare_System/web/appointment-history.jsp</file>
+            <file>file:/C:/Users/hp/Documents/WebPage/project/Healthcare_System/web/blog-list.jsp</file>
+            <file>file:/C:/Users/hp/Documents/WebPage/project/Healthcare_System/web/blog-detail.jsp</file>
         </group>
-=======
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        <group>
-            <file>file:/C:/Users/hp/Documents/WebPage/project/Healthcare_System/web/admin-role/reservation.jsp</file>
-        </group>
-=======
-        <group/>
->>>>>>> Stashed changes
-=======
-        <group/>
->>>>>>> master
->>>>>>> 892c848eb17fb57597553e30a41976ee9fa0276f
     </open-files>
 </project-private>
