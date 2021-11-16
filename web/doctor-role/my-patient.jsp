@@ -84,7 +84,7 @@
                                                 <img src="${p.image}" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
-                                                <h3><a href="patient-profile.html"> ${p.name}</a></h3>
+                                                <h3><a href="my-patient-detail?doctorID=${sessionScope.user.doctorID}&&patientID=${p.patientID}"> ${p.name}</a></h3>
                                                 <div class="patient-details">
                                                     <h5><b><i class="far fa-clock"></i></b>Last Booking:  ${date1}</h5>
                                                     <h5><b><i class="fas fa-map-marker-alt"></i></b>Date of birth:  ${date2}</h5>
