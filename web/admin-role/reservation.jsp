@@ -15,7 +15,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Reservation Page</title>
+        <title>Reservations Management</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -65,9 +65,8 @@
                             <div class="col-sm-12">
                                 <h3 class="page-title">Reservation</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    
-                                    <li class="breadcrumb-item active">Reservation</li>
+                                    <li class="breadcrumb-item"><a href="admin-home">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Reservations</li>
                                 </ul>
                             </div>
                         </div>
@@ -82,10 +81,10 @@
                                         <table class="datatable table table-hover table-center mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-right: 30px">Reserve ID</th>
+                                                    <th style="padding-right: 30px">Reservation ID</th>
                                                     <th style="margin-right: 30px; padding-right: 130px">Patient Name</th>
                                                     <th style="margin-right: 30px; padding-right: 150px">Service Name</th>
-                                                    <th >Apointment Time</th>
+                                                    <th>Time</th>
                                                     <th style="margin-right: 40px; padding-right: 140px">Description</th>
                                                     <th>Status</th>
                                                 </tr>
@@ -169,7 +168,4 @@
             <script src="assets/js/script.js "></script>
 
     </body>
-
-    <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/patient-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:52 GMT -->
-
 </html>

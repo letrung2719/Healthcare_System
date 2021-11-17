@@ -40,31 +40,8 @@ public class ServiceListAdminControl extends HttpServlet {
             ServicesDAO dal = new ServicesDAO();
             List<Specialities> listSpecialities = dal.getAllSpecialities();
             List<Services> listServices = dal.getAllServices();
-            int itemPerPage = 10;
-            int page;
-            int pageNumber;
-            String mpage = request.getParameter("page");
-            if (mpage == null) {
-                page = 1;
-            } else {
-                page = Integer.parseInt(mpage);
-            }
-            pageNumber = listServices.size() / itemPerPage + (listServices.size() % itemPerPage == 0 ? 0 : 1);
-            int start, end;
-            start = (page - 1) * itemPerPage;
-            if (page * itemPerPage > listServices.size()) {
-                end = listServices.size();
-            } else {
-                end = page * itemPerPage;
-            }
-            List<Services> arr = dal.getServicesByPage(listServices, start, end);
-            int length = arr.size();
-
-            request.setAttribute("length", length);
-            request.setAttribute("pageNumber", pageNumber);
-            request.setAttribute("page", page);
             request.setAttribute("listSpec", listSpecialities);
-            request.setAttribute("listServices", arr);
+            request.setAttribute("listServices", listServices);
             request.getRequestDispatcher("/admin-role/service-list.jsp").forward(request, response);
         } catch (IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);

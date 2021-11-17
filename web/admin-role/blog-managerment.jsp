@@ -65,7 +65,7 @@
                             <div class="col-sm-7 col-auto">
                                 <h3 class="page-title">Blogs Management</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="admin-home">Admin</a></li>
+                                    <li class="breadcrumb-item"><a href="admin-home">Dashboard</a></li>
 
                                     <li class="breadcrumb-item active">Blogs</li>
                                 </ul>
