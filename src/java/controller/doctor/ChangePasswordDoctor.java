@@ -24,7 +24,9 @@ import model.Account;
  */
 @WebServlet(name = "ChangePasswordDoctor", urlPatterns = {"/doctor-role/changePasswordDoctor"})
 public class ChangePasswordDoctor extends HttpServlet {
+
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -84,7 +86,7 @@ public class ChangePasswordDoctor extends HttpServlet {
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String confirmPassword = request.getParameter("confirmPassword");
-            
+
             AccountDAO accountDb = new AccountDAO();
             int id = acc.getId();
             if (!acc.getPass().equals(oldPassword)) {
@@ -107,7 +109,7 @@ public class ChangePasswordDoctor extends HttpServlet {
                 request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
             } else {
                 accountDb.changePassword(newPassword, id);
-                response.sendRedirect("/Healthcare_System/logout");
+                response.sendRedirect(request.getContextPath() + "/logout");
             }
         } catch (IOException | SQLException | ServletException ex) {
             System.out.println(ex);

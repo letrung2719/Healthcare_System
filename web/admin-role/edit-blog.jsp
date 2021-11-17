@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>blog-managerment</title>
+        <title>Blogs Management</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -31,7 +31,6 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
-
 
         <script type="text/javascript" src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>
         <!--[if lt IE 9]>
@@ -63,14 +62,13 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-7 col-auto">
-                                <h3 class="page-title">List of Doctors</h3>
+                                <h3 class="page-title">Blogs Management</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
+                                    <li class="breadcrumb-item"><a href="admin-home">Admin</a></li>
 
                                     <li class="breadcrumb-item active">Blogs</li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                     <style>
@@ -86,112 +84,35 @@
                             margin: 5px;
                             margin-bottom: 15px;
                         }
-
-
                     </style>
                     <form method="post" action="edit-blog">
-
-                        <label>ID</label>
-
+                        <label>ID:</label>
                         <input name="blogId" class="form-control" type="text" readonly value="${blog.blogID}">
                         <label>Title:</label>
-
                         <br>
                         <input type="text" class="form-control " name="title" value="${blog.title}">
-
-                        <label>Date</label>
+                        <label>Date:</label>
                         <input type="text " class="form-control " value="${blog.date} " name="date" readonly required="">
                         <br>
                         <label>Image:</label>
-                        <input type="text" class="form-control " value="${blog.image} " id="image" name="image">
+                        <input type="text" class="form-control " value="${blog.image}" name="image" >
                         <br>
-
-
-                        <label>Description</label>
-                        <!--<input type="text" class="form-control " value=" " name="email">-->
+                        <label>Description:</label>
                         <textarea rows="50"cols="200" class="form-control" id="description1" ${blog.description} name="description"></textarea>
-
                         <button style="margin-top: 50px; " type="submit" class="btn btn-primary btn-block">Save</button>
-
                     </form>
-
                     <!-- /Page Header -->
                 </div>
-
             </div>
-
-            <!-- Edit Details Modal -->
-            <div class="modal fade" id="edit_specialities_details${blog.blogID}" aria-hidden="true" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Blog</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-danger">${mess}</p>
-                            <form action="edit-blog" method="post">
-                                <div class="row form-row">
-                                    <div class="row form-row">
-                                        <input name="blogId" class="form-control" type="text" readonly value="${blog.blogID}">
-
-                                        <div class="col-12 col-sm-12">
-                                            <div class="form-group">
-                                                <label>Title</label>
-                                                <textarea class="form-control" name="title" required="">${blog.title}</textarea>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-12 col-sm-12 ">
-                                            <div class="form-group ">
-                                                <label>Date</label>
-                                                <input type="text " class="form-control " value="${blog.date} " name="date" readonly required="">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-12 ">
-                                            <div class="form-group ">
-                                                <label>Image</label>
-                                                <input type="text " class="form-control " value="${blog.image} " name="image" required="">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-12 ">
-                                            <div class="form-group ">
-                                                <label>Description</label>
-                                                <textarea class="form-control"  id="description2" name="description" required="">${blog.description}</textarea>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
-                            </form>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Edit Details Modal -->
-
-
         </div>
         <!-- /Page Wrapper -->
 
         <script>
-
-
             CKEDITOR.replace('description1');
             CKEDITOR.replace('description2');
-
         </script>
     </div>
     <!-- /Main Wrapper -->
-
-
 
     <!-- jQuery -->
     <script src="assets/js/jquery-3.2.1.min.js"></script>
@@ -209,7 +130,6 @@
 
     <!-- Custom JS -->
     <script src="assets/js/script.js"></script>
-
     <script type="text/javascript" src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>
 
 </body>

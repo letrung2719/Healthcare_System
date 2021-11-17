@@ -78,15 +78,15 @@
                                             <!-- Change Password Form -->
                                             <form action="changePasswordDoctor" method="post">
                                                 <div class="form-group">
-                                                    <label>Old Password</label>
+                                                    <label>Old Password <span class="text-danger">*</span></label>
                                                     <input type="password" class="form-control" name="oldPassword" value="${oldPassword}" required="">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>New Password</label>
+                                                    <label>New Password <span class="text-danger">*</span></label>
                                                     <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Confirm Password</label>
+                                                    <label>Confirm Password <span class="text-danger">*</span></label>
                                                     <input type="password" class="form-control" name="confirmPassword" value="${confirmPassword}">
                                                 </div>
                                                 <div class="submit-section">

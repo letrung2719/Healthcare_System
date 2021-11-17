@@ -71,9 +71,6 @@
                                 </div>
                             </a>
                         </div>
-
-                        <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">Profile Settings</a>
-
                         <a class="dropdown-item" href="/Healthcare_System/logout">Logout</a>
                     </div>
 

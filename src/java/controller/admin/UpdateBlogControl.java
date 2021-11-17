@@ -9,11 +9,7 @@ import dal.BlogsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +24,7 @@ import model.Blogs;
 @WebServlet(name = "UpdateBlogControl", urlPatterns = {"/admin-role/edit-blog"})
 public class UpdateBlogControl extends HttpServlet {
 
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,21 +36,18 @@ public class UpdateBlogControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        try {
-
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
-            int blogID = Integer.parseInt(request.getParameter("id"));
-
-            BlogsDAO bl = new BlogsDAO();
-            Blogs blog = bl.getBlogByBlogID(blogID);
-
-            request.setAttribute("blog", blog);
-            request.getRequestDispatcher("/admin-role/edit-blog.jsp").forward(request, response);
-
-        } catch (IOException | SQLException e) {
-            System.out.println(e);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet sd</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet sd at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -69,7 +63,19 @@ public class UpdateBlogControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            request.setCharacterEncoding("UTF-8");
+            int blogID = Integer.parseInt(request.getParameter("id"));
+
+            BlogsDAO bl = new BlogsDAO();
+            Blogs blog = bl.getBlogByBlogID(blogID);
+
+            request.setAttribute("blog", blog);
+            request.getRequestDispatcher("/admin-role/edit-blog.jsp").forward(request, response);
+        } catch (IOException | SQLException e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -84,7 +90,6 @@ public class UpdateBlogControl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
             int blogID = Integer.parseInt(request.getParameter("blogId"));
@@ -94,18 +99,15 @@ public class UpdateBlogControl extends HttpServlet {
             String des = request.getParameter("description");
 
             if (title.equals("") || image.equals("") || des.equals("")) {
-                String mess = "please input all data!!!";
-                request.setAttribute("mess", mess);
-                request.getRequestDispatcher("edit-blog?id="+blogID).forward(request, response);
+                request.setAttribute("mess", resourceBundle.getString("input_check_null"));
+                request.getRequestDispatcher("edit-blog?id=" + blogID).forward(request, response);
             } else {
                 Blogs bl1 = new Blogs(blogID, title, date, image, des);
-
                 BlogsDAO bl = new BlogsDAO();
-
                 bl.editBlog(bl1);
-                request.getRequestDispatcher("/admin-role/blog").forward(request, response);
+                request.setAttribute("mess", resourceBundle.getString("success"));
+                request.getRequestDispatcher("edit-blog?id=" + blogID).forward(request, response);
             }
-
         } catch (IOException | SQLException e) {
             System.out.println(e);
         }

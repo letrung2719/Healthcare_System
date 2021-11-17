@@ -105,8 +105,10 @@ public class ChangePasswordControl extends HttpServlet {
                     request.getRequestDispatcher("change-password.jsp").forward(request, response);
                 } else {
                     accountDb.changePassword(newPassword, id);
+                    session.removeAttribute("acc");
+                    session.removeAttribute("user");
                     request.setAttribute("success", resourceBundle.getString("change_pass"));
-                    request.getRequestDispatcher("change-password.jsp").forward(request, response);
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
             }
         } catch (IOException | SQLException | ServletException e) {

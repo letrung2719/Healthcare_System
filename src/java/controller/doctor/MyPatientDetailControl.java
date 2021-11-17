@@ -24,7 +24,7 @@ import model.Patient;
  *
  * @author ASUS
  */
-@WebServlet(name = "MyPatientDetailControl", urlPatterns = {"/my-patient-detail"})
+@WebServlet(name = "MyPatientDetailControl", urlPatterns = {"/doctor-role/my-patient-detail"})
 public class MyPatientDetailControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
@@ -42,14 +42,11 @@ public class MyPatientDetailControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            DoctorDAO dao = new DoctorDAO();
             int doctor_id = Integer.parseInt(request.getParameter("doctorID"));
             int patient_id = Integer.parseInt(request.getParameter("patientID"));
             AppointmentDAO appdao = new AppointmentDAO();
             PatientDAO pa = new PatientDAO();
             Patient patient = pa.getPatientByPatientID(patient_id);
-            
-                   
             int indexPage;
 
             String getInputPage = request.getParameter("page");
