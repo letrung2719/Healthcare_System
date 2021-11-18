@@ -3,39 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.admin;
 
-import dal.DoctorDAO;
+import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Doctor;
+import model.Services;
+import model.Specialities;
 
 /**
  *
- * @author Admin
+ * @author ASUS
  */
-@WebServlet(name = "DoctorProfileSettting", urlPatterns = {"/doctor_profile_setting"})
-public class DoctorProfileSettting extends HttpServlet {
-    private static final long serialVersionUID = 9999L;
-    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
-    
-    private void writeObject(ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
+@WebServlet(name = "SearchServiceReviewControl", urlPatterns = {"/admin-role/search-review"})
+public class SearchServiceReviewControl extends HttpServlet {
 
-    private void readObject(ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,27 +39,29 @@ public class DoctorProfileSettting extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            int doctorID = Integer.parseInt(request.getParameter("id"));
-            int accountID = Integer.parseInt(request.getParameter("accountID"));
-            String name = request.getParameter("name");
-            String gender_raw = request.getParameter("gender");
-            int gender = gender_raw.equalsIgnoreCase("Male") ? 1 : 0;
-            String dob = request.getParameter("dob");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String description = request.getParameter("description");
-            Doctor d = new Doctor(doctorID, name, gender, dob, phone, email, "", null, description, "", accountID);
-            System.out.println(d);
-            DoctorDAO doctorDb = new DoctorDAO();
-            int res = doctorDb.editDoctor(d);
-            System.out.println(res);
-            request.setAttribute("thongbao", resourceBundle.getString("success"));
-            request.getRequestDispatcher("doctor_profile?id=" + accountID).forward(request, response);
-        } catch (NumberFormatException | SQLException ex) {
-            System.out.println(ex);
+        try{
+            String choice = request.getParameter("id");        
+            ServicesDAO dal = new ServicesDAO();
+            if(choice.equals("0")){
+                String search = request.getParameter("txt");
+                List<Services> listServices = dal.getAllServiceReviewBySearch(search);
+                request.setAttribute("serD", listServices);
+                request.setAttribute("tim", search);
+            }
+            if(choice.equals("1")){
+                String[] arraySpec = request.getParameterValues("select_specialist");
+            List<String> listSpec = arraySpec == null ? new ArrayList<>() : Arrays.asList(arraySpec);
+            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            List<Services> listServices = dal.searchSpecialitiesReview(listSpec);
+            request.setAttribute("listSpecialities", listSpecialities);
+            request.setAttribute("serD", listServices);
+            }
+            
+            request.getRequestDispatcher("/admin-role/review.jsp").forward(request, response);
+        }catch(IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
         }
     }
 
@@ -82,7 +77,11 @@ public class DoctorProfileSettting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchServiceReviewControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -96,7 +95,11 @@ public class DoctorProfileSettting extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchServiceReviewControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

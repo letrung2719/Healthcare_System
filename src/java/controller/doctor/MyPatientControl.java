@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Patient;
 
-@WebServlet(name = "MyPatientControl", urlPatterns = {"/my-patient"})
+@WebServlet(name = "MyPatientControl", urlPatterns = {"/doctor-role/my-patient"})
 public class MyPatientControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

@@ -92,7 +92,9 @@
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
                                             <div class="patient-details">
-                                                <h5><i class="fas fa-birthday-cake"></i> ${sessionScope.user.dob}</h5>
+                                                <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
+                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -139,34 +141,20 @@
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
-                                <div class="card-body pt-0">
-                                    <!-- Tab Menu -->
-                                    <nav class="user-tabs mb-4">
-                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab">Appointment History</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <!-- /Tab Menu -->
-
-                                    <!-- Tab Content -->
+                                <div class="card-body">
                                     <div class="tab-content pt-0">
-                                        <!-- Appointment Tab -->
-                                        <div
-                                            id="pat_appointments"
-                                            class="tab-pane fade show active"
-                                            >
+                                        <div id="pat_appointments" class="tab-pane fade show active">
                                             <div class="card card-table mb-0">
                                                 <div class="card-body">
                                                     <div class="table-responsive">
-                                                        <table class="table table-hover table-center mb-0">
+                                                        <table class="datatable table table-hover table-center mb-0 "> 
                                                             <thead>
                                                                 <tr>
                                                                     <th>Appointment ID</th>
                                                                     <th>Doctor</th>
-                                                                    <th>Appointment Date</th>
+                                                                    <th>Date</th>
                                                                     <th>Status</th>
+                                                                    <th></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -181,8 +169,9 @@
                                                                                 <a href="">${app.doctor.name}<span>#APT ${app.doctor.doctorID}</span></a>
                                                                             </h2>
                                                                         </td>
-
-                                                                        <td>${app.date}<span class="d-block text-info">${app.slot.time}</span></td>
+                                                                        <fmt:parseDate var="p_datee" value="${app.date}" pattern="yyyy-MM-dd"/>
+                                                                        <fmt:formatDate var="datee" value="${p_datee}" pattern="dd-MM-yyyy"/>
+                                                                        <td>${datee}<span class="d-block text-info">${app.slot.time}</span></td>
 
                                                                         <td>
                                                                             <c:if test="${app.status == 1}">
@@ -204,60 +193,60 @@
                                                                 </c:forEach>
                                                             </tbody>
                                                         </table>
+
+                                                        <div class="load-more text-center">
+                                                            <ul class="pagination">
+                                                                <li class="page-item ">
+                                                                    <a class="page-link" href="appointment-history?id=${sessionScope.user.patientID}&page=${page-1}">Previous</a>
+                                                                </li>
+                                                                <c:set var="page" value="${requestScope.indexPage}"/>
+                                                                <c:forEach begin="1" end="${numberOfPage}" var="i">
+                                                                    <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="appointment-history?id=${sessionScope.user.patientID}&page=${i}">${i}</a></li>
+                                                                    </c:forEach>
+
+                                                                <li class="page-item">
+                                                                    <a class="page-link" href="appointment-history?id=${sessionScope.user.patientID}&page=${page+1}">Next</a>
+                                                                </li>
+                                                            </ul>	
+                                                        </div>
+                                                        <!-- /Appointment Tab -->
                                                     </div>
+                                                    <!-- Tab Content -->
                                                 </div>
                                             </div>
                                         </div>
-                                        <br>
-                                        <div class="load-more text-center">
-                                                <ul class="pagination">
-                                                    <li class="page-item ">
-                                                        <a class="page-link" href="patient_profile_dashboard?id=${sessionScope.user.patientID}&page=${page-1}">Previous</a>
-                                                    </li>
-                                                    <c:set var="page" value="${requestScope.indexPage}"/>
-                                                    <c:forEach begin="1" end="${numberOfPage}" var="i">
-                                                        <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="patient_profile_dashboard?id=${sessionScope.user.patientID}&page=${i}">${i}</a></li>
-                                                        </c:forEach>
-
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="patient_profile_dashboard?id=${sessionScope.user.patientID}&page=${page+1}">Next</a>
-                                                    </li>
-                                                </ul>	
-                                            </div>
-                                        <!-- /Appointment Tab -->
-                                    </div>
-                                    <!-- Tab Content -->
-                                </div>
-                            </div>
+                                    </div>                                                        
+                                </div>                         
+                            </div>                         
                         </div>
-                                                    
                     </div>
                 </div>
-
-                <!--Footer-->
-                <%@include file="index-footer.jsp" %>
-                <!--Footer-->
             </div>
 
-            <!-- jQuery -->
-            <script src="assets/js/jquery.min.js"></script>
+            <!--Footer-->
+            <%@include file="index-footer.jsp" %>
+            <!--Footer-->
+        </div>
 
-            <!-- Bootstrap Core JS -->
-            <script src="assets/js/popper.min.js"></script>
-            <script src="assets/js/bootstrap.min.js"></script>
+        <!-- jQuery -->
+        <script src="assets/js/jquery.min.js"></script>
 
-            <!-- Select2 JS -->
-            <script src="assets/plugins/select2/js/select2.min.js"></script>
+        <!-- Bootstrap Core JS -->
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
 
-            <!-- Datetimepicker JS -->
-            <script src="assets/js/moment.min.js"></script>
-            <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+        <!-- Select2 JS -->
+        <script src="assets/plugins/select2/js/select2.min.js"></script>
 
-            <!-- Sticky Sidebar JS -->
-            <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-            <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <!-- Datetimepicker JS -->
+        <script src="assets/js/moment.min.js"></script>
+        <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 
-            <!-- Custom JS -->
-            <script src="assets/js/script.js"></script>
+        <!-- Sticky Sidebar JS -->
+        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+        <!-- Custom JS -->
+        <script src="assets/js/script.js"></script>
     </body>
 </html>

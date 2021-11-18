@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.doctor;
 
 import dal.AccountDAO;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
@@ -23,22 +22,10 @@ import model.Account;
  *
  * @author Admin
  */
-@WebServlet(name = "ChangePasswordControl", urlPatterns = {"/change_password"})
+@WebServlet(name = "ChangePasswordDoctor", urlPatterns = {"/doctor-role/changePasswordDoctor"})
+public class ChangePasswordDoctor extends HttpServlet {
 
-public class ChangePasswordControl extends HttpServlet {
-
-    private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
-
-    private void writeObject(ObjectOutputStream stream)
-            throws IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,7 +39,18 @@ public class ChangePasswordControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ChangePasswordDoctor</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ChangePasswordDoctor at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,6 +65,7 @@ public class ChangePasswordControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -80,6 +79,7 @@ public class ChangePasswordControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,}";
         try {
             HttpSession session = request.getSession();
             Account acc = (Account) session.getAttribute("acc");
@@ -89,32 +89,31 @@ public class ChangePasswordControl extends HttpServlet {
 
             AccountDAO accountDb = new AccountDAO();
             int id = acc.getId();
-
             if (!acc.getPass().equals(oldPassword)) {
                 request.setAttribute("oldPassword", oldPassword);
                 request.setAttribute("confirmPassword", confirmPassword);
                 request.setAttribute("newPassword", newPassword);
                 request.setAttribute("mess", resourceBundle.getString("invalid_pass"));
-                request.getRequestDispatcher("change-password.jsp").forward(request, response);
+                request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
+            } else if (!newPassword.matches(pattern)) {
+                request.setAttribute("oldPassword", oldPassword);
+                request.setAttribute("newPassword", newPassword);
+                request.setAttribute("confirmPassword", confirmPassword);
+                request.setAttribute("mess", resourceBundle.getString("password_requirement"));
+                request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
+            } else if (!newPassword.equals(confirmPassword)) {
+                request.setAttribute("oldPassword", oldPassword);
+                request.setAttribute("newPassword", newPassword);
+                request.setAttribute("confirmPassword", confirmPassword);
+                request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
+                request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
             } else {
-                if (!newPassword.equals(confirmPassword)) {
-                    request.setAttribute("oldPassword", oldPassword);
-                    request.setAttribute("newPassword", newPassword);
-                    request.setAttribute("confirmPassword", confirmPassword);
-                    request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
-                    request.getRequestDispatcher("change-password.jsp").forward(request, response);
-                } else {
-                    accountDb.changePassword(newPassword, id);
-                    session.removeAttribute("acc");
-                    session.removeAttribute("user");
-                    request.setAttribute("success", resourceBundle.getString("change_pass"));
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                }
+                accountDb.changePassword(newPassword, id);
+                response.sendRedirect(request.getContextPath() + "/logout");
             }
-        } catch (IOException | SQLException | ServletException e) {
-            System.out.println(e);
+        } catch (IOException | SQLException | ServletException ex) {
+            System.out.println(ex);
         }
-
     }
 
     /**

@@ -27,39 +27,45 @@
             <nav class="dashboard-menu">
                 <ul>
                     <c:set var="path" value="<%=request.getServletPath()%>"/>
-                        <li class="${path == "/doctor-role/doctor-profile.jsp" ? "active" : ""}">
-                            <a href="doctor_profile?id=${sessionScope.user.accountID}">
-                                <i class="fas fa-user-cog"></i>
-                                <span>Profile Settings</span>
-                            </a>
-                        </li>
-                        <li class="${path == "/doctor-role/doctor-appointment.jsp" ? "active" : ""} ${path == "/doctor-role/appointment-detail.jsp" ? "active" : ""}">
-                            <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">
-                                <i class="fas fa-calendar-check"></i>
-                                <span>My Appointments</span>
-                            </a>
-                        </li>
-                        <li class="${path == "/doctor-role/my-patient.jsp" ? "active" : ""}">
-                            <a href="my-patient?doctorID=${sessionScope.user.doctorID}">
-                                <i class="fas fa-user-injured"></i>
-                                <span>My Patients</span>
-                            </a>
-                        </li>
-                        <li class="${path == "/doctor-role/doctor-feedback-list.jsp" ? "active" : ""}">
-                            <a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}">
-                                <i class="fas fa-star"></i>
-                                <span>My Feedbacks</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fas fa-lock"></i>
-                                <span>Change Password</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+                    <li class="${path == "/doctor-role/doctor-profile.jsp" ? "active" : ""}">
+                        <a href="doctor_profile?id=${sessionScope.user.accountID}">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Profile Settings</span>
+                        </a>
+                    </li>
+                    <li class="${path == "/doctor-role/doctor-appointment.jsp" ? "active" : ""} ${path == "/doctor-role/appointment-detail.jsp" ? "active" : ""}">
+                        <a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>My Appointments</span>
+                        </a>
+                    </li>
+                    <li class="${path == "/doctor-role/my-patient.jsp" ? "active" : ""}">
+                        <a href="my-patient?doctorID=${sessionScope.user.doctorID}">
+                            <i class="fas fa-user-injured"></i>
+                            <span>My Patients</span>
+                        </a>
+                    </li>
+                    <li class="${path == "/doctor-role/doctor-feedback-list.jsp" ? "active" : ""}">
+                        <a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}">
+                            <i class="fas fa-star"></i>
+                            <span>My Feedbacks</span>
+                        </a>
+                    </li>
+                    <li class="${path == "/doctor-role/change-password-doctor.jsp" ? "active" : ""}">
+                        <a href="change-password-doctor.jsp">
+                            <i class="fas fa-lock"></i>
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Healthcare_System/logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <!-- /Profile Sidebar -->
     </div>
+    <!-- /Profile Sidebar -->
+</div>

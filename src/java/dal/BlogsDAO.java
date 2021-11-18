@@ -227,14 +227,11 @@ public class BlogsDAO {
     public static void main(String[] args) {
         try {
             BlogsDAO bl = new BlogsDAO();
-            List<Blogs> b = bl.search("ơ", "2021-11-01");
-            Blogs bl1 = new Blogs(10, "yeu em", "2021-11-01", "https://s11.favim.com/orig/7/760/7601/76010/jisoo-blackpink-rose-Favim.com-7601059.gif", "yeu em 3000");
+//            List<Blogs> b = bl.search("ơ", "2021-11-01");
+//            Blogs bl1 = new Blogs(10, "yeu em", "2021-11-01", "https://s11.favim.com/orig/7/760/7601/76010/jisoo-blackpink-rose-Favim.com-7601059.gif", "yeu em 3000");
 //            bl.addBlog("yeu em", "2021/11/01", "https://s11.favim.com/orig/7/760/7601/76010/jisoo-blackpink-rose-Favim.com-7601059.gif", "yeu em 3000");
 //            bl.editBlog(bl1);
-            for (Blogs i : b) {
-                System.out.println("oke");
-                System.out.println(i);
-            }
+             System.out.println(bl.getAllBlogs());
 
         } catch (SQLException ex) {
             Logger.getLogger(BlogsDAO.class.getName()).log(Level.SEVERE, null, ex);

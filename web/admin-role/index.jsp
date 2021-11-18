@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="model.DoctorFeedbacks"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -149,36 +150,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-6">
-
-                            <!-- Sales Chart -->
-                            <div class="card card-chart">
-                                <div class="card-header">
-                                    <h4 class="card-title">Revenue</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="morrisArea"></div>
-                                </div>
-                            </div>
-                            <!-- /Sales Chart -->
-
-                        </div>
-                        <div class="col-md-12 col-lg-6">
-
-                            <!-- Invoice Chart -->
-                            <div class="card card-chart">
-                                <div class="card-header">
-                                    <h4 class="card-title">Status</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="morrisLine"></div>
-                                </div>
-                            </div>
-                            <!-- /Invoice Chart -->
-
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-md-6 d-flex">
 
@@ -221,6 +193,9 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div style="text-align: center">
+                                            <b><a style="color: aqua;" href="/Healthcare_System/admin-role/doctor_list">See more...</a></b>
+                                        </div>
                                 </div>
                             </div>
                             <!-- /Recent Orders -->
@@ -261,6 +236,9 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div style="text-align: center">
+                                            <b><a style="color: aqua;" href="/Healthcare_System/admin-role/patient_list">See more...</a></b>
+                                        </div>
                                 </div>
                             </div>
                             <!-- /Feed Activity -->
@@ -314,27 +292,29 @@
                                                                 </div>
                                                             </h2>
                                                         </td>
-                                                        <td style="text-align: center">${o.date} <span class="text-primary d-block">${o.slot.time}</span></td>
-                                                        <td>
-                                                            <p>${o.description}</p>
-                                                        </td>
-                                                        <td>
-                                                            <div class="table-avatar">
-                                                                <c:if test="${o.status == '0'}">
-                                                                    <button type="button" class="btn btn-danger">Canceled</button>
+                                                <fmt:parseDate var="p_date" value="${o.date}" pattern="yyyy-MM-dd"/>
+                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                <td style="text-align: center">${date} <span class="text-primary d-block">${o.slot.time}</span></td>
+                                                <td>
+                                                    <p>${o.description}</p>
+                                                </td>
+                                                <td>
+                                                    <div class="table-avatar">
+                                                        <c:if test="${o.status == '0'}">
+                                                            <button type="button" class="btn btn-danger">Canceled</button>
 
-                                                                </c:if>
-                                                                <c:if test="${o.status == '1'}">
-                                                                    <button type="button" class="btn btn-warning">Processing</button>
+                                                        </c:if>
+                                                        <c:if test="${o.status == '1'}">
+                                                            <button type="button" class="btn btn-warning">Processing</button>
 
-                                                                </c:if>
-                                                                <c:if test="${o.status == '2'}">
-                                                                    <button type="button" class="btn btn-success">Success</button>
-                                                                </c:if>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
+                                                        </c:if>
+                                                        <c:if test="${o.status == '2'}">
+                                                            <button type="button" class="btn btn-success">Success</button>
+                                                        </c:if>
+                                                    </div>
+                                                </td>
+                                                </tr>
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                         <div style="text-align: center">

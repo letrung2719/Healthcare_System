@@ -55,7 +55,7 @@
                         <div class="col-md-12 col-12">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="home">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Doctor Profile</li>
                                 </ol>
                             </nav>
@@ -187,7 +187,9 @@
                                                             <div id="show${feedback.patient}">
                                                                 <div class="meta-data">
                                                                     <span class="comment-author">${feedback.patient.name}</span>
-                                                                    <span class="comment-date">Reviewed ${feedback.date}</span>
+                                                                    <fmt:parseDate var="p_date" value="${feedback.date}" pattern="yyyy-MM-dd"/>
+                                                                    <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                                    <span class="comment-date">Reviewed ${date}</span>
                                                                     <div class="review-count rating">
                                                                         <i class="fas fa-star ${feedback.rate > 0 ? "filled" : ""}"></i>
                                                                         <i class="fas fa-star ${feedback.rate > 1 ? "filled" : ""}"></i>
@@ -233,7 +235,7 @@
                                                                             <input type="hidden" value="${feedback.doctor.doctorID}" name="doctor_id">
                                                                             <div class="meta-data" >
                                                                                 <span class="comment-author">${feedback.patient.name}</span>
-                                                                                <span class="comment-date">Reviewed ${feedback.date}</span>
+                                                                                <span class="comment-date">Reviewed ${date}</span>
                                                                             </div>
                                                                             <div class="star-rating">
                                                                                 <input id="star-5" type="radio" name="rating" value="5" ${feedback.rate == 5 ? "checked" : ""}>

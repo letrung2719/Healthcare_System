@@ -21,7 +21,7 @@ import model.DoctorFeedbacks;
  *
  * @author Admin
  */
-@WebServlet(name = "DoctorFeedbackListControl", urlPatterns = {"/doctorFeedbackList"})
+@WebServlet(name = "DoctorFeedbackListControl", urlPatterns = {"/doctor-role/doctorFeedbackList"})
 public class DoctorFeedbackListControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;

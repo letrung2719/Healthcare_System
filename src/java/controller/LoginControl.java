@@ -71,7 +71,7 @@ public class LoginControl extends HttpServlet {
                     case 1:
                         Doctor d = doctorDb.getDoctorByAccountID(a.getId());
                         session.setAttribute("user", d);
-                        response.sendRedirect(request.getContextPath() + "/doctorAppointmentControl?doctorID=" + d.getDoctorID() + "&indexPage=1");
+                        response.sendRedirect(request.getContextPath() + "/doctor-role/doctor_profile?id=" + a.getId());
                         break;
                     case 2:
                         Patient p = patientDb.getPatientByAccountID(a.getId());

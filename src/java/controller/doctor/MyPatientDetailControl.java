@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.admin;
+package controller.doctor;
 
-import dal.ServicesDAO;
+import dal.AppointmentDAO;
+import dal.DoctorDAO;
+import dal.PatientDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -14,15 +17,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Services;
-import model.Specialities;
+import model.Appointment;
+import model.Patient;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "SerFeedbackDashboardControl", urlPatterns = {"/admin-role/review"})
-public class SerFeedbackDashboardControl extends HttpServlet {
+@WebServlet(name = "MyPatientDetailControl", urlPatterns = {"/doctor-role/my-patient-detail"})
+public class MyPatientDetailControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
 
@@ -39,13 +42,32 @@ public class SerFeedbackDashboardControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            ServicesDAO dal = new ServicesDAO();
-            List<Services> serDash = dal.getAllServiceDashboard();
-            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            int doctor_id = Integer.parseInt(request.getParameter("doctorID"));
+            int patient_id = Integer.parseInt(request.getParameter("patientID"));
+            AppointmentDAO appdao = new AppointmentDAO();
+            PatientDAO pa = new PatientDAO();
+            Patient patient = pa.getPatientByPatientID(patient_id);
+            int indexPage;
+
+            String getInputPage = request.getParameter("page");
+            if (getInputPage == null) {
+                indexPage = 1;
+            } else {
+                indexPage = Integer.parseInt(getInputPage);
+            }
             
-            request.setAttribute("listSpec", listSpecialities);
-            request.setAttribute("serD", serDash);
-            request.getRequestDispatcher("/admin-role/review.jsp").forward(request, response);
+            int totalAppoint = appdao.countAllAppointmentByDoctorIDandPatientID(doctor_id, patient_id);
+            int numberOfItem = 4;
+            int numberOfPage = totalAppoint / numberOfItem + (totalAppoint % numberOfItem == 0 ? 0 : 1);
+            int start = (indexPage - 1) * numberOfItem;
+
+            List<Appointment> appointlist = appdao.paginateAppointmentByDoctorIDandPatientID(doctor_id, patient_id, start, numberOfItem);
+
+            request.setAttribute("listApp", appointlist);
+            request.setAttribute("patient", patient);
+            request.setAttribute("indexPage", indexPage);
+            request.setAttribute("numberOfPage", numberOfPage);
+            request.getRequestDispatcher("/doctor-role/patient-detail.jsp").forward(request, response);
         } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }

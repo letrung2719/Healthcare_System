@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +29,8 @@ import model.Blogs;
 @WebServlet(name = "UpdateBlogControl", urlPatterns = {"/admin-role/edit-blog"})
 public class UpdateBlogControl extends HttpServlet {
 
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,7 +43,18 @@ public class UpdateBlogControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet NewServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -55,7 +69,19 @@ public class UpdateBlogControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            request.setCharacterEncoding("UTF-8");
+            int blogID = Integer.parseInt(request.getParameter("id"));
+
+            BlogsDAO bl = new BlogsDAO();
+            Blogs blog = bl.getBlogByBlogID(blogID);
+
+            request.setAttribute("blog", blog);
+            request.getRequestDispatcher("/admin-role/edit-blog.jsp").forward(request, response);
+        } catch (IOException | SQLException e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -70,7 +96,6 @@ public class UpdateBlogControl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
             int blogID = Integer.parseInt(request.getParameter("blogId"));
@@ -79,15 +104,14 @@ public class UpdateBlogControl extends HttpServlet {
             String image = request.getParameter("image");
             String des = request.getParameter("description");
 
-            
-            
             Blogs bl1 = new Blogs(blogID, title, date, image, des);
-            
             BlogsDAO bl = new BlogsDAO();
-            
             bl.editBlog(bl1);
-            request.getRequestDispatcher("/admin-role/blog").forward(request, response);
             
+            Blogs blog = bl.getBlogByBlogID(blogID);
+            request.setAttribute("blog", blog);
+            request.setAttribute("mess", resourceBundle.getString("success"));
+            request.getRequestDispatcher("/admin-role/edit-blog.jsp").forward(request, response);
         } catch (IOException | SQLException e) {
             System.out.println(e);
         }

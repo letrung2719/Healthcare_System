@@ -5,8 +5,9 @@
  */
 package controller.admin;
 
-import dal.ServicesDAO;
+import dal.AppointmentDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -14,18 +15,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Services;
-import model.Specialities;
+import model.Appointment;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "SerFeedbackDashboardControl", urlPatterns = {"/admin-role/review"})
-public class SerFeedbackDashboardControl extends HttpServlet {
+@WebServlet(name = "AppointmentDetailAdControl", urlPatterns = {"/admin-role/appoint-detail"})
+public class AppointmentDetailAdControl extends HttpServlet {
 
     private static final long serialVersionUID = 9999L;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,16 +38,20 @@ public class SerFeedbackDashboardControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            ServicesDAO dal = new ServicesDAO();
-            List<Services> serDash = dal.getAllServiceDashboard();
-            List<Specialities> listSpecialities = dal.getAllSpecialities();
+            int appointID = Integer.parseInt(request.getParameter("id"));
             
-            request.setAttribute("listSpec", listSpecialities);
-            request.setAttribute("serD", serDash);
-            request.getRequestDispatcher("/admin-role/review.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
+            AppointmentDAO dao = new AppointmentDAO();
+            List<Appointment> ListA = dao.getAppointmentAdmin();
+            Appointment appoint = dao.getAppointmentByID(appointID);
+            
+
+            request.setAttribute("appoint", appoint);
+            request.setAttribute("ListA", ListA);
+            request.getRequestDispatcher("/admin-role/appointment-detail.jsp").forward(request, response);
+        } catch (IOException | SQLException e) {
             System.out.println(e);
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

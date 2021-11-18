@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Reservation Page</title>
+        <title>Reservations Management</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -62,11 +63,10 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h3 class="page-title">Reviews</h3>
+                                <h3 class="page-title">Reservation</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    
-                                    <li class="breadcrumb-item active">Reservation</li>
+                                    <li class="breadcrumb-item"><a href="admin-home">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Reservations</li>
                                 </ul>
                             </div>
                         </div>
@@ -81,10 +81,10 @@
                                         <table class="datatable table table-hover table-center mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-right: 30px">Reserve ID</th>
+                                                    <th style="padding-right: 30px">Reservation ID</th>
                                                     <th style="margin-right: 30px; padding-right: 130px">Patient Name</th>
                                                     <th style="margin-right: 30px; padding-right: 150px">Service Name</th>
-                                                    <th >Apointment Time</th>
+                                                    <th>Time</th>
                                                     <th style="margin-right: 40px; padding-right: 140px">Description</th>
                                                     <th>Status</th>
                                                 </tr>
@@ -115,14 +115,16 @@
                                                                 </div>
                                                             </h2>
                                                         </td>
-                                                        <td>${o.date} <span class="text-primary d-block">${o.slot.time}</span></td>
+                                                        <fmt:parseDate var="p_date" value="${o.date}" pattern="yyyy-MM-dd"/>
+                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                        <td>${date} <span class="text-primary d-block">${o.slot.time}</span></td>
                                                         <td>
                                                             <p>${o.description}</p>
                                                         </td>
                                                         <td>
                                                             <div class="table-avatar">
                                                                 <c:if test="${o.status == '0'}">
-                                                                    <button type="button" class="btn btn-danger">Cancelled</button>
+                                                                    <button type="button" class="btn btn-danger">Rejected</button>
 
                                                                 </c:if>
                                                                 <c:if test="${o.status == '1'}">
@@ -166,7 +168,4 @@
             <script src="assets/js/script.js "></script>
 
     </body>
-
-    <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/patient-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:52 GMT -->
-
 </html>

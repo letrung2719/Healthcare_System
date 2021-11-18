@@ -89,7 +89,7 @@
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
                                             <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
-                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                             <div class="patient-details">
                                                 <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
@@ -136,90 +136,73 @@
                         </div>
                         <!-- /Profile Sidebar -->
 
+
+
+
+
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
-                                <div class="card-body pt-0">
-                                    <!-- Tab Menu -->
-                                    <nav class="user-tabs mb-4">
-                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab">Profile Settings</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <!-- /Tab Menu -->
-
+                                <div class="card-body">
                                     <!-- Profile Settings Form -->
-                                    <div class="tab-content pt-0">
-                                        <p class="text-success">${thongbao}</p>
-                                        <form action="patient_profile_setting" method="post">
-                                            <div class="row form-row">
-                                                <input name="id" type="hidden" value="${Users.patientID}"/>
-                                                <input name="accountID" type="hidden" value="${Users.accountID}"/>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Name <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" value="${Users.name}" name="name" />
-                                                    </div>
+                                    <p class="text-success">${thongbao}</p>
+                                    <form action="patient_profile_setting" method="post">
+                                        <div class="row form-row">
+                                            <input name="id" type="hidden" value="${Users.patientID}"/>
+                                            <input name="accountID" type="hidden" value="${Users.accountID}"/>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Name <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" value="${Users.name}" name="name" />
                                                 </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Gender <span class="text-danger">*</span></label><br>
-                                                        <style>
-                                                            .genderedit, option{
-                                                                width: 100%;
-                                                                border-radius: 3px;
-                                                                height: 46px;
-                                                                padding: 2px 10px;
-                                                                border: 1px solid lightgray;
-                                                                color: #333;
-                                                                outline: none;
-                                                                -moz-appearance: none;
-                                                                -webkit-appearance: none;
-                                                                appearance: none;
-                                                                &::-ms-expand { display: none };
-                                                            }
-                                                        </style>
-                                                        <select name="gender" class="genderedit">
-                                                            <option value="${Users.gender == 0 ? 'Female' : 'Male'}">${Users.gender == 0 ? 'Female' : 'Male'}</option>
-                                                            <option value="${Users.gender == 0 ? 'Male' : 'Female'}">${Users.gender == 0 ? 'Male' : 'Female'}</option>                                                        
-                                                        </select>                                                    
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Date of Birth <span class="text-danger">*</span></label>
-                                                        <div class="cal-icon">
-                                                            <input name="dob" type="date" class="form-control" value="${Users.dob}"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Email <span class="text-danger">*</span></label>
-                                                        <input name="email" type="email" class="form-control" value="${Users.email}" readonly=""/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Mobile Phone <span class="text-danger">*</span></label>
-                                                        <input name="phone" type="text" value="${Users.phone}" class="form-control" pattern="\d{8,10}$"/>
-                                                        <span class="form-text text-muted">Phone number must from 8 to 10 digits</span>
-                                                    </div>
-                                                </div>
-                                            </div>                                        
-                                            <div class="submit-section">
-                                                <button type="submit" class="btn btn-primary submit-btn">
-                                                    Save changes
-                                                </button>                                            
                                             </div>
-                                        </form>
-                                    </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Gender <span class="text-danger">*</span></label><br />
+                                                    <div style="display: flex;margin-top: 15px;font-size: 16px">
+                                                        <div style="margin-right: 30px">
+                                                            <input type="radio" id="male" name="gender" value="male" ${Users.gender == 1 ? 'checked' : ''}>
+                                                              <label for="male">Male</label> 
+                                                        </div>
+                                                        <div> 
+                                                            <input type="radio" id="female" name="gender" value="female" ${Users.gender == 0 ? 'checked' : ''}>
+                                                              <label for="female">Female</label>
+                                                        </div>                                                        
+                                                    </div>                                                  
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Date of Birth <span class="text-danger">*</span></label>
+                                                    <div class="cal-icon">
+                                                        <input name="dob" type="date" class="form-control" value="${Users.dob}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Email <span class="text-danger">*</span></label>
+                                                    <input name="email" type="email" class="form-control" value="${Users.email}" readonly=""/>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Mobile Phone <span class="text-danger">*</span></label>
+                                                    <input name="phone" type="text" value="${Users.phone}" class="form-control" pattern="\d{8,10}$"/>
+                                                    <span class="form-text text-muted">Phone number must from 8 to 10 digits</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="submit-section">
+                                            <button type="submit" class="btn btn-primary submit-btn">
+                                                Save changes
+                                            </button>                                            
+                                        </div>
+                                    </form>
+                                    <!-- Tab Content -->
                                 </div>
-                                <!-- /Profile Settings Form -->
-                            </div>
+                            </div>                         
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@ public class HomeControl extends HttpServlet {
         ServicesDAO dao = new ServicesDAO();
         List<Services> listSer = dao.getTop10BestService();
         List<Specialities> listSpec = dao.getAllSpecialities();
-        List<Doctor> list = doctorDb.getAllDoctor();
+        List<Doctor> list = doctorDb.getTop10BestDoctor();
         
         request.setAttribute("listDoctors", list);
         request.setAttribute("listSpec", listSpec);

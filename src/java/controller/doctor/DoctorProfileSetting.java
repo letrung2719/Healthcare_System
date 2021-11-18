@@ -3,29 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.admin;
+package controller.doctor;
 
-import dal.ServicesDAO;
+import dal.DoctorDAO;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Services;
-import model.Specialities;
+import javax.servlet.http.HttpSession;
+import model.Doctor;
 
 /**
  *
- * @author ASUS
+ * @author Admin
  */
-@WebServlet(name = "SerFeedbackDashboardControl", urlPatterns = {"/admin-role/review"})
-public class SerFeedbackDashboardControl extends HttpServlet {
-
+@WebServlet(name = "DoctorProfileSettting", urlPatterns = {"/doctor-role/doctor_profile_setting"})
+public class DoctorProfileSetting extends HttpServlet {
     private static final long serialVersionUID = 9999L;
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
+    
+    private void writeObject(ObjectOutputStream stream)
+            throws IOException {
+        stream.defaultWriteObject();
+    }
 
+    private void readObject(ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,15 +50,27 @@ public class SerFeedbackDashboardControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            ServicesDAO dal = new ServicesDAO();
-            List<Services> serDash = dal.getAllServiceDashboard();
-            List<Specialities> listSpecialities = dal.getAllSpecialities();
-            
-            request.setAttribute("listSpec", listSpecialities);
-            request.setAttribute("serD", serDash);
-            request.getRequestDispatcher("/admin-role/review.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
-            System.out.println(e);
+            int doctorID = Integer.parseInt(request.getParameter("id"));
+            int accountID = Integer.parseInt(request.getParameter("accountID"));
+            String name = request.getParameter("name");
+            String gender_raw = request.getParameter("gender");
+            int gender = gender_raw.equalsIgnoreCase("Male") ? 1 : 0;
+            String dob = request.getParameter("dob");
+            String phone = request.getParameter("phone");
+            String email = request.getParameter("email");
+            String description = request.getParameter("description");
+            Doctor d = new Doctor(doctorID, name, gender, dob, phone, email, "", null, description, "", accountID);
+            System.out.println(d);
+            DoctorDAO doctorDb = new DoctorDAO();
+            int res = doctorDb.editDoctor(d);
+            System.out.println(res);
+            HttpSession session = request.getSession();
+            Doctor editedDoctor = doctorDb.getDoctorByDoctorID(doctorID);
+            session.setAttribute("user", editedDoctor);
+            request.setAttribute("thongbao", resourceBundle.getString("success"));
+            request.getRequestDispatcher("/doctor-role/doctor_profile?id=" + accountID).forward(request, response);
+        } catch (NumberFormatException | SQLException ex) {
+            System.out.println(ex);
         }
     }
 

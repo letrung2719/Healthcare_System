@@ -1,9 +1,5 @@
-<%-- 
-    Document   : my-patient
-    Created on : Oct 31, 2021, 8:55:47 PM
-    Author     : admin
---%>
-
+<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,11 +49,11 @@
                         <div class="col-md-8 col-12">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Feedbacks</li>
+                                    <li class="breadcrumb-item"><a href="doctor_profile?id=${sessionScope.user.accountID}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">My Patients</li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Feedbacks</h2>
+                            <h2 class="breadcrumb-title">My Patients</h2>
                         </div>
                     </div>
                 </div>
@@ -77,18 +73,23 @@
                             <div class="appointments">
                                 <div class="appointment-list">
                                     <c:forEach items="${patientlist}" var="p">
+                                        <fmt:parseDate var="p_date1" value="${p.phone}" pattern="yyyy-MM-dd"/>
+                                        <fmt:formatDate var="date1" value="${p_date1}" pattern="dd-MM-yyyy"/>
+                                        
+                                        <fmt:parseDate var="p_date2" value="${p.dob}" pattern="yyyy-MM-dd"/>
+                                        <fmt:formatDate var="date2" value="${p_date2}" pattern="dd-MM-yyyy"/>
                                         <!-- Appointment List -->
                                         <div class="profile-info-widget" style="width: 50%; margin-bottom: 20px">
                                             <a href="patient-profile.html" class="booking-doc-img">
                                                 <img src="${p.image}" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
-                                                <h3><a href="patient-profile.html"> ${p.name}</a></h3>
+                                                <h3><a href="my-patient-detail?doctorID=${sessionScope.user.doctorID}&&patientID=${p.patientID}"> ${p.name}</a></h3>
                                                 <div class="patient-details">
-                                                    <h5><i class="far fa-clock"></i> ${p.phone}</h5>
-                                                    <h5><i class="fas fa-map-marker-alt"></i> ${p.dob}</h5>
-                                                    <h5><i class="fas fa-envelope"></i> ${p.email}</h5>
-                                                    <h5 class="mb-0"><i class="fas fa-phone"></i> ${p.accountID}</h5>
+                                                    <h5><b><i class="far fa-clock"></i></b>Last Booking:  ${date1}</h5>
+                                                    <h5><b><i class="fas fa-map-marker-alt"></i></b>Date of birth:  ${date2}</h5>
+                                                    <h5><b><i class="fas fa-envelope"></i></b>Email:  ${p.email}</h5>
+                                                    <h5 class="mb-0"><b><i class="fas fa-phone"></i></b>Phone:  ${p.accountID}</h5>
                                                 </div>
                                             </div>
                                         </div>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,10 +48,10 @@
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
+                                        <a href="home">Home</a>
                                     </li>
                                     <li class="breadcrumb-item " >
-                                        <a href="services">Blogs</a>
+                                        <a href="blog-list">Blogs</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         ${blog.title}
@@ -69,7 +70,9 @@
                     <div class="row">
                         <div class="col-12">
                             <h4 class="blog-name"style="justify-content: center;">${blog.title}</h4>
-                            <h6 class="blog-date"> ${blog.date}</h6>
+                            <fmt:parseDate var="p_date" value="${blog.date}" pattern="yyyy/MM/dd"/>
+                            <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                            <h6 class="blog-date"> ${date}</h6>
                             <a href="blog-detail?id=${blog.blogID}">
                                 <img src="${blog.image}" class="img-fluid" alt="User Image">
                             </a>

@@ -11,26 +11,19 @@
                     <span></span>
                 </span>
             </a>
-            <a href="index.jsp" class="navbar-brand logo">
+            <a href="doctor_profile?id=${sessionScope.user.accountID}" class="navbar-brand logo">
                 <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
             </a>
         </div>
         <div class="main-menu-wrapper">
             <div class="menu-header">
-                <a href="index.jsp" class="menu-logo">
+                <a href="doctor_profile?id=${sessionScope.user.accountID}" class="menu-logo">
                     <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
                 </a>
                 <a id="menu_close" class="menu-close" href="javascript:void(0);">
                     <i class="fas fa-times"></i>
                 </a>
             </div>
-
-            <c:set var="path" value="<%=request.getServletPath()%>"/>
-            <ul class="main-nav">
-                <li class="${path == "/doctor-role/doctor-appointment.jsp" ? "active" : ""}"><a href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&indexPage=1">My Appointments</a></li>
-                <li class="${path == "/doctor-role/my-patient.jsp" ? "active" : ""}"><a href="my-patient?doctorID=${sessionScope.user.doctorID}">My Patients</a></li>
-                <li class="${path == "/doctor-role/doctor-feedback-list.jsp" ? "active" : ""}"><a href="doctorFeedbackList?doctorID=${sessionScope.user.doctorID}&page=1">My Feedbacks</a></li>
-            </ul>
         </div>
         <ul class="nav header-navbar-rht">
             <li class="nav-item contact-item">
@@ -78,10 +71,7 @@
                                 </div>
                             </a>
                         </div>
-
-                        <a class="dropdown-item" href="doctor_profile?id=${sessionScope.user.accountID}">Profile Settings</a>
-
-                        <a class="dropdown-item" href="logout">Logout</a>
+                        <a class="dropdown-item" href="/Healthcare_System/logout">Logout</a>
                     </div>
 
                 </li>
