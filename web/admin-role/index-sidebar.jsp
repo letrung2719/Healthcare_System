@@ -19,7 +19,7 @@
                 <li class="${path == "/admin-role/index.jsp" ? "active" : ""}">
                     <a href="admin-home"><i class="fe fe-home"></i><span> Dashboard</span></a>
                 </li>
-                <li class="${path == "/admin-role/patient-list.jsp" ? "active" : ""}">
+                <li class="${path == "/admin-role/patient-list.jsp" || path == "/admin-role/patient-details.jsp" ? "active" : ""}">
                     <a href="patient_list"><i class="fa fa-wheelchair"></i><span> Patients</span></a>
                 </li>
                 <li class="${path == "/admin-role/doctor-list.jsp" ? "active" : ""}">

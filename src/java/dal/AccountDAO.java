@@ -203,6 +203,24 @@ public class AccountDAO {
         }
         return null;
     }
+    
+    public int changeStatus(boolean status, int account_id) throws SQLException {
+        String sql = "update accounts set status=? where account_id = ?";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);//truyen cau lenh len sql
+            ps.setBoolean(1, status);
+            ps.setInt(2, account_id);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return 0;
+    }
 
     /**
      *
@@ -211,15 +229,9 @@ public class AccountDAO {
     public static void main(String[] args) {
         AccountDAO accountDb = new AccountDAO();
         try {
-            System.out.println(accountDb.getNewestAccount().toString());
+            accountDb.changeStatus(false, 2);
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        int i = accountDb.changePassword("123", 22);
-//        System.out.println(i);
-
-//        System.out.println(accountDb.getNewestAccount());
-//        int i = accountDb.changePassword("abcd",2);
-//        System.out.println(i);
     }
 }

@@ -65,6 +65,9 @@ public class LoginControl extends HttpServlet {
             if (a == null) {
                 request.setAttribute("mess", resourceBundle.getString("invalid_account"));
                 request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else if (a.isStatus() == false) {
+                request.setAttribute("mess", resourceBundle.getString("blocked_account"));
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
                 session.setAttribute("acc", a);
                 switch (a.getAuthor_id()) {
