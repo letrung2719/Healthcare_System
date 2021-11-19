@@ -116,96 +116,105 @@
                                         </div>
                                     </form>
 
-                                    <div class="table-responsive ">
-                                        <table class="datatable table table-hover table-center mb-0 "> 
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Doctor Name</th>
-                                                    <th>Gender</th>
-                                                    <th>Specialities</th>
-                                                    <th>Email</th>
-                                                    <th>Phone number</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <c:forEach items="${listDoctors}" var="doctor">
-                                                    <tr>
-                                                        <!-- >Doctor ID-->
-                                                        <td>${doctor.doctorID}</td>
+                                    <button
+                                        style="height: 20%; align-self: center"
+                                        class="btn btn-primary"
+                                        type="submit"
+                                        >
+                                        Search
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="table-responsive ">
+                                <table class="datatable table table-hover table-center mb-0 "> 
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Doctor Name</th>
+                                            <th>Gender</th>
+                                            <th>Specialities</th>
+                                            <th>Email</th>
+                                            <th>Phone number</th>
+<!--                                            <th>Status</th>-->
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${listDoctors}" var="doctor">
+                                            <tr>
+                                                <!-- >Doctor ID-->
+                                                <td>${doctor.doctorID}</td>
 
-                                                        <td> <!-- name-->
-                                                            <h2 class="table-avatar">
-                                                                <a href="doctor_profile_admin?id=${doctor.accountID}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
-                                                                <a href="doctor_profile_admin?id=${doctor.accountID}">Dr. ${doctor.name}</a>
-                                                            </h2>
-                                                        </td>
-                                                        <!-- >Gender-->
-                                                        <td>
-                                                            <c:if test="${doctor.gender == 1}">Male</c:if>
-                                                            <c:if test="${doctor.gender == 0}">Female</c:if>
-                                                            </td>
-                                                            <!-- >Specialities-->
-                                                            <td>${doctor.spec.name}</td>
-                                                        <!-- >Email-->
-                                                        <td>${doctor.email}</td>
-                                                        <!-- >Phone -->
-                                                        <td> ${doctor.phone}</td>
-                                                        <td>
-                                                            <span class="badge badge-pill bg-success-light">
-                                                                Active
-                                                            </span></td>
-                                                        <td class="text-right">
-                                                            <div class="actions ">
-                                                                <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#edit_specialities_details${doctor.doctorID}">
-                                                                    <i class="fe fe-pencil"></i> Edit
-                                                                </a>
-                                                                <a
-                                                                    data-toggle="modal"
-                                                                    href="#delete_modal"
-                                                                    class="btn btn-sm bg-danger-light"
-                                                                    >
-                                                                    <i class="fe fe-trash"></i> Inactive
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <!-- Edit Details Modal -->
-                                                <div class="modal fade" id="edit_specialities_details${doctor.doctorID}" aria-hidden="true" role="dialog">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Edit Doctors</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form action="update_doctor" method="post">
-                                                                    <div class="row form-row">
-                                                                        <input name="id" type="hidden" value="${doctor.doctorID}">
-                                                                        <input name="accountID" type="hidden" value="${doctor.accountID}">
-                                                                        <div class="col-12 col-sm-12">
-                                                                            <div class="form-group">
-                                                                                <label>Name</label>
-                                                                                <input type="text" class="form-control" value="${doctor.name}" name="name" required="">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-12 col-sm-6">
-                                                                            <div class="form-group">    
-                                                                                <label>Gender</label><br>
-                                                                                <c:if test="${doctor.gender == 1}">
-                                                                                    <input type="radio" name="gender" value="1" checked="" >Male
-                                                                                    <input type="radio" name="gender" value="0" style=" margin-left: 20px">Female
-                                                                                </c:if>
-                                                                                <c:if test="${doctor.gender == 0}">
-                                                                                    <input type="radio" name="gender" value="1"  >Male
-                                                                                    <input type="radio" name="gender" value="0" checked="" style=" margin-left: 20px">Female
-                                                                                </c:if>
-                                                                            </div>
-                                                                        </div>
+                                                <td> <!-- name-->
+                                                    <h2 class="table-avatar">
+                                                        <a href="update_doctor_admin?${doctor.doctorID}"class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
+                                                        <a href="update_doctor_admin?${doctor.doctorID}">Dr. ${doctor.name}</a>
+                                                    </h2>
+                                                </td>
+                                                <!-- >Gender-->
+                                                <td>
+                                                    <c:if test="${doctor.gender == 1}">Male</c:if>
+                                                    <c:if test="${doctor.gender == 0}">Female</c:if>
+                                                    </td>
+                                                    <!-- >Specialities-->
+                                                    <td>${doctor.spec.name}</td>
+                                                <!-- >Email-->
+                                                <td>${doctor.email}</td>
+                                                <!-- >Phone -->
+                                                <td> ${doctor.phone}</td>
+<!--                                                <td>
+                                                    <span class="badge badge-pill bg-success-light">
+                                                        Active
+                                                    </span></td>-->
+                                                <td class="text-right">
+                                                    <div class="actions ">
+                                                        <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#edit_specialities_details${doctor.doctorID}">
+                                                            <i class="fe fe-pencil"></i> Edit
+                                                        </a>
+<!--                                                        <a
+                                                            data-toggle="modal"
+                                                            href="#delete_modal"
+                                                            class="btn btn-sm bg-danger-light"
+                                                            >
+                                                            <i class="fe fe-trash"></i> Inactive
+                                                        </a>-->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Edit Details Modal -->
+                                        <div class="modal fade" id="edit_specialities_details${doctor.doctorID}" aria-hidden="true" role="dialog">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Edit Doctors</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="update_doctor" method="post">
+                                                            <div class="row form-row">
+                                                                <input name="id" type="hidden" value="${doctor.doctorID}">
+                                                                <input name="accountID" type="hidden" value="${doctor.accountID}">
+                                                                <div class="col-12 col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label>Name</label>
+                                                                        <input type="text" class="form-control" value="${doctor.name}" name="name" required="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">    
+                                                                        <label>Gender</label><br>
+                                                                        <c:if test="${doctor.gender == 1}">
+                                                                            <input type="radio" name="gender" value="1" checked="" >Male
+                                                                            <input type="radio" name="gender" value="0" style=" margin-left: 20px">Female
+                                                                        </c:if>
+                                                                        <c:if test="${doctor.gender == 0}">
+                                                                            <input type="radio" name="gender" value="1"  >Male
+                                                                            <input type="radio" name="gender" value="0" checked="" style=" margin-left: 20px">Female
+                                                                        </c:if>
+                                                                    </div>
+                                                                </div>
 
                                                                         <input type="hidden"  value="${doctor.spec.name}" name="specName">   
                                                                         <div class="col-12 col-sm-12 ">
@@ -233,16 +242,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- /Edit Details Modal -->
-                                                <!-- Delete Modal -->
-                                                <div
-                                                    class="modal fade"
-                                                    id="delete_modal"
-                                                    aria-hidden="true"
-                                                    role="dialog"
-                                                    >
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
+                                            </div>
+                                        </div>
+                                        <!-- /Edit Details Modal -->
+                                        <!-- Delete Modal -->
+<!--                                        <div
+                                            class="modal fade"
+                                            id="delete_modal"
+                                            aria-hidden="true"
+                                            role="dialog"
+                                            >
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
 
                                                             <div class="modal-body">
                                                                 <div class="form-content p-2">
@@ -261,7 +272,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- /Delete Modal -->
+                                            </div>
+                                        </div>-->
+                                        <!-- /Delete Modal -->
 
                                             </c:forEach>
                                             </tbody>

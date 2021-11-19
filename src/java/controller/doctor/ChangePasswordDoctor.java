@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import utility.PasswordEncrypt;
+import utility.Validate;
 
 /**
  *
@@ -79,7 +81,6 @@ public class ChangePasswordDoctor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,}";
         try {
             HttpSession session = request.getSession();
             Account acc = (Account) session.getAttribute("acc");
@@ -87,29 +88,29 @@ public class ChangePasswordDoctor extends HttpServlet {
             String newPassword = request.getParameter("newPassword");
             String confirmPassword = request.getParameter("confirmPassword");
 
+            request.setAttribute("oldPassword", oldPassword);
+            request.setAttribute("confirmPassword", confirmPassword);
+            request.setAttribute("newPassword", newPassword);
+
             AccountDAO accountDb = new AccountDAO();
+            Validate validate = new Validate();
             int id = acc.getId();
-            if (!acc.getPass().equals(oldPassword)) {
-                request.setAttribute("oldPassword", oldPassword);
-                request.setAttribute("confirmPassword", confirmPassword);
-                request.setAttribute("newPassword", newPassword);
+
+            PasswordEncrypt encrypt = new PasswordEncrypt();
+            if (!acc.getPass().equals(encrypt.generateEncryptedPassword(oldPassword))) {
                 request.setAttribute("mess", resourceBundle.getString("invalid_pass"));
                 request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
-            } else if (!newPassword.matches(pattern)) {
-                request.setAttribute("oldPassword", oldPassword);
-                request.setAttribute("newPassword", newPassword);
-                request.setAttribute("confirmPassword", confirmPassword);
+            } else if (validate.checkPassword(newPassword) == false) {
                 request.setAttribute("mess", resourceBundle.getString("password_requirement"));
                 request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
             } else if (!newPassword.equals(confirmPassword)) {
-                request.setAttribute("oldPassword", oldPassword);
-                request.setAttribute("newPassword", newPassword);
-                request.setAttribute("confirmPassword", confirmPassword);
                 request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
                 request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
             } else {
-                accountDb.changePassword(newPassword, id);
-                response.sendRedirect(request.getContextPath() + "/logout");
+                accountDb.changePassword(encrypt.generateEncryptedPassword(newPassword), id);
+                session.removeAttribute("acc");
+                request.setAttribute("success", "Change password success!");
+                response.sendRedirect(request.getContextPath()+"/logout");
             }
         } catch (IOException | SQLException | ServletException ex) {
             System.out.println(ex);

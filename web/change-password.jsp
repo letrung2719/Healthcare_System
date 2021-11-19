@@ -135,7 +135,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>New Password <span class="text-danger">*</span></label>
-                                                    <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}">
+                                                    <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Confirm Password <span class="text-danger">*</span></label>

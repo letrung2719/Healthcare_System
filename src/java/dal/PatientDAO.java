@@ -129,31 +129,6 @@ public class PatientDAO {
 
     /**
      *
-     * @param id
-     * @throws java.sql.SQLException
-     */
-    public void delete(int id) throws SQLException {
-        String sql = " delete from Patients where account_id=?";
-        String sql2 = " delete from Accounts where account_id=?";
-        try {
-            connection = dbc.getConnection();
-            ps = connection.prepareStatement(sql);
-            ps2 = connection.prepareStatement(sql2);
-            ps.setInt(1, id);
-            ps2.setInt(1, id);
-            ps.executeUpdate();
-            ps2.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-        }
-    }
-
-    /**
-     *
      * @param u
      * @throws java.sql.SQLException
      */

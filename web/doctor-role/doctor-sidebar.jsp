@@ -39,7 +39,7 @@
                             <span>My Appointments</span>
                         </a>
                     </li>
-                    <li class="${path == "/doctor-role/my-patient.jsp" ? "active" : ""}">
+                    <li class="${path == "/doctor-role/my-patient.jsp" ? "active" : ""} ${path == "/doctor-role/patient-detail.jsp" ? "active" : ""}">
                         <a href="my-patient?doctorID=${sessionScope.user.doctorID}">
                             <i class="fas fa-user-injured"></i>
                             <span>My Patients</span>
