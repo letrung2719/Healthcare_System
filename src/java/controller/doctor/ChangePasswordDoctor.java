@@ -107,12 +107,10 @@ public class ChangePasswordDoctor extends HttpServlet {
                 request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
                 request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
             } else {
-                accountDb.changePassword(newPassword, id);
+                accountDb.changePassword(encrypt.generateEncryptedPassword(newPassword), id);
                 session.removeAttribute("acc");
                 request.setAttribute("success", "Change password success!");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-                accountDb.changePassword(encrypt.generateEncryptedPassword(newPassword), id);
-                response.sendRedirect(request.getContextPath() + "/logout");
+                response.sendRedirect(request.getContextPath()+"/logout");
             }
         } catch (IOException | SQLException | ServletException ex) {
             System.out.println(ex);

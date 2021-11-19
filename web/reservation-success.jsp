@@ -79,7 +79,7 @@
                                         <i class="fas fa-check"></i>
                                         <h3>Reservation booked Successfully!</h3>
                                         <fmt:parseDate var="p_date" value="${reservation.date}" pattern="yyyy-MM-dd"/>
-                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                         <p>Reservation booked with <strong>${reservation.service.title} Service</strong><br> on <strong>${reservation.slot.time} (${date})</strong></p>
                                         <a href="services" class="btn btn-primary view-inv-btn">Continue Booking</a>
                                     </div>
