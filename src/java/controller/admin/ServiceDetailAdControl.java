@@ -9,20 +9,21 @@ import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ServiceFeedbacks;
 import model.Services;
-import model.Specialities;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "UpdateServiceControl", urlPatterns = {"/admin-role/update-service"})
-public class UpdateServiceControl extends HttpServlet {
+@WebServlet(name = "ServiceDetailAdControl", urlPatterns = {"/admin-role/service-detail-ad"})
+public class ServiceDetailAdControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,8 +37,23 @@ public class UpdateServiceControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-    
+        try {
+            String serID = request.getParameter("id");
+            
+            ServicesDAO dal = new ServicesDAO();
+            
+            Services s = dal.getServiceByID(serID);
+            List<ServiceFeedbacks> listF = dal.getAllComment(serID);
+            int totalfeedback = listF.size();
+            int avrate = dal.averageRateServices(serID);
+            
+            request.setAttribute("avrate", avrate);
+            request.setAttribute("totalfeedback", totalfeedback);
+            request.setAttribute("s", s);
+            request.getRequestDispatcher("/admin-role/service_detail.jsp").forward(request, response);
+        } catch (IOException | ServletException | SQLException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,19 +82,7 @@ public class UpdateServiceControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            int id = Integer.parseInt(request.getParameter("id"));
-            String title = request.getParameter("title");
-            String image = request.getParameter("image");
-            String description = request.getParameter("description");
-            int price = Integer.parseInt(request.getParameter("price"));         
-            Services s = new Services(id,title,"",image,description,price);
-            ServicesDAO serDb = new ServicesDAO();
-            serDb.editService(s);
-            response.sendRedirect("service_list");
-        } catch (NumberFormatException | SQLException ex) {
-            System.out.println(ex);
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -5,25 +5,27 @@
  */
 package controller.admin;
 
+import dal.ReservationDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Services;
+import model.Reservation;
 import model.Specialities;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "UpdateServiceControl", urlPatterns = {"/admin-role/update-service"})
-public class UpdateServiceControl extends HttpServlet {
-
+@WebServlet(name = "ReservationDetailControl", urlPatterns = {"/admin-role/reservation-detail"})
+public class ReservationDetailControl extends HttpServlet {
+private static final long serialVersionUID = 9999L;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,8 +38,16 @@ public class UpdateServiceControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-    
+        try {
+            int reserID = Integer.parseInt(request.getParameter("id"));
+            ServicesDAO dal = new ServicesDAO();
+            ReservationDAO dao = new ReservationDAO();
+            Reservation o = dao.getReservationByID(reserID);
+            request.setAttribute("o", o);
+            request.getRequestDispatcher("/admin-role/reservation-detail.jsp").forward(request, response);
+        } catch (IOException | SQLException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,19 +76,7 @@ public class UpdateServiceControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            int id = Integer.parseInt(request.getParameter("id"));
-            String title = request.getParameter("title");
-            String image = request.getParameter("image");
-            String description = request.getParameter("description");
-            int price = Integer.parseInt(request.getParameter("price"));         
-            Services s = new Services(id,title,"",image,description,price);
-            ServicesDAO serDb = new ServicesDAO();
-            serDb.editService(s);
-            response.sendRedirect("service_list");
-        } catch (NumberFormatException | SQLException ex) {
-            System.out.println(ex);
-        }
+        processRequest(request, response);
     }
 
     /**

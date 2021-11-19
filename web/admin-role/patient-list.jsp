@@ -81,6 +81,7 @@
                                                         <th>DOB</th>
                                                         <th>Phone</th>
                                                         <th>Email</th>
+                                                        <th>Status</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -105,12 +106,17 @@
                                                             <td>${user.phone}</td>
                                                             <td>${user.email}</td>
                                                             <td>
+                                                                <span class="badge badge-pill bg-success-light">
+                                                                    Active
+                                                                </span>
+                                                             </td>
+                                                            <td>
                                                                 <div class="actions">
                                                                     <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#edit_specialities_details_update${user.patientID}">
                                                                         <i class="fe fe-pencil"></i> Edit
                                                                     </a>
                                                                     <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal${user.patientID}">
-                                                                        <i class="fe fe-trash"></i> Delete
+                                                                        <i class="fe fe-trash"></i> Inactive
                                                                     </a>
                                                                 </div>
                                                             </td>

@@ -86,17 +86,7 @@
                         </div>
 
                         <div class="card-body"> 
-                            <div class="filter-widget">
-                                <h4>Sort list</h4>
-                                <style>
-                                    .text-muted:hover {
-                                        color: aqua !important;
-                                    }
-                                </style>
-                                <i class="fas fa-angle-up text-primary"></i><a href="search-service?id=4" class="text-muted"> Sort by highest to lowest Price</a><br>
-                                <i class="fas fa-angle-down text-primary"></i><a href="search-service?id=3" class="text-muted"> Sort by lowest to highest Price</a><br>
-
-                            </div>
+                            
                             <form action="search-service?id=1" method="post">
                                 <div class="filter-widget">
                                     <h4>Select Specialist</h4>
@@ -138,7 +128,7 @@
 
                                                     <tr>
                                                         <!-- >Service ID-->
-                                                        <td>${o.service_id}</td>
+                                                        <td><a href="service-detail-ad?id=${o.service_id}">${o.service_id}</a></td>
 
                                                         <td> <!-- name-->
                                                             <h2 class="table-avatar">
@@ -161,7 +151,53 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
+                                                    <!-- Edit Modal -->
+                                                <div class="modal fade" id="edit_specialities_details${o.service_id}" aria-hidden="true" role="dialog">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Edit Service</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="update-service" method="post">
+                                                                    <div class="row form-row">
+                                                                        <input name="id" type="hidden" value="${o.service_id}">
+                                                                        <div class="col-12 col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <label>Title</label>
+                                                                                <input type="text" class="form-control" value="${o.title}" name="title" required="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <label>Image</label>
+                                                                                <input type="text" class="form-control" value="${o.image}" name="image" required="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <label>Price</label>
+                                                                                <input type="text" class="form-control" value="${o.price}" name="price" required="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-sm-12 ">
+                                                                            <div class="form-group ">
+                                                                                <label>Description</label>
+                                                                                <input type="text " class="form-control " value="${o.description}" name="description" required="" >
+                                                                            </div>
+                                                                        </div> 
+                                                                            
+                                                                    </div>
+                                                                     <button type="submit" class="btn btn-primary btn-block">Save Changes</button>       
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                                    <!-- Edit Modal -->
 
 
                                                     <!-- Delete Modal -->
@@ -180,6 +216,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- /Delete Modal -->
+                                                
                                             </c:forEach>
                                             </tbody>
                                         </table>

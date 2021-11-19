@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-<<<<<<< HEAD
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/dal/DoctorDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/web/admin-role/service_detail.jsp</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/controller/admin/DoctorProfileAdmin.java</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/web/admin-role/doctor_profile.jsp</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/controller/admin/ServiceDetailAdControl.java</file>
+            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/controller/ServiceDetailControl.java</file>
         </group>
-=======
-<<<<<<< Updated upstream
-=======
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
->>>>>>> d62c9a5d1a98beabf75221dfd39f6a723d77c027
     </open-files>
->>>>>>> Stashed changes
 </project-private>

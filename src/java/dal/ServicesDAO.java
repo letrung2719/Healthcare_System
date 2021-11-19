@@ -805,17 +805,27 @@ public class ServicesDAO {
             }
         }
     }
-//    public void editService(int service_id){
-//        String sql = "update Services set title =? , description =? , price = ?\n"
-//                + "where service_id=?";
-//        try{
-//            connection = dbc.getConnection();
-//            ps = connection.prepareStatement(sql);
-//            ps.setString(1, title);
-//            ps.setString(2, description);
-//            ps.setInt(3, price);
-//        }
-//    }
+    public int editService(Services s) throws SQLException{
+        String sql = "update Services set title =? , image =?, description =? , price = ?\n"
+                + "where service_id=?";
+        try{
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);            
+            ps.setString(1, s.getTitle());
+            ps.setString(3, s.getDescription());         
+            ps.setInt(4, s.getPrice());
+            ps.setString(2,s.getImage());
+            ps.setInt(5,s.getService_id());
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return 0;
+    }
 
     public List<Services> getTop10BestService() throws SQLException {
         List<Services> list = new ArrayList<>();
@@ -861,7 +871,8 @@ public class ServicesDAO {
         try {
             ServicesDAO dao = new ServicesDAO();
             List<Services> review = dao.getAllServiceReviewBySearch("mater");
-            System.out.println(review);
+            Services s = new Services(2,"Umbilical ord blood","","https://vinmec-prod.s3.amazonaws.com/images/20210722_110954_471884_219436895_49203283179.max-800x800.jpg ","bbb",3000);
+            dao.editService(s);
         } catch (SQLException ex) {
             Logger.getLogger(ServicesDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

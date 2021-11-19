@@ -138,8 +138,8 @@
 
                                                         <td> <!-- name-->
                                                             <h2 class="table-avatar">
-                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
-                                                                <a>Dr. ${doctor.name}</a>
+                                                                <a href="doctor_profile_admin?id=${doctor.accountID}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
+                                                                <a href="doctor_profile_admin?id=${doctor.accountID}">Dr. ${doctor.name}</a>
                                                             </h2>
                                                         </td>
                                                         <!-- >Gender-->
