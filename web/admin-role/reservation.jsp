@@ -101,7 +101,7 @@
                                                             <h2 class="table-avatar">
                                                                 <div class="avatar avatar-sm mr-2">
                                                                     <img class="avatar-img rounded-circle" src="${o.patient.image}" alt="Patient Image">
-                                                                    ${o.patient.name}
+                                                                    <a class="" href="reservation-detail?id=${o.reservationID}">${o.patient.name}</a>
                                                                 </div>
 
                                                             </h2>

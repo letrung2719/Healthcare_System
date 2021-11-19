@@ -64,7 +64,36 @@ public class ReservationDAO {
         }
         return 0;
     }
-
+    public Reservation getReservationByID(int resID) throws SQLException{
+        String sql = "select * from reservations where reservation_id = " + resID;
+        try{
+            connection = dbc.getConnection();
+            st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+        if(rs.next()){
+            Reservation r = new Reservation();
+                r.setReservationID(rs.getInt(1));
+                r.setDate(rs.getString(2));
+                Patient p = patientDb.getPatientByPatientID(rs.getInt(3));
+                r.setPatient(p);
+                Services se = serviceDb.getServiceByID(rs.getString(4));
+                r.setService(se);
+                r.setPrice(rs.getDouble(5));
+                r.setStatus(rs.getInt(6));
+                Timetable t = slotDb.getTimeBySlotID(rs.getInt(7));
+                r.setSlot(t);
+                r.setDescription(rs.getString(8));
+                return r;
+          }
+        }catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return null;
+    }
     public int countDuplicateReservationByPatientID(int patientID, int serviceID, String date, int slotID) throws SQLException {
 
         String sql = "select count(*) from reservations where patient_id = " + patientID + " and service_id= " + serviceID + " and date = '" + date + "' and slot_id = " + slotID + " ;";
@@ -204,7 +233,8 @@ public class ReservationDAO {
 //            System.out.println(db1.addNewReservation(r));
 //            List<Reservation> list = db1.getReservationByPationIdAndPage(1, 0, 4);
             List<Reservation> lists = db1.getAllReservation();
-            System.out.println(lists);
+            Reservation r = db1.getReservationByID(1);
+            System.out.println(r);
 //            System.out.println(db1.totalReservationByPatient(1));
         } catch (SQLException ex) {
             Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);

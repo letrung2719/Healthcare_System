@@ -94,7 +94,7 @@
                                                         <span class="comment-date">${fb.patient.email}</span>
 
                                                     </div>
-                                                    <div class="review-count rating">
+                                                    <div class="review-count rating">                                                     
                                                         <c:forEach begin="1" end="${fb.rate}">
                                                             <i class="fas fa-star filled"></i>
                                                         </c:forEach>

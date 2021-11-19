@@ -1458,6 +1458,7 @@ button.bg-danger:hover {
 	padding: 0 15px;
 	height: 60px;
 }
+
 .user-menu.nav > li > a:hover,
 .user-menu.nav > li > a:focus {
 	background-color: rgba(0, 0, 0, 0.2);
