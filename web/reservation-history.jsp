@@ -86,11 +86,9 @@
                                         </a>
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
-                                            <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
-                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd MM yyyy"/>
                                             <div class="patient-details">
                                                 <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
-                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                 <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
                                         </div>
@@ -138,24 +136,11 @@
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
-                                <div class="card-body pt-0">
-                                    <!-- Tab Menu -->
-                                    <nav class="user-tabs mb-4">
-                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Reservation History</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <!-- /Tab Menu -->
-
+                                <div class="card-body">
                                     <!-- Tab Content -->
                                     <div class="tab-content pt-0">
                                         <!-- Appointment Tab -->
-                                        <div
-                                            id="pat_appointments"
-                                            class="tab-pane fade show active"
-                                            >
+                                        <div id="pat_appointments" class="tab-pane fade show active">
                                             <div class="card card-table mb-0">
                                                 <div class="card-body">
                                                     <div class="table-responsive">
@@ -175,31 +160,31 @@
                                                                         <td>#RESV${res.reservationID}</td>
 
                                                                         <td>${res.service.title}</td>
-                                                                <fmt:parseDate var="p_date" value="${res.date}" pattern="yyyy-MM-dd"/>
-                                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
-                                                                <td>
-                                                                    ${date}
-                                                                    <span class="d-block text-info"
-                                                                          >${res.slot.time}</span
-                                                                    >
-                                                                </td>
-                                                                <td>${res.price}</td>
-                                                                <td>
-                                                                    <c:if test="${res.status == 1}">
-                                                                        <span class="badge badge-pill bg-warning-light">
-                                                                            Pending
-                                                                        </span>
-                                                                    </c:if>
-                                                                    <c:if test="${res.status == 2}">
-                                                                        <span class="badge badge-pill bg-success-light">
-                                                                            Complete
-                                                                        </span>
-                                                                    </c:if>
-                                                                    <c:if test="${res.status == 0}">
-                                                                        <span class="badge badge-pill bg-danger-light">
-                                                                            Cancel
-                                                                        </span>
-                                                                    </c:if>
+                                                                        <fmt:parseDate var="p_date" value="${res.date}" pattern="yyyy-MM-dd"/>
+                                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                                                        <td>
+                                                                            ${date}
+                                                                            <span class="d-block text-info"
+                                                                                  >${res.slot.time}</span
+                                                                            >
+                                                                        </td>
+                                                                        <td>${res.price}</td>
+                                                                        <td>
+                                                                            <c:if test="${res.status == 1}">
+                                                                                <span class="badge badge-pill bg-warning-light">
+                                                                                    Pending
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${res.status == 2}">
+                                                                                <span class="badge badge-pill bg-success-light">
+                                                                                    Complete
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${res.status == 0}">
+                                                                                <span class="badge badge-pill bg-danger-light">
+                                                                                    Cancel
+                                                                                </span>
+                                                                            </c:if>
 
                                                                         </td>
                                                                     </tr>

@@ -26,11 +26,15 @@ public class LogoutControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        session.removeAttribute("acc");
-        session.removeAttribute("user");
-        response.sendRedirect("home");
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            HttpSession session = request.getSession();
+            session.removeAttribute("acc");
+            session.removeAttribute("user");
+            response.sendRedirect("home");
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     /**

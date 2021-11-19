@@ -63,9 +63,9 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-7 col-auto">
-                                <h3 class="page-title">Blogs</h3>
+                                <h3 class="page-title">Blogs Management</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
+                                    <li class="breadcrumb-item"><a href="admin-home">Dashboard</a></li>
 
                                     <li class="breadcrumb-item active">Blogs</li>
                                 </ul>
@@ -266,17 +266,12 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
         <!-- /Page Wrapper -->
 
         <script>
-
-
             CKEDITOR.replace('description1');
             CKEDITOR.replace('description2');
-
         </script>
     </div>
     <!-- /Main Wrapper -->

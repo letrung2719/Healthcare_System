@@ -68,15 +68,12 @@
                                 <div class="widget-profile pro-widget-content">
                                     <div class="profile-info-widget">
                                         <a href="patient_profile?id=${sessionScope.user.accountID}" class="booking-doc-img">
-                                            <img
-                                                src="${sessionScope.user.image}"
-                                                alt="User Image"
-                                                />
+                                            <img src="${sessionScope.user.image}" alt="User Image"/>
                                         </a>
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
                                             <fmt:parseDate var="p_date" value="${sessionScope.user.dob}" pattern="yyyy-MM-dd"/>
-                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd MM yyyy"/>
+                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                             <div class="patient-details">
                                                 <h5><i class="fas fa-birthday-cake"></i> ${date}</h5>
                                             </div>
@@ -125,44 +122,39 @@
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
-                                <div class="card-body pt-0">
-                                    <!-- Tab Menu -->
-                                    <nav class="user-tabs mb-4">
-                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab">Change Password</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <!-- /Tab Menu -->
-
-                                    <div class="tab-content pt-0">
-                                        <div class="row">
-                                            <div class="col-md-12 col-lg-6">
-                                                <p class="text-danger">${mess}</p>
-                                                <p class="text-success">${success}</p>
-                                                <!-- Change Password Form -->
-                                                <form action="change_password" method="post">
-                                                    <div class="form-group">
-                                                        <label>Old Password</label>
-                                                        <input type="password" class="form-control" name="oldPassword" value="${oldPassword}" required="">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>New Password</label>
-                                                        <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}">
-                                                        <span class="form-text text-muted">Password must contain at least 6 character, 1 upper-case letter, 1 or more digits</span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Confirm Password</label>
-                                                        <input type="password" class="form-control" name="confirmPassword"  value="${confirmPassword}" required="">
-                                                    </div>
-                                                    <div class="submit-section">
-                                                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-                                                    </div>
-                                                </form>
-                                                <!-- /Change Password Form -->
-
-                                            </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-6">
+                                            <p class="text-danger">${mess}</p>
+                                            <p class="text-success">${success}</p>
+                                            <!-- Change Password Form -->
+                                            <form action="change_password" method="post">
+                                                <div class="form-group">
+                                                    <label>Old Password <span class="text-danger">*</span></label>
+                                                    <input type="password" class="form-control" name="oldPassword" value="${oldPassword}" required="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>New Password <span class="text-danger">*</span></label>
+                                                    <input type="password" class="form-control" name="newPassword" value="${newPassword}" required="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Confirm Password <span class="text-danger">*</span></label>
+                                                    <input type="password" class="form-control" name="confirmPassword"  value="${confirmPassword}" required="">
+                                                </div>
+                                                <div class="submit-section">
+                                                    <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                                </div>
+                                            </form>
+                                            <!-- /Change Password Form -->
+                                        </div>
+                                        <div class="col-md-12 col-lg-6" style="margin-top: 20px">
+                                            <p class="mb-2">Password requirements</p>
+                                            <p class="small text-muted mb-2">To create a new password, you have to meet all of the following requirements:</p>
+                                            <ul class="small text-muted pl-4 mb-0">
+                                                <li>At least 6 characters</li>
+                                                <li>At least upper-case letter</li>
+                                                <li>At least one number</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

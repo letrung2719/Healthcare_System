@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.doctor;
 
 import dal.DoctorDAO;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import model.Doctor;
  *
  * @author Admin
  */
-@WebServlet(name = "DoctorProfileSettting", urlPatterns = {"/doctor_profile_setting"})
+@WebServlet(name = "DoctorProfileSettting", urlPatterns = {"/doctor-role/doctor_profile_setting"})
 public class DoctorProfileSetting extends HttpServlet {
     private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
@@ -68,7 +68,7 @@ public class DoctorProfileSetting extends HttpServlet {
             Doctor editedDoctor = doctorDb.getDoctorByDoctorID(doctorID);
             session.setAttribute("user", editedDoctor);
             request.setAttribute("thongbao", resourceBundle.getString("success"));
-            request.getRequestDispatcher("doctor_profile?id=" + accountID).forward(request, response);
+            request.getRequestDispatcher("/doctor-role/doctor_profile?id=" + accountID).forward(request, response);
         } catch (NumberFormatException | SQLException ex) {
             System.out.println(ex);
         }

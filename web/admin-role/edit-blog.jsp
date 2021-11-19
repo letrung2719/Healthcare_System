@@ -97,20 +97,20 @@
                         <label>Title:</label>
 
                         <br>
-                        <input type="text" class="form-control " name="title" value="${blog.title}">
+                        <input type="text" class="form-control " name="title" value="${blog.title}" required=""> 
 
                         <label>Date</label>
                         <input type="text " class="form-control " value="${blog.date} " name="date" readonly required="">
                         <br>
                         <label>Image:</label>
-                        <input type="text" class="form-control " value="${blog.image} " id="image" name="image">
+                        <input type="text" class="form-control " value="${blog.image} " id="image" name="image" required="">
                         <br>
 
 
                         <label>Description</label>
                         <!--<input type="text" class="form-control " value=" " name="email">-->
-                        <textarea rows="50"cols="200" class="form-control" id="description1" ${blog.description} name="description"></textarea>
-
+                        <textarea rows="50"cols="200" class="form-control" id="description1"  name="description" required="">${blog.description}</textarea>
+                        
                         <button style="margin-top: 50px; " type="submit" class="btn btn-primary btn-block">Save</button>
 
                     </form>
@@ -188,7 +188,6 @@
             CKEDITOR.replace('description2');
 
         </script>
-    </div>
     <!-- /Main Wrapper -->
 
 

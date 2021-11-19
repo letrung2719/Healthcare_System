@@ -24,6 +24,13 @@ public class Validate {
         return matcher.matches();
     }
     
+    public boolean checkPassword(String pass){
+        String regex = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,}";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(pass);
+        return matcher.matches();
+    }
+    
     /**
      *
      * @param args

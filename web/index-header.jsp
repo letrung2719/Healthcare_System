@@ -66,15 +66,10 @@
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-
                         <div class="user-header">
                             <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">
                                 <div class="avatar avatar-sm">
-                                    <img
-                                        src="${sessionScope.user.image}"
-                                        alt=""
-                                        class="avatar-img rounded-circle"
-                                        />
+                                    <img src="${sessionScope.user.image}" alt="" class="avatar-img rounded-circle"/>
                                 </div>
                                 <div class="user-text">
                                     <h6>${sessionScope.user.name}</h6>
@@ -82,12 +77,9 @@
                                 </div>
                             </a>
                         </div>
-                        <c:if test="${sessionScope.acc.author_id == 2}">
-                            <a class="dropdown-item" href="reservationHistory?id=${sessionScope.user.patientID}">Reservation History</a>
-                        </c:if>
-
                         <a class="dropdown-item" href="patient_profile?id=${sessionScope.user.accountID}">Profile Settings</a>
-
+                        <a class="dropdown-item" href="appointment-history?id=${sessionScope.user.patientID}">Appointment History</a>
+                        <a class="dropdown-item" href="reservationHistory?id=${sessionScope.user.patientID}">Reservation History</a>
                         <a class="dropdown-item" href="logout">Logout</a>
                     </div>
 

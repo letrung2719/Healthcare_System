@@ -6,6 +6,7 @@
 package controller;
 
 import dal.BlogsDAO;
+import dal.DoctorDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Blogs;
+import model.Doctor;
 
 /**
  *
@@ -38,6 +40,10 @@ public class BlogListControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            DoctorDAO doctorDb = new DoctorDAO();
+            Doctor doctor = doctorDb.getTop1BestDoctor();
+            request.setAttribute("doctor", doctor);
+            
             BlogsDAO bl = new BlogsDAO();
             List<Blogs> listBlog = bl.getAllBlogs();
             request.setAttribute("listBlog", listBlog);

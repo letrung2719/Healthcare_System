@@ -8,7 +8,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Doctor List Page</title>
+        <title>Doctors Management</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -55,58 +55,66 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-7 col-auto">
-                                <h3 class="page-title">List of Doctors</h3>
+                                <h3 class="page-title">Doctors Management</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
+                                    <li class="breadcrumb-item"><a href="admin-home">Dashboard</a></li>
                                     <li class="breadcrumb-item active">Doctors</li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
-
-
                     <!-- /Page Header -->
 
 
-                    <div class="card">
-                        <div class="card-body modal-content">
-                            <form action="doctor_filter" method="post">
-                                <div class="form-row">
-                                    <div class="col-4 col-sm-3 col-lg-2 form-group">
-                                        <label>Doctor Name</label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            value="${doctorName}"
-                                            name="name"
-                                            />
-                                    </div>
-                                    <div class="col-2 col-sm-3 col-lg-2 form-group">
-                                        <label>Gender</label>
-                                        <div class="form-control" style="border: none">
-                                            <input type="radio" name="gender" value="Male" />Male
-                                            <input
-                                                type="radio"
-                                                name="gender"
-                                                value="Female"
-                                                style="margin-left: 20px"
-                                                />Female
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="doctor_filter" method="post">
+                                        <div class="form-row">
+                                            <div class="col-4 col-sm-3 col-lg-2 form-group">
+                                                <label>Doctor Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="${doctorName}"
+                                                    name="name"
+                                                    />
+                                            </div>
+                                            <div class="col-2 col-sm-3 col-lg-2 form-group">
+                                                <label>Gender</label>
+                                                <div class="form-control" style="border: none">
+                                                    <input type="radio" name="gender" value="Male" />Male
+                                                    <input
+                                                        type="radio"
+                                                        name="gender"
+                                                        value="Female"
+                                                        style="margin-left: 20px"
+                                                        />Female
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-sm-3 form-group">
+                                                <label>Select Speciality</label>
+                                                <select
+                                                    class="form-select form-control"
+                                                    aria-label="Default select example"
+                                                    >
+                                                    <option value="">Open this select menu</option>
+                                                    <c:forEach items="${listSpec}" var="spec">
+                                                        <option value="${spec.name}">${spec.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+
+                                            <button
+                                                style="height: 20%; align-self: center"
+                                                class="btn btn-primary"
+                                                type="submit"
+                                                >
+                                                Search
+                                            </button>
                                         </div>
-                                    </div>
-                                    <div class="col-4 col-sm-3 form-group">
-                                        <label>Select Speciality</label>
-                                        <select
-                                            class="form-select form-control"
-                                            aria-label="Default select example"
-                                            >
-                                            <option value="">Open this select menu</option>
-                                            <c:forEach items="${listSpec}" var="spec">
-                                                <option value="${spec.name}">${spec.name}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
+                                    </form>
 
                                     <button
                                         style="height: 20%; align-self: center"
@@ -208,28 +216,30 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <input type="hidden"  value="${doctor.spec.name}" name="specName">   
-                                                                <div class="col-12 col-sm-12 ">
-                                                                    <div class="form-group ">
-                                                                        <label>DOB</label>
-                                                                        <input type="date" class="form-control " value="${doctor.dob}" name="dob" required="" placeholder="yyyy-MM-dd">
+                                                                        <input type="hidden"  value="${doctor.spec.name}" name="specName">   
+                                                                        <div class="col-12 col-sm-12 ">
+                                                                            <div class="form-group ">
+                                                                                <label>DOB</label>
+                                                                                <input type="date" class="form-control " value="${doctor.dob}" name="dob" required="" placeholder="yyyy-MM-dd">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-sm-12 ">
+                                                                            <div class="form-group ">
+                                                                                <label>Phone</label>
+                                                                                <input type="text " class="form-control " value="${doctor.phone}" name="phone" required="" >
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-sm-12 ">
+                                                                            <div class="form-group ">
+                                                                                <label>Email</label>
+                                                                                <input type="text " class="form-control " value="${doctor.email}" name="email" readonly="">
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-12 col-sm-12 ">
-                                                                    <div class="form-group ">
-                                                                        <label>Phone</label>
-                                                                        <input type="text " class="form-control " value="${doctor.phone}" name="phone" required="" >
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12 col-sm-12 ">
-                                                                    <div class="form-group ">
-                                                                        <label>Email</label>
-                                                                        <input type="text " class="form-control " value="${doctor.email}" name="email" readonly="">
-                                                                    </div>
-                                                                </div>
+                                                                    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                                                                </form>
                                                             </div>
-                                                            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
-                                                        </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -245,18 +255,20 @@
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
 
-                                                    <div class="modal-body">
-                                                        <div class="form-content p-2">
-                                                            <h4 class="modal-title">Inactive</h4>
-                                                            <p class="mb-4">Are you sure want to Inactive this account?</p>
-                                                            <button type="button" class="btn btn-primary">Yes</button>
-                                                            <button
-                                                                type="button"
-                                                                class="btn btn-danger"
-                                                                data-dismiss="modal"
-                                                                >
-                                                                Close
-                                                            </button>
+                                                            <div class="modal-body">
+                                                                <div class="form-content p-2">
+                                                                    <h4 class="modal-title">Inactive</h4>
+                                                                    <p class="mb-4">Are you sure want to Inactive this account?</p>
+                                                                    <button type="button" class="btn btn-primary">Yes</button>
+                                                                    <button
+                                                                        type="button"
+                                                                        class="btn btn-danger"
+                                                                        data-dismiss="modal"
+                                                                        >
+                                                                        Close
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -264,23 +276,16 @@
                                         </div>-->
                                         <!-- /Delete Modal -->
 
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
+                                            </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
-
-            <!-- Add Modal -->
-
-            <!-- /ADD Modal -->
-
-
         </div>
         <!-- /Page Wrapper -->
 

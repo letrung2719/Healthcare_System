@@ -109,38 +109,19 @@
                                             <input name="accountID" type="hidden" value="${doctor.accountID}" />
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Username <span class="text-danger">*</span></label>
-                                                    <input name="username" type="text" class="form-control" readonly value="${sessionScope.acc.user}"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Email <span class="text-danger">*</span></label>
-                                                    <input name="email" type="email" class="form-control" readonly value="${doctor.email}"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
                                                     <label>Name <span class="text-danger">*</span></label>
                                                     <input name="name" type="text" class="form-control" value="${doctor.name}"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Mobile Phone <span class="text-danger">*</span></label>
-                                                    <input name="phone" type="text" class="form-control" value="${doctor.phone}"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group mb-0">
                                                     <label>Gender <span class="text-danger">*</span></label><br />
                                                     <div style="display: flex;margin-top: 15px;font-size: 16px">
-                                                        <div style="width: 50%">
+                                                        <div style="margin-right: 30px">
                                                             <input type="radio" id="male" name="gender" value="male" ${doctor.gender == 1 ? 'checked' : ''}>
                                                               <label for="male">Male</label> 
                                                         </div>
-                                                        <div style="width: 50%"> 
+                                                        <div> 
                                                             <input type="radio" id="female" name="gender" value="female" ${doctor.gender == 0 ? 'checked' : ''}>
                                                               <label for="female">Female</label>
                                                         </div>                                                        
@@ -155,6 +136,18 @@
                                                         type="date"
                                                         class="form-control"
                                                         value="${doctor.dob}" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Email <span class="text-danger">*</span></label>
+                                                    <input name="email" type="email" class="form-control" readonly value="${doctor.email}"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Mobile Phone <span class="text-danger">*</span></label>
+                                                    <input name="phone" type="text" class="form-control" value="${doctor.phone}"/>
                                                 </div>
                                             </div>
                                         </div>

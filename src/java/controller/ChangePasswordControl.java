@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import utility.PasswordEncrypt;
+import utility.Validate;
 
 /**
  *
@@ -52,7 +54,6 @@ public class ChangePasswordControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,6 +68,7 @@ public class ChangePasswordControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -86,39 +88,36 @@ public class ChangePasswordControl extends HttpServlet {
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String confirmPassword = request.getParameter("confirmPassword");
-            System.out.println("oldPassword : " + oldPassword);
-            System.out.println("password : " + acc.getPass());
-            System.out.println(acc.getPass().equals(oldPassword));
-            System.out.println(newPassword);
-            System.out.println(confirmPassword);
+
+            request.setAttribute("oldPassword", oldPassword);
+            request.setAttribute("newPassword", newPassword);
+            request.setAttribute("confirmPassword", confirmPassword);
 
             AccountDAO accountDb = new AccountDAO();
+            Validate validate = new Validate();
             int id = acc.getId();
-            System.out.println(id);
 
-            if (!acc.getPass().equals(oldPassword)) {
-                request.setAttribute("oldPassword", oldPassword);
-                request.setAttribute("confirmPassword", confirmPassword);
-                request.setAttribute("newPassword", newPassword);
+            PasswordEncrypt encrypt = new PasswordEncrypt();
+            if (!acc.getPass().equals(encrypt.generateEncryptedPassword(oldPassword))) {
                 request.setAttribute("mess", resourceBundle.getString("invalid_pass"));
                 request.getRequestDispatcher("change-password.jsp").forward(request, response);
+            } else if (validate.checkPassword(newPassword) == false) {
+                request.setAttribute("mess", resourceBundle.getString("password_requirement"));
+                request.getRequestDispatcher("change-password.jsp").forward(request, response);
+            } else if (!newPassword.equals(confirmPassword)) {
+                request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
+                request.getRequestDispatcher("change-password.jsp").forward(request, response);
             } else {
-                if (!newPassword.equals(confirmPassword)) {
-                    request.setAttribute("oldPassword", oldPassword);
-                    request.setAttribute("newPassword", newPassword);
-                    request.setAttribute("confirmPassword", confirmPassword);
-                    request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
-                    request.getRequestDispatcher("change-password.jsp").forward(request, response);
-                } else {
-                    accountDb.changePassword(newPassword, id);
-                    request.setAttribute("success", resourceBundle.getString("change_pass"));
-                    request.getRequestDispatcher("change-password.jsp").forward(request, response);
-                }
+                accountDb.changePassword(encrypt.generateEncryptedPassword(newPassword), id);
+                session.removeAttribute("acc");
+                session.removeAttribute("user");
+                request.setAttribute("success", resourceBundle.getString("change_pass"));
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
+
         } catch (IOException | SQLException | ServletException e) {
             System.out.println(e);
         }
-
     }
 
     /**

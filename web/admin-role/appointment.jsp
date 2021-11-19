@@ -85,7 +85,7 @@
                                                     <th style="margin-right: 30px; padding-right: 130px">Patient Name</th>
                                                     <th style="margin-right: 30px; padding-right: 140px">Doctor Name</th>
                                                     <th >Appointment Time</th>
-                                                    <th style="margin-right: 40px; padding-right: 140px">Description</th>
+                                                    
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
@@ -101,7 +101,8 @@
                                                             <h2 class="table-avatar">
                                                                 <div class="avatar avatar-sm mr-2">
                                                                     <img class="avatar-img rounded-circle" src="${o.patient.image}" alt="Patient Image">
-                                                                    ${o.patient.name}
+                                                                    <a class="" href="appoint-detail?id=${o.appointmentID}">${o.patient.name}</a>
+                                                                    
                                                                 </div>
 
                                                             </h2>
@@ -111,20 +112,19 @@
                                                             <h2 class="table-avatar">
                                                                 <div class="avatar avatar-sm mr-2">
                                                                     <img class="avatar-img rounded-circle" src="${o.doctor.image}" alt="Doctor Image">
-                                                                    ${o.doctor.name}
+                                                                    <a class="" href="appoint-detail?id=${o.appointmentID}">${o.doctor.name}</a>
+                                                                    
                                                                 </div>
                                                             </h2>
                                                         </td>
                                                 <fmt:parseDate var="p_date" value="${o.date}" pattern="yyyy-MM-dd"/>
                                                 <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                 <td>${date} <span class="text-primary d-block">${o.slot.time}</span></td>
-                                                <td>
-                                                    <p>${o.description}</p>
-                                                </td>
+                                                
                                                 <td>
                                                     <div class="table-avatar">
                                                         <c:if test="${o.status == '0'}">
-                                                            <button type="button" class="btn btn-danger">Canceled</button>
+                                                            <button type="button" class="btn btn-danger">Rejected</button>
 
                                                         </c:if>
                                                         <c:if test="${o.status == '1'}">
