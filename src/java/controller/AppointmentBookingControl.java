@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Appointment;
 import model.Doctor;
+import utility.Validate;
 
 /**
  *
@@ -32,9 +33,10 @@ import model.Doctor;
  */
 @WebServlet(name = "AppointmentBookingControl", urlPatterns = {"/booking"})
 public class AppointmentBookingControl extends HttpServlet {
+
     private static final long serialVersionUID = 9999L;
     ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/message");
-    
+
     private void writeObject(ObjectOutputStream stream)
             throws IOException {
         stream.defaultWriteObject();
@@ -44,7 +46,7 @@ public class AppointmentBookingControl extends HttpServlet {
             throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -85,7 +87,7 @@ public class AppointmentBookingControl extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("acc");
-        
+
         if (acc == null) {
             request.setAttribute("mess", resourceBundle.getString("must_login"));
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -118,21 +120,28 @@ public class AppointmentBookingControl extends HttpServlet {
             int patient_id = Integer.parseInt(request.getParameter("patient_id"));
             int doctor_id = Integer.parseInt(request.getParameter("doctor_id"));
             String date = request.getParameter("date");
-            int slot_id = Integer.parseInt(request.getParameter("slot_id"));
+            String slotTime = request.getParameter("slotTime");
             String description = request.getParameter("description");
 
             PatientDAO db1 = new PatientDAO();
             DoctorDAO db2 = new DoctorDAO();
             TimetableDAO db3 = new TimetableDAO();
             AppointmentDAO db4 = new AppointmentDAO();
+            Validate validate = new Validate();
 
-            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, db3.getTimeBySlotID(slot_id), description, 1);
+            Appointment a = new Appointment(db1.getPatientByPatientID(patient_id), db2.getDoctorByDoctorID(doctor_id), date, db3.getSlotByTime(slotTime), description, 1);
 
             List<Appointment> list = db4.getAllAppointmentByDoctorID(db2.getDoctorByDoctorID(doctor_id));
-            
+
+            if (validate.checkDate(date) < 0) {
+                request.setAttribute("mess", resourceBundle.getString("invalid_date"));
+                request.setAttribute("doctor", db2.getDoctorByDoctorID(doctor_id));
+                request.setAttribute("date", date);
+                request.getRequestDispatcher("booking.jsp").forward(request, response);
+            }
+
             for (Appointment appointment : list) {
                 if (a.getDate().equals(appointment.getDate())) {
-                    System.out.println(appointment.toString());
                     if (a.getSlot().getSlotID() == appointment.getSlot().getSlotID()) {
                         request.setAttribute("mess", resourceBundle.getString("slot_busy"));
                         request.setAttribute("doctor", db2.getDoctorByDoctorID(doctor_id));
@@ -141,8 +150,10 @@ public class AppointmentBookingControl extends HttpServlet {
                     }
                 }
             }
+
+            db4.addNewAppointment(a);
             request.setAttribute("appointment", a);
-            request.getRequestDispatcher("booking-confirm.jsp").forward(request, response);
+            request.getRequestDispatcher("booking-success.jsp").forward(request, response);
         } catch (SQLException ex) {
             System.out.println(ex);
         }

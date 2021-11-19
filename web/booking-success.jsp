@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html> 
 <html lang="en">
 
@@ -48,7 +49,9 @@
                                     <div class="success-cont">
                                         <i class="fas fa-check"></i>
                                         <h3>Appointment booked successfully!</h3>
-                                        <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.slot.time} (${appointment.date})</strong></p>
+                                        <fmt:parseDate var="p_date" value="${appointment.date}" pattern="yyyy-MM-dd"/>
+                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MMM-yyyy"/>
+                                        <p>Appointment booked with <strong>Dr. ${appointment.doctor.name}</strong><br> on <strong>${appointment.slot.time} (${date})</strong></p>
                                         <a href="doctor-list?page=1" class="btn btn-primary view-inv-btn">Continue Booking</a>
                                     </div>
                                 </div>

@@ -92,7 +92,7 @@
                 </div>
             </section>
             <!-- /Home Banner -->
-            
+
             <!-- Popular Section -->
             <section class="section section-doctor">
                 <div class="container-fluid">
@@ -106,34 +106,65 @@
                                 <div class="card-body">
                                     <div class="doctor-widget">
                                         <div class="doc-info-left">
-
                                             <div class="clinic-details">
-                                                <c:forEach items="${listBlog}" var="blog">
-                                                    <!-- Blog Widget -->
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="doctor-widget">
-                                                                <div class="doc-info-left">
-                                                                    <div class="doctor-img">
-
-                                                                        <a href="blog-detail?id=${blog.blogID}">
-                                                                            <img src="${blog.image}" class="img-fluid" alt="User Image">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="doc-info-cont">
-                                                                        <h4 class="blog-name"><a href="blog-detail?id=${blog.blogID}">${blog.title}</a></h4>
-                                                                            <fmt:parseDate var="p_date" value="${blog.date}" pattern="yyyy-MM-dd"/>
-                                                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd-MMM-yyyy"/>
-                                                                        <h6>${date}</h6>                                                                       
-                                                                        <b>Description:</b><p style="margin: 0;width: 90%;height: 60px;overflow: hidden;-webkit-mask-image: linear-gradient(180deg, #000 75%, transparent);">${blog.description}</p>
-                                                                        <b><a style="color: aqua" href="blog-detail?id=${blog.blogID}">See more...</a></b>
-                                                                    </div>
+                                                <div class="row row-cols-md-3">
+                                                    <c:forEach items="${listBlog}" var="blog">
+                                                        <fmt:parseDate var="p_date" value="${blog.date}" pattern="yyyy-MM-dd"/>
+                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                        <div class="col mb-4">
+                                                            <div class="card text-white" style="background-color: white">
+                                                                <img src="${blog.image}" class="card-img" alt="..." style="height: 355px;border: 2px solid white; border-radius: 4%">
+                                                                <div class="card-img-overlay" style="padding-top: 225px">
+                                                                    <h4 class="card-title" style="height: 45px;font-weight: bold">${blog.title}</h4>
+                                                                    <p class="card-text" style="color: #334;">Update in: ${date}</p>
+                                                                    <a href="blog-detail?id=${blog.blogID}" style="font-weight: bold; color: #fc5;">View more...</a>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </c:forEach>
+
+                                                    <div class="col mb-4">
+                                                        <div class="card text-white" style="background-color: white">
+                                                            <img src="https://funix.edu.vn/wp-content/uploads/2019/11/11.jpg" class="card-img" alt="..." style="height: 355px;border: 2.5px solid white; border-radius: 3%">
+                                                            <div class="card-img-overlay" style="padding-top: 225px">
+                                                                <h4 class="card-title" style="height: 45px;font-weight: bold">Covid is not good for us</h4>
+                                                                <p class="card-text" style="color: #334;">Update in: Today</p>
+                                                                <a href="#" style="font-weight: bold; color: #fc5;">View more...</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <!-- /Doctor Widget -->
-                                                </c:forEach>	
+                                                    <div class="col mb-4">
+                                                        <div class="card text-white" style="background-color: white">
+                                                            <img src="https://funix.edu.vn/wp-content/uploads/2019/11/11.jpg" class="card-img" alt="..." style="height: 355px;border: 2.5px solid white; border-radius: 3%">
+                                                            <div class="card-img-overlay" style="padding-top: 225px">
+                                                                <h4 class="card-title" style="height: 45px;font-weight: bold">Covid is not good for us</h4>
+                                                                <p class="card-text" style="color: #334;">Update in: Today</p>
+                                                                <a href="#" style="font-weight: bold; color: #fc5;">View more...</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col mb-4">
+                                                        <div class="card text-white" style="background-color: white">
+                                                            <img src="https://funix.edu.vn/wp-content/uploads/2019/11/11.jpg" class="card-img" alt="..." style="height: 355px;border: 2.5px solid white; border-radius: 3%">
+                                                            <div class="card-img-overlay" style="padding-top: 225px">
+                                                                <h4 class="card-title" style="height: 45px;font-weight: bold">Covid is not good for us</h4>
+                                                                <p class="card-text" style="color: #334;">Update in: Today</p>
+                                                                <a href="#" style="font-weight: bold; color: #fc5;">View more...</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col mb-4">
+                                                        <div class="card text-white" style="background-color: white">
+                                                            <img src="https://funix.edu.vn/wp-content/uploads/2019/11/11.jpg" class="card-img" alt="..." style="height: 355px;border: 2.5px solid white; border-radius: 3%">
+                                                            <div class="card-img-overlay" style="padding-top: 225px">
+                                                                <h4 class="card-title" style="height: 45px;font-weight: bold">Covid is not good for us</h4>
+                                                                <p class="card-text" style="color: #334;">Update in: Today</p>
+                                                                <a href="#" style="font-weight: bold; color: #fc5;">View more...</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
                                             </div>
                                         </div>
 
@@ -151,42 +182,42 @@
                                         <h2 style="margin: 30px 5px;font-weight: bold">Don't miss our best Doctor</h2>
                                     </div>
                                     <div style="padding: 24px">
-                                            <h3 class="title">
-                                                <a href="doctor_profile_view?id=${doctor.accountID}" style="font-weight: bold">Doctor ${doctor.name} </a><br>
-                                                <i style="color: #fc5" class="fas fa-star ${avgrate > 0 ? "filled" : ""}"></i>
-                                                <i style="color: #fc5" class="fas fa-star ${avgrate > 1 ? "filled" : ""}"></i>
-                                                <i style="color: #fc5" class="fas fa-star ${avgrate > 2 ? "filled" : ""}"></i>
-                                                <i style="color: #fc5" class="fas fa-star ${avgrate > 3 ? "filled" : ""}"></i>
-                                                <i style="color: #fc5" class="fas fa-star ${avgrate > 4 ? "filled" : ""}"></i>
-                                            </h3>
-                                            <div class="doc-img">
-                                                <a href="doctor_profile_view?id=${doctor.accountID}">
-                                                <img class="img-fluid" alt="User Image" src="${doctor.image}">
-                                            </a>
-                                        </div>
-                                        <div class="pro-content">
-                                            <p class="speciality"><b style="color: #fc5;">Speciality: </b>${doctor.role}</p>
-                                            <ul class="available-info">
-                                                <li>
-                                                    <i class="fas fa-map-marker-alt"></i> Hanoi, Vietnam
-                                                </li>
-                                                <li>
-                                                    <i class="far fa-clock"></i> From Monday to Saturday
-                                                </li>
-                                                <li>
-                                                    <i class="far fa-money-bill-alt"></i> Free
-                                                    <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i>
-                                                </li>
-                                            </ul>
-                                            <div class="row row-sm">
-                                                <div class="col-6">
-                                                    <a style="color: #fc5;border: 2px solid #fc5" href="doctor_profile_view?id=${doctor.accountID}" class="btn view-btn">View Profile</a>
-                                                </div>
-                                                <div class="col-6">
-                                                    <a style="background-color: #fc5;border: 2px solid #fc5" href="booking?account_id=${doctor.accountID}" class="btn book-btn">Book Now</a>
-                                                </div>
+                                        <h3 class="title">
+                                            <a href="doctor_profile_view?id=${doctor.accountID}" style="font-weight: bold">Doctor ${doctor.name} </a><br>
+                                        <i style="color: #fc5" class="fas fa-star ${avgrate > 0 ? "filled" : ""}"></i>
+                                        <i style="color: #fc5" class="fas fa-star ${avgrate > 1 ? "filled" : ""}"></i>
+                                        <i style="color: #fc5" class="fas fa-star ${avgrate > 2 ? "filled" : ""}"></i>
+                                        <i style="color: #fc5" class="fas fa-star ${avgrate > 3 ? "filled" : ""}"></i>
+                                        <i style="color: #fc5" class="fas fa-star ${avgrate > 4 ? "filled" : ""}"></i>
+                                    </h3>
+                                    <div class="doc-img">
+                                        <a href="doctor_profile_view?id=${doctor.accountID}">
+                                            <img class="img-fluid" alt="User Image" src="${doctor.image}">
+                                        </a>
+                                    </div>
+                                    <div class="pro-content">
+                                        <p class="speciality"><b style="color: #fc5;">Speciality: </b>${doctor.role}</p>
+                                        <ul class="available-info">
+                                            <li>
+                                                <i class="fas fa-map-marker-alt"></i> Hanoi, Vietnam
+                                            </li>
+                                            <li>
+                                                <i class="far fa-clock"></i> From Monday to Saturday
+                                            </li>
+                                            <li>
+                                                <i class="far fa-money-bill-alt"></i> Free
+                                                <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i>
+                                            </li>
+                                        </ul>
+                                        <div class="row row-sm">
+                                            <div class="col-6">
+                                                <a style="color: #fc5;border: 2px solid #fc5" href="doctor_profile_view?id=${doctor.accountID}" class="btn view-btn">View Profile</a>
+                                            </div>
+                                            <div class="col-6">
+                                                <a style="background-color: #fc5;border: 2px solid #fc5" href="booking?account_id=${doctor.accountID}" class="btn book-btn">Book Now</a>
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

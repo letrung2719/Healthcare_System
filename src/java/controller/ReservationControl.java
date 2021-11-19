@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import model.Patient;
 import model.Reservation;
 import model.Services;
+import utility.Validate;
 
 /**
  *
@@ -103,11 +104,8 @@ public class ReservationControl extends HttpServlet {
             throws ServletException, IOException {
         try {
             String date = request.getParameter("date");
-            String now = java.time.LocalDate.now().toString();
-            int compare = date.compareTo(now);
 
             String slotTime = request.getParameter("slotTime");
-            System.out.println(slotTime);
             String description = request.getParameter("description");
             int patientID = Integer.parseInt(request.getParameter("patientId"));
             String serviceId = request.getParameter("serviceID");
@@ -115,9 +113,11 @@ public class ReservationControl extends HttpServlet {
             PatientDAO patientDb = new PatientDAO();
             ServicesDAO serviceDb = new ServicesDAO();
             TimetableDAO slotDb = new TimetableDAO();
-            if (compare < 0) {
+            
+            Validate validate = new Validate();
+            if (validate.checkDate(date) < 0) {
                 Services s = serviceDb.getServiceByID(serviceId);
-                request.setAttribute("mess", "Invalid date");
+                request.setAttribute("mess", resourceBundle.getString("invalid_date"));
                 request.setAttribute("service", s);
                 request.getRequestDispatcher("reservation.jsp").forward(request, response);
             }
@@ -129,10 +129,7 @@ public class ReservationControl extends HttpServlet {
                     description);
 
             ReservationDAO resDb = new ReservationDAO();
-            System.out.println(patientID);
-            System.out.println(serviceID);
-            System.out.println(date);
-            System.out.println(slotDb.getSlotByTime(slotTime).getSlotID());
+
             int count = resDb.countDuplicateReservationByPatientID(patientID, serviceID, date, slotDb.getSlotByTime(slotTime).getSlotID());
             if (count > 0) {
                 Services s = serviceDb.getServiceByID(serviceId);

@@ -173,7 +173,6 @@
                                                     <div class="clinic-booking">
                                                         <a class="view-pro-btn" href="serdetail?sid=${o.service_id}">View Details</a>
                                                         <a class="apt-btn" href="reservation?id=${o.service_id}">Book Service</a>
-
                                                     </div>
                                                 </div>
                                             </div>

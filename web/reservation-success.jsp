@@ -51,14 +51,14 @@
                         <div class="col-md-12 col-12">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Service</a></li>
+                                    <li class="breadcrumb-item"><a href="home">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="services">Service</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Reservation
                                     </li>
                                 </ol>
                             </nav>
-                            <h2 class="breadcrumb-title">Booking</h2>
+                            <h2 class="breadcrumb-title">Reservation</h2>
                         </div>
                     </div>
                 </div>
@@ -77,9 +77,9 @@
                                 <div class="card-body">
                                     <div class="success-cont">
                                         <i class="fas fa-check"></i>
-                                        <h3>Reservation booked Successfully!</h3>
+                                        <h3>Reservation booked successfully!</h3>
                                         <fmt:parseDate var="p_date" value="${reservation.date}" pattern="yyyy-MM-dd"/>
-                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MMM-yyyy"/>
                                         <p>Reservation booked with <strong>${reservation.service.title} Service</strong><br> on <strong>${reservation.slot.time} (${date})</strong></p>
                                         <a href="services" class="btn btn-primary view-inv-btn">Continue Booking</a>
                                     </div>

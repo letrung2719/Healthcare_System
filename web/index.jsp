@@ -6,9 +6,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
-    <!-- doccure/  30 Nov 2019 04:11:34 GMT -->
-
     <head>
 
         <meta charset="utf-8">
