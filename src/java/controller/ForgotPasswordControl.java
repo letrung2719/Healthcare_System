@@ -21,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utility.PasswordEncrypt;
 
 /**
  *
@@ -80,10 +81,12 @@ public class ForgotPasswordControl extends HttpServlet {
                 forgot.sendMail(email, new_password);
                 
                 AccountDAO accountDb = new AccountDAO();
+                
+                PasswordEncrypt encrypt = new PasswordEncrypt();
                 if (patientDb.getPatientByEmail(email) != null) {
-                    accountDb.changePassword(new_password, patientDb.getPatientByEmail(email).getAccountID());
+                    accountDb.changePassword(encrypt.generateEncryptedPassword(new_password), patientDb.getPatientByEmail(email).getAccountID());
                 } else {
-                    accountDb.changePassword(new_password, doctorDb.getDoctorByEmail(email).getAccountID());
+                    accountDb.changePassword(encrypt.generateEncryptedPassword(new_password), doctorDb.getDoctorByEmail(email).getAccountID());
                 }
                 request.setAttribute("success", resourceBundle.getString("reset_password_success"));
                 request.getRequestDispatcher("login.jsp").forward(request, response);

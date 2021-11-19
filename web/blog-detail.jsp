@@ -4,13 +4,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <!-- doccure/  30 Nov 2019 04:11:34 GMT -->
-
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <title>Doccure</title>
+
+        <!-- Favicons -->
+        <link type="image/x-icon" href="assets/img/favicon.png" rel="icon">
 
         <!-- Favicons -->
         <link type="image/x-icon" href="assets/img/favicon.png" rel="icon">
@@ -33,13 +33,13 @@
     </head>
 
     <body>
-
         <!-- Main Wrapper -->
         <div class="main-wrapper">
 
             <!-- Header -->
             <jsp:include page="index-header.jsp"/>
             <!-- /Header -->
+
             <!-- Breadcrumb -->
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
@@ -64,13 +64,14 @@
                 </div>
             </div>
             <!-- /Breadcrumb -->
+
             <!-- Page Content -->
             <div class="content">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <h4 class="blog-name"style="justify-content: center;">${blog.title}</h4>
-                            <fmt:parseDate var="p_date" value="${blog.date}" pattern="yyyy/MM/dd"/>
+                            <fmt:parseDate var="p_date" value="${blog.date}" pattern="yyyy-MM-dd"/>
                             <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                             <h6 class="blog-date"> ${date}</h6>
                             <a href="blog-detail?id=${blog.blogID}">
@@ -78,38 +79,30 @@
                             </a>
                         </div>
                         <div class="doc-info-cont">
-
-
                             <span style="padding: 5px;" class="blog-description"> ${blog.description}</span>
-
-
-
-
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /Main Wrapper -->
+        </div>
+        <!-- /Main Wrapper -->
 
-            <!-- Footer -->
-            <jsp:include page="index-footer.jsp"/>
-            <!-- /Footer -->
+        <!-- Footer -->
+        <jsp:include page="index-footer.jsp"/>
+        <!-- /Footer -->
 
-            <!-- jQuery -->
-            <script src="assets/js/jquery.min.js"></script>
+        <!-- jQuery -->
+        <script src="assets/js/jquery.min.js"></script>
 
-            <!-- Bootstrap Core JS -->
-            <script src="assets/js/popper.min.js"></script>
-            <script src="assets/js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JS -->
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
 
-            <!-- Slick JS -->
-            <script src="assets/js/slick.js"></script>
+        <!-- Slick JS -->
+        <script src="assets/js/slick.js"></script>
 
-            <!-- Custom JS -->
-            <script src="assets/js/script.js"></script>
-
+        <!-- Custom JS -->
+        <script src="assets/js/script.js"></script>
     </body>
-
-    <!-- doccure/  30 Nov 2019 04:11:53 GMT -->
 
 </html>

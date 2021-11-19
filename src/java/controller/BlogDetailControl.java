@@ -8,6 +8,7 @@ package controller;
 
 import dal.BlogsDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,14 +48,17 @@ public class BlogDetailControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            BlogsDAO bl = new BlogsDAO();
-            Blogs blog = bl.getBlogByBlogID(id);
-            request.setAttribute("blog", blog);
-            request.getRequestDispatcher("blog-detail.jsp").forward(request, response);
-        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
-            System.out.println(e);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet BlogDetailControl</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet BlogDetailControl at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -70,7 +74,15 @@ public class BlogDetailControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            BlogsDAO blogDb = new BlogsDAO();
+            Blogs blog = blogDb.getBlogByBlogID(id);
+            request.setAttribute("blog", blog);
+            request.getRequestDispatcher("blog-detail.jsp").forward(request, response);
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     /**

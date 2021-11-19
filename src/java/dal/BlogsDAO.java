@@ -10,9 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +32,7 @@ public class BlogsDAO {
      *
      * @param blogID
      * @return
+     * @throws java.sql.SQLException
      */
     public Blogs getBlogByBlogID(int blogID) throws SQLException {
         String sql = "select * from blogs where blog_id = ?";
@@ -64,6 +63,7 @@ public class BlogsDAO {
     /**
      *
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Blogs> getAllBlogs() throws SQLException {
         List<Blogs> list = new ArrayList<>();
@@ -95,6 +95,7 @@ public class BlogsDAO {
      *
      * @param name
      * @return
+     * @throws java.sql.SQLException
      */
     public List<Blogs> getAllBlogsSearched(String name) throws SQLException {
         List<Blogs> list = new ArrayList<>();

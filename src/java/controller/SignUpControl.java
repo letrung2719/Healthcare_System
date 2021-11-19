@@ -1,6 +1,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.PatientDAO;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -54,6 +55,7 @@ public class SignUpControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,}";
         try {
             String name = request.getParameter("name");
             int gender = Integer.parseInt(request.getParameter("gender"));
@@ -72,6 +74,7 @@ public class SignUpControl extends HttpServlet {
             request.setAttribute("repass", repass);
 
             AccountDAO accountDb = new AccountDAO();
+            PatientDAO patientDb = new PatientDAO();
             Validate validate = new Validate();
             if (validate.checkPhone(phone) == false) {
                 // check validate phone number
@@ -81,9 +84,17 @@ public class SignUpControl extends HttpServlet {
                 // check account existed
                 request.setAttribute("mess", resourceBundle.getString("existed_account"));
                 request.getRequestDispatcher("signup.jsp").forward(request, response);
+            } else if (patientDb.checkEmailExisted(email) != null) {
+                // check email existed
+                request.setAttribute("mess", resourceBundle.getString("existed_email"));
+                request.getRequestDispatcher("signup.jsp").forward(request, response);
             } else if (!pass.equals(repass)) {
                 // check pass and repass matched
                 request.setAttribute("mess", resourceBundle.getString("pass_not_matched"));
+                request.getRequestDispatcher("signup.jsp").forward(request, response);
+            } else if (validate.checkPassword(pass) == false) {
+                // validate password
+                request.setAttribute("mess", resourceBundle.getString("password_requirement"));
                 request.getRequestDispatcher("signup.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("account_verification").forward(request, response);

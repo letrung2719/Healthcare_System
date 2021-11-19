@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Patient;
 import utility.AccountVerification;
+import utility.PasswordEncrypt;
 
 /**
  *
@@ -91,10 +92,11 @@ public class AccountVerificationControl extends HttpServlet {
 
             if (input.equals(code)) {
                 AccountDAO accountDb = new AccountDAO();
-                accountDb.insertNewAccountPatient(user, pass);
+                PasswordEncrypt encryptedPass = new PasswordEncrypt();
+                accountDb.insertNewAccountPatient(user, encryptedPass.generateEncryptedPassword(pass));
 
                 PatientDAO patientDb = new PatientDAO();
-                Patient p = new Patient(name, gender, null, phone, email, accountDb.getNewestAccount().getId(), null);
+                Patient p = new Patient(name, gender, null, phone, email, accountDb.getNewestAccount().getId(), "https://www.marketingmuses.com/wp-content/uploads/2018/01/invis-user.png");
                 patientDb.insertNewPatient(p);
 
                 request.setAttribute("success", resourceBundle.getString("account_verified_success"));

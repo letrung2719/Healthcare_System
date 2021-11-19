@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Doctor;
 import model.Patient;
+import utility.PasswordEncrypt;
 
 /**
  *
@@ -54,8 +55,11 @@ public class LoginControl extends HttpServlet {
         try {
             String user = request.getParameter("username");
             String pass = request.getParameter("password");
+            
+            PasswordEncrypt encrypt = new PasswordEncrypt();
+            
             AccountDAO accountDb = new AccountDAO();
-            Account a = accountDb.login(user, pass);
+            Account a = accountDb.login(user, encrypt.generateEncryptedPassword(pass));
             PatientDAO patientDb = new PatientDAO();
             DoctorDAO doctorDb = new DoctorDAO();
 

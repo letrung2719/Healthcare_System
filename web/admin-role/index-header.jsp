@@ -46,7 +46,6 @@
                         <p class="text-muted mb-0">Administrator</p>
                     </div>
                 </div>
-                <a class="dropdown-item" href="profile.jsp">My Profile</a>
                 <a class="dropdown-item" href="/Healthcare_System/logout">Logout</a>
             </div>
         </li>
