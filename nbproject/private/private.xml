@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/web/admin-role/service_detail.jsp</file>
-            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/controller/admin/DoctorProfileAdmin.java</file>
-            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/web/admin-role/doctor_profile.jsp</file>
-            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/controller/admin/ServiceDetailAdControl.java</file>
-            <file>file:/C:/Users/admin/Documents/GitHub/Healthcare_System/src/java/controller/ServiceDetailControl.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
