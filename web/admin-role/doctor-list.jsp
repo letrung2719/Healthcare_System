@@ -127,7 +127,7 @@
                                             <th>Specialities</th>
                                             <th>Email</th>
                                             <th>Phone number</th>
-                                            <th>Status</th>
+<!--                                            <th>Status</th>-->
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -154,22 +154,22 @@
                                                 <td>${doctor.email}</td>
                                                 <!-- >Phone -->
                                                 <td> ${doctor.phone}</td>
-                                                <td>
+<!--                                                <td>
                                                     <span class="badge badge-pill bg-success-light">
                                                         Active
-                                                    </span></td>
+                                                    </span></td>-->
                                                 <td class="text-right">
                                                     <div class="actions ">
                                                         <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#edit_specialities_details${doctor.doctorID}">
                                                             <i class="fe fe-pencil"></i> Edit
                                                         </a>
-                                                        <a
+<!--                                                        <a
                                                             data-toggle="modal"
                                                             href="#delete_modal"
                                                             class="btn btn-sm bg-danger-light"
                                                             >
                                                             <i class="fe fe-trash"></i> Inactive
-                                                        </a>
+                                                        </a>-->
                                                     </div>
                                                 </td>
                                             </tr>
@@ -236,7 +236,7 @@
                                         </div>
                                         <!-- /Edit Details Modal -->
                                         <!-- Delete Modal -->
-                                        <div
+<!--                                        <div
                                             class="modal fade"
                                             id="delete_modal"
                                             aria-hidden="true"
@@ -261,7 +261,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <!-- /Delete Modal -->
 
                                     </c:forEach>

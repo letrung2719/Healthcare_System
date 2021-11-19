@@ -105,7 +105,9 @@ public class ChangePasswordDoctor extends HttpServlet {
                 request.getRequestDispatcher("change-password-doctor.jsp").forward(request, response);
             } else {
                 accountDb.changePassword(newPassword, id);
-                response.sendRedirect("logout");
+                session.removeAttribute("acc");
+                request.setAttribute("success", "Change password success!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
 
         } catch (Exception ex) {
