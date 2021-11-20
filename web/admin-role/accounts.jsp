@@ -63,35 +63,18 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-7 col-auto">
-                                <h3 class="page-title">Patients Management</h3>
+                                <h3 class="page-title">Accounts Management</h3>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="admin-home">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Patients</li>
+                                    <li class="breadcrumb-item active">Accounts</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <!-- /Page Header -->
 
-
-
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="card-body">
-                                <form action="patient_list" method="post">
-                                    <div class="form-row">
-                                        <div class="col-4 col-sm-3 form-group">
-                                            <label>Patient Name</label>
-                                            <input type="text" class="form-control" value="${name}" name="txt" />
-                                        </div>                                          
-                                        <label class="text-primary"></label>
-                                        <button style="height: 20%; align-self: center; margin: 12px 0 0 30px" class="btn btn-primary" type="submit">
-                                            Search
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -100,31 +83,23 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th>Patient Name</th>
-                                                        <th>Gender</th>
-                                                        <th>DOB</th>
+                                                        <th>Username</th>
+                                                        <th>Password</th>
+                                                        <th>Role</th>
                                                         <th>Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach items="${listPatients}" var="user">
-                                                        <c:set var="accountDb" value="<%=new AccountDAO()%>"></c:set>
-                                                        <c:set var="acc" value="${accountDb.getAccountByID(user.accountID)}"></c:set>  
-                                                        <tr onclick="location.href = 'patient_details?account_id=${user.accountID}'">
-                                                            <td>${user.patientID}</td>
-                                                            <td> 
-                                                                <h2 class="table-avatar">
-                                                                    <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${user.image}" alt="Patient Image"></a>
-                                                                    <a>${user.name}</a>
-                                                                </h2>
-                                                            </td>
+                                                    <c:forEach items="${list}" var="acc"> 
+                                                        <tr>
+                                                            <td>${acc.id}</td>
+                                                            <td>${acc.user}</td>
+                                                            <td>${acc.pass}</td>
                                                             <td>
-                                                                <c:if test="${user.gender == 1}">Male</c:if>
-                                                                <c:if test="${user.gender == 0}">Female</c:if>
-                                                                </td>
-                                                            <fmt:parseDate var="p_date" value="${user.dob}" pattern="yyyy-MM-dd"/>
-                                                            <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
-                                                            <td>${date}</td>
+                                                                <c:if test="${acc.author_id == 0}">Administrator</c:if>
+                                                                <c:if test="${acc.author_id == 1}">Doctor</c:if>
+                                                                <c:if test="${acc.author_id == 2}">Patient</c:if>
+                                                            </td>
                                                             <td>
                                                                 <c:if test="${acc.status == true}">
                                                                     <span class="badge badge-pill bg-success inv-badge">Active</span>
@@ -134,7 +109,7 @@
                                                                 </c:if>
                                                             </td>
                                                         </tr>
-                                                </c:forEach>
+                                                    </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>

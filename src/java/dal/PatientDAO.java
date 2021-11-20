@@ -261,6 +261,36 @@ public class PatientDAO {
         return null;
     }
 
+    public List<Patient> search(String name) throws SQLException {
+        List<Patient> list = new ArrayList<>();
+        String sql = "select patient_id, name, gender, dob, phone, email, account_id, image \n"
+                + " from patients where name like ?";
+        try {
+            connection = dbc.getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Patient(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return list;
+    }
+
     /**
      *
      * @param args

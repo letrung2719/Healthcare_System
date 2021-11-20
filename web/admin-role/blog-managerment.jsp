@@ -33,14 +33,11 @@
         <!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
 
-
         <script type="text/javascript" src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>
         <!--[if lt IE 9]>
                             <script src="assets/js/html5shiv.min.js"></script>
                             <script src="assets/js/respond.min.js"></script>
                     <![endif]-->
-
-
     </head>
 
     <body>
@@ -75,49 +72,34 @@
                             <div class="col-sm-5 col-auto" style="text-align: right">
                                 <a href="add-blog.jsp"  class="btn btn-primary float-right mt-2">Add</a>
                             </div>
-
-
                         </div>
-
-
                     </div>
 
                     <div class="row">
                         <div class="col-sm-12">
+                            <div class="card-body">
+                                <form action="search-blog" method="post">
+                                    <div class="row form-row">
+                                        <div class="col-4 col-sm-3 form-group">
+                                            <label>Title</label>
+                                            <input type="text" class="form-control col-12 col-sm-12" value="" name="title" />
+                                        </div>
+                                        <div class="col-4 col-sm-3 form-group">
+                                            <div class="form-group card-label">
+                                                <label>Date</label>
+                                                <input class="form-control col-12 col-sm-12" id="card_name" type="date" name="date" value="" >
+                                            </div>
+                                        </div>
+                                        <label class="text-primary"></label>
+                                        <button style="height: 20%; align-self: center; margin: -10px 0 0 30px" class="btn btn-primary" type="submit">
+                                            Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="search-blog" method="post">
-                                        <div class="row form-row">
-
-                                            <div class="col-4 col-sm-3 col-lg-2 form-group">
-                                                <label class="text-primary">Title</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control col-12 col-sm-12"
-                                                    value=""
-                                                    name="title"
-                                                    />
-                                            </div>
-                                            <div class="col-2 col-sm-3 col-lg-2 form-group">
-                                                <div class="form-group card-label">
-                                                    <label for="card_name">Date</label>
-                                                    <input class="form-control col-12 col-sm-12" id="card_name" type="date" name="date" value="" >
-                                                </div>
-                                            </div>
-                                            <div class="col-1 col-sm-1 col-lg-1 form-group">
-                                                <div class="form-group">
-                                                    <label class="text-primary"></label>
-                                                    <button style="margin-top: 8px;" type="submit" class="btn btn-primary btn-block">
-                                                        Search
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </form>
-
-
                                     <div class="table-responsive ">
                                         <table class="datatable table table-hover table-center mb-0 "> 
                                             <thead>
@@ -125,8 +107,6 @@
                                                     <th>ID</th>
                                                     <th style="max-width: 200px;">Title</th>
                                                     <th>Date</th>
-                                                    <th>Image</th>
-
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
@@ -147,40 +127,19 @@
                                                         <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                         <!-- >Date-->
                                                         <td>${date}</td>
-                                                        <!-- >Description-->
                                                         <td>
-                                                            <img src="${blog.image}" style="width: 120px; height: 120px;" class="serdashboard-image" alt="image service">
+                                                            <div class="actions">
+                                                                <a class="btn btn-sm bg-success-light" href="edit-blog?id=${blog.blogID}">
+                                                                    <i class="fe fe-pencil"></i> Edit
+                                                                </a>
+                                                                <a data-toggle="modal" href="#delete_modal${blog.blogID}" class="btn btn-sm bg-danger-light">
+                                                                    <i class="fe fe-trash"></i> Delete
+                                                                </a>
+                                                            </div>
                                                         </td>
+                                                    </tr>
 
-                                                <style>
-                                                    .text_over {
-                                                        white-space: nowrap;
-                                                        width: 200px;
-
-                                                        overflow: hidden;
-                                                        text-overflow: clip;
-                                                    }
-                                                    .text_over:hover{
-                                                        overflow: visible;
-                                                    }
-                                                </style>
-
-
-                                                <!--                                                            Action-->
-                                                <td class="text-right">
-                                                    <div class="actions">
-                                                        <a class="btn btn-sm bg-success-light" href="edit-blog?id=${blog.blogID}">
-                                                            <i class="fe fe-pencil"></i> Edit
-                                                        </a>
-                                                        <a data-toggle="modal" href="#delete_modal${blog.blogID}" class="btn btn-sm bg-danger-light">
-                                                            <i class="fe fe-trash"></i> Delete
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                                </tr>
-
-
-                                                <!-- Delete Modal -->
+                                                    <!-- Delete Modal -->
                                                 <div class="modal fade" id="delete_modal${blog.blogID}" aria-hidden="true" role="dialog">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
@@ -202,98 +161,84 @@
                                         </table>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
+                    <!-- /Page Header -->
                 </div>
-
-
-
-
-
-
-                <!-- /Page Header -->
-
-
-
-
-
             </div>
 
-        </div>
-
-        <!-- Add Modal -->
-        <div class="modal fade" id="Add_Specialities_details" aria-hidden="true" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add a Blog</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="addblog" method="post">
-                            <div class="row form-row">
+            <!-- Add Modal -->
+            <div class="modal fade" id="Add_Specialities_details" aria-hidden="true" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add a Blog</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="addblog" method="post">
                                 <div class="row form-row">
-                                    <div class="col-12 col-sm-12">
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <input type="text" class="form-control" value="" name="title">
+                                    <div class="row form-row">
+                                        <div class="col-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <input type="text" class="form-control" value="" name="title">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-sm-12 ">
-                                        <div class="form-group ">
-                                            <label>Image</label>
-                                            <input type="text" class="form-control " name="image">
+                                        <div class="col-12 col-sm-12 ">
+                                            <div class="form-group ">
+                                                <label>Image</label>
+                                                <input type="text" class="form-control " name="image">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-sm-12 ">
-                                        <div class="form-group ">
-                                            <label>Description</label>
-                                            <!--<input type="text" class="form-control " value=" " name="email">-->
-                                            <textarea class="form-control" id="description1" name="description"></textarea>
+                                        <div class="col-12 col-sm-12 ">
+                                            <div class="form-group ">
+                                                <label>Description</label>
+                                                <!--<input type="text" class="form-control " value=" " name="email">-->
+                                                <textarea class="form-control" id="description1" name="description"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Add</button>
-                        </form>
+                                <button type="submit" class="btn btn-primary btn-block">Add</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- /Page Wrapper -->
+
+        <script>
+            CKEDITOR.replace('description1');
+            CKEDITOR.replace('description2');
+        </script>
     </div>
-    <!-- /Page Wrapper -->
-
-    <script>
-        CKEDITOR.replace('description1');
-        CKEDITOR.replace('description2');
-    </script>
-</div>
-<!-- /Main Wrapper -->
+    <!-- /Main Wrapper -->
 
 
 
-<!-- jQuery -->
-<script src="assets/js/jquery-3.2.1.min.js"></script>
+    <!-- jQuery -->
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
 
-<!-- Bootstrap Core JS -->
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JS -->
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
 
-<!-- Slimscroll JS -->
-<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Slimscroll JS -->
+    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-<!-- Datatables JS -->
-<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="assets/plugins/datatables/datatables.min.js"></script>
+    <!-- Datatables JS -->
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/datatables.min.js"></script>
 
-<!-- Custom JS -->
-<script src="assets/js/script.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/script.js"></script>
 
-<script type="text/javascript" src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>
 
 </body>
 

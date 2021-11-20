@@ -5,25 +5,26 @@
  */
 package controller.admin;
 
-import dal.PatientDAO;
+import dal.AccountDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Patient;
+import model.Account;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-@WebServlet(name = "PatientListControl", urlPatterns = {"/admin-role/patient_list"})
-public class PatientListControl extends HttpServlet {
-
-    private static final long serialVersionUID = 9999L;
+@WebServlet(name = "AccountsManagement", urlPatterns = {"/admin-role/account"})
+public class AccountsManagement extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,13 +38,17 @@ public class PatientListControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            PatientDAO patientDb = new PatientDAO();
-            List<Patient> list = patientDb.getAllPatient();
-            request.setAttribute("listPatients", list);
-            request.getRequestDispatcher("patient-list.jsp").forward(request, response);
-        } catch (IOException | SQLException | ServletException e) {
-            System.out.println(e);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AccountsManagement</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AccountsManagement at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -59,7 +64,15 @@ public class PatientListControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            AccountDAO db = new AccountDAO();
+            List<Account> list = db.getAllAccount();
+            
+            request.setAttribute("list", list);
+            request.getRequestDispatcher("/admin-role/accounts.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountsManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -73,16 +86,7 @@ public class PatientListControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            String search = request.getParameter("txt");
-            PatientDAO patDb = new PatientDAO();
-            List<Patient> list = patDb.search(search);
-            request.setAttribute("listPatients", list);
-            request.setAttribute("name", search);
-            request.getRequestDispatcher("/admin-role/patient-list.jsp").forward(request, response);
-        }catch (IOException | SQLException | ServletException e) {
-            System.out.println(e);
-        }
+        processRequest(request, response);
     }
 
     /**

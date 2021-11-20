@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Dashboard</title>
+        <title>Doccure Admin</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 d-flex">
 
@@ -165,7 +165,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Doctor Name</th>
-                                                    <th>Speciality</th>
+                                                    <th>Specialities</th>
                                                     <th>Reviews</th>
                                                 </tr>
                                             </thead>
@@ -176,8 +176,8 @@
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${o.image}" alt="User Image"></a>
-                                                                <a href="profile.html">${o.name}</a>
+                                                                    <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${o.image}" alt="User Image"></a>
+                                                                <a>${o.name}</a>
                                                             </h2>
                                                         </td>
                                                         <td>${o.spec.name}</td>
@@ -194,8 +194,8 @@
                                         </table>
                                     </div>
                                     <div style="text-align: center">
-                                            <b><a style="color: aqua;" href="/Healthcare_System/admin-role/doctor_list">See more...</a></b>
-                                        </div>
+                                        <b><a style="color: aqua;" href="/Healthcare_System/admin-role/doctor_list">See more...</a></b>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /Recent Orders -->
@@ -224,8 +224,8 @@
                                                     <tr>
                                                         <td>
                                                             <h2 class="table-avatar">
-                                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${o.image}" alt="User Image"></a>
-                                                                <a href="profile.html">${o.name}</a>
+                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${o.image}" alt="User Image"></a>
+                                                                <a>${o.name}</a>
                                                             </h2>
                                                         </td>
                                                         <td>${o.phone}</td>
@@ -237,8 +237,8 @@
                                         </table>
                                     </div>
                                     <div style="text-align: center">
-                                            <b><a style="color: aqua;" href="/Healthcare_System/admin-role/patient_list">See more...</a></b>
-                                        </div>
+                                        <b><a style="color: aqua;" href="/Healthcare_System/admin-role/patient_list">See more...</a></b>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /Feed Activity -->
@@ -262,7 +262,6 @@
                                                     <th style="width: 230px">Doctor Name</th>
                                                     <th style="width: 190px">Patient Name</th>
                                                     <th style="width: 250px;text-align: center">Appointment Time</th>
-                                                    <th style="width: 210px">Description</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
@@ -292,29 +291,24 @@
                                                                 </div>
                                                             </h2>
                                                         </td>
-                                                <fmt:parseDate var="p_date" value="${o.date}" pattern="yyyy-MM-dd"/>
-                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
-                                                <td style="text-align: center">${date} <span class="text-primary d-block">${o.slot.time}</span></td>
-                                                <td>
-                                                    <p>${o.description}</p>
-                                                </td>
-                                                <td>
-                                                    <div class="table-avatar">
-                                                        <c:if test="${o.status == '0'}">
-                                                            <button type="button" class="btn btn-danger">Canceled</button>
-
-                                                        </c:if>
-                                                        <c:if test="${o.status == '1'}">
-                                                            <button type="button" class="btn btn-warning">Processing</button>
-
-                                                        </c:if>
-                                                        <c:if test="${o.status == '2'}">
-                                                            <button type="button" class="btn btn-success">Success</button>
-                                                        </c:if>
-                                                    </div>
-                                                </td>
-                                                </tr>
-                                            </c:forEach>
+                                                        <fmt:parseDate var="p_date" value="${o.date}" pattern="yyyy-MM-dd"/>
+                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                        <td style="text-align: center">${date} <span class="text-primary d-block">${o.slot.time}</span></td>
+                                                        <td>
+                                                            <div class="table-avatar">
+                                                                <c:if test="${o.status == '0'}">
+                                                                    <span class="badge badge-pill bg-danger inv-badge">Canceled</span>
+                                                                </c:if>
+                                                                <c:if test="${o.status == '1'}">
+                                                                    <span class="badge badge-pill bg-warning inv-badge">Pending</span>
+                                                                </c:if>
+                                                                <c:if test="${o.status == '2'}">
+                                                                    <span class="badge badge-pill bg-success inv-badge">Completed</span>
+                                                                </c:if>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
                                             </tbody>
                                         </table>
                                         <div style="text-align: center">

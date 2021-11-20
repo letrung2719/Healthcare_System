@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>blog-managerment</title>
+        <title>Doccure Admin</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -38,8 +38,6 @@
                             <script src="assets/js/html5shiv.min.js"></script>
                             <script src="assets/js/respond.min.js"></script>
                     <![endif]-->
-
-
     </head>
 
     <body>
@@ -63,52 +61,28 @@
                     <div class="page-header">
                         <div class="row">
                             <div class="col-sm-7 col-auto">
-                                <h3 class="page-title">List of Doctors</h3>
+                                <h3 class="page-title">Blogs Management</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
-
+                                    <li class="breadcrumb-item"><a href="admin-home">Dashboard</a></li>
                                     <li class="breadcrumb-item active">Blogs</li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
-                    <style>
-                        label{
-                            width: 100%;
-                            padding: 5px;
-                        }
-                        #image{
-                            width: 30% !important;
-                        }
-                        input{
-
-                            margin: 5px;
-                            margin-bottom: 15px;
-                        }
-
-
-                    </style>
                     <p class="text-danger">${mess}</p>
                     <form method="post" action="addblog">
-
                         <label>Title:</label>
                         <br>
-                        <input type="text" class="form-control " name="title" value="">
+                        <input type="text" class="form-control" name="title">
                         <br>
                         <label>Image:</label>
-                        <input type="text" class="form-control " id="image" name="image">
+                        <input type="text" class="form-control " name="image">
                         <br>
-
-
-                        <label>Description</label>
+                        <label>Description:</label>
                         <!--<input type="text" class="form-control " value=" " name="email">-->
                         <textarea rows="50"cols="200" class="form-control" id="description1" name="description"></textarea>
-                        
-                        <button style="margin-top: 50px; " type="submit" class="btn btn-primary btn-block">Add</button>
-
+                        <button style="margin-top: 30px; width: 100px " type="submit" class="btn btn-primary btn-block">Add New</button>
                     </form>
-
                     <!-- /Page Header -->
                 </div>
 
@@ -161,11 +135,8 @@
         <!-- /Page Wrapper -->
 
         <script>
-
-
             CKEDITOR.replace('description1');
             CKEDITOR.replace('description2');
-
         </script>
     </div>
     <!-- /Main Wrapper -->

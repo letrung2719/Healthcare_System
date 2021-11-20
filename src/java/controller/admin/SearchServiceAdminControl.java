@@ -7,7 +7,6 @@ package controller.admin;
 
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,29 +41,20 @@ public class SearchServiceAdminControl extends HttpServlet {
         
         try{
             String choice = request.getParameter("id");        
+            String search = request.getParameter("txt");
+            String[] arraySpec = request.getParameterValues("select_specialist");
+            
             ServicesDAO dal = new ServicesDAO();
-            if(choice.equals("0")){
-                String search = request.getParameter("txt");
-                List<Services> listServices = dal.getAllServicesSearched(search);
-                request.setAttribute("listServices", listServices);
-                request.setAttribute("tim", search);
-            }
-            if(choice.equals("1")){
-                String[] arraySpec = request.getParameterValues("select_specialist");
+                    
+            List<Services> listServices = dal.getAllServicesSearched(search);              
             List<String> listSpec = arraySpec == null ? new ArrayList<>() : Arrays.asList(arraySpec);
             List<Specialities> listSpecialities = dal.getAllSpecialities();
-            List<Services> listServices = dal.searchSpecialities(listSpec);
-            request.setAttribute("listSpecialities", listSpecialities);
+            List<Services> listServices1 = dal.searchSpecialities(listSpec);
+            
             request.setAttribute("listServices", listServices);
-            }
-            if (choice.equals("3")) {
-                List<Services> listServices = dal.getAllServicesSortedUpPrice();
-                request.setAttribute("listServices", listServices);
-            }
-            if (choice.equals("4")) {
-                List<Services> listServices = dal.getAllServicesSortedDownPrice();
-                request.setAttribute("listServices", listServices);
-            }
+            request.setAttribute("tim", search);
+            request.setAttribute("listSpec", listSpecialities);
+            request.setAttribute("listServices1", listServices1);                  
             request.getRequestDispatcher("service-list.jsp").forward(request, response);
         }catch(IOException | NumberFormatException | SQLException | ServletException e) {
             System.out.println(e);

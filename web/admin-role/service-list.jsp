@@ -70,48 +70,33 @@
                         </div>
                     </div>
                     <!-- Page Header -->
-
-                    <!-- Search Filter -->
-                    <div class="card search-filter">
-                        <div class="card-header">
-                            <h4 class="card-title mb-0">Search </h4>
-                            <div class="card-body">
-                                <form action="search-service?id=0" method="post">
-                                    <div class="input-group">
-                                        <input value="${tim}" name="txt" type="text" class="form-control" placeholder="Search By Title">
-                                        <button style="width: 50px;border: 0px;background-color: white" type="submit"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="card-body"> 
-                            
-                            <form action="search-service?id=1" method="post">
-                                <div class="filter-widget">
-                                    <h4>Select Specialist</h4>
-                                    <c:forEach items="${listSpecialities}" var="o">
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" value="${o.name}" name="select_specialist">
-                                                <span class="checkmark"></span> ${o.name}
-                                            </label>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-
-                                <div class="btn-search">
-                                    <button type="submit" class="btn btn-block">Search</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- /Search Filter -->
-
                     <div class="row">
                         <div class="col-sm-12">
+                            <div class="card-body">
+                                <form action="search-service" method="post">
+                                    <div class="form-row">
+                                        <div class="col-4 col-sm-3 form-group">
+                                            <label>Service Name</label>
+                                            <input type="text" class="form-control" value="${tim}" name="txt"/>
+                                        </div>                                            
+                                        <div class="col-4 col-sm-3 form-group">
+                                            <label>Select Specialities</label>
+                                            <select class="form-control">                                                   
+                                                <option value="">Open this select menu</option>
+                                                <c:forEach items="${listSpec}" var="spec">
+                                                    <option value="${spec.name}">${spec.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <button style="height: 20%; align-self: center; margin: 12px 0 0 30px" class="btn btn-primary" type="submit" >
+                                            Search
+                                        </button>
+                                    </div>
+                                </form> 
+                            </div>
+
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-body">                                                
                                     <div class="table-responsive">
                                         <table class="datatable table table-hover table-center mb-0">
                                             <thead>
@@ -189,18 +174,18 @@
                                                                                 <input type="text " class="form-control " value="${o.description}" name="description" required="" >
                                                                             </div>
                                                                         </div> 
-                                                                            
+
                                                                     </div>
-                                                                     <button type="submit" class="btn btn-primary btn-block">Save Changes</button>       
+                                                                    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>       
                                                                 </form>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>  
-                                                    <!-- Edit Modal -->
+                                                <!-- Edit Modal -->
 
 
-                                                    <!-- Delete Modal -->
+                                                <!-- Delete Modal -->
                                                 <div class="modal fade" id="delete_modal${o.service_id}" aria-hidden="true" role="dialog">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
@@ -216,7 +201,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- /Delete Modal -->
-                                                
+
                                             </c:forEach>
                                             </tbody>
                                         </table>

@@ -15,7 +15,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Appointmnent Page</title>
+        <title>Doccure Admin</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -34,7 +34,6 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
-
 
         <!--[if lt IE 9]>
                             <script src="assets/js/html5shiv.min.js"></script>
@@ -62,18 +61,15 @@
 
                     <!-- Page Header -->
                     <div class="page-header">
-                        <div class="row" style="display: flex;">
+                        <div class="row">
                             <div class="col-sm-12">
-                                <h3 class="page-title">Appointments</h3>
+                                <h3 class="page-title">Appointments Management</h3>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="">Appointments</a></li>
+                                    <li class="breadcrumb-item"><a href="admin-home">Dashboard</a></li>
+                                    <li class="breadcrumb-item active"><a>Appointments</a></li>
                                 </ul>
                             </div>
-
                         </div>
-
-
                     </div>
                     <!-- /Page Header -->
 
@@ -121,10 +117,6 @@
                                             <div class="form-group mb-0">
                                                 <label>Gender <span class="text-danger">*</span></label><br />
                                                 <div style="display: flex;font-size: 16px">
-
-
-
-
                                                      <c:if test="${appoint.patient.gender == 1}">
                                                         <input name="gender" type="text" class="form-control" readonly value="Male"/>
                                                     </c:if>
@@ -137,11 +129,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group mb-0">
                                                 <label>Date of Birth <span class="text-danger">*</span></label>
-                                                <input
-                                                    name="dob"
-                                                    type="date" readonly=""
-                                                    class="form-control"
-                                                    value="${appoint.patient.dob}" />
+                                                <input name="dob" type="date" readonly="" class="form-control" value="${appoint.patient.dob}" />
                                             </div>
                                         </div>
                                     </div>
@@ -159,10 +147,8 @@
                                                     <div class="profile-img" style="width: 100px; height: 100px">
                                                         <img style="width: 100%; height: 100%;" src="${appoint.doctor.image}" alt="User Image" />
                                                     </div>
-
                                                 </div>
                                             </div>
-
                                         </div>
 
                                         <input name="id" type="hidden" value="${appoint.doctor.doctorID}" />
@@ -179,8 +165,6 @@
                                                 <input name="email" type="email" class="form-control" readonly value="${appoint.doctor.email}"/>
                                             </div>
                                         </div>
-
-
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Mobile Phone <span class="text-danger">*</span></label>
@@ -197,10 +181,6 @@
                                             <div class="form-group mb-0">
                                                 <label>Gender <span class="text-danger">*</span></label><br />
                                                 <div style="display: flex;font-size: 16px">
-
-
-
-
                                                      <c:if test="${appoint.doctor.gender == 1}">
                                                         <input name="gender" type="text" class="form-control" readonly value="Male"/>
                                                     </c:if>
@@ -213,11 +193,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group mb-0">
                                                 <label>Date of Birth <span class="text-danger">*</span></label>
-                                                <input
-                                                    name="dob"
-                                                    type="date" readonly=""
-                                                    class="form-control"
-                                                    value="${appoint.doctor.dob}" />
+                                                <input name="dob" type="date" readonly="" class="form-control" value="${appoint.doctor.dob}" />
                                             </div>
                                         </div>
                                     </div>
@@ -233,39 +209,27 @@
                             <div style="display: flex;">
                                 <div class="col-md-6">
                                     <div class="form-group mb-0">
-
-                                        <input
-                                            name="dob"
-                                            type="date" readonly=""
-                                            class="form-control"
-                                            value="${appoint.date}" />
-
+                                        <input name="dob" type="date" readonly="" class="form-control" value="${appoint.date}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-0">
-                                        <input
-                                            name="dob"
-                                            type="text" readonly=""
-                                            class="form-control"
-                                            value="${appoint.slot.time}" />
+                                        <input name="dob" type="text" readonly="" class="form-control" value="${appoint.slot.time}" />
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-6" >
                                 <div class="form-group mb-0">
                                     <label style="margin-top: 10px;">Status <span class="text-danger">*</span></label><br />
                                     <div style="display: flex;font-size: 16px">
-
                                         <c:if test="${appoint.status == '0'}">
-                                            <button type="button" class="btn btn-danger">Rejected</button>
+                                            <span class="badge badge-pill bg-danger inv-badge">Cancel</span>
                                         </c:if>
                                         <c:if test="${appoint.status == '1'}">
-                                            <button type="button" class="btn btn-warning">Processing</button>
+                                            <span class="badge badge-pill bg-warning inv-badge">Pending</span>
                                         </c:if>
                                         <c:if test="${appoint.status == '2'}">
-                                            <button type="button" class="btn btn-success">Success</button>
+                                            <span class="badge badge-pill bg-success inv-badge">Success</span>
                                         </c:if>                                                   
                                     </div>
                                 </div>

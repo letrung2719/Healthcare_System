@@ -39,6 +39,11 @@
                             <script src="assets/js/html5shiv.min.js"></script>
                             <script src="assets/js/respond.min.js"></script>
                     <![endif]-->
+        <style>
+            tr:hover{
+                cursor: pointer;
+            } 
+        </style>
     </head>
 
     <body>
@@ -81,17 +86,16 @@
                                         <table class="datatable table table-hover table-center mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th style="padding-right: 30px">Reservation ID</th>
-                                                    <th style="margin-right: 30px; padding-right: 130px">Patient Name</th>
-                                                    <th style="margin-right: 30px; padding-right: 150px">Service Name</th>
+                                                    <th>ID</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Service Name</th>
                                                     <th>Time</th>
-                                                    <th style="margin-right: 40px; padding-right: 140px">Description</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${ListR}" var="o">
-                                                    <tr>
+                                                    <tr onclick="location.href = 'reservation-detail?id=${o.reservationID}'">
                                                         <td>
                                                             <h2 class="table-avatar">
                                                                 ${o.reservationID}
@@ -101,7 +105,7 @@
                                                             <h2 class="table-avatar">
                                                                 <div class="avatar avatar-sm mr-2">
                                                                     <img class="avatar-img rounded-circle" src="${o.patient.image}" alt="Patient Image">
-                                                                    <a class="" href="reservation-detail?id=${o.reservationID}">${o.patient.name}</a>
+                                                                    <a>${o.patient.name}</a>
                                                                 </div>
 
                                                             </h2>
@@ -110,8 +114,7 @@
                                                         <td>
                                                             <h2 class="table-avatar">
                                                                 <div class="avatar avatar-sm mr-2">
-                                                                    <img class="avatar-img rounded-circle" src="${o.service.image}" alt="Doctor Image">
-                                                                    ${o.service.title}
+                                                                    <img class="avatar-img rounded-circle" src="${o.service.image}" alt="Doctor Image">${o.service.title}
                                                                 </div>
                                                             </h2>
                                                         </td>
@@ -119,20 +122,15 @@
                                                         <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                         <td>${date} <span class="text-primary d-block">${o.slot.time}</span></td>
                                                         <td>
-                                                            <p>${o.description}</p>
-                                                        </td>
-                                                        <td>
                                                             <div class="table-avatar">
                                                                 <c:if test="${o.status == '0'}">
-                                                                    <button type="button" class="btn btn-danger">Rejected</button>
-
+                                                                    <span class="badge badge-pill bg-danger inv-badge">Cancel</span>
                                                                 </c:if>
                                                                 <c:if test="${o.status == '1'}">
-                                                                    <button type="button" class="btn btn-warning">Processing</button>
-
+                                                                    <span class="badge badge-pill bg-warning inv-badge">Pending</span>
                                                                 </c:if>
                                                                 <c:if test="${o.status == '2'}">
-                                                                    <button type="button" class="btn btn-success">Success</button>
+                                                                    <span class="badge badge-pill bg-success inv-badge">Completed</span>
                                                                 </c:if>
                                                             </div>
                                                         </td>
