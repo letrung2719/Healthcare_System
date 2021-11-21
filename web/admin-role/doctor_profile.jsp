@@ -85,7 +85,7 @@
                                         <div class="about-text">${doctor.description}</div>
                                     </div>
                                     <div class="col-3 status-toggle">
-                                        <form action="doctor_profile" method="post">
+                                        <form action="doctor_profile_admin" method="post">
                                             <input type="hidden" value="${account.id}" name="account_id">
                                             <h5 class="card-title d-flex justify-content-between">Change Status</h5>
                                             <c:if test="${account.status == true}">

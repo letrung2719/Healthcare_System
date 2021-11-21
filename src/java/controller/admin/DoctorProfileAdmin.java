@@ -11,10 +11,11 @@ import dal.DoctorDAO;
 import dal.DoctorFeedbacksDAO;
 import dal.ServicesDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -109,21 +110,21 @@ public class DoctorProfileAdmin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-//        try {
-//            int id = Integer.parseInt(request.getParameter("account_id"));
-//            
-//            AccountDAO accountDb = new AccountDAO();
-//            Account account = accountDb.getAccountByID(id);
-//            
-//            if (account.isStatus() == true) {
-//                accountDb.changeStatus(false, id);
-//            }else{
-//                accountDb.changeStatus(true, id);
-//            }
-//            response.sendRedirect("patient_details?account_id=" + id);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(PatientDetailsControl.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            int id = Integer.parseInt(request.getParameter("account_id"));
+            
+            AccountDAO accountDb = new AccountDAO();
+            Account account = accountDb.getAccountByID(id);
+            
+            if (account.isStatus() == true) {
+                accountDb.changeStatus(false, id);
+            }else{
+                accountDb.changeStatus(true, id);
+            }
+            response.sendRedirect("doctor_profile_admin?id=" + id);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientDetailsControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
