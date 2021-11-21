@@ -127,7 +127,8 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Mobile Phone <span class="text-danger">*</span></label>
-                                                    <input name="phone" type="text" class="form-control" value="${doctor.phone}"/>
+                                                    <input name="phone" type="text" class="form-control" value="${doctor.phone}" pattern="\d{8,10}$"/>
+                                                    <span class="form-text text-muted">Phone number must from 8 to 10 digits</span>
                                                 </div>
                                             </div>
                                         </div>

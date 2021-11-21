@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="col-4 col-sm-3 form-group">
                                             <label>Select Specialities</label>
-                                            <select class="form-control">
+                                            <select class="form-control" name="select_specialist">
                                                 <option value="">Open this select menu</option>
                                                 <c:forEach items="${listSpec}" var="spec">
                                                     <option value="${spec.name}">${spec.name}</option>
@@ -188,7 +188,9 @@
                                                                             <div class="col-12 col-sm-12 ">
                                                                                 <div class="form-group ">
                                                                                     <label>Phone</label>
-                                                                                    <input type="text " class="form-control " value="${doctor.phone}" name="phone" required="" >
+                                                                                    <input type="text " class="form-control " value="${doctor.phone}" name="phone" required="" pattern="\d{8,10}$">
+                                                                                    <span class="form-text text-muted">Phone number must from 8 to 10 digits</span>
+
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12 col-sm-12 ">
