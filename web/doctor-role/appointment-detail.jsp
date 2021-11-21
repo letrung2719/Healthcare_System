@@ -33,7 +33,11 @@
                 <script src="assets/js/html5shiv.min.js"></script>
                 <script src="assets/js/respond.min.js"></script>
         <![endif]-->
-
+        <style>
+            .row{
+                margin-bottom: 10px;
+            }
+        </style>
     </head>
     <body>
 
@@ -74,70 +78,78 @@
 
                                 <div class="col-md-7 col-lg-8 col-xl-9">
                                     <div class="card">
-
                                         <div class="card-body">
-                                            <h5 class=" d-flex justify-content-between">
+                                            <h5 class="d-flex justify-content-between">
                                                 <span class="card-title">Appointment Details</span> 
-                                                <div class="dropdown">
-                                                    <a class="dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-expanded="false"> Change Status </a>
-                                                    <div class="dropdown-menu" style="">
-
+                                                <div class="dropdown" id="change-status">
+                                                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false"> Change Status </a>
+                                                    <div class="dropdown-menu">
                                                         <a class="dropdown-item text-warning" href="appointmentDetailControl?id=${app.appointmentID}&status=pending">Pending</a>
-                                                        <a class="dropdown-item text-success" href="appointmentDetailControl?id=${app.appointmentID}&status=complete">Complete</a>
+                                                        <a class="dropdown-item text-success" href="appointmentDetailControl?id=${app.appointmentID}&status=complete">Completed</a>
                                                         <a class="dropdown-item text-danger" href="appointmentDetailControl?id=${app.appointmentID}&status=cancel">Cancel</a>
                                                     </div>
                                                 </div>
+                                                <style>
+                                                    #change-status:hover{
+                                                        cursor: pointer;
+                                                    }
+                                                </style>
                                             </h5>
                                             <div class="row">
-                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3 "> Appointment ID</h4>
+                                                <h5 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3 "> Appointment ID</h5>
                                                 <p class="col-sm-10">#APT${app.appointmentID}</p>
                                             </div>
                                             <div class="row">
-                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Name</h4>
+                                                <h5 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Name</h5>
                                                 <p class="col-sm-10">${app.patient.name}</p>
                                             </div>
                                             <div class="row">
-                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Email</h4>
+                                                <h5 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Email</h5>
                                                 <p class="col-sm-10">${app.patient.email}</p>
                                             </div>
                                             <div class="row">
-                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Phone Number</h4>
+                                                <h5 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Patient Phone</h5>
                                                 <p class="col-sm-10">${app.patient.phone}</p>
                                             </div>
                                             <fmt:parseDate var="p_date" value="${app.date}" pattern="yyyy-MM-dd"/>
                                             <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                             <div class="row">
-                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date</h4>
-
+                                                <h5 class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date</h5>
                                                 <p class="col-sm-10">${date}</p>
-
                                             </div>
                                             <div class="row">
-                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0">Time</h4>
+                                                <h5 class="col-sm-2 text-muted text-sm-right mb-0">Time</h5>
                                                 <p class="col-sm-10 text-info">${app.slot.time}</p>
                                             </div>
-                                            <div class="row" style="margin-bottom: 10px">
-                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0">Description</h4>
-                                                <!--<p class="col-sm-10 ">${app.description}</p>-->
-                                                <textarea class="col-sm-10" readonly="">${app.description}</textarea>
-                                            </div>
                                             <div class="row">
-                                                <h4 class="col-sm-2 text-muted text-sm-right mb-0">Status</h4>
+                                                <h5 class="col-sm-2 text-muted text-sm-right mb-0">Description</h5>
+                                                <textarea class="col-sm-9" readonly="" style="margin-left: 15px">${app.description}</textarea>
+                                            </div>
+                                            <div class="row" style="margin-top: 20px">
+                                                <h5 class="col-sm-2 text-muted text-sm-right mb-0">Status</h5>
                                                 <c:if test="${app.status == 1}">
-                                                    <p class="col-sm-10"><button class="btn btn-rounded btn-warning">Pending</button></p>
+                                                    <span class="badge badge-pill bg-warning-light">
+                                                        Pending
+                                                    </span>
                                                 </c:if>
                                                 <c:if test="${app.status == 2}">
-                                                    <p class="col-sm-10"><button class="btn btn-rounded btn-success">Complete</button></p>
+                                                    <span class="badge badge-pill bg-success-light">
+                                                        Completed
+                                                    </span>
                                                 </c:if>
                                                 <c:if test="${app.status == 0}">
-                                                    <p class="col-sm-10"><button class="btn btn-rounded btn-danger">Cancel</button></p>
+                                                    <span class="badge badge-pill bg-danger-light">
+                                                        Cancel
+                                                    </span>
                                                 </c:if>
+                                                <style>
+                                                    .badge{
+                                                        margin-left: 15px;
+                                                    }
+                                                </style>
                                             </div>
-
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
 

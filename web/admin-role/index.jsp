@@ -136,40 +136,39 @@
                                             <i class="fe fe-folder"></i>
                                         </span>
                                         <div class="dash-count">
-                                            <h3>${moneyNumber}</h3>
+                                            <h3><fmt:formatNumber type="number" value="${moneyNumber}"></fmt:formatNumber> VND</h3>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="dash-widget-info">
-
-                                        <h6 class="text-muted">Revenue</h6>
-                                        <div class="progress progress-sm">
-                                            <div class="progress-bar bg-warning w-50"></div>
+                                        <div class="dash-widget-info">
+                                            <h6 class="text-muted">Revenue</h6>
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar bg-warning w-50"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-6 d-flex">
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
 
-                            <!-- Recent Orders -->
-                            <div class="card card-table flex-fill">
-                                <div class="card-header">
-                                    <h4 class="card-title">Doctors List</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-center mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Doctor Name</th>
-                                                    <th>Specialities</th>
-                                                    <th>Reviews</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                <!-- Recent Orders -->
+                                <div class="card card-table flex-fill">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Doctors List</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Doctor Name</th>
+                                                        <th>Specialities</th>
+                                                        <th>Reviews</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                                 <c:forEach items="${doctorHomeAdmin}" var="o">
                                                     <c:set var="feedbackDB" value="<%=new DoctorFeedbacksDAO()%>"></c:set>
                                                     <c:set var="avgrate" value="${feedbackDB.getAverageRating(o.doctorID)}"></c:set>
@@ -199,10 +198,9 @@
                                 </div>
                             </div>
                             <!-- /Recent Orders -->
-
                         </div>
-                        <div class="col-md-6 d-flex">
 
+                        <div class="col-md-6 d-flex">
                             <!-- Feed Activity -->
                             <div class="card  card-table flex-fill">
                                 <div class="card-header">
@@ -230,8 +228,8 @@
                                                         </td>
                                                         <td>${o.phone}</td>
                                                         <td>${o.email}</td>
-                                                        <td class="text-right">${o.accountID}</td>
-                                                    </tr>
+                                                        <td><fmt:formatNumber type="number" value="${o.accountID}"></fmt:formatNumber> VND</td>
+                                                        </tr>
                                                 </c:forEach>
                                             </tbody>
                                         </table>
@@ -242,26 +240,25 @@
                                 </div>
                             </div>
                             <!-- /Feed Activity -->
-
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
-
                             <!-- Recent Orders -->
                             <div class="card card-table">
                                 <div class="card-header">
-                                    <h4 class="card-title">Appointment List</h4>
+                                    <h4 class="card-title">Appointments List</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-hover table-center mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 180px">Appointment ID</th>
-                                                    <th style="width: 230px">Doctor Name</th>
-                                                    <th style="width: 190px">Patient Name</th>
-                                                    <th style="width: 250px;text-align: center">Appointment Time</th>
+                                                    <th>Appointment ID</th>
+                                                    <th>Doctor Name</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Time</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
@@ -282,7 +279,6 @@
 
                                                             </h2>
                                                         </td>
-
                                                         <td>
                                                             <h2 class="table-avatar">
                                                                 <div class="avatar avatar-sm mr-2">
@@ -293,7 +289,7 @@
                                                         </td>
                                                         <fmt:parseDate var="p_date" value="${o.date}" pattern="yyyy-MM-dd"/>
                                                         <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
-                                                        <td style="text-align: center">${date} <span class="text-primary d-block">${o.slot.time}</span></td>
+                                                        <td>${date} <span class="text-primary d-block">${o.slot.time}</span></td>
                                                         <td>
                                                             <div class="table-avatar">
                                                                 <c:if test="${o.status == '0'}">

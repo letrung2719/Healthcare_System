@@ -229,7 +229,7 @@
                                             <span class="badge badge-pill bg-warning inv-badge">Pending</span>
                                         </c:if>
                                         <c:if test="${appoint.status == '2'}">
-                                            <span class="badge badge-pill bg-success inv-badge">Success</span>
+                                            <span class="badge badge-pill bg-success inv-badge">Completed</span>
                                         </c:if>                                                   
                                     </div>
                                 </div>

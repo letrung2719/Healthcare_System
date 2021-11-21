@@ -182,11 +182,10 @@
                                                 <table class="table table-hover table-center mb-0">
                                                     <thead>
                                                         <tr>
-                                                            <th>Apt.ID</th>
+                                                            <th>Appointment ID</th>
                                                             <th>Patient</th>
-                                                            <th>Appt Date</th>
+                                                            <th>Date</th>
                                                             <th>Status</th>
-                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -195,16 +194,15 @@
                                                                 <td>#APT${app.appointmentID}</td>
                                                                 <td>
                                                                     <h2 class="table-avatar">
-                                                                        <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
+                                                                        <a class="avatar avatar-sm mr-2">
                                                                             <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
                                                                         </a>
-                                                                        <a href="">${app.patient.name}<span>#APT ${app.patient.patientID}</span></a>
+                                                                        ${app.patient.name}
                                                                     </h2>
                                                                 </td>
                                                                 <fmt:parseDate var="p_date" value="${app.date}" pattern="yyyy-MM-dd"/>
                                                                 <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                                 <td>${date}<span class="d-block text-info">${app.slot.time}</span></td>
-
                                                                 <td>
                                                                     <c:if test="${app.status == 1}">
                                                                         <span class="badge badge-pill bg-warning-light">
@@ -213,7 +211,7 @@
                                                                     </c:if>
                                                                     <c:if test="${app.status == 2}">
                                                                         <span class="badge badge-pill bg-success-light">
-                                                                            Complete
+                                                                            Completed
                                                                         </span>
                                                                     </c:if>
                                                                     <c:if test="${app.status == 0}">
@@ -221,9 +219,7 @@
                                                                             Cancel
                                                                         </span>
                                                                     </c:if>
-
                                                                 </td>
-
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>
@@ -241,7 +237,6 @@
                                                 <table class="table table-hover table-center mb-0">
                                                     <thead>
                                                         <tr>
-
                                                             <th>Patient</th>
                                                             <th>Email</th>
                                                             <th>Rate</th>
@@ -254,7 +249,7 @@
 
                                                                 <td>
                                                                     <h2 class="table-avatar">
-                                                                        <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
+                                                                        <a class="avatar avatar-sm mr-2">
                                                                             <img class="avatar-img rounded-circle" src="${fb.patient.image}" alt="">
                                                                         </a>
                                                                         <a href="">${fb.patient.name}<span></span></a>
@@ -262,7 +257,11 @@
                                                                 </td> 
                                                                 <td><span class="comment-date">${fb.patient.email}</span></td>
                                                                 <td>
-                                                                    ${fb.rate} <span class="fa fa-star checked"></span>
+                                                                    <i class="fe fe-star ${fb.rate > 0 ? "text-warning" : "text-secondary"}"></i>
+                                                                    <i class="fe fe-star ${fb.rate > 1 ? "text-warning" : "text-secondary"}"></i>
+                                                                    <i class="fe fe-star ${fb.rate > 2 ? "text-warning" : "text-secondary"}"></i>
+                                                                    <i class="fe fe-star ${fb.rate > 3 ? "text-warning" : "text-secondary"}"></i>
+                                                                    <i class="fe fe-star ${fb.rate > 4 ? "text-warning" : "text-secondary"}"></i>
                                                                 </td>
                                                                 <td>
                                                                     ${fb.content}

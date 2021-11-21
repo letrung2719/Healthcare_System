@@ -136,10 +136,6 @@
                         </div>
                         <!-- /Profile Sidebar -->
 
-
-
-
-
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
                                 <div class="card-body">

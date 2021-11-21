@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
     <!-- doccure/profile-settings.html  30 Nov 2019 04:12:18 GMT -->
@@ -84,25 +85,11 @@
                                     <div class="doctor-img">
                                         <img src="${detail.image}"  class="img-fluid" alt="User Image">
                                     </div>
-                                    <style>
-                                        .doc-info-left {
-                                            width: 70%;
-                                        }
-                                        .doc-info-right {
-                                            width: 30%;
-                                        }
-                                        .doc-info-cont {
-                                            width: 50%;
-                                        }
-                                    </style>
                                     </style>
                                     <div class="doc-info-cont">
                                         <h4 class="doc-name">${detail.title} <c:if test="${avrate >= 4}"><i style="color: aqua" class="far fa-thumbs-up"></i></c:if></h4>
-
-                                            <h5 class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${spec.name}</h5>
-
+                                        <h5 class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${spec.name}</h5>
                                         <div class="rating">
-
                                             <div class="review-count rating">
                                                 <i class="fas fa-star ${avrate > 0 ? "filled" : ""}"></i>
                                                 <i class="fas fa-star ${avrate > 1 ? "filled" : ""}"></i>
@@ -119,16 +106,13 @@
                                         </div>
                                         <h4 style="color: #00d2e6">Relate to:</h4>
                                         <div class="clinic-services">
-
-                                            <c:forEach items="${listS}" var="o">
-                                                <c:if test="${o.title != detail.title}">
-                                                    <li>
-                                                        <a href="serdetail?sid=${o.service_id}">${o.title}</a>
-                                                        <!--<span class="span"</span><br/>-->
-                                                    </li>
-                                                </c:if>
-                                            </c:forEach>
-
+                                            <ul>
+                                                <c:forEach items="${listS}" var="o">
+                                                    <c:if test="${o.title != detail.title}">
+                                                        <li><a href="serdetail?sid=${o.service_id}">${o.title}</a></li>
+                                                        </c:if>
+                                                    </c:forEach>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -137,10 +121,10 @@
                                         <ul>
                                             <li><i class="far fa-thumbs-up"></i> ${avrate/5*100}%</li>
                                             <li><i class="far fa-comment"></i> ${totalfeedback} Feedbacks</li>
-                                            <li><i class="far fa-money-bill-alt"></i> ${detail.price} VND </li>
+                                            <li><i class="far fa-money-bill-alt"></i> <fmt:formatNumber value = "${detail.price}" type = "number"/> VND</li>
                                         </ul>
                                     </div>
-                                        <br><br>
+                                    <br><br>
                                     <div class="clinic-booking">
                                         <a class="apt-btn" href="reservation?id=${detail.service_id}">Book Service</a>
                                     </div>

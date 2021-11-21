@@ -93,25 +93,11 @@
                                     </div>
                                 </div>
                                 <div class="doc-info-right">
-                                    <div class="clini-infos">
+                                    <div class="clini-infos" style="margin-bottom: 70px">
                                         <ul>
                                             <li><i class="far fa-thumbs-up"></i> ${avgrate/5*100}%</li>
                                             <li><i class="far fa-comment"></i> ${feedbacksList.size()} Feedbacks</li>
                                         </ul>
-                                    </div>
-                                    <div class="doctor-action">
-                                        <a href="#" class="btn btn-white fav-btn">
-                                            <i class="far fa-bookmark"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-white msg-btn">
-                                            <i class="far fa-comment-alt"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-white call-btn">
-                                            <i class="fas fa-phone"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-white call-btn">
-                                            <i class="fas fa-video"></i>
-                                        </a>
                                     </div>
                                     <div class="clinic-booking">
                                         <a class="apt-btn" href="booking?account_id=${doctor.accountID}">Book Appointment</a>

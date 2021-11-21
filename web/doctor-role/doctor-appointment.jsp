@@ -83,128 +83,130 @@
                         <!-- /Profile Sidebar -->
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
-                            <div class="appointments">
-                                <div class="card card-table mb-0">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-center mb-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Apt.ID</th>
-                                                        <th>Patient</th>
-                                                        <th>Appt Date</th>
-                                                        <th>Status</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:forEach items="${listApp}" var="app">
-                                                        <tr>
-                                                            <td>#APT${app.appointmentID}</td>
-                                                            <td>
-                                                                <h2 class="table-avatar">
-                                                                    <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
-                                                                        <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
-                                                                    </a>
-                                                                    <a href="">${app.patient.name}<span>#APT ${app.patient.patientID}</span></a>
-                                                                </h2>
-                                                            </td>
-                                                            <fmt:parseDate var="p_date" value="${app.date}" pattern="yyyy-MM-dd"/>
-                                                                <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
-                                                            <td>${date}<span class="d-block text-info">${app.slot.time}</span></td>
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Tab Content -->
+                                    <div class="tab-content pt-0">
 
-                                                            <td>
-                                                                <c:if test="${app.status == 1}">
-                                                                    <span class="badge badge-pill bg-warning-light">
-                                                                        Pending
-                                                                    </span>
-                                                                </c:if>
-                                                                <c:if test="${app.status == 2}">
-                                                                    <span class="badge badge-pill bg-success-light">
-                                                                        Complete
-                                                                    </span>
-                                                                </c:if>
-                                                                <c:if test="${app.status == 0}">
-                                                                    <span class="badge badge-pill bg-danger-light">
-                                                                        Cancel
-                                                                    </span>
-                                                                </c:if>
+                                        <div id="pat_appointments" class="tab-pane fade show active">
+                                            <div class="card card-table mb-0">
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-center mb-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Appointment ID</th>
+                                                                    <th>Patient</th>
+                                                                    <th>Date</th>
+                                                                    <th>Status</th>
+                                                                    <th>View</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <c:forEach items="${listApp}" var="app">
+                                                                    <tr>
+                                                                        <td>#APT${app.appointmentID}</td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a class="avatar avatar-sm mr-2">
+                                                                                    <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
+                                                                                </a>
+                                                                                ${app.patient.name}
+                                                                            </h2>
+                                                                        </td>
+                                                                        <fmt:parseDate var="p_date" value="${app.date}" pattern="yyyy-MM-dd"/>
+                                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
+                                                                        <td>${date}<span class="d-block text-info">${app.slot.time}</span></td>
 
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="table-action">
-                                                                    <a href="appointmentDetailControl?id=${app.appointmentID}" class="btn btn-sm bg-primary-light">
-                                                                        <i class="fas fa-eye"></i> View
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                                        <td>
+                                                                            <c:if test="${app.status == 1}">
+                                                                                <span class="badge badge-pill bg-warning-light">
+                                                                                    Pending
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${app.status == 2}">
+                                                                                <span class="badge badge-pill bg-success-light">
+                                                                                    Complete
+                                                                                </span>
+                                                                            </c:if>
+                                                                            <c:if test="${app.status == 0}">
+                                                                                <span class="badge badge-pill bg-danger-light">
+                                                                                    Cancel
+                                                                                </span>
+                                                                            </c:if>
+
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="table-action">
+                                                                                <a href="appointmentDetailControl?id=${app.appointmentID}" class="btn btn-sm bg-primary-light">
+                                                                                    <i class="fas fa-eye"></i> View
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="load-more text-center">
+                                            <ul class="pagination align-content-center" >
+                                                <li class="page-item ">
+                                                    <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${page-1}">Previous</a>
+                                                </li>
+                                                <c:set var="page" value="${indexPage}"/>
+                                                <c:forEach begin="1" end="${numberOfPage}" var="i">
+                                                    <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${i}">${i}</a></li>
                                                     </c:forEach>
-                                                </tbody>
-                                            </table>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${page+1}">Next</a>
+                                                </li>
+                                            </ul>	
                                         </div>
                                     </div>
                                 </div>
-                                <br>
-                                <div class="load-more text-center">
-                                    <ul class="pagination align-content-center" >
-                                        <li class="page-item ">
-                                            <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${page-1}">Previous</a>
-                                        </li>
-                                        <c:set var="page" value="${indexPage}"/>
-                                        <c:forEach begin="1" end="${numberOfPage}" var="i">
-                                            <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${i}">${i}</a></li>
-                                            </c:forEach>
-
-                                        <li class="page-item">
-                                            <a class="page-link" href="doctorAppointmentControl?doctorID=${sessionScope.user.doctorID}&page=${page+1}">Next</a>
-                                        </li>
-                                    </ul>	
-                                </div>
                             </div>
-
-
                         </div>
-
                     </div>
                 </div>
             </div>
+        </div>
 
-        </div>		
-        <!-- /Page Content -->
+    <!-- Footer -->
+    <jsp:include page="index-footer.jsp"/>
+    <!-- /Footer -->
 
-        <!-- Footer -->
-        <jsp:include page="index-footer.jsp"/>
-        <!-- /Footer -->
-
-    </div>
-    <!-- /Main Wrapper -->
+</div>
+<!-- /Main Wrapper -->
 
 
 
-    <!-- jQuery -->
-    <script src="assets/js/jquery.min.js"></script>
+<!-- jQuery -->
+<script src="assets/js/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JS -->
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+<!-- Bootstrap Core JS -->
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 
-    <!-- Sticky Sidebar JS -->
-    <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-    <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+<!-- Sticky Sidebar JS -->
+<script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+<script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
-    <!-- Select2 JS -->
-    <script src="assets/plugins/select2/js/select2.min.js"></script>
+<!-- Select2 JS -->
+<script src="assets/plugins/select2/js/select2.min.js"></script>
 
-    <!-- Datetimepicker JS -->
-    <script src="assets/js/moment.min.js"></script>
-    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+<!-- Datetimepicker JS -->
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 
-    <!-- Fancybox JS -->
-    <script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
+<!-- Fancybox JS -->
+<script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
 
-    <!-- Custom JS -->
-    <script src="assets/js/script.js"></script>
+<!-- Custom JS -->
+<script src="assets/js/script.js"></script>
 
 </body>
 

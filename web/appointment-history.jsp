@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Profile Settings</title>
+        <title>Doccure</title>
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, user-scalable=0"
@@ -84,10 +84,7 @@
                                 <div class="widget-profile pro-widget-content">
                                     <div class="profile-info-widget">
                                         <a href="patient_profile?id=${sessionScope.user.accountID}" class="booking-doc-img">
-                                            <img
-                                                src="${sessionScope.user.image}"
-                                                alt="User Image"
-                                                />
+                                            <img src="${sessionScope.user.image}" alt="User Image" />
                                         </a>
                                         <div class="profile-det-info">
                                             <h3>${sessionScope.user.name}</h3>
@@ -163,10 +160,10 @@
                                                                         <td>#APT${app.appointmentID}</td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="javascript:void(0)" class="avatar avatar-sm mr-2">
-                                                                                    <img class="avatar-img rounded-circle" src="${app.patient.image}" alt="">
+                                                                                <a class="avatar avatar-sm mr-2">
+                                                                                    <img class="avatar-img rounded-circle" src="${app.doctor.image}" alt="Doctor Image">
                                                                                 </a>
-                                                                                <a href="">${app.doctor.name}<span>#APT ${app.doctor.doctorID}</span></a>
+                                                                                <a>Dr. ${app.doctor.name}</a>
                                                                             </h2>
                                                                         </td>
                                                                         <fmt:parseDate var="p_datee" value="${app.date}" pattern="yyyy-MM-dd"/>
@@ -181,7 +178,7 @@
                                                                             </c:if>
                                                                             <c:if test="${app.status == 2}">
                                                                                 <span class="badge badge-pill bg-success-light">
-                                                                                    Complete
+                                                                                    Completed
                                                                                 </span>
                                                                             </c:if>
                                                                             <c:if test="${app.status == 0}">
@@ -193,28 +190,29 @@
                                                                 </c:forEach>
                                                             </tbody>
                                                         </table>
-
-                                                        <div class="load-more text-center">
-                                                            <ul class="pagination">
-                                                                <li class="page-item ">
-                                                                    <a class="page-link" href="appointment-history?id=${sessionScope.user.patientID}&page=${page-1}">Previous</a>
-                                                                </li>
-                                                                <c:set var="page" value="${requestScope.indexPage}"/>
-                                                                <c:forEach begin="1" end="${numberOfPage}" var="i">
-                                                                    <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="appointment-history?id=${sessionScope.user.patientID}&page=${i}">${i}</a></li>
-                                                                    </c:forEach>
-
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="appointment-history?id=${sessionScope.user.patientID}&page=${page+1}">Next</a>
-                                                                </li>
-                                                            </ul>	
-                                                        </div>
                                                         <!-- /Appointment Tab -->
                                                     </div>
                                                     <!-- Tab Content -->
                                                 </div>
                                             </div>
                                         </div>
+                                        <br>
+                                        <div class="load-more text-center">
+                                            <ul class="pagination">
+                                                <li class="page-item ">
+                                                    <a class="page-link" href="appointment-history?id=${sessionScope.user.patientID}&page=${page-1}">Previous</a>
+                                                </li>
+                                                <c:set var="page" value="${requestScope.indexPage}"/>
+                                                <c:forEach begin="1" end="${numberOfPage}" var="i">
+                                                    <li class="page-item ${page==i?"active":""}"><a class="page-link"  href="appointment-history?id=${sessionScope.user.patientID}&page=${i}">${i}</a></li>
+                                                    </c:forEach>
+
+                                                <li class="page-item">
+                                                    <a class="page-link" href="appointment-history?id=${sessionScope.user.patientID}&page=${page+1}">Next</a>
+                                                </li>
+                                            </ul>	
+                                        </div>                        
+
                                     </div>                                                        
                                 </div>                         
                             </div>                         

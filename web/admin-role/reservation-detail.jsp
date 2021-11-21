@@ -92,9 +92,7 @@
 
                                                 </div>
                                             </div>
-
                                         </div>
-
                                         <input name="id" type="hidden" value="${o.patient.patientID}" />
                                         <input name="accountID" type="hidden" value="${o.patient.accountID}" />
                                         <div class="col-md-6">
@@ -109,8 +107,6 @@
                                                 <input name="email" type="email" class="form-control" readonly value="${o.patient.email}"/>
                                             </div>
                                         </div>
-
-
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Mobile Phone <span class="text-danger">*</span></label>
@@ -121,10 +117,6 @@
                                             <div class="form-group mb-0">
                                                 <label>Gender <span class="text-danger">*</span></label><br />
                                                 <div style="display: flex;font-size: 16px">
-
-
-
-
                                                      <c:if test="${o.patient.gender == 1}">
                                                         <input name="gender" type="text" class="form-control" readonly value="Male"/>
                                                     </c:if>
@@ -137,11 +129,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group mb-0">
                                                 <label>Date of Birth <span class="text-danger">*</span></label>
-                                                <input
-                                                    name="dob"
-                                                    type="date" readonly=""
-                                                    class="form-control"
-                                                    value="${o.patient.dob}" />
+                                                <input name="dob" type="date" readonly="" class="form-control" value="${o.patient.dob}" />
                                             </div>
                                         </div>
                                     </div>
@@ -181,8 +169,6 @@
                                                 </c:if>
                                             </div>
                                         </div>
-
-
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Price <span class="text-danger">*</span></label>
@@ -203,22 +189,12 @@
                             <div style="display: flex;">
                                 <div class="col-md-6">
                                     <div class="form-group mb-0">
-
-                                        <input
-                                            name="dob"
-                                            type="date" readonly=""
-                                            class="form-control"
-                                            value="${o.date}" />
-
+                                        <input name="dob" type="date" readonly="" class="form-control" value="${o.date}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-0">
-                                        <input
-                                            name="dob"
-                                            type="text" readonly=""
-                                            class="form-control"
-                                            value="${o.slot.time}" />
+                                        <input name="dob" type="text" readonly="" class="form-control" value="${o.slot.time}" />
                                     </div>
                                 </div>
                             </div>                            
@@ -226,15 +202,14 @@
                                 <div class="form-group mb-0">
                                     <label style="margin-top: 10px;">Status <span class="text-danger">*</span></label><br />
                                     <div style="display: flex;font-size: 16px">
-
                                         <c:if test="${o.status == '0'}">
-                                            <button type="button" class="btn btn-danger">Rejected</button>
+                                            <span class="badge badge-pill bg-danger inv-badge">Cancel</span>
                                         </c:if>
                                         <c:if test="${o.status == '1'}">
-                                            <button type="button" class="btn btn-warning">Processing</button>
+                                            <span class="badge badge-pill bg-warning inv-badge">Pending</span>
                                         </c:if>
                                         <c:if test="${o.status == '2'}">
-                                            <button type="button" class="btn btn-success">Success</button>
+                                            <span class="badge badge-pill bg-success inv-badge">Completed</span>
                                         </c:if>                                                   
                                     </div>
                                 </div>

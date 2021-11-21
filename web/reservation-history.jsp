@@ -157,18 +157,18 @@
                                                             <tbody>
                                                                 <c:forEach items="${history}" var="res">
                                                                     <tr>
-                                                                        <td>#RESV${res.reservationID}</td>
+                                                                        <td>#RES${res.reservationID}</td>
 
                                                                         <td>${res.service.title}</td>
                                                                         <fmt:parseDate var="p_date" value="${res.date}" pattern="yyyy-MM-dd"/>
-                                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd MMM yyyy"/>
+                                                                        <fmt:formatDate var="date" value="${p_date}" pattern="dd-MM-yyyy"/>
                                                                         <td>
                                                                             ${date}
                                                                             <span class="d-block text-info"
                                                                                   >${res.slot.time}</span
                                                                             >
                                                                         </td>
-                                                                        <td>${res.price}</td>
+                                                                        <td><fmt:formatNumber value = "${res.price}" type = "number"/> VND</td>
                                                                         <td>
                                                                             <c:if test="${res.status == 1}">
                                                                                 <span class="badge badge-pill bg-warning-light">

@@ -82,29 +82,13 @@
                         <!-- /Profile Sidebar -->
 
                         <div class="col-md-7 col-lg-8 col-xl-9">
-                            <h3 class="text-success">${thongbao}</h3>
+                            <p class="text-success">${thongbao}</p>
                             <form action="doctor_profile_setting" method="post">
                                 <!-- Basic Information -->
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Doctor Information</h4>
                                         <div class="row form-row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="change-avatar">
-                                                        <div class="profile-img">
-                                                            <img src="${doctor.image}" alt="User Image" />
-                                                        </div>
-                                                        <div class="upload-img">
-                                                            <div class="change-photo-btn">
-                                                                <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                                <input type="file" class="upload" />
-                                                            </div>
-                                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <input name="id" type="hidden" value="${doctor.doctorID}" />
                                             <input name="accountID" type="hidden" value="${doctor.accountID}" />
                                             <div class="col-md-6">
@@ -130,12 +114,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group mb-0">
-                                                    <label>Date of Birth <span class="text-danger">*</span></label>
-                                                    <input
-                                                        name="dob"
-                                                        type="date"
-                                                        class="form-control"
-                                                        value="${doctor.dob}" />
+                                                        <label>Date of Birth <span class="text-danger">*</span></label>
+                                                        <input name="dob" type="date" class="form-control" value="${doctor.dob}"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

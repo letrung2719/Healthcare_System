@@ -125,10 +125,6 @@
                                             <div class="form-group mb-0">
                                                 <label>Gender <span class="text-danger">*</span></label><br />
                                                 <div style="display: flex;font-size: 16px">
-
-
-
-
                                                      <c:if test="${patient.gender == 1}">
                                                         <input name="gender" type="text" class="form-control" readonly value="Male"/>
                                                     </c:if>
@@ -141,11 +137,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group mb-0">
                                                 <label>Date of Birth <span class="text-danger">*</span></label>
-                                                <input
-                                                    name="dob"
-                                                    type="date" readonly=""
-                                                    class="form-control"
-                                                    value="${patient.dob}" />
+                                                <input name="dob" type="date" readonly="" class="form-control" value="${patient.dob}" />
                                             </div>
                                         </div>
                                     </div>
@@ -160,13 +152,11 @@
                                         <table class="table table-hover table-center mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th>Apt.ID</th>
-
-                                                    <th>Appt Date</th>
-                                                    <th style="padding-right: 150px; ">Description</th>
+                                                    <th>Appointment ID</th>
+                                                    <th>Date</th>
+                                                    <th>Description</th>
                                                     <th>Status</th>
-                                                    <th style="text-align: center;">Check</th>
-
+                                                    <th>View</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -193,17 +183,14 @@
                                                                     Cancel
                                                                 </span>
                                                             </c:if>
-
                                                         </td>
-
-                                                        <td class="text-center">
+                                                        <td>
                                                             <div class="table-action">
                                                                 <a href="appointmentDetailControl?id=${app.appointmentID}" class="btn btn-sm bg-primary-light">
                                                                     <i class="fas fa-eye"></i> View
                                                                 </a>
                                                             </div>
                                                         </td>
-
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>

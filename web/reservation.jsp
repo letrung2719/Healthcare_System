@@ -5,6 +5,7 @@
 --%>
 <%@page import="dal.ServicesDAO"%>
 <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -202,11 +203,10 @@
                                         <div class="booking-item-wrap">
                                             <ul class="booking-date">
                                                 <li>Date <span id="resDate"></span></li>
-                                                <li>Time <span id="resTime">7h-8h</span></li>
+                                                <li>Time <span id="resTime">7h - 8h</span></li>
                                             </ul>
                                             <script>
                                                 function changeDate(value) {
-
                                                     document.getElementById("resDate").innerHTML = value;
                                                 }
                                             </script>
@@ -216,13 +216,13 @@
                                                 }
                                             </script>
                                             <ul class="booking-fee">
-                                                <li>Reservation Fee <span>${service.price} VND</span></li>
+                                                <li>Reservation Fee <span><fmt:formatNumber value = "${service.price}" type = "number"/> VND</span></li>
                                             </ul>
                                             <div class="booking-total">
                                                 <ul class="booking-total-list">
                                                     <li>
                                                         <span>Total</span>
-                                                        <span class="total-cost">${service.price} VND</span>
+                                                        <span class="total-cost"><fmt:formatNumber value = "${service.price}" type = "number"/> VND</span>
                                                     </li>
                                                 </ul>
                                             </div>

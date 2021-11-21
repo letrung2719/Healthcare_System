@@ -31,10 +31,10 @@
                 <li class="${path == "/admin-role/appointment.jsp" ? "active" : ""} ${path == "/admin-role/appointment-detail.jsp" ? "active" : ""}">
                     <a href="appoint"><i class="fe fe-calendar"></i><span> Appointments</span></a>
                 </li>
-                <li class="${path == "/admin-role/reservation.jsp" ? "active" : ""}">
+                <li class="${path == "/admin-role/reservation.jsp" ? "active" : ""} ${path == "/admin-role/reservation-detail.jsp" ? "active" : ""}">
                     <a href="reservation"><i class="fe fe-bell"></i><span> Reservations</span></a>
                 </li>
-                <li class="${path == "/admin-role/service-list.jsp" ? "active" : ""}">
+                <li class="${path == "/admin-role/service-list.jsp" ? "active" : ""} ${path == "/admin-role/service-detail.jsp" ? "active" : ""}">
                     <a href="service_list"><i class="fe fe-star-o"></i><span> Services</span></a>
                 </li>
                 <li class="${path == "/admin-role/blog-managerment.jsp" ? "active" : ""} ${path == "/admin-role/add-blog.jsp" ? "active" : ""} ${path == "/admin-role/edit-blog.jsp" ? "active" : ""}">

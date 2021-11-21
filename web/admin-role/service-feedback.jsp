@@ -79,8 +79,8 @@
                                 <div class="card-body">
                                     <div style="text-align: right" >
                                         <c:set var="path" value="<%=request.getServletPath()%>"></c:set>
-                                        <button class="btn btn-small btn-primary" data-toggle="portfilter" >
-                                            All<a href="serfeed?star=all&&id=${detail.service_id}" style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
+                                            <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                                All<a href="serfeed?star=all&&id=${detail.service_id}" style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
                                         </button>
                                         <button class="btn btn-small btn-primary" data-toggle="portfilter" >
                                             0<a href="serfeed?star=0&&id=${detail.service_id}" style="color: yellow"> <i class="fe fe-star text-warning"></i></a>
@@ -108,7 +108,7 @@
                                                     <th style="margin-right: 20px !important; padding-right: 30px">ID</th>
 
                                                     <th style="margin-right: 40px; padding-right: 60px">Patient</th>
-                                                    
+
                                                     <th style="margin-right: 40px; padding-right: 165px">Description</th>
                                                     <th style="margin-right: 30px;">Ratings</th>
 
@@ -135,58 +135,14 @@
                                                         </td>
                                                         <td>
                                                             <div class="table-avatar">
-                                                                
                                                                 <c:set var="feedbackDB" value="<%=new ServicesDAO()%>"></c:set>
                                                                 <c:set var="avgrate" value="${feedbackDB.averageRateServices(o.service_id)}"></c:set>
-                                                                
-                                                                
-                                                                <c:if test="${o.rate == 0}">
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-                                                                <c:if test="${o.rate == '1'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-
-
-                                                                <c:if test="${o.rate == '2'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-                                                                <c:if test="${o.rate == '3'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-                                                                <c:if test="${o.rate == '4'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star-o text-secondary"></i>
-                                                                </c:if>
-                                                                <c:if test="${o.rate == '5'}">
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                    <i class="fe fe-star text-warning"></i>
-                                                                </c:if>
-
+                                                                <i class="fe fe-star ${o.rate > 0 ? "text-warning" : "text-secondary"}"></i>
+                                                                <i class="fe fe-star ${o.rate > 1 ? "text-warning" : "text-secondary"}"></i>
+                                                                <i class="fe fe-star ${o.rate > 2 ? "text-warning" : "text-secondary"}"></i>
+                                                                <i class="fe fe-star ${o.rate > 3 ? "text-warning" : "text-secondary"}"></i>
+                                                                <i class="fe fe-star ${o.rate > 4 ? "text-warning" : "text-secondary"}"></i>
                                                             </div>
-
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="actions">
@@ -198,7 +154,6 @@
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
-
                                             </tbody>
                                         </table>
                                     </div>
