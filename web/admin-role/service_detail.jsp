@@ -155,6 +155,29 @@
                                 <div id="feedback_tab" class="tab-pane fade">
                                     <div class="card">
                                         <div class="card-body">
+                                            <div style="text-align: right; margin-bottom:10px" >
+                                                <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                                    All<a href="service-detail-ad?star=all&&id=${s.service_id}"> <i class="fe fe-star text-warning"></i></a>
+                                                </button>
+                                                <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                                    0<a href="service-detail-ad?star=0&&id=${s.service_id}"> <i class="fe fe-star text-warning"></i></a>
+                                                </button>
+                                                <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                                    1<a href="service-detail-ad?star=1&&id=${s.service_id}"> <i class="fe fe-star text-warning"></i></a>
+                                                </button>
+                                                <button class="btn btn-small btn-primary" data-toggle="portfilter">
+                                                    2<a href="service-detail-ad?star=2&&id=${s.service_id}"> <i class="fe fe-star text-warning"></i></a>
+                                                </button>
+                                                <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                                    3<a href="service-detail-ad?star=3&&id=${s.service_id}"> <i class="fe fe-star text-warning"></i></a>
+                                                </button>
+                                                <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                                    4<a href="service-detail-ad?star=4&&id=${s.service_id}"> <i class="fe fe-star text-warning"></i></a>
+                                                </button>
+                                                <button class="btn btn-small btn-primary" data-toggle="portfilter" >
+                                                    5<a href="service-detail-ad?star=5&&id=${s.service_id}"> <i class="fe fe-star text-warning"></i></a>
+                                                </button>
+                                            </div>
                                             <div class="table-responsive">
                                                 <table class="table table-hover table-center mb-0">
                                                     <thead>
@@ -166,9 +189,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <c:forEach items="${listFb}" var="fb">
+                                                        <c:forEach items="${ListS}" var="fb">
                                                             <tr>
-
                                                                 <td>
                                                                     <h2 class="table-avatar">
                                                                         <a class="avatar avatar-sm mr-2">
@@ -195,13 +217,11 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>	
                             </div>
                         </div>
                     </div>                  
                 </div>
-
             </div>			
         </div>
     </div>

@@ -39,13 +39,25 @@ public class ServiceDetailAdControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             String serID = request.getParameter("id");
-            
             ServicesDAO dal = new ServicesDAO();
+            String star = request.getParameter("star");
             
             Services s = dal.getServiceByID(serID);
             List<ServiceFeedbacks> listF = dal.getAllComment(serID);
             int totalfeedback = listF.size();
             int avrate = dal.averageRateServices(serID);
+            
+            if (star.equals("all")) {
+                List<ServiceFeedbacks> listS = dal.getAllComment(serID);
+                request.setAttribute("star", star);
+                request.setAttribute("detail", s);
+                request.setAttribute("ListS", listS);
+            } else {
+                List<ServiceFeedbacks> listFs = dal.getAllCommentSortedByStar(serID, star);
+                request.setAttribute("star", star);
+                request.setAttribute("detail", s);
+                request.setAttribute("ListS", listFs);
+            }
             
             request.setAttribute("avrate", avrate);
             request.setAttribute("totalfeedback", totalfeedback);

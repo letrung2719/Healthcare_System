@@ -14,7 +14,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Services Management</title>
+        <title>Doccure Admin</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -38,6 +38,11 @@
                             <script src="assets/js/html5shiv.min.js"></script>
                             <script src="assets/js/respond.min.js"></script>
                     <![endif]-->
+        <style>
+            tr:hover{
+                cursor: pointer;
+            } 
+        </style>
     </head>
 
     <body>
@@ -110,15 +115,13 @@
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${listServices}" var="o">
-
-                                                    <tr>
+                                                    <tr onclick="location.href = 'service-detail-ad?id=${o.service_id}&&star=all'">
                                                         <!-- >Service ID-->
-                                                        <td><a href="service-detail-ad?id=${o.service_id}">${o.service_id}</a></td>
-
-                                                        <td> <!-- name-->
+                                                        <td>${o.service_id}</td>
+                                                        <td><!-- name-->
                                                             <h2 class="table-avatar">
-                                                                <a href="serfeed?id=${o.service_id}&&star=all" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${o.image}" alt="Service Image"></a>
-                                                                <a href="serfeed?id=${o.service_id}&&star=all">${o.title}</a>
+                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${o.image}" alt="Service Image"></a>
+                                                                ${o.title}
                                                             </h2>
                                                         </td>
                                                         <!-- >Speciality-->
@@ -183,7 +186,6 @@
                                                     </div>
                                                 </div>  
                                                 <!-- Edit Modal -->
-
 
                                                 <!-- Delete Modal -->
                                                 <div class="modal fade" id="delete_modal${o.service_id}" aria-hidden="true" role="dialog">
