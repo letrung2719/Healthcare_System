@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.ServiceFeedbacks"%>
 <%@page import="java.util.List"%>
@@ -166,7 +167,7 @@
                                                     <ul>
                                                         <li><i class="far fa-thumbs-up"></i> ${avgrate/5*100}%</li>
                                                         <li><i class="far fa-comment"></i> ${feedbackList.size()} Feedbacks</li>
-                                                        <li><i class="far fa-money-bill-alt"></i> ${o.price} VND</li>
+                                                        <li><i class="far fa-money-bill-alt"></i><fmt:formatNumber value="${o.price}" type="number"></fmt:formatNumber> VND</li>
                                                     </ul>
                                                 </div>
                                                 <div class="clinic-booking">

@@ -120,14 +120,14 @@
                                                     </thead>
                                                     <tbody>
                                                         <c:forEach items="${listDoctors}" var="doctor">
-                                                            <tr onclick=" location.href = 'doctor_profile_admin?id=${doctor.accountID}'">
+                                                            <tr>
                                                                 <!-- >Doctor ID-->
                                                                 <td>${doctor.doctorID}</td>
 
                                                                 <td> <!-- name-->
                                                                     <h2 class="table-avatar">
                                                                         <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${doctor.image}" alt="Doctor Image"></a>
-                                                                        <a>Dr. ${doctor.name}</a>
+                                                                        <a href="doctor_profile_admin?id=${doctor.accountID}">Dr. ${doctor.name}</a>
                                                                     </h2>
                                                                 </td>
                                                                 <td>

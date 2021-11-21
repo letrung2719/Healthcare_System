@@ -5,6 +5,7 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,26 +116,23 @@
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${listServices}" var="o">
-                                                    <tr onclick="location.href = 'service-detail-ad?id=${o.service_id}&&star=all'">
+                                                    <tr>
                                                         <!-- >Service ID-->
                                                         <td>${o.service_id}</td>
                                                         <td><!-- name-->
                                                             <h2 class="table-avatar">
                                                                 <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${o.image}" alt="Service Image"></a>
-                                                                ${o.title}
+                                                                <a href="service-detail-ad?id=${o.service_id}&&star=all">${o.title}</a>
                                                             </h2>
                                                         </td>
                                                         <!-- >Speciality-->
                                                         <td>${o.type_id}</td>                                                           
                                                         <!-- >Phone -->
-                                                        <td> ${o.price}</td>
-                                                        <td class="text-right">
+                                                        <td><fmt:formatNumber value="${o.price}" type="number"></fmt:formatNumber> VND</td>
+                                                        <td>
                                                             <div class="actions">
                                                                 <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#edit_specialities_details${o.service_id}">
                                                                     <i class="fe fe-pencil"></i> Edit
-                                                                </a>
-                                                                <a data-toggle="modal" href="#delete_modal${o.service_id}" class="btn btn-sm bg-danger-light">
-                                                                    <i class="fe fe-trash"></i> Delete
                                                                 </a>
                                                             </div>
                                                         </td>
